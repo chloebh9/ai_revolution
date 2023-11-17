@@ -1,3 +1,5 @@
+#MidFlag.py에서 가져온 깃발과 홀컵 구분 코드를 GoalDetection.py에 합치려고 시도 한 것..이지만 망함
+
 import numpy as np
 import cv2
 
