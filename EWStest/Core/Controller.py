@@ -174,8 +174,6 @@ class Controller:
                 break
         
             # 고개 오른쪽으로 찾기
-            self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
-            time.sleep(0.2)
             for i in range(len(right_left)):
                 find_flag = FlagxCenterMeasurer(img_width=640, img_height=480).run
                 time.sleep(0.1)
@@ -188,14 +186,14 @@ class Controller:
                 if (find_flag == True) or (x_dir == len(right_left)):
                     # print("find_flag == True: ", find_flag == True)  # 테스트용
                     # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
+                    self.robo._motion.x_head_angle = right_left[x_dir]
+                    self.robo._motion.set_head("RIGHT", self.robo._motion.x_head_angle)
                     break
-            # self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
-            # time.sleep(0.2)
-            
-            # 고개 왼쪽으로 찾기
             self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
             time.sleep(0.2)
+            
             x_dir = 0
+            # 고개 왼쪽으로 찾기
             for i in range(len(right_left)):
                 find_flag = FlagxCenterMeasurer(img_width=640, img_height=480).run
                 time.sleep(0.1)
@@ -208,9 +206,11 @@ class Controller:
                 if (find_flag == True) or (x_dir == len(right_left)):
                     # print("find_flag == True: ", find_flag == True)  # 테스트용
                     # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
+                    self.robo._motion.x_head_angle = -right_left[x_dir]
+                    self.robo._motion.set_head("RIGHT", self.robo._motion.x_head_angle)
                     break
-            # self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
-            # time.sleep(0.2)
+            self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
+            time.sleep(0.2)
 
             # 여기까지 오면 깃발을 찾은 상황 -> 깃발 센터 맞추는 함수로 넘어가기
             # self.check_flag_distance()
