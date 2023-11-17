@@ -554,27 +554,26 @@ class Controller:
     @classmethod
     def putting_robot_turn(self):
         # 여기까지 오면 깃발 찾고, 센터까지 맞춘 상황
-        if self.robo._motion.x_head_angle < 0:  # 왼쪽
-            print("Turn Right")
-            angle = self.find_best(self.robo._motion.x_head_angle)
-            self.robo._motion.turn("RIGHT", angle)
-            time.sleep(0.1)
-            self.robo._motion.set_head("LEFTRIGHT_CENTER")
-            time.sleep(0.1)
-        elif self.robo._motion.x_head_angle > 0:  # 오른쪽
-            print("Turn Left")
-            angle = self.find_best(self.robo._motion.x_head_angle)
-            self.robo._motion.turn("LEFT", angle)
-            time.sleep(0.1)
-            self.robo._motion.set_head("LEFTRIGHT_CENTER")
-            time.sleep(0.1)
-            # 깃발 센터를 다시 맞춰야 함
-        else:
-            print("None 값이 나와서 오류남")
-            return
-        
-        if self.robo._motion.x_head_angle == 0:
-            print("Turn Center")  # 로봇 몸체와 깃발이 일직선
+        if self.robo._motion.x_head_angle != 0:
+            if self.robo._motion.x_head_angle < 0:  # 왼쪽
+                print("Turn Right")
+                angle = self.find_best(self.robo._motion.x_head_angle)
+                self.robo._motion.turn("RIGHT", angle)
+                time.sleep(0.1)
+                self.robo._motion.set_head("LEFTRIGHT_CENTER")
+                time.sleep(0.1)
+            elif self.robo._motion.x_head_angle > 0:  # 오른쪽
+                print("Turn Left")
+                angle = self.find_best(self.robo._motion.x_head_angle)
+                self.robo._motion.turn("LEFT", angle)
+                time.sleep(0.1)
+                self.robo._motion.set_head("LEFTRIGHT_CENTER")
+                time.sleep(0.1)
+            else:
+                print("None 값이 나와서 오류남")
+                return
+        else:  # 로봇 몸체와 깃발이 일직선
+            print("Turn Center")
             return
                 
     ###################################################################################################
@@ -691,9 +690,9 @@ class Controller:
         print("test - find_flag[3]: ", find_flag[3])
         
         y_dir = 0
-        while find_flag[3] != True:   # 깃발을 못 찾았을 때
+        while find_flag[3] != True:   # 깃발을 못 찾았을 때 (find_flag[3]: have_flag)
             print("깃발 찾는 함수(check_flag) 실행")
-            print("find_flag[3]: ", find_flag[3])
+            print("find_flag[3] (have_flag): ", find_flag[3])
             # 수정한 부분
             find_flag = flag.run()
             x_dir = 0
