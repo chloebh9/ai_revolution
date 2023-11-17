@@ -183,14 +183,10 @@ class Controller:
                 print("=============================")
                 x_dir += 1
                 time.sleep(0.2)
-                # if (find_flag == True) or (x_dir == len(right_left)):
-                if find_flag == True:
+                if (find_flag == True) or (x_dir == len(right_left)):
                     # print("find_flag == True: ", find_flag == True)  # 테스트용
                     # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
                     self.robo._motion.x_head_angle = right_left[x_dir]
-                    self.robo._motion.set_head("RIGHT", right_left[x_dir])
-                    break
-                if x_dir == len(right_left):
                     break
             self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
             time.sleep(0.2)
@@ -206,13 +202,10 @@ class Controller:
                 print("=============================")
                 x_dir += 1
                 time.sleep(0.2)
-                if find_flag == True:
+                if (find_flag == True) or (x_dir == len(right_left)):
                     # print("find_flag == True: ", find_flag == True)  # 테스트용
                     # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
                     self.robo._motion.x_head_angle = -right_left[x_dir]
-                    self.robo._motion.set_head("LEFT", right_left[x_dir])
-                    break
-                if x_dir == len(right_left):
                     break
             self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
             time.sleep(0.2)
@@ -228,6 +221,13 @@ class Controller:
         flagycenter = FlagyCenterMeasurer(img_width=640, img_height=480)
 
         correctAngle = 0  # 깃발이 센터에 왔을 때 1로 변경
+
+        if self.robo._motion.x_head_angle < 0:
+            self.robo._motion.set_head("LEFT", -self.robo._motion.x_head_angle)
+        elif self.robo._motion.x_head_angle > 0:
+            self.robo._motion.set_head("RIGHT", self.robo._motion.x_head_angle)
+        else:
+            print("로봇 머리 각도는 정면입니다.")
 
         # 깃발을 못 찾았을 때 반환하는 값
 
