@@ -225,6 +225,7 @@ class Controller:
         
         if self.robo._motion.x_head_angle < 0:
             self.robo._motion.set_head("LEFT", -self.robo._motion.x_head_angle)
+            print("self.robo._motion.x_head_angle2: ", self.robo._motion.x_head_angle)
         elif self.robo._motion.x_head_angle > 0:
             self.robo._motion.set_head("RIGHT", self.robo._motion.x_head_angle)
         else:
