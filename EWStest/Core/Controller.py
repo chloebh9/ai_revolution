@@ -205,7 +205,7 @@ class Controller:
                 if (find_flag == True) or (x_dir == len(right_left)):
                     # print("find_flag == True: ", find_flag == True)  # 테스트용
                     # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
-                    self.robo._motion.x_head_angle = -(right_left[x_dir-1])
+                    self.robo._motion.x_head_angle = right_left[x_dir-1]
                     print("self.robo._motion.x_head_angle: ", self.robo._motion.x_head_angle)
                     break
             self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
@@ -224,8 +224,8 @@ class Controller:
         correctAngle = 0  # 깃발이 센터에 왔을 때 1로 변경
         
         if self.robo._motion.x_head_angle < 0:
-            angle = self.robo._motion.x_head_angle  # 마이너스 값이 되는 걸 방지
-            self.robo._motion.set_head("LEFT", -angle)  # 플러스 값으로 들어가게 하기 위해 (모션에서는 플러스 값만 있음)
+            self.robo._motion.set_head("LEFT", self.robo._motion.x_head_angle) 
+            self.robo._motion.x_head_angle = -self.robo._motion.x_head_angle  # 왼쪽이므로 마이너스 값이 되도록
             print("self.robo._motion.x_head_angle2: ", self.robo._motion.x_head_angle)
         elif self.robo._motion.x_head_angle > 0:
             self.robo._motion.set_head("RIGHT", self.robo._motion.x_head_angle)
