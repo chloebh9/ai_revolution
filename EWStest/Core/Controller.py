@@ -468,7 +468,7 @@ class Controller:
                 print("check_ball_distance 함수에서 원하는 X angle이 안 들어옴.")
                 
     ###################################################################################################
-    # 깃발 1도씩 조정하면서 각도 확인 + 로봇 몸체랑 깃발이랑 일직선 만들기
+    # 깃발 1도씩 조정하면서 각도 확인
     @classmethod
     def check_flag_distance(self):
         print("Debug in check_flag_distance")
@@ -548,22 +548,34 @@ class Controller:
                         time.sleep(0.1)
             else:
                 print("flag_ball_distance 함수에서 원하는 X angle이 안 들어옴.")
-                
-            # 여기까지 오면 깃발 찾고, 센터까지 맞춘 상황
-            if self.robo._motion.x_head_angle < 0:  # 왼쪽
-                angle = self.find_best(self.robo._motion.x_head_angle)
-                self.robo._motion.turn("RIGHT", angle)
-                print("Turn Right")
-                time.sleep(0.1)
-            elif self.robo._motion.x_head_angle > 0:  # 오른쪽
-                angle = self.find_best(self.robo._motion.x_head_angle)
-                self.robo._motion.turn("LEFT", angle)
-                print("Turn Left")
-                time.sleep(0.1)
-            else:
-                print("None 값이 나와서 오류남")
-                return
+
+###################################################################################################
+    # 로봇 몸체랑 깃발이랑 일직선 만들기
+    @classmethod
+    def putting_robot_turn(self):
+        # 여기까지 오면 깃발 찾고, 센터까지 맞춘 상황
+        if self.robo._motion.x_head_angle < 0:  # 왼쪽
+            print("Turn Right")
+            angle = self.find_best(self.robo._motion.x_head_angle)
+            self.robo._motion.turn("RIGHT", angle)
+            time.sleep(0.1)
+            self.robo._motion.set_head("LEFTRIGHT_CENTER")
+            time.sleep(0.1)
+        elif self.robo._motion.x_head_angle > 0:  # 오른쪽
+            print("Turn Left")
+            angle = self.find_best(self.robo._motion.x_head_angle)
+            self.robo._motion.turn("LEFT", angle)
+            time.sleep(0.1)
+            self.robo._motion.set_head("LEFTRIGHT_CENTER")
+            time.sleep(0.1)
+            # 깃발 센터를 다시 맞춰야 함
+        else:
+            print("None 값이 나와서 오류남")
+            return
+        
+        if self.robo._motion.x_head_angle == 0:
             print("Turn Center")  # 로봇 몸체와 깃발이 일직선
+            return
                 
     ###################################################################################################
     # 걸어갈 때, 틀어질 경우를 대비해서 다시 위치 잡는 함수
@@ -956,7 +968,10 @@ class Controller:
             self.robo._motion.set_head("LEFTRIGHT_CENTER")
             time.sleep(0.1)
 
-            self.check_flag_distance() # 깃발 거리 angle 구하기
+            self.check_flag_distance() # 깃발 센터 맞추기
+            self.putting_robot_turn() # 깃발이랑 로봇 몸 일직선
+            self.check_flag_distance() # 로봇 몸체 각도가 바뀌었으므로, 다시 깃발 센터 맞추기
+            
             time.sleep(0.2)
             angle = abs(self.robo._motion.y_head_angle - 12.6) # angle 값 수정
             distflag = DistMeasurer().display_distance(angle) # 깃발 거리값
