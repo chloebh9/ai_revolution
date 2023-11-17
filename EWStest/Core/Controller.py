@@ -187,7 +187,7 @@ class Controller:
                     # print("find_flag == True: ", find_flag == True)  # 테스트용
                     # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
                     break
-            if find_flag == False:
+            if (find_flag != True) or (x_dir != len(right_left)):
                 self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
                 time.sleep(0.2)
             
@@ -206,7 +206,7 @@ class Controller:
                     # print("find_flag == True: ", find_flag == True)  # 테스트용
                     # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
                     break
-            if find_flag == False:
+            if (find_flag != True) or (x_dir != len(right_left)):
                 self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
                 time.sleep(0.2)
 
