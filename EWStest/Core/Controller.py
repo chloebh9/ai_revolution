@@ -188,7 +188,7 @@ class Controller:
                     # print("find_flag == True: ", find_flag == True)  # 테스트용
                     # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
                     self.robo._motion.x_head_angle = right_left[x_dir]
-                    self.robo._motion.set_head("RIGHT", self.robo._motion.x_head_angle)
+                    self.robo._motion.set_head("RIGHT", right_left[x_dir])
                     break
                 if x_dir == len(right_left):
                     break
@@ -210,7 +210,7 @@ class Controller:
                     # print("find_flag == True: ", find_flag == True)  # 테스트용
                     # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
                     self.robo._motion.x_head_angle = -right_left[x_dir]
-                    self.robo._motion.set_head("RIGHT", self.robo._motion.x_head_angle)
+                    self.robo._motion.set_head("LEFT", right_left[x_dir])
                     break
                 if x_dir == len(right_left):
                     break
