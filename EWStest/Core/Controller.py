@@ -197,7 +197,7 @@ class Controller:
                 find_flag = FlagxCenterMeasurer(img_width=640, img_height=480).run
                 time.sleep(0.1)
                 print("깃발이 안 보여 왼쪽부터 찾겠습니다.")
-                self.robo._motion.set_head("LEFT", right_left[x_dir])
+                self.robo._motion.set_head("LEFT", right_left[x_dir-1])
                 print("Debug: ", right_left[x_dir])
                 print("=============================")
                 x_dir += 1
@@ -205,7 +205,7 @@ class Controller:
                 if (find_flag == True) or (x_dir == len(right_left)):
                     # print("find_flag == True: ", find_flag == True)  # 테스트용
                     # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
-                    self.robo._motion.x_head_angle = -right_left[x_dir]
+                    self.robo._motion.x_head_angle = -right_left[x_dir-1]
                     break
             self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
             time.sleep(0.2)
