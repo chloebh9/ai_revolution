@@ -561,6 +561,9 @@ class Controller:
                     self.robo._motion.turn("LEFT", angle)
                     print("Turn Left")
                     time.sleep(0.1)
+                else:
+                    print("None 값이 나와서 오류남")
+                    return
             print("Turn Center")  # 로봇 몸체와 깃발이 일직선
                 
     ###################################################################################################
@@ -732,7 +735,7 @@ class Controller:
     ###################################################################################################
     # turn 각도의 가장 최적의 값을 리턴하는 함수
     @classmethod
-    def find_best(self,target_angle):
+    def find_best(self, target_angle):
         # target_angle: 로봇이 퍼팅 위치 가기 전 틀어야 하는 각도
         actions = [60, 45, 20, 10, 5, 3]  # 가능한 동작 리스트
         remaining_angle = target_angle
@@ -740,6 +743,10 @@ class Controller:
         while remaining_angle > 0 and actions:
             best_action = min(actions, key=lambda x: abs(target_angle - x))
             if best_action <= remaining_angle:
+                remaining_angle -= best_action
+            actions.remove(best_action)
+            
+            if best_action is not None:
                 return best_action
             else:
                 return "best_action: N"
