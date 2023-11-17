@@ -24,9 +24,17 @@ class BallOutDetection:
     def ball_detector(self, hsv, resized_frame):
         
         # robot version
+        # ball hsv
+        lower1 = np.array([0, 100, 50])
+        upper1 = np.array([10, 200, 200])
         lower = np.array([137, 0, 0])
-        upper = np.array([255, 255, 255])
+        upper = np.array([200, 255, 255])
         mask_ball = cv2.inRange(hsv, lower, upper)
+        mask_ball += cv2.inRange(hsv, lower1, upper1)
+        
+        # lower = np.array([137, 0, 0])
+        # upper = np.array([255, 255, 255])
+        # mask_ball = cv2.inRange(hsv, lower, upper)
 
         # 마스크에서 공을 찾음.
         contours_ball, _ = cv2.findContours(mask_ball, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
