@@ -549,6 +549,16 @@ class Controller:
             else:
                 print("flag_ball_distance 함수에서 원하는 X angle이 안 들어옴.")
                 
+            # 여기까지 오면 깃발 찾고, 센터까지 맞춘 상황
+            while self.robo._motion.x_head_angle != 0:
+                if self.robo._motion.x_head_angle < 0:  # 왼쪽
+                    self.robo._motion.turn("LEFT", self.robo._motion.x_head_angle)
+                    time.sleep(0.1)
+                elif self.robo._motion.x_head_angle > 0:  # 오른쪽
+                    self.robo._motion.turn("RIGHT", self.robo._motion.x_head_angle)
+                    time.sleep(0.1)
+            print("Turn Center")  # 로봇 몸체와 깃발이 일직선
+                
     ###################################################################################################
     # 걸어갈 때, 틀어질 경우를 대비해서 다시 위치 잡는 함수
     @classmethod
@@ -931,7 +941,7 @@ class Controller:
             print("flag angle: ", end="")
             print(angle)
             # 깃발 거리를 측정하고 프로그램 종료
-            # exit()
+            exit()
 
 #############################################################################
             # ACT: SEARCH_BALL
