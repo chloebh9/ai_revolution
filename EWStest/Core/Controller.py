@@ -205,7 +205,7 @@ class Controller:
                 if (find_flag == True) or (x_dir == len(right_left)):
                     # print("find_flag == True: ", find_flag == True)  # 테스트용
                     # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
-                    self.robo._motion.x_head_angle = -right_left[x_dir-1]
+                    self.robo._motion.x_head_angle = -(right_left[x_dir-1])
                     break
             self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
             time.sleep(0.2)
