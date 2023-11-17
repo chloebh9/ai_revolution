@@ -742,7 +742,7 @@ class Controller:
             time.sleep(0.2)
 
             # 여기까지 오면 깃발을 찾은 상황 -> 깃발 센터 맞추는 함수로 넘어가기
-            self.check_flag_distance()
+            # self.check_flag_distance()
             
     ###################################################################################################
     # turn 각도의 가장 최적의 값을 리턴하는 함수
@@ -970,8 +970,6 @@ class Controller:
             time.sleep(0.1)
 
             self.check_flag_distance() # 깃발 센터 맞추기
-            self.putting_robot_turn() # 깃발이랑 로봇 몸 일직선
-            self.check_flag_distance() # 로봇 몸체 각도가 바뀌었으므로, 다시 깃발 센터 맞추기
             
             time.sleep(0.2)
             angle = abs(self.robo._motion.y_head_angle - 12.6) # angle 값 수정
@@ -982,7 +980,7 @@ class Controller:
             print("flag angle: ", end="")
             print(angle)
             # 깃발 거리를 측정하고 프로그램 종료
-            exit()
+            # exit()
 
 #############################################################################
             # ACT: SEARCH_BALL
@@ -1039,7 +1037,7 @@ class Controller:
 
             hit_dist = int(hit_dist)
             will_goto_ball = hit_dist // 4
-            self.robo._motion.walk("FORWARD", will_goto_ball, 1.0)
+            self.robo._motion.walk("FORWARD", will_goto_ball, 1.0)  # 퍼팅 지점까지 걸어가기
 
             if ball_is_flag_back == False: # 공이 깃발 뒤에 있을 떄
                 if shot_way == "R": # 깃발 뒤에 있으면 치는 방향이 바뀌기 때문에 
@@ -1053,6 +1051,12 @@ class Controller:
                 self.find_best_actions(hit_will_anlge, shot_way) # hit_will_angle로 몇도 돌아야 하는지, shot_way로 어느 방향으로 돌아야하는지
             else:
                 self.find_best_actions(hit_will_anlge, shot_way)
+                
+            self.check_flag()   # 깃발 찾기
+            time.sleep(0.1)
+            self.check_flag_distance() # 깃발 센터 맞추기
+            time.sleep(0.1)
+            self.putting_robot_turn() # 깃발이랑 로봇 몸이 일직선이 되게 만들기
 
             time.sleep(0.1)
             print("퍼팅 위치까지 왔습니다.")
