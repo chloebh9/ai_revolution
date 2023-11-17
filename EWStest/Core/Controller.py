@@ -557,14 +557,16 @@ class Controller:
         if self.robo._motion.x_head_angle != 0:
             if self.robo._motion.x_head_angle < 0:  # 왼쪽
                 print("Turn Right")
-                angle = self.find_best(self.robo._motion.x_head_angle)
+                angle = self.find_best(abs(self.robo._motion.x_head_angle))
+                print("TEST find_best_angle: ", angle)
                 self.robo._motion.turn("RIGHT", angle)
                 time.sleep(0.1)
                 self.robo._motion.set_head("LEFTRIGHT_CENTER")
                 time.sleep(0.1)
             elif self.robo._motion.x_head_angle > 0:  # 오른쪽
                 print("Turn Left")
-                angle = self.find_best(self.robo._motion.x_head_angle)
+                angle = self.find_best(abs(self.robo._motion.x_head_angle))
+                print("TEST find_best_angle: ", angle)
                 self.robo._motion.turn("LEFT", angle)
                 time.sleep(0.1)
                 self.robo._motion.set_head("LEFTRIGHT_CENTER")
