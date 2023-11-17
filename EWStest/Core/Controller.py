@@ -553,11 +553,13 @@ class Controller:
             while self.robo._motion.x_head_angle != 0:
                 if self.robo._motion.x_head_angle < 0:  # 왼쪽
                     angle = self.find_best(self.robo._motion.x_head_angle)
-                    self.robo._motion.turn("LEFT", angle)
+                    self.robo._motion.turn("RIGHT", angle)
+                    print("Turn Right")
                     time.sleep(0.1)
                 elif self.robo._motion.x_head_angle > 0:  # 오른쪽
                     angle = self.find_best(self.robo._motion.x_head_angle)
-                    self.robo._motion.turn("RIGHT", angle)
+                    self.robo._motion.turn("LEFT", angle)
+                    print("Turn Left")
                     time.sleep(0.1)
             print("Turn Center")  # 로봇 몸체와 깃발이 일직선
                 
