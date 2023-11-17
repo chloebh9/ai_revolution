@@ -770,6 +770,7 @@ class Controller:
             # self.robo._motion.turn("LEFT", 45, 4, 0.8)   # 티샷 끝나고 깃발 찾기 위해 턴
             # print("왼쪽으로 90도 회전")
             
+            self.robo._motion.set_head("LEFTRIGHT_CENTER")
             self.check_flag()   # 깃발 찾기
             self.check_flag_distance() # 깃발 센터 맞추기
             
