@@ -468,7 +468,7 @@ class Controller:
                 print("check_ball_distance 함수에서 원하는 X angle이 안 들어옴.")
                 
     ###################################################################################################
-    # 깃발 1도씩 조정하면서 각도 확인
+    # 깃발 1도씩 조정하면서 각도 확인 + 로봇 몸체랑 깃발이랑 일직선 만들기
     @classmethod
     def check_flag_distance(self):
         print("Debug in check_flag_distance")
@@ -552,10 +552,12 @@ class Controller:
             # 여기까지 오면 깃발 찾고, 센터까지 맞춘 상황
             while self.robo._motion.x_head_angle != 0:
                 if self.robo._motion.x_head_angle < 0:  # 왼쪽
-                    self.robo._motion.turn("LEFT", self.robo._motion.x_head_angle)
+                    angle = self.find_best(self.robo._motion.x_head_angle)
+                    self.robo._motion.turn("LEFT", angle)
                     time.sleep(0.1)
                 elif self.robo._motion.x_head_angle > 0:  # 오른쪽
-                    self.robo._motion.turn("RIGHT", self.robo._motion.x_head_angle)
+                    angle = self.find_best(self.robo._motion.x_head_angle)
+                    self.robo._motion.turn("RIGHT", angle)
                     time.sleep(0.1)
             print("Turn Center")  # 로봇 몸체와 깃발이 일직선
                 
@@ -724,6 +726,21 @@ class Controller:
 
             # 여기까지 오면 깃발을 찾은 상황 -> 깃발 센터 맞추는 함수로 넘어가기
             self.check_flag_distance()
+            
+    ###################################################################################################
+    # turn 각도의 가장 최적의 값을 리턴하는 함수
+    @classmethod
+    def find_best(self,target_angle):
+        # target_angle: 로봇이 퍼팅 위치 가기 전 틀어야 하는 각도
+        actions = [60, 45, 20, 10, 5, 3]  # 가능한 동작 리스트
+        remaining_angle = target_angle
+        
+        while remaining_angle > 0 and actions:
+            best_action = min(actions, key=lambda x: abs(target_angle - x))
+            if best_action <= remaining_angle:
+                return best_action
+            else:
+                return "best_action: N"
     
     ###################################################################################################
     @classmethod
