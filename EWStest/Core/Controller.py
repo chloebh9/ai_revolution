@@ -131,7 +131,7 @@ class Controller:
 
                 else:
                     print("가운데 왼쪽 X")
-                    self.robo._motion.set_head("RIGHT", 54)
+                    self.robo._motion.set_head("RIGHT", 75)
                     time.sleep(0.1)
                     Tput_center_isFind_Big = BallCenterMeasurer().process()
                     time.sleep(0.1)
