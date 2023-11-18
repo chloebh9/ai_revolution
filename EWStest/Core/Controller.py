@@ -224,16 +224,18 @@ class Controller:
         correctAngle = 0  # 깃발이 센터에 왔을 때 1로 변경
         
         if self.tmp_angle < 0:  # 로봇 머리 각도가 왼쪽에
-            best_angle = self.find_best(self.tmp_angle)
-            self.robo._motion.set_head("LEFT", best_angle) 
-            self.robo._motion.x_head_angle = -best_angle  # 왼쪽이므로 마이너스 값이 되도록
+            best_angle = self.find_best(abs(self.tmp_angle))  # 들어온 값이 마이너스이므로 플러스로 바꾸기
+            self.robo._motion.set_head("LEFT", best_angle)
+            self.robo._motion.x_head_angle = self.tmp_angle  # 저장된 각도를 돌린 각도로 바꾸기
             print("!!!로봇 머리 각도 왼쪽!!!!!!: ", self.robo._motion.x_head_angle)
         elif self.tmp_angle > 0:   # 로봇 머리 각도가 오른쪽에
             best_angle = self.find_best(self.tmp_angle)
             self.robo._motion.set_head("RIGHT", best_angle)
+            self.robo._motion.x_head_angle = self.tmp_angle
         else:
             print("로봇 머리 각도는 정면입니다.")
             print("!!!로봇 머리 각도 가운데!!!!!!: ", self.robo._motion.x_head_angle)
+
 
         # 깃발을 못 찾았을 때 반환하는 값
 
