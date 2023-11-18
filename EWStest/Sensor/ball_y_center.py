@@ -110,7 +110,7 @@ class BallyCenterMeasurer:
             # robot version
             # ball hsv
             lower1 = np.array([0, 0, 50])
-            upper1 = np.array([10, 200, 200])
+            upper1 = np.array([20, 200, 200])
             lower = np.array([137, 0, 0])
             upper = np.array([200, 255, 255])
             mask = cv2.inRange(hsv_img, lower, upper)
