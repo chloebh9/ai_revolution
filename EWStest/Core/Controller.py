@@ -96,6 +96,7 @@ class Controller:
                 print("로봇이 가운데 위치한다고 생각하고 시작하겠습니다.")
                 # cnt += 1
 
+        print("cnt1: ", cnt)
         # 로봇이 가운데 있다고 가정
         cnt += 1
         dir = 0
@@ -108,7 +109,7 @@ class Controller:
 
             if Tput_center_isFind_Big == True:
                 print("Center: 공을 가운데에서 찾았습니다.")
-                print("cnt: ", cnt)
+                print("cnt2: ", cnt)
                 if cnt == 3:
                     self.C_center = 1
 
