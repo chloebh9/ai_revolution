@@ -95,7 +95,6 @@ class Controller:
                 print("왼쪽 위치에 있지 않거나, 문제가 있을 수 있습니다.")
                 print("로봇이 가운데 위치한다고 생각하고 시작하겠습니다.")
 
-        print("cnt1: ", cnt)
         # 로봇이 가운데 있다고 가정
         dir = 0
         self.robo._motion.set_head("DOWN", dir_list[dir])
@@ -104,14 +103,14 @@ class Controller:
             print("로봇이 가운데에 있다고 생각하겠습니다.")
             Tput_center_y_Big = Tputting_y_BallCenterMeasurer().process()
             print("Ball find and y center T/F: ", Tput_center_y_Big)
+            Tput_center_x_Big = Tputting_x_BallCenterMeasurer().process()
 
-            if Tput_center_y_Big == True:
+            if Tput_center_y_Big == True and Tput_center_x_Big == True:
                 print("Center: 공을 가운데에서 찾았습니다.")
-                print("cnt2: ", cnt)
                 if cnt == 3:
                     self.C_center = 1
 
-            else:
+            elif Tput_center_y_Big == True and Tput_center_x_Big == False:
                 print("가운데 가운데 X")
                 self.robo._motion.set_head("LEFT", 40)
                 time.sleep(0.1)
