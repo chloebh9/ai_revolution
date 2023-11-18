@@ -173,6 +173,7 @@ class Controller:
             if y_dir == len(down_y):
                 break
         
+            self.tmp_angle = 0
             # 고개 오른쪽으로 찾기
             for i in range(len(right_left)):
                 find_flag = FlagxCenterMeasurer(img_width=640, img_height=480).run
