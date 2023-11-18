@@ -104,7 +104,7 @@ class Controller:
         if Tput_center_isFind_Big == False:
             print("로봇이 가운데에 있다고 생각하겠습니다.")
             Tput_center_isFind_Big = BallCenterMeasurer().process()
-            print("Ball find and center T/F: ", Tput_center_isFind_Big)
+            print("Ball find and y center T/F: ", Tput_center_isFind_Big)
 
             if Tput_center_isFind_Big == True:
                 print("Center: 공을 가운데에서 찾았습니다.")
