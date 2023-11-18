@@ -30,7 +30,7 @@ class Act(Enum):
 class Controller:
     robo: Robo = Robo()
     # act: Act = Act.START  # 순서도 시작
-    act: Act = Act.TEST
+    act: Act = Act.START
     # act: Act = Act.START가 시작 지점
 
     count_putting: int = 0  # 퍼팅 횟수
@@ -60,7 +60,7 @@ class Controller:
         C_left = self.C_left  # 로봇: C / 공: left
 
         #  .process():  공에 유무를 반환함 T/F
-        dir_list = [33, 50, 73, 85]  # 임의로 지정한 로봇 머리의 각도 값 (실제 경기장에서 다시 설정해야 할 수도..)
+        dir_list = [45, 50, 73, 85]  # 임의로 지정한 로봇 머리의 각도 값 (실제 경기장에서 다시 설정해야 할 수도..)
         dir = 3  # dir_list에서 90을 고를 수 있도록 설정하는 값
         cnt = 0  # 로봇이 어디에서 찾았는지 구분하는 변수
 
