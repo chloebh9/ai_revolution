@@ -173,7 +173,7 @@ class Controller:
             if y_dir == len(down_y):
                 break
         
-            self.tmp_angle = 0
+            global tmp_angle
             # 고개 오른쪽으로 찾기
             for i in range(len(right_left)):
                 find_flag = FlagxCenterMeasurer(img_width=640, img_height=480).run
@@ -187,7 +187,7 @@ class Controller:
                 if (find_flag == True) or (x_dir == len(right_left)):
                     # print("find_flag == True: ", find_flag == True)  # 테스트용
                     # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
-                    self.tmp_angle = right_left[x_dir-2]
+                    tmp_angle = right_left[x_dir-2]
                     break
             self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
             time.sleep(0.2)
@@ -206,8 +206,8 @@ class Controller:
                 if (find_flag == True) or (x_dir == len(right_left)):
                     # print("find_flag == True: ", find_flag == True)  # 테스트용
                     # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
-                    self.tmp_angle = right_left[x_dir-2]
-                    print("self.robo._motion.x_head_angle: ", self.tmp_angle)
+                    tmp_angle = right_left[x_dir-2]
+                    print("self.robo._motion.x_head_angle: ", tmp_angle)
                     break
             self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
             time.sleep(0.2)
@@ -224,15 +224,15 @@ class Controller:
 
         correctAngle = 0  # 깃발이 센터에 왔을 때 1로 변경
         
-        if self.tmp_angle < 0:  # 로봇 머리 각도가 왼쪽에
-            best_angle = self.find_best(abs(self.tmp_angle))  # 들어온 값이 마이너스이므로 플러스로 바꾸기
+        if tmp_angle < 0:  # 로봇 머리 각도가 왼쪽에
+            best_angle = self.find_best(abs(tmp_angle))  # 들어온 값이 마이너스이므로 플러스로 바꾸기
             self.robo._motion.set_head("LEFT", best_angle)
-            self.robo._motion.x_head_angle = self.tmp_angle  # 저장된 각도를 돌린 각도로 바꾸기
+            self.robo._motion.x_head_angle = tmp_angle  # 저장된 각도를 돌린 각도로 바꾸기
             print("!!!로봇 머리 각도 왼쪽!!!!!!: ", self.robo._motion.x_head_angle)
-        elif self.tmp_angle > 0:   # 로봇 머리 각도가 오른쪽에
-            best_angle = self.find_best(self.tmp_angle)
+        elif tmp_angle > 0:   # 로봇 머리 각도가 오른쪽에
+            best_angle = self.find_best(tmp_angle)
             self.robo._motion.set_head("RIGHT", best_angle)
-            self.robo._motion.x_head_angle = self.tmp_angle
+            self.robo._motion.x_head_angle = tmp_angle
         else:
             print("로봇 머리 각도는 정면입니다.")
             print("!!!로봇 머리 각도 가운데!!!!!!: ", self.robo._motion.x_head_angle)
