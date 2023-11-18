@@ -4,6 +4,7 @@
 import numpy as np
 import cv2
 from Core.Robo import Robo
+import time
 
 
 class BallCenterMeasurer:
@@ -148,19 +149,24 @@ class BallCenterMeasurer:
             )
 
             cv2.imshow("Object Dist Measure ", img)
+            key = cv2.waitKey(0)
 
-            if cv2.waitKey(1) & 0xFF == ord("l"):
+            if key == ord("l"):
                 self.robo._motion.set_head_small("LEFT", 3)
                 angle -= 3
                 continue
 
-            if cv2.waitKey(1) & 0xFF == ord("r"):
+            if key == ord("r"):
                 self.robo._motion.set_head_small("RIGHT", 3)
                 angle += 3
                 continue
 
-            if cv2.waitKey(1) & 0xFF == ord("q"):
+            if key == ord("q"):
                 break
+
+            if ball_y_isMiddle == False:
+                time.sleep(1)
+            else: time.sleep(3)
 
         cv2.destroyAllWindows()
 
