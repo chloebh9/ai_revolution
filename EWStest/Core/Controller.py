@@ -228,7 +228,7 @@ class Controller:
             self.robo._motion.set_head("LEFT", best_angle) 
             self.robo._motion.x_head_angle = -best_angle  # 왼쪽이므로 마이너스 값이 되도록
             print("!!!로봇 머리 각도 왼쪽!!!!!!: ", self.robo._motion.x_head_angle)
-        elif self.tmp_angle.x_head_angle > 0:   # 로봇 머리 각도가 오른쪽에
+        elif self.tmp_angle > 0:   # 로봇 머리 각도가 오른쪽에
             best_angle = self.find_best(self.tmp_angle)
             self.robo._motion.set_head("RIGHT", best_angle)
         else:
