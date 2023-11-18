@@ -148,9 +148,6 @@ class BallCenterMeasurer:
                 cv2.LINE_AA,
             )
 
-            cv2.imshow("Object Dist Measure ", img)
-            key = cv2.waitKey(0)
-
             if key == ord("l"):
                 self.robo._motion.set_head_small("LEFT", 3)
                 angle -= 3
@@ -164,9 +161,12 @@ class BallCenterMeasurer:
             if key == ord("q"):
                 break
 
-            if ball_y_isMiddle == False:
-                time.sleep(1)
-            else: time.sleep(3)
+            # if ball_y_isMiddle == False:
+            #     time.sleep(1)
+            # else: time.sleep(3)
+
+            cv2.imshow("Object Dist Measure ", img)
+            key = cv2.waitKey(0)
 
         cv2.destroyAllWindows()
 
