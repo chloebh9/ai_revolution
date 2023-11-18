@@ -885,8 +885,8 @@ class Controller:
             ballycenter = BallyCenterMeasurer(img_width=640, img_height=480)
             ball_y_angle = ["N"]  # 공을 못 찾았을 때 반환하는 값
             correctAngle = 0
-            putting_angle = 33
-            putting_angle_error = 1
+            putting_angle = 30
+            putting_angle_error = 2
             dist_Process = DistMeasurer()
 
             while correctAngle != 1:
