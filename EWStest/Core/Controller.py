@@ -102,7 +102,7 @@ class Controller:
         self.robo._motion.set_head("DOWN", dir_list[dir])
 
         if Tput_center_isFind_Big == False:
-            print("가운데에 있다고 생각하겠습니다.")
+            print("로봇이 가운데에 있다고 생각하겠습니다.")
             Tput_center_isFind_Big = BallCenterMeasurer().process()
             print("Ball find and center T/F: ", Tput_center_isFind_Big)
 
