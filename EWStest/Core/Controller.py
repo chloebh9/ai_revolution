@@ -30,7 +30,7 @@ class Act(Enum):
 class Controller:
     robo: Robo = Robo()
     # act: Act = Act.START  # 순서도 시작
-    act: Act = Act.START
+    act: Act = Act.TEST
     # act: Act = Act.START가 시작 지점
 
     count_putting: int = 0  # 퍼팅 횟수
@@ -791,10 +791,8 @@ class Controller:
             # self.robo._motion.turn("LEFT", 45, 4, 0.8)   # 티샷 끝나고 깃발 찾기 위해 턴
             # print("왼쪽으로 90도 회전")
             
-            self.robo._motion.set_head("LEFTRIGHT_CENTER")
-            time.sleep(0.2)
-            self.check_flag()   # 깃발 찾기
-            self.check_flag_distance() # 깃발 센터 맞추기
+            self.robo._motion.set_head("DOWN", 21)
+            
             
             exit()
         
