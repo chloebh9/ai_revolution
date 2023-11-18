@@ -111,7 +111,7 @@ class Controller:
                 if cnt == 3:
                     self.C_center = 1
 
-            elif Tput_center_y_Big == False and Tput_center_x_Big == True:
+            elif Tput_center_x_Big == True:
                 print("가운데 가운데 X")
                 self.robo._motion.set_head("LEFT", 40)
                 time.sleep(0.1)
