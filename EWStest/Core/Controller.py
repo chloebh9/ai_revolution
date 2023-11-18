@@ -159,6 +159,8 @@ class Controller:
         flag = FlagxCenterMeasurer(img_width=640, img_height=480)
         find_flag = flag.run()
         
+        print("find_flag: ", find_flag)
+        
         y_dir = 0
         while find_flag[3] != True:   # 깃발을 못 찾았을 때 (find_flag[3]: have_flag)
             print("깃발 찾는 함수(check_flag) 실행")
