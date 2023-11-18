@@ -31,8 +31,8 @@ class FindBall:
 
             # robot version
             # ball hsv
-            lower1 = np.array([0, 100, 50])
-            upper1 = np.array([10, 200, 200])
+            lower1 = np.array([0, 40, 50])
+            upper1 = np.array([10, 200, 205])
             lower = np.array([137, 0, 0])
             upper = np.array([200, 255, 255])
             mask = cv2.inRange(hsv_img, lower, upper)
