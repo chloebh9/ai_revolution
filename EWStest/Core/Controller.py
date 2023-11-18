@@ -108,7 +108,7 @@ class Controller:
 
             if Tput_center_isFind_Big == True:
                 print("Center: 공을 가운데에서 찾았습니다.")
-
+                print("cnt: ", cnt)
                 if cnt == 3:
                     self.C_center = 1
 
