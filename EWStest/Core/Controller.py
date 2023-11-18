@@ -988,7 +988,7 @@ class Controller:
             self.robo._motion.set_head("LEFTRIGHT_CENTER")
             time.sleep(0.1)
 
-            self.check_flag_distance() # 깃발 센터 맞추기
+            # self.check_flag_distance() # 깃발 센터 맞추기
             
             time.sleep(0.2)
             angle = abs(self.robo._motion.y_head_angle - 12.6) # angle 값 수정
