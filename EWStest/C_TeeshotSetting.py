@@ -69,7 +69,7 @@ class BallCenterMeasurer:
 
     def process(self):
         cap = cv2.VideoCapture(0, cv2.CAP_V4L)  # 인자로 있었는데 몰루? -> cv2.CAP_V4L
-        angle = 100
+        angle = 0
         # cv2.namedWindow('Object Dist Measure ', cv2.WINDOW_NORMAL)
         # cv2.resizeWindow('Object Dist Measure ', 700, 600)
 
@@ -119,7 +119,7 @@ class BallCenterMeasurer:
                     cv2.drawContours(img, [ball_box], -1, (255, 0, 0), 3)
 
                     max_x, min_x, max_y, min_y = self.getMaxMin(ball_box)
-                    ball_y_isMiddle = self.judgeMiddle(max_y, min_y)
+                    ball_y_isMiddle = self.judgeMiddle(max_x, min_x)
             #         return (
             #             ball_y_isMiddle  # imshow 하려함 => 위에 있는 주석을 활성화하고, return은 주석처리
             #         )
@@ -132,10 +132,12 @@ class BallCenterMeasurer:
             fontScale = 0.6
             color = (0, 0, 255)
             thickness = 2
+            x_angle = self.robo._motion.x_head_angle
+            y_angle = self.robo._motion.y_head_angle
 
             image = cv2.putText(
                 img,
-                "flag Middle : {}, robot_angle: {}".format(ball_y_isMiddle, angle),
+                "flag Middle : {}, robot_x_angle: {}, robot_y_angle".format(ball_y_isMiddle, x_angle, y_angle),
                 org,
                 font,
                 1,
@@ -146,8 +148,13 @@ class BallCenterMeasurer:
 
             cv2.imshow("Object Dist Measure ", img)
 
-            if cv2.waitKey(1) & 0xFF == ord("n"):
-                self.robo._motion.set_head_small("DOWN", 3)
+            if cv2.waitKey(1) & 0xFF == ord("r"):
+                self.robo._motion.set_head_small("RIGHT", 3)
+                angle += 3
+                continue
+
+            if cv2.waitKey(1) & 0xFF == ord("l"):
+                self.robo._motion.set_head_small("LEFT", 3)
                 angle -= 3
                 continue
 
