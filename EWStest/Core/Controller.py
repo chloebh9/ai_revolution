@@ -904,6 +904,7 @@ class Controller:
                     # 아래로 1도씩 움직이기
                     recent_will_angle = 3
                     while True:
+                        self.ball_feature_ball()
                         before_ball_y_angle = copy.copy(ball_y_angle[0])
                         ball_y_angle = ballycenter.process()
                         time.sleep(0.2)
