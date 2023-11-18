@@ -790,7 +790,7 @@ class Controller:
             exit()
         
 #############################################################################
-        # 시작점
+        # 모든 것의 시작점
         if act == act.START:
             print("ACT: ", act)  # Debug
             self.act = act.SEARCH_FIRST
@@ -886,7 +886,7 @@ class Controller:
             ball_y_angle = ["N"]  # 공을 못 찾았을 때 반환하는 값
             correctAngle = 0
             putting_angle = 40
-            putting_angle_error = 5
+            putting_angle_error = 2
             dist_Process = DistMeasurer()
 
             while correctAngle != 1:
