@@ -67,18 +67,18 @@ class Controller:
         time.sleep(1)  # 함수를 실행할 때 오류가 안 나도록 하는 time.sleep
 
         # 로봇이 왼쪽에 있다고 가정
-        Tput_center_y_Big = Tputting_y_BallCenterMeasurer().process()
+        Tput_y_center = Tputting_y_BallCenterMeasurer().process()
         for i in range(3):  # 티샷이 3개이므로 3번 반복
             self.robo._motion.set_head("DOWN", dir_list[dir])  # 고개 내리면서 확인
             dir -= 1
             time.sleep(0.1)
-            Tput_center_y_Big = Tputting_y_BallCenterMeasurer().process()
-            print("Ball find and center T/F: ", Tput_center_y_Big)  # 공 센터의 T/F값 출력
+            Tput_y_center = Tputting_y_BallCenterMeasurer().process()
+            print("Ball find and center T/F: ", Tput_y_center)  # 공 센터의 T/F값 출력
 
-            if Tput_center_y_Big == False:  # 공이 발견되지 않았을 때
+            if Tput_y_center == False:  # 공이 발견되지 않았을 때
                 cnt += 1
 
-            elif Tput_center_y_Big == True:  # 공이 발견됐을 때
+            elif Tput_y_center == True:  # 공이 발견됐을 때
                 print("공을 찾았습니다.")
                 if cnt == 0:
                     self.L_right = 1
@@ -99,54 +99,47 @@ class Controller:
         dir = 0
         self.robo._motion.set_head("DOWN", dir_list[dir])
 
-        if Tput_center_y_Big == False:
+        if Tput_y_center == False:
             print("로봇이 가운데에 있다고 생각하겠습니다.")
-            Tput_center_y_Big = Tputting_y_BallCenterMeasurer().process()
-            print("Ball find and y center T/F: ", Tput_center_y_Big)
-            Tput_center_x_Big = Tputting_x_BallCenterMeasurer().process()
-            print("Ball find and x center T/F: ", Tput_center_x_Big)
+            # Tput_center_y_Big = Tputting_y_BallCenterMeasurer().process()
+            # print("Ball find and y center T/F: ", Tput_center_y_Big)
+            Tput_x_center = Tputting_x_BallCenterMeasurer().process()
+            print("Ball find and x center T/F: ", Tput_x_center)
 
-            if Tput_center_y_Big == True and Tput_center_x_Big == True:
-                print("Center: 공을 가운데에서 찾았습니다.")
+            if Tput_x_center == True:
                 if cnt == 3:
+                    print("Center: 공을 가운데에서 찾았습니다.")
                     self.C_center = 1
-
-            elif Tput_center_x_Big == True:
+                    return
+                
                 print("가운데 가운데 X")
                 self.robo._motion.set_head("LEFT", 40)
                 time.sleep(0.1)
-                Tput_center_y_Big = Tputting_y_BallCenterMeasurer().process()
-                time.sleep(0.1)
-                Tput_center_isFind_Small = Tputting_x_BallCenterMeasurer().process()
+                Tput_x_center = Tputting_x_BallCenterMeasurer().process()
                 time.sleep(0.1)
                 cnt += 1
+                print("Tput_x_center: ", Tput_x_center)
 
-                print("Tput_isFind: ", Tput_center_y_Big)
-                print("Tput_center: ", Tput_center_isFind_Small)
-                if Tput_center_isFind_Small == True:
+                if cnt == 4:
                     print("Center: 공을 왼쪽에서 찾았습니다.")
-                    if cnt == 4:
-                        self.C_left = 1
+                    self.C_left = 1
+                    return
 
-                else:
-                    print("가운데 왼쪽 X")
-                    self.robo._motion.set_head("RIGHT", 69)
-                    time.sleep(0.1)
-                    Tput_center_y_Big = Tputting_y_BallCenterMeasurer().process()
-                    time.sleep(0.1)
-                    Tput_center_isFind_Small = Tputting_x_BallCenterMeasurer().process()
-                    time.sleep(0.1)
-                    cnt += 1
+                print("가운데 왼쪽 X")
+                self.robo._motion.set_head("RIGHT", 69)
+                time.sleep(0.1)
+                Tput_x_center = Tputting_x_BallCenterMeasurer().process()
+                time.sleep(0.1)
+                cnt += 1
+                print("Tput_x_center: ", Tput_x_center)
+                
+                if cnt == 5:
+                    print("Center: 공을 오른쪽에서 찾았습니다.")
+                    self.C_right = 1
+                    return
 
-                    print("Tput_isFind: ", Tput_center_y_Big)
-                    print("Tput_center: ", Tput_center_isFind_Small)
-                    if Tput_center_isFind_Small == True:
-                        print("Center: 공을 오른쪽에서 찾았습니다.")
-                        if cnt == 5:
-                            self.C_right = 1
-
-                    else:
-                        print("티샷 부분에서 공을 어디서도 찾지 못했습니다.")
+            else:
+                print("티샷 부분에서 공을 어디서도 찾지 못했습니다.")
                         
     ###################################################################################################
     # 깃발이 있는지 찾는 코드
