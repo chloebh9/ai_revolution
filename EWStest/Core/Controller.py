@@ -806,6 +806,7 @@ class Controller:
             self.check_ball_first()
         
             if self.L_right == 1:  # 퍼팅 판단 return 받은걸로 모션
+                print("로봇: 왼쪽, 공: 오른쪽")
                 self.robo._motion.walk("FORWARD", 10, 1.0)
                 time.sleep(0.1)
 
@@ -815,6 +816,7 @@ class Controller:
 
             
             elif self.L_center == 1:
+                print("로봇: 왼쪽, 공: 가운데")
                 self.robo._motion.walk("FORWARD", 5, 1.0)
                 time.sleep(0.1)
 
@@ -829,6 +831,7 @@ class Controller:
 
 
             elif self.L_left == 1:
+                print("로봇: 왼쪽, 공: 왼쪽")
                 self.robo._motion.walk("FORWARD", 1)
                 time.sleep(0.1)
 
@@ -838,6 +841,7 @@ class Controller:
 
 
             elif self.C_center == 1:
+                print("로봇: 가운데, 공: 가운데")
                 print("이 부분 추가해야함")
                 time.sleep(0.1)
                 self.robo._motion.turn("RIGHT", 45)
@@ -852,6 +856,7 @@ class Controller:
 
 
             elif self.C_right == 1:
+                print("로봇: 가운데, 공: 오른쪽")
                 self.robo._motion.walk_side("RIGHT")
                 time.sleep(0.5)
                 self.robo._motion.turn("RIGHT", 45)
@@ -866,6 +871,7 @@ class Controller:
 
 
             elif self.C_left == 1:
+                print("로봇: 가운데, 공: 왼쪽")
                 self.robo._motion.walk_side("LEFT")
                 time.sleep(0.5)
                 self.robo._motion.turn("RIGHT", 45)
