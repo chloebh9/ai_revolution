@@ -186,7 +186,7 @@ class Controller:
                 if (find_flag == True) or (x_dir == len(right_left)):
                     # print("find_flag == True: ", find_flag == True)  # 테스트용
                     # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
-                    self.robo._motion.x_head_angle = right_left[x_dir-1]
+                    self.tmp_angle = right_left[x_dir-1]
                     break
             self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
             time.sleep(0.2)
@@ -205,8 +205,8 @@ class Controller:
                 if (find_flag == True) or (x_dir == len(right_left)):
                     # print("find_flag == True: ", find_flag == True)  # 테스트용
                     # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
-                    self.robo._motion.x_head_angle = right_left[x_dir-1]
-                    print("self.robo._motion.x_head_angle: ", self.robo._motion.x_head_angle)
+                    self.tmp_angle = right_left[x_dir-1]
+                    print("self.robo._motion.x_head_angle: ", self.tmp_angle)
                     break
             self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
             time.sleep(0.2)
@@ -223,13 +223,13 @@ class Controller:
 
         correctAngle = 0  # 깃발이 센터에 왔을 때 1로 변경
         
-        if self.robo._motion.x_head_angle < 0:  # 로봇 머리 각도가 왼쪽에
-            best_angle = self.find_best(self.robo._motion.x_head_angle)
+        if self.tmp_angle < 0:  # 로봇 머리 각도가 왼쪽에
+            best_angle = self.find_best(self.tmp_angle)
             self.robo._motion.set_head("LEFT", best_angle) 
             self.robo._motion.x_head_angle = -best_angle  # 왼쪽이므로 마이너스 값이 되도록
             print("!!!로봇 머리 각도 왼쪽!!!!!!: ", self.robo._motion.x_head_angle)
-        elif self.robo._motion.x_head_angle > 0:   # 로봇 머리 각도가 오른쪽에
-            best_angle = self.find_best(self.robo._motion.x_head_angle)
+        elif self.tmp_angle.x_head_angle > 0:   # 로봇 머리 각도가 오른쪽에
+            best_angle = self.find_best(self.tmp_angle)
             self.robo._motion.set_head("RIGHT", best_angle)
         else:
             print("로봇 머리 각도는 정면입니다.")
