@@ -226,7 +226,7 @@ class Controller:
                 print("!!!로봇 머리 각도 가운데!!!!!!: ", self.robo._motion.x_head_angle)
 
             # 여기까지 오면 깃발을 찾은 상황 -> 깃발 센터 맞추는 함수로 넘어가기
-            self.check_flag_distance()
+            # self.check_flag_distance()
                 
     ###################################################################################################
     # 깃발 1도씩 조정하면서 각도 확인
@@ -983,12 +983,12 @@ class Controller:
             # print("===================")
             # exit()
 
-            self.robo._motion.set_head("UPDOWN_CENTER")
-            time.sleep(0.2)
-            self.robo._motion.set_head("LEFTRIGHT_CENTER")
-            time.sleep(0.1)
+            # self.robo._motion.set_head("UPDOWN_CENTER")
+            # time.sleep(0.2)
+            # self.robo._motion.set_head("LEFTRIGHT_CENTER")
+            # time.sleep(0.1)
 
-            # self.check_flag_distance() # 깃발 센터 맞추기
+            self.check_flag_distance() # 깃발 센터 맞추기
             
             time.sleep(0.2)
             angle = abs(self.robo._motion.y_head_angle - 12.6) # angle 값 수정
