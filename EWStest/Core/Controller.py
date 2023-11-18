@@ -106,7 +106,7 @@ class Controller:
             Tput_center_x_Big = Tputting_x_BallCenterMeasurer().process()
             print("Ball find and x center T/F: ", Tput_center_x_Big)
 
-            if Tput_center_y_Big == True and Tput_center_x_Big == True:
+            if Tput_center_y_Big == True and Tput_center_x_Big == False:
                 print("Center: 공을 가운데에서 찾았습니다.")
                 if cnt == 3:
                     self.C_center = 1
