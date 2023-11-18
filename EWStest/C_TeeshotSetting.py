@@ -148,6 +148,8 @@ class BallCenterMeasurer:
                 cv2.LINE_AA,
             )
 
+            key = cv2.waitKey(0)
+            
             if key == ord("l"):
                 self.robo._motion.set_head_small("LEFT", 3)
                 angle -= 3
@@ -166,7 +168,6 @@ class BallCenterMeasurer:
             # else: time.sleep(3)
 
             cv2.imshow("Object Dist Measure ", img)
-            key = cv2.waitKey(0)
 
         cv2.destroyAllWindows()
 
