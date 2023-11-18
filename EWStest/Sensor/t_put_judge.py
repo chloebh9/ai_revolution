@@ -1,4 +1,4 @@
-# 공이 X축 기준으로 가운데 있을 때 true, 아니면 false
+# 공이 Y축 기준으로 가운데 있을 때 true, 아니면 false
 
 # -*- coding: utf-8 -*-
 import numpy as np
