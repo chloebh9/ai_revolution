@@ -121,8 +121,6 @@ class BallxCenterMeasurer:
             ball_x_isMiddle = 'N'
             ball_x = 'N'
             ball_y = 'N'
-
-            print(cont)
             
             for cnt in cont:
                 if (cv2.contourArea(cnt)>5 and cv2.contourArea(cnt)<306000): # cv2.contourArea(cnt)>100 and
@@ -139,11 +137,11 @@ class BallxCenterMeasurer:
                     ball_y = round((max_y + min_y / 2), 2)
 
 
-            # cv2.imshow('Object Dist Measure ', img)
-            # print(ball_x_isMiddle)
-            # if cv2.waitKey(1) & 0xFF == ord('q'):
-            #     break
-            #     cv2.destroyAllWindows()
+            cv2.imshow('Object Dist Measure ', mask)
+            print(ball_x_isMiddle)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+            cv2.destroyAllWindows()
 
                         
             if ball_x_isMiddle != 'N':
