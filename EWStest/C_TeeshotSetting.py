@@ -109,6 +109,7 @@ class BallCenterMeasurer:
 
             max_x, min_x, max_y, min_y = -1, self.img_width + 1, -1, self.img_width + 1
             ball_box = None
+            ball_y_isMiddle = False
 
             for cnt in cont:
                 if cv2.contourArea(cnt) > 100 and cv2.contourArea(cnt) < 306000:
