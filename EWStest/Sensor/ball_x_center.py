@@ -121,6 +121,8 @@ class BallxCenterMeasurer:
             ball_x_isMiddle = 'N'
             ball_x = 'N'
             ball_y = 'N'
+
+            print(cont)
             
             for cnt in cont:
                 if (cv2.contourArea(cnt)>5 and cv2.contourArea(cnt)<306000): # cv2.contourArea(cnt)>100 and
