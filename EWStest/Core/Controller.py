@@ -214,18 +214,18 @@ class Controller:
             self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
             time.sleep(0.2)
             
-            if tmp_angle < 0:  # 로봇 머리 각도가 왼쪽에
-                best_angle = self.find_best(abs(tmp_angle))  # 들어온 값이 마이너스이므로 플러스로 바꾸기
-                self.robo._motion.set_head("LEFT", best_angle)
-                self.robo._motion.x_head_angle = tmp_angle  # 저장된 각도를 돌린 각도로 바꾸기
-                print("!!!로봇 머리 각도 왼쪽!!!!!!: ", self.robo._motion.x_head_angle)
-            elif tmp_angle > 0:   # 로봇 머리 각도가 오른쪽에
-                best_angle = self.find_best(tmp_angle)
-                self.robo._motion.set_head("RIGHT", best_angle)
-                self.robo._motion.x_head_angle = tmp_angle
-            else:
-                print("로봇 머리 각도는 정면입니다.")
-                print("!!!로봇 머리 각도 가운데!!!!!!: ", self.robo._motion.x_head_angle)
+        if tmp_angle < 0:  # 로봇 머리 각도가 왼쪽에
+            best_angle = self.find_best(abs(tmp_angle))  # 들어온 값이 마이너스이므로 플러스로 바꾸기
+            self.robo._motion.set_head("LEFT", best_angle)
+            self.robo._motion.x_head_angle = tmp_angle  # 저장된 각도를 돌린 각도로 바꾸기
+            print("!!!로봇 머리 각도 왼쪽!!!!!!: ", self.robo._motion.x_head_angle)
+        elif tmp_angle > 0:   # 로봇 머리 각도가 오른쪽에
+            best_angle = self.find_best(tmp_angle)
+            self.robo._motion.set_head("RIGHT", best_angle)
+            self.robo._motion.x_head_angle = tmp_angle
+        else:
+            print("로봇 머리 각도는 정면입니다.")
+            print("!!!로봇 머리 각도 가운데!!!!!!: ", self.robo._motion.x_head_angle)
 
         # 여기까지 오면 깃발을 찾은 상황 -> 깃발 센터 맞추는 함수로 넘어가기
         self.check_flag_distance()
