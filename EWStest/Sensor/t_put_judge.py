@@ -5,7 +5,7 @@ import numpy as np
 import cv2
 
 
-class BallCenterMeasurer:
+class Tputting_y_BallCenterMeasurer:
     def __init__(self, img_width=640, img_height=480, width=4, focal=450):
         self.dist = 0
         self.focal = focal

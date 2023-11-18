@@ -5,7 +5,7 @@ from Sensor.search_ball import FindBall  # 공이 있으면 true, 없으면 fals
 from Sensor.ball_y_center import BallyCenterMeasurer  # 공이 가운데, 위, 아래 중 어디에 있는지 (C, U, D)
 from Sensor.ball_x_center import BallxCenterMeasurer  # 공이 가운데, 왼쪽, 오른쪽 중 어디에 있는지 (C, L, R)
 from Sensor.tan_dist_measure import DistMeasurer  # 로봇에서부터 공과의 거리
-from Sensor.t_put_judge import BallCenterMeasurer  # 공이 Y축 기준으로 가운데 있을 때 true, 아니면 false
+from Sensor.t_put_judge import Tputting_y_BallCenterMeasurer  # 공이 Y축 기준으로 가운데 있을 때 true, 아니면 false
 from Sensor.t_put_x_judge import Tputting_x_BallCenterMeasurer  # 공이 X축 기준으로 가운데 있을 때 true, 아니면 false
 from Sensor.flag_x_center import FlagxCenterMeasurer  # 깃발이 가운데, 왼쪽, 오른쪽 중 어디에 있는지 (C, L, R)
 from Sensor.flag_y_center import FlagyCenterMeasurer  # 깃발이 가운데, 위, 아래 중 어디에 있는지 (C, U, D)
@@ -67,12 +67,12 @@ class Controller:
         time.sleep(1)  # 함수를 실행할 때 오류가 안 나도록 하는 time.sleep
 
         # 로봇이 왼쪽에 있다고 가정
-        Tput_center_isFind_Big = BallCenterMeasurer().process()
+        Tput_center_isFind_Big = Tputting_y_BallCenterMeasurer().process()
         for i in range(3):  # 티샷이 3개이므로 3번 반복
             self.robo._motion.set_head("DOWN", dir_list[dir])  # 고개 내리면서 확인
             dir -= 1
             time.sleep(0.1)
-            Tput_center_isFind_Big = BallCenterMeasurer().process()
+            Tput_center_isFind_Big = Tputting_y_BallCenterMeasurer().process()
             print("Ball find and center T/F: ", Tput_center_isFind_Big)  # 공 센터의 T/F값 출력
 
             if Tput_center_isFind_Big == False:  # 공이 발견되지 않았을 때
@@ -102,7 +102,7 @@ class Controller:
 
         if Tput_center_isFind_Big == False:
             print("로봇이 가운데에 있다고 생각하겠습니다.")
-            Tput_center_isFind_Big = BallCenterMeasurer().process()
+            Tput_center_isFind_Big = Tputting_y_BallCenterMeasurer().process()
             print("Ball find and y center T/F: ", Tput_center_isFind_Big)
 
             if Tput_center_isFind_Big == True:
@@ -115,7 +115,7 @@ class Controller:
                 print("가운데 가운데 X")
                 self.robo._motion.set_head("LEFT", 40)
                 time.sleep(0.1)
-                Tput_center_isFind_Big = BallCenterMeasurer().process()
+                Tput_center_isFind_Big = Tputting_y_BallCenterMeasurer().process()
                 time.sleep(0.1)
                 Tput_center_isFind_Small = Tputting_x_BallCenterMeasurer().process()
                 time.sleep(0.1)
@@ -132,7 +132,7 @@ class Controller:
                     print("가운데 왼쪽 X")
                     self.robo._motion.set_head("RIGHT", 69)
                     time.sleep(0.1)
-                    Tput_center_isFind_Big = BallCenterMeasurer().process()
+                    Tput_center_isFind_Big = Tputting_y_BallCenterMeasurer().process()
                     time.sleep(0.1)
                     Tput_center_isFind_Small = Tputting_x_BallCenterMeasurer().process()
                     time.sleep(0.1)
@@ -854,10 +854,7 @@ class Controller:
                 time.sleep(0.5)
                 self.robo._motion.turn("RIGHT", 45)
                 time.sleep(0.8)
-                self.robo._motion.walk_side("LEFT")
-                time.sleep(0.5)
-                self.robo._motion.turn("RIGHT", 45)
-                time.sleep(0.8)
+                
 
                 self.ball_feature_ball()
                 time.sleep(1)
