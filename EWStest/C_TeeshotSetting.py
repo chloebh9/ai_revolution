@@ -149,16 +149,14 @@ class BallCenterMeasurer:
             )
 
             key = cv2.waitKey(0)
-            
+
             if key == ord("l"):
                 self.robo._motion.set_head_small("LEFT", 3)
                 angle -= 3
-                continue
 
             if key == ord("r"):
                 self.robo._motion.set_head_small("RIGHT", 3)
                 angle += 3
-                continue
 
             if key == ord("q"):
                 break
