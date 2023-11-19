@@ -783,7 +783,7 @@ class Controller:
             
             self.robo._motion.set_head("LEFTRIGHT_CENTER")
             time.sleep(0.5)
-            self.robo._motion.walk_side("LEFT", 8)
+            self.robo._motion.walk_side("LEFT", 10)
 
             # 이 밑 부분은 확인을 통해서 바꿔야 함.
             self.robo._motion.turn("RIGHT", 20, 2)
