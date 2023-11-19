@@ -832,10 +832,10 @@ class Controller:
                 self.ball_feature_ball()
                 time.sleep(0.1)
 
-                dist_Process = DistMeasurer() # 이 부분 왜 있을까요??
-                angle = 0
-                dist = dist_Process.display_distance(angle)
-                time.sleep(0.1)
+                # dist_Process = DistMeasurer() # 이 부분 왜 있을까요??
+                # angle = 0
+                # dist = dist_Process.display_distance(angle)
+                # time.sleep(0.1)
 
 
             elif self.L_left == 1:
