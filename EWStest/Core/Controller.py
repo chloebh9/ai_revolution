@@ -111,7 +111,8 @@ class Controller:
                     print("Center: 공을 가운데에서 찾았습니다.")
                     self.C_center = 1
                     return
-                
+                    
+            elif Tput_x_center == False:
                 print("가운데 가운데 X")
                 self.robo._motion.set_head("LEFT", 45)
                 time.sleep(0.1)
