@@ -113,7 +113,7 @@ class Controller:
                     return
                 
                 print("가운데 가운데 X")
-                self.robo._motion.set_head("LEFT", 40)
+                self.robo._motion.set_head("LEFT", 45)
                 time.sleep(0.1)
                 Tput_x_center = Tputting_x_BallCenterMeasurer().process()
                 time.sleep(0.1)
