@@ -839,13 +839,12 @@ class Controller:
 
             elif self.C_center == 1:
                 print("로봇: 가운데, 공: 가운데")
-                print("이 부분 추가해야함")
-                self.robo._motion.turn("RIGHT", 20, 3)
+                self.robo._motion.walk_side("LEFT", 2) # 공을 발로 차는걸 예방하기 위해서 왼쪽으로 먼저 이동.
+                time.sleep(0.5)
+                self.robo._motion.turn("RIGHT", 20, 5)
                 time.sleep(0.8)
                 self.robo._motion.walk_side("LEFT", 2)
                 time.sleep(0.5)
-                self.robo._motion.turn("RIGHT", 20, 2)
-                time.sleep(0.8)
                 
 
                 self.ball_feature_ball()
