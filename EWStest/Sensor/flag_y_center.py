@@ -157,7 +157,12 @@ class FlagyCenterMeasurer:
 
             
             return is_y_middle
-        cv2.imshow('Green and Yellow Frame', frame)
+            cv2.imshow('Green and Yellow Frame', frame)
+            print(is_y_middle)
+
+            key = cv2.waitKey(1) & 0xFF
+            if key == ord('q'):
+                break
             
 
         cap.release()
