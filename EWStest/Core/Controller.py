@@ -812,6 +812,7 @@ class Controller:
             
             # 티샷에서 공과 로봇의 위치를 찾는 함수(공과 로봇의 위치를 찾아서 L_right를 포함한 6개에 변수 중 하나를 1로 변경)
             self.check_ball_first()
+            time.sleep(0.1)
         
             if self.L_right == 1:  # 퍼팅 판단 return 받은걸로 모션
                 print("로봇: 왼쪽, 공: 오른쪽")
@@ -976,14 +977,14 @@ class Controller:
 
                             else:
                                 print("T샷 C_left 오류")
-                time.sleep(0.1)
-                self.robo._motion.hit_the_ball("LEFT")
+            time.sleep(0.1)
+            self.robo._motion.hit_the_ball("LEFT")
             # +================================== 여기까지 추가 ================================================+
-                time.sleep(0.1)
-                self.robo._motion.turn("LEFT", 45, 4, 0.5)   # 티샷 끝나고 깃발 찾기 위해 턴
-                print("왼쪽으로 90도 회전")
+            time.sleep(0.1)
+            self.robo._motion.turn("LEFT", 45, 4, 0.5)   # 티샷 끝나고 깃발 찾기 위해 턴
+            print("왼쪽으로 90도 회전")
 
-                self.act = act.SEARCH_FLAG
+            self.act = act.SEARCH_FLAG
                 
 #############################################################################
         elif act == act.SEARCH_FLAG:
