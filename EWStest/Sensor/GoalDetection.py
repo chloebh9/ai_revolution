@@ -175,16 +175,16 @@ class GoalDetect:
                             cv2.putText(img, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
                             # return is_goal
                         
-            return is_goal
+            #return is_goal
                 
         #     imshow 실행시 주석 빼기
-        #     cv2.imshow('Object Dist Measure ', img)
+            cv2.imshow('Object Dist Measure ', img)
 
-        #     if cv2.waitKey(1) & 0xFF == ord('q'):
-        #         break
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
-        # cv2.destroyAllWindows()
-        
+        cv2.destroyAllWindows()
+    
 if __name__ == "__main__":
     goal_detector = GoalDetect()
     print(goal_detector.process())
