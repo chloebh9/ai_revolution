@@ -792,8 +792,7 @@ class Controller:
             time.sleep(0.5)
             self.robo._motion.turn("RIGHT", 20)
             time.sleep(0.8)
-            self.robo._motion.turn("RIGHT", 10)
-            time.sleep(0.8)
+            self.robo._motion.walk_side("RIGHT")
 
             self.ball_feature_ball()
             time.sleep(1)
