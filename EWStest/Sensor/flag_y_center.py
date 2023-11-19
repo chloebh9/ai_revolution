@@ -56,7 +56,7 @@ class FlagyCenterMeasurer:
 
             # 노랑색 범위 정의
             low_yellow = np.array([0, 16, 144])
-            high_yellow = np.array([43, 184, 255])
+            high_yellow = np.array([52, 184, 255])
 
             # 노랑색 범위에 해당하는 부분을 추출
             yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
