@@ -52,7 +52,6 @@ class Motion:
 
     def RX_data(self):
         # 시리얼 포트로부터 데이터 수신
-        print("으으으으으ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ")
         time.sleep(0.02)
         if self.serial_port.inWaiting() > 0:
             result = self.serial_port.read(1)
