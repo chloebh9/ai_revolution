@@ -594,7 +594,7 @@ class Controller:
             x_head_angle_n = self.robo._motion.x_head_angle // N
             if x_head_angle_n >= 1:
                 for _ in range(x_head_angle_n):
-                    self.robo._mothon.turn("RIGHT", N)
+                    self.robo._motion.turn("RIGHT", N)
                     self.robo._motion.x_head_angle -= N
             elif x_head_angle_n == 0:
                 return self.robo._motion.x_head_angle
@@ -607,7 +607,7 @@ class Controller:
             x_head_angle_n = self.robo._motion.x_head_angle // -N
             if x_head_angle_n >= 1:
                 for _ in range(x_head_angle_n):
-                    self.robo._mothon.turn("LEFT", N)
+                    self.robo._motion.turn("LEFT", N)
                     self.robo._motion.x_head_angle += N
             elif x_head_angle_n == 0:
                 return self.robo._motion.x_head_angle
@@ -782,7 +782,7 @@ class Controller:
         if act == act.TEST:
             
             print("로봇: 가운데, 공: 오른쪽")
-            self.robo._mothon.set_head("LEFTRIGHT_CENTER")
+            self.robo._motion.set_head("LEFTRIGHT_CENTER")
             time.sleep(0.5)
             self.robo._motion.walk_side("RIGHT", 4)
 
@@ -864,7 +864,7 @@ class Controller:
 
             elif self.C_right == 1:
                 print("로봇: 가운데, 공: 오른쪽")
-                self.robo._mothon.set_head("LEFTRIGHT_CENTER")
+                self.robo._motion.set_head("LEFTRIGHT_CENTER")
                 time.sleep(0.5)
                 self.robo._motion.walk_side("RIGHT", 4)
 
@@ -882,7 +882,7 @@ class Controller:
 
             elif self.C_left == 1:
                 print("로봇: 가운데, 공: 왼쪽")
-                self.robo._mothon.set_head("LEFTRIGHT_CENTER")
+                self.robo._motion.set_head("LEFTRIGHT_CENTER")
                 time.sleep(0.5)
                 self.robo._motion.walk_side("LEFT", 4)
 
