@@ -199,16 +199,19 @@ class Motion:
             time.sleep(sleep) # 이 타임 슬립 지우면 절대 안 돼
 
     # 옆으로 이동 (161~169)
-    def walk_side(self, dir):
+    def walk_side(self, dir, loop=1, sleep=0.5):
         """
-        dir: {LEFT, RIGHT} - 이동 방향
+        dir: {LEFT, RIGHT} - 이동 
         """
 
         """ parameter :
         dir : {LEFT, RIGHT}
         """
         dir_list = {"LEFT": 161, "RIGHT": 169}
-        self.TX_data_py3(dir_list[dir])
+
+        for _ in range(loop):
+            self.TX_data_py3(dir_list[dir])
+            time.sleep(sleep)
 
     # 공 치기 (170~171)
     def hit_the_ball(self, dir, short=False):
