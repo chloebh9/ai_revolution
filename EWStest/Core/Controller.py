@@ -854,20 +854,16 @@ class Controller:
 
             elif self.C_right == 1:
                 print("로봇: 가운데, 공: 오른쪽")
-                self.robo._motion.walk_side("RIGHT", 2)
-                time.sleep(0.5)
+                self.robo._motion.walk_side("RIGHT", 5)
                 self.robo._mothon.set_head("LEFTRIGHT_CENTER")
                 time.sleep(0.5)
-                print("공을 가운데로 맞추겠습니다.")
-                self.ball_feature_ball()
-                time.sleep(1)
 
                 # 이 밑 부분은 확인을 통해서 바꿔야 함. (C_left랑 똑같이 하면 될듯..?)
-                self.robo._motion.turn("RIGHT", 45)
+                self.robo._motion.turn("RIGHT", 20, 2)
                 time.sleep(0.8)
-                self.robo._motion.walk_side("LEFT")
+                self.robo._motion.walk_side("LEFT", 2)
                 time.sleep(0.5)
-                self.robo._motion.turn("RIGHT", 45)
+                self.robo._motion.turn("RIGHT", 20, 3)
                 time.sleep(0.8)
 
                 self.ball_feature_ball()
@@ -876,8 +872,7 @@ class Controller:
 
             elif self.C_left == 1:
                 print("로봇: 가운데, 공: 왼쪽")
-                self.robo._motion.walk_side("LEFT", 2)
-                time.sleep(0.5)
+                self.robo._motion.walk_side("LEFT", 5)
                 self.robo._mothon.set_head("LEFTRIGHT_CENTER")
                 time.sleep(0.5)
                 print("공을 가운데로 맞추겠습니다.")
