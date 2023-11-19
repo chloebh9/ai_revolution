@@ -30,7 +30,7 @@ class Act(Enum):
 class Controller:
     robo: Robo = Robo()
     # act: Act = Act.START  # 순서도 시작
-    act: Act = Act.TEST
+    act: Act = Act.START
     # act: Act = Act.START가 시작 지점
 
     count_putting: int = 0  # 퍼팅 횟수
@@ -884,7 +884,7 @@ class Controller:
 
             elif self.C_left == 1:
                 print("로봇: 가운데, 공: 왼쪽")
-                
+
                 self.robo._motion.set_head("LEFTRIGHT_CENTER")
                 time.sleep(0.5)
                 self.robo._motion.walk_side("LEFT", 10)
