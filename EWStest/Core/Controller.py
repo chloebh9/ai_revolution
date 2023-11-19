@@ -840,11 +840,11 @@ class Controller:
             elif self.C_center == 1:
                 print("로봇: 가운데, 공: 가운데")
                 print("이 부분 추가해야함")
-                self.robo._motion.turn("RIGHT", 45, 2)
+                self.robo._motion.turn("RIGHT", 20, 3)
                 time.sleep(0.8)
-                self.robo._motion.walk_side("LEFT")
+                self.robo._motion.walk_side("LEFT", 2)
                 time.sleep(0.5)
-                self.robo._motion.turn("RIGHT", 45)
+                self.robo._motion.turn("RIGHT", 20, 2)
                 time.sleep(0.8)
                 
 
