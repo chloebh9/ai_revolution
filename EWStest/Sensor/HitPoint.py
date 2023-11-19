@@ -21,12 +21,12 @@ class HitPointer:
         return np.arccos(cos_m)
         
     def calculatezero_x(self):
-        # c = sqrt(a^2 + b^2 - 2ab*cos(l))
-        return np.sqrt(self.h**2 + (self.a-self.b)**2)
+        #식에 오류가 있어서 수정, 원리는 일직선일때 공과 타격포인트 로봇을 이으면 삼각형이 하나 만들어지는데 "피타고라스 정리"임.
+        return np.sqrt(self.h**2 + (self.b)**2)
     def calculatezero_z(self):
-        # c = sqrt(a^2 + b^2 - 2ab*cos(l))
-        c = np.sqrt(self.h**2 + (self.a-self.b)**2)
-        cos_z = ((self.a-self.b)**2 + c**2 - self.h**2) / (2*(self.a-self.b)*c)
+        # calculatezero_x와 동일하게 에러제거
+        c = np.sqrt(self.h**2 + (self.b)**2)
+        cos_z = self.b / c
         return  np.arccos(cos_z)
     
     # 타격지점이 삼각형 밖에 있을 때
@@ -69,17 +69,12 @@ class HitPointer:
         cos_p = (self.b**2 + x**2 - self.h**2) / (2*self.b*x)
         rad_z = self.l - np.arccos(cos_p)
         p_rad = np.arccos(cos_p)
-        print(y_rad, rad_z)
         return y_rad + p_rad
       
     def calculate_zero_angle(self):
-        c = np.sqrt(self.h**2 + (self.a-self.b)**2)
+        c = np.sqrt(self.h**2 + (self.b)**2)
         #여기서 NaN값 발생하는듯. cos값이 -1부터 1까지 인데 범위를 벗어난 값이 나오는 듯함.
-        cos_z = (self.b**2 + c**2 - self.h**2) / (2*self.b*c)
-        print("b : ", self.b)    #테스트
-        print("c : ", c)    #테스트
-        print("h : ", self.h)    #테스트
-        print("cos_z : ", cos_z)    #테스트
+        cos_z = self.b / c
         rad_z = np.arccos(cos_z)
         
         return  np.radians(90) + rad_z
@@ -93,28 +88,28 @@ class HitPointer:
             if(self.l != 0):
                 x = self.calculate_out_x(m)
                 z = self.calculate_out_z(x)
-                angle_triangle = int(np.degrees(self.calculate_out_angle(x,m)))
+                angle_triangle = (int)(np.degrees(self.calculate_out_angle(x,m)))
                 judge_triangle = False
-                c = int(c)
+                c = (int)(c)
             else:
                 c = int(self.a  - self.b)
                 x=self.calculatezero_x()
                 z=self.calculatezero_z()
-                angle_triangle = int(np.degrees(self.calculate_zero_angle()))
+                angle_triangle = (int)(np.degrees(self.calculate_zero_angle()))
                 judge_triangle = False
         
         else:                   # 타격지점이 삼각형 안에 위치
             if(self.l != 0):
                 x = self.calculate_in_x(m)
                 z = self.calculate_in_z(x)
-                angle_triangle = int(np.degrees(self.calculate_in_angle(x,m)))
+                angle_triangle = (int)(np.degrees(self.calculate_in_angle(x,m)))
                 judge_triangle = True
-                c = int(c)
+                c = (int)(c)
             else:
                 c = int(self.a  - self.b)
                 x=self.calculatezero_x()
                 z=self.calculatezero_z()
-                angle_triangle = int(np.degrees(self.calculate_zero_angle()))
+                angle_triangle = (int)(np.degrees(self.calculate_zero_angle()))
                 judge_triangle = True                  
           
         z_deg = np.degrees(z)  # z를 도(degree) 단위로 변환
