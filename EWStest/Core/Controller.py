@@ -781,19 +781,16 @@ class Controller:
         ########################################################## # test
         if act == act.TEST:
             
-            print("로봇: 가운데, 공: 오른쪽")
             self.robo._motion.set_head("LEFTRIGHT_CENTER")
             time.sleep(0.5)
-            self.robo._motion.walk_side("RIGHT", 4)
+            self.robo._motion.walk_side("LEFT", 4)
 
-            # 이 밑 부분은 확인을 통해서 바꿔야 함. (C_left랑 똑같이 하면 될듯..?)
+            # 이 밑 부분은 확인을 통해서 바꿔야 함.
             self.robo._motion.turn("RIGHT", 20, 2)
             time.sleep(0.8)
-            self.robo._motion.walk_side("LEFT", 3)
+            self.robo._motion.walk_side("LEFT", 2)
             time.sleep(0.5)
-            self.robo._motion.turn("RIGHT", 20) 
-            time.sleep(0.8)
-            self.robo._motion.turn("RIGHT", 10)
+            self.robo._motion.turn("RIGHT", 20, 3)
             time.sleep(0.8)
 
             self.ball_feature_ball()
@@ -873,9 +870,11 @@ class Controller:
                 # 이 밑 부분은 확인을 통해서 바꿔야 함. (C_left랑 똑같이 하면 될듯..?)
                 self.robo._motion.turn("RIGHT", 20, 2)
                 time.sleep(0.8)
-                self.robo._motion.walk_side("LEFT", 2)
+                self.robo._motion.walk_side("LEFT", 3)
                 time.sleep(0.5)
-                self.robo._motion.turn("RIGHT", 20, 3) 
+                self.robo._motion.turn("RIGHT", 20) 
+                time.sleep(0.8)
+                self.robo._motion.turn("RIGHT", 10)
                 time.sleep(0.8)
 
                 self.ball_feature_ball()
