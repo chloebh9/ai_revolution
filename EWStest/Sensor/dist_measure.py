@@ -31,7 +31,7 @@ def get_dist(rectange_params,image, name):
     return image
 
 #Extract Frames 
-cap = cv2.VideoCapture('fflag3.mp4',  cv2.CAP_V4L)
+cap = cv2.VideoCapture(0,  cv2.CAP_V4L)
 
 
 #basic constants for opencv Functs
