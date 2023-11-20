@@ -158,5 +158,5 @@ class Tputting_y_BallCenterMeasurer:
 
 
 if __name__ == "__main__":
-    distance_measurer = BallCenterMeasurer()
+    distance_measurer = Tputting_y_BallCenterMeasurer()
     print(distance_measurer.process())
