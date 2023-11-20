@@ -75,6 +75,8 @@ class BallCenterMeasurer:
         # cv2.namedWindow('Object Dist Measure ', cv2.WINDOW_NORMAL)
         # cv2.resizeWindow('Object Dist Measure ', 700, 600)
 
+        ball_y_isMiddle_measurer = Tputting_x_BallCenterMeasurer()
+
         while True:
             ret, img = cap.read()
             if not ret:
@@ -128,7 +130,6 @@ class BallCenterMeasurer:
             #         )
             # return False
 
-            ball_y_isMiddle_measurer = Tputting_x_BallCenterMeasurer()
             ball_y_isMiddle = ball_y_isMiddle_measurer.process()
 
             # imshow
