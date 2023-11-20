@@ -4,6 +4,7 @@
 import numpy as np
 import cv2
 from Core.Robo import Robo
+from Sensor.t_put_x_judge import Tputting_x_BallCenterMeasurer
 import time
 
 
@@ -127,6 +128,8 @@ class BallCenterMeasurer:
             #         )
             # return False
 
+            ball_y_isMiddle_measurer = Tputting_x_BallCenterMeasurer()
+            ball_y_isMiddle = ball_y_isMiddle_measurer.process()
 
             # imshow
             font = cv2.FONT_HERSHEY_SIMPLEX
