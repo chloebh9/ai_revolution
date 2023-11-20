@@ -128,8 +128,6 @@ class BallCenterMeasurer:
             #         )
             # return False
 
-            ball_y_isMiddle = Tputting_x_BallCenterMeasurer().process()
-
             # imshow
             font = cv2.FONT_HERSHEY_SIMPLEX
             org = (0, 20)
