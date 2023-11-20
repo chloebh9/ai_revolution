@@ -121,10 +121,11 @@ class Controller:
                 cnt += 1
                 print("Tput_x_center: ", Tput_x_center)
 
-                if cnt == 4:
-                    print("Center: 공을 왼쪽에서 찾았습니다.")
-                    self.C_left = 1
-                    return
+                if Tput_x_center == True:
+                    if cnt == 4:
+                        print("Center: 공을 왼쪽에서 찾았습니다.")
+                        self.C_left = 1
+                        return
 
                 print("가운데 왼쪽 X")
                 self.robo._motion.set_head("RIGHT", 69)
@@ -134,10 +135,11 @@ class Controller:
                 cnt += 1
                 print("Tput_x_center: ", Tput_x_center)
                 
-                if cnt == 5:
-                    print("Center: 공을 오른쪽에서 찾았습니다.")
-                    self.C_right = 1
-                    return
+                if Tput_x_center == True:
+                    if cnt == 5:
+                        print("Center: 공을 오른쪽에서 찾았습니다.")
+                        self.C_right = 1
+                        return
 
             else:
                 print("티샷 부분에서 공을 어디서도 찾지 못했습니다.")
