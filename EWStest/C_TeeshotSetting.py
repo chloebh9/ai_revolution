@@ -130,7 +130,7 @@ class BallCenterMeasurer:
             #         )
             # return False
 
-            ball_y_isMiddle = ball_y_isMiddle_measurer.process()
+            # ball_y_isMiddle = ball_y_isMiddle_measurer.process()
 
             # imshow
             font = cv2.FONT_HERSHEY_SIMPLEX
