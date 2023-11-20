@@ -121,7 +121,7 @@ class Controller:
                 cnt += 1
                 print("Tput_x_center: ", Tput_x_center)
 
-                if Tput_x_center == True:
+                if Tput_x_center == True:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
                     if cnt == 4:
                         print("Center: 공을 왼쪽에서 찾았습니다.")
                         self.C_left = 1
