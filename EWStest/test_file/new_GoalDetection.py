@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 
 class NewGoalDetection:
-    def __init__(self, video_path, img_width=640, img_height=480, width=4, focal=450):
+    def __init__(self, img_width=640, img_height=480, width=4, focal=450):
         self.dist = 0 
         self.focal = focal
         self.pixels = 30
@@ -22,9 +22,9 @@ class NewGoalDetection:
         
         self.middle = img_width // 2
         
-        self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
+        self.cap = cv2.VideoCapture(0, cv2.CAP_V4L)
         if not self.cap.isOpened():
-            raise ValueError(f"Video at {video_path} cannot be opened")
+            raise ValueError(f"Video cannot be opened")
         self.green_boxes = []
         self.farthest_flag_boxes = []  # 모든 flag의 중점값을 저장하는 리스트
 
@@ -231,6 +231,5 @@ class NewGoalDetection:
         return farthest_flag_center
     
 if __name__ == "__main__":
-    video_path = 0  # Use 0 for webcam
-    new_goaldetector = NewGoalDetection(video_path)
+    new_goaldetector = NewGoalDetection()
     new_goaldetector.run()
