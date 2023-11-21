@@ -15,7 +15,7 @@ while ball_x_angle[0] != "C":
     if ball_x_angle[0] == "L" or ball_x_angle[0] == "R":
         if ball_x_angle[0] == "L":
             self.robo._motion.set_head_small("LEFT", 1)
-			time.sleep(0.1)
+						time.sleep(0.1)
 						
         if ball_x_angle[0] == "R":
             self.robo._motion.set_head_small("RIGHT", 1)

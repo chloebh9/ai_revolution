@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 
 class BallDistanceDetector:
-    def __init__(self, camera_index=0, img_width=640, img_height=480, width=4, focal=450, height_robot=33.4):
+    def __init__(self, camera_index=0, img_width=640, img_height=480, width=4, focal=400, height_robot=33.4):
         self.cap = cv2.VideoCapture(0, cv2.CAP_V4L)
         self.img_width = img_width
         self.img_height = img_height
