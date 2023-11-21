@@ -993,52 +993,32 @@ class Controller:
         elif act == act.SEARCH_FLAG:
             print("Act:", act)  # Debug
 
+            minimum_distball = 20
+
             self.robo._motion.set_head("DOWN", 90)
-            time.sleep(0.2)
-            
-            self.check_flag()   # 깃발 찾기
-            # print("TEST")
-            # self.find_best_actions(60, 'R')
-            # print("===================")
-            # exit()
 
-            # self.robo._motion.set_head("UPDOWN_CENTER")
-            # time.sleep(0.2)
-            # self.robo._motion.set_head("LEFTRIGHT_CENTER")
-            # time.sleep(0.1)
-
-            self.check_flag_distance() # 깃발 센터 맞추기
-            
-            time.sleep(0.2)
-            angle = abs(self.robo._motion.y_head_angle - 12.6) # angle 값 수정
-            distflag = DistMeasurer().display_distance(angle) # 깃발 거리값
-            flag_angle = self.robo._motion.x_head_angle
-            print("flag distance: ", end="")
-            print(distflag)
-            print("flag angle: ", end="")
-            print(angle)
-            # 깃발 거리를 측정하고 프로그램 종료
-            # exit()
-
-#############################################################################
             # ACT: SEARCH_BALL
             print("Act: SEARCH_BALL")  # Debug
             time.sleep(0.1)
-
-            # 아래 주석 부분 필요 없는 거 같음
-            # angle = abs(self.robo._motion.y_head_angle - 11.6)
-            # dist_ball = DistMeasurer(angle)  # 볼 거리 구한 값 저장
-            # print(dist_ball)
             
-            # 공이 로봇 화면에서 공이 중심에 있을 수 있도록 로봇의 고개를 돌려 x, y를 맞춤
-            self.check_ball_distance()
+            while True:
+                ballxcenter = BallxCenterMeasurer(img_width=640, img_height=480)
+                if ballxcenter.process[0] == 'N':
+                    self.check_ball_distance()
 
-            time.sleep(0.2)
+                time.sleep(0.2)
 
-            ball_angle = self.robo._motion.x_head_angle
-            angle = abs(self.robo._motion.y_head_angle - 11.6)  # angle 값 수정
-            distball = DistMeasurer().display_distance(angle) # 공 거리값
-            print("ball distance: ", end="") 
+                # ball_angle = self.robo._motion.x_head_angle
+                # angle = abs(self.robo._motion.y_head_angle - 11.6)  # angle 값 수정
+                distball = DistMeasurer().display_distance(angle) # 공 거리값
+
+                if distball > minimum_distball:
+                    self.robo._motion.walk("FORWARD", 3, 1.0)
+                    continue
+                else:
+                    break
+                
+            print("ball distance: ", end="")
             print(distball)
 
             time.sleep(0.2)
