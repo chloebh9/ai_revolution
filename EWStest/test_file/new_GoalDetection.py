@@ -135,7 +135,7 @@ class NewGoalDetection:
                             rect = cv2.minAreaRect(cnt)
                             box = cv2.boxPoints(rect)
                             box = np.int0(box)
-                            cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
+                            # cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
                             M = cv2.moments(cnt)
                             if M['m00'] != 0:
                                 cx = int(M['m10'] / M['m00'])
