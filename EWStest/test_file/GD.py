@@ -27,9 +27,9 @@ while True:
     g_img = cv2.morphologyEx(mask_green, cv2.MORPH_CLOSE, kernel, iterations=3)
 
     # Color range for yellow
-    lower_flag = np.array([20, 90, 144])
+    lower_flag = np.array([17, 57, 182])
             # upper_flag = np.array([43, 184, 255])
-    upper_flag = np.array([45, 200, 255])
+    upper_flag = np.array([45, 255, 255])
     mask_yellow = cv2.inRange(hsv_img, lower_flag, upper_flag)
     mask_yellow_in_green = cv2.bitwise_and(mask_yellow, mask_yellow, mask=g_img)
     y_img = cv2.morphologyEx(mask_yellow_in_green, cv2.MORPH_CLOSE, kernel, iterations=11)
