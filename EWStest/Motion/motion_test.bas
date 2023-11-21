@@ -411,7 +411,189 @@ GOSUB_RX_EXIT2:
     RETURN
     '**********************************************
     '**********************************************
+	' #############################################
+	
+	
+	
+	
+	
+횟수전진:
+    GOSUB All_motor_mode3
+    보행COUNT = 0
+    보행속도 = 13
+    좌우속도 = 4
+    넘어진확인= 0 
+    HIGHSPEED SETON
 
+
+    IF 보행순서 = 0 THEN
+        보행순서 = 1
+
+        SPEED 4
+
+        MOVE G6A, 88,  74, 144,  95, 110
+        MOVE G6D,108,  76, 146,  93,  96
+        MOVE G6B,100
+        MOVE G6C,100
+        WAIT
+
+        SPEED 10'
+
+        MOVE G6A, 90, 90, 120, 105, 110,100
+        MOVE G6D,110,  76, 147,  93,  96,100
+        MOVE G6B,90
+        MOVE G6C,110
+        WAIT
+
+
+        GOTO 횟수전진_골프_1
+    ELSE
+        보행순서 = 0
+
+        SPEED 4
+
+        MOVE G6D,  88,  74, 144,  95, 110
+        MOVE G6A, 108,  76, 146,  93,  96
+        MOVE G6C, 100
+        MOVE G6B, 100
+        WAIT
+
+        SPEED 10
+
+        MOVE G6D, 90, 90, 120, 105, 110,100
+        MOVE G6A,110,  76, 147,  93,  96,100
+        MOVE G6C,90
+        MOVE G6B,110
+        WAIT
+
+
+        GOTO 횟수전진_골프_2
+    ENDIF
+
+
+    '**********************
+
+횟수전진_골프_1:
+
+    ETX 4800,11 '진행코드를 보냄
+    SPEED 보행속도
+
+    MOVE G6A, 86,  56, 145, 115, 110
+    MOVE G6D,108,  76, 147,  93,  96
+    WAIT
+
+	SPEED 좌우속도
+    GOSUB Leg_motor_mode3
+
+    MOVE G6A,110,  76, 147, 93,  96
+    MOVE G6D,86, 100, 145,  69, 110
+    WAIT
+
+
+    SPEED 보행속도
+
+    GOSUB 앞뒤기울기측정
+    IF 넘어진확인 = 1 THEN
+        넘어진확인 = 0
+        GOTO MAIN
+    ENDIF
+
+	보행COUNT = 보행COUNT + 1
+	IF 보행COUNT > 보행횟수 THEN GOTO 횟수전진_골프_2_stop
+
+    ERX 4800,A, 횟수전진_골프_2
+    IF A <> A_old THEN
+        
+횟수전진_골프_2_stop:        
+        MOVE G6A,112,  76, 146,  93, 96,100
+        MOVE G6D,90, 100, 100, 115, 110,100
+        MOVE G6B,110
+        MOVE G6C,90
+        WAIT
+        HIGHSPEED SETOFF
+
+        SPEED 8
+        MOVE G6A, 106,  76, 146,  93,  96,100		
+        MOVE G6D,  88,  71, 152,  91, 106,100
+        MOVE G6B, 100
+        MOVE G6C, 100
+        WAIT	
+
+        SPEED 2
+        GOSUB 기본자세2
+
+        GOTO RX_EXIT
+    ENDIF
+
+    '*********************************
+횟수전진_골프_2:
+
+    MOVE G6A,110,  76, 147,  93, 96,100
+    MOVE G6D,90, 90, 120, 105, 110,100
+    MOVE G6B,110
+    MOVE G6C,90
+    WAIT
+
+횟수전진_골프_3:
+    ETX 4800,11 '진행코드를 보냄
+
+    SPEED 보행속도
+
+    MOVE G6D, 86,  56, 145, 115, 110
+    MOVE G6A,108,  76, 147,  93,  96
+    WAIT
+
+    MOVE G6D,110,  76, 147, 93,  96
+    MOVE G6A,86, 100, 145,  69, 110
+    WAIT
+
+    SPEED 보행속도
+
+    GOSUB 앞뒤기울기측정
+    IF 넘어진확인 = 1 THEN
+        넘어진확인 = 0
+        GOTO MAIN
+    ENDIF
+
+    ERX 4800,A, 횟수전진_골프_4
+    IF A = 11 THEN
+        GOTO 횟수전진_골프_4
+    ELSE
+
+        MOVE G6A, 90, 100, 100, 115, 110,100
+        MOVE G6D,112,  76, 146,  93,  96,100
+        MOVE G6B,90
+        MOVE G6C,110
+        WAIT
+        HIGHSPEED SETOFF
+        SPEED 8
+
+        MOVE G6D, 106,  76, 146,  93,  96,100		
+        MOVE G6A,  88,  71, 152,  91, 106,100
+        MOVE G6C, 100
+        MOVE G6B, 100
+        WAIT	
+        SPEED 2
+        GOSUB 기본자세2
+
+        GOTO RX_EXIT
+    ENDIF
+
+횟수전진_골프_4:
+    '왼발들기10
+    MOVE G6A,90, 90, 120, 105, 110,100
+    MOVE G6D,110,  76, 146,  93,  96,100
+    MOVE G6B, 90
+    MOVE G6C,110
+    WAIT
+
+    GOTO 횟수전진_골프_1
+
+	
+	
+	
+	
+	
 
 
     ' #############################################
@@ -2968,7 +3150,7 @@ KEY26: ' ■
     '***************
 KEY27: ' D
     ETX  4800,27
-    GOTO 머리오른쪽90도
+    GOTO 횟수전진
 
 
     GOTO RX_EXIT
