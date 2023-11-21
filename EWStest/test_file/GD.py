@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 
 # Open the video file
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0, cv2.CAP_V4L)
 
 # Filter and font-related variables
 kernel = np.ones((5, 5), 'uint8')
