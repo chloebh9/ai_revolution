@@ -199,7 +199,7 @@ class NewGoalDetection:
                         # farthest_flag_boxes 리스트에 중점값과 "FLAG" 추가
                         self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
                         
-                        goal_range = 22
+                        goal_range = 15
                         #공이 있을 때
                         if cont:
                             # 공이 (홀컵기준)밑에 있을 때

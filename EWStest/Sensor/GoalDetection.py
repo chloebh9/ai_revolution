@@ -159,7 +159,7 @@ class GoalDetect:
                     img = self.get_dist(rect,img, 'flag', isMiddle)
                     
                     print(b_max_x, " ", b_min_x)
-                    goal_range = 22
+                    goal_range = 15
                     # 공이 (홀컵기준)밑에 있을 때
                     if (f_min_y + f_max_y)/2 < (b_min_y + b_max_y)/2:
                         if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y <= b_min_y and b_max_y <= f_max_y - goal_range:
