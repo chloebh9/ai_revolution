@@ -105,7 +105,25 @@ class NewGoalDetection:
                 green_roi = frame[y:y+h, x:x+w]
                 yellow_roi_mask = yellow_mask[y:y+h, x:x+w]
                 yellow_contours, _ = cv2.findContours(yellow_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                cont2 = sorted(yellow_contours, key = cv2.contourArea, reverse = True)[:1]
 
+                flag_cnt = cont2[0]
+                #check for contour area
+                if (cv2.contourArea(flag_cnt)>100 and cv2.contourArea(flag_cnt)<306000):
+
+                    #Draw a rectange on the contour
+                    rect = cv2.minAreaRect(flag_cnt)
+                    box = cv2.boxPoints(rect)
+                    box = np.int0(box)
+                    print('flag points :', box)
+                    cv2.drawContours(img, [box], -1, (0,255,0), 3)
+
+                    f_max_x, f_min_x = self.getMaxMin(box)
+                    f_max_y, f_min_y = self.getyMaxMin(box)
+                    isMiddle = self.judgeMiddle(f_max_x, f_min_x)
+                    
+                    img = self.get_dist(rect,img, 'flag', isMiddle)
+                    
                 # flag의 중점값을 저장하는 리스트
                 flag_centers = []
 
