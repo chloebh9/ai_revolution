@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\EWStest",
+    "\\EWStest\\Sensor"
   ],
-  "SelectedNode": "\\C:\\Users\\eowkd\\Source\\Repos\\ai_revolution",
+  "SelectedNode": "\\EWStest\\Sensor\\flag_x_center.py",
   "PreviewInSolutionExplorer": false
 }
