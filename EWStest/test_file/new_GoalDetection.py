@@ -192,8 +192,8 @@ class NewGoalDetection:
                         farthest_flag_center = min(flag_centers, key=lambda center: center[1])
                         # farthest_flag_center[0] -> x 중점 좌표, farthest_flag_center[1] -> y 중점 좌표
                         # 해당 flag의 박스 그리기
-                        cv2.rectangle(green_roi, (farthest_flag_center[0] - 10, farthest_flag_center[1] - 10),
-                                    (farthest_flag_center[0] + 10, farthest_flag_center[1] + 10), (0, 0, 255), 2)
+                        # cv2.rectangle(green_roi, (farthest_flag_center[0] - 10, farthest_flag_center[1] - 10),
+                        #             (farthest_flag_center[0] + 10, farthest_flag_center[1] + 10), (0, 0, 255), 2)
                         cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
                                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                         # farthest_flag_boxes 리스트에 중점값과 "FLAG" 추가
@@ -229,9 +229,9 @@ class NewGoalDetection:
             if key == ord('q'):
                 break
 
-        if self.farthest_flag_boxes:
-            for box in self.farthest_flag_boxes:
-                print(f"Farthest Flag Center: {box[0]}, {box[1]}")
+        # if self.farthest_flag_boxes:
+        #     for box in self.farthest_flag_boxes:
+        #         print(f"Farthest Flag Center: {box[0]}, {box[1]}")
 
         self.cap.release()
         cv2.destroyAllWindows()
