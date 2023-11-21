@@ -116,13 +116,13 @@ class NewGoalDetection:
                     box = cv2.boxPoints(rect)
                     box = np.int0(box)
                     print('flag points :', box)
-                    cv2.drawContours(img, [box], -1, (0,255,0), 3)
+                    cv2.drawContours(frame, [box], -1, (0,255,0), 3)
 
                     f_max_x, f_min_x = self.getMaxMin(box)
                     f_max_y, f_min_y = self.getyMaxMin(box)
                     isMiddle = self.judgeMiddle(f_max_x, f_min_x)
                     
-                    img = self.get_dist(rect,img, 'flag', isMiddle)
+                    frame = self.get_dist(rect, frame, 'flag', isMiddle)
                     
                 # flag의 중점값을 저장하는 리스트
                 flag_centers = []
@@ -177,13 +177,13 @@ class NewGoalDetection:
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
                         print('ball points :', box)
-                        cv2.drawContours(img, [box], -1, (255,0,0), 3)
+                        cv2.drawContours(frame, [box], -1, (255,0,0), 3)
 
                         b_max_x, b_min_x = self.getMaxMin(box)
                         b_max_y, b_min_y = self.getyMaxMin(box)
                         isMiddle = self.judgeMiddle(b_max_x, b_min_x)
                         
-                        img = self.get_dist(rect, img, 'ball', isMiddle)
+                        frame = self.get_dist(rect, frame, 'ball', isMiddle)
                 
                 # flag_centers가 비어있지 않을 때만 실행
                 if flag_centers:
@@ -204,15 +204,16 @@ class NewGoalDetection:
                         if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y <= b_min_y and b_max_y <= f_max_y - goal_range:
                             print("Goal!")
                             is_goal = True
-                            cv2.putText(img, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
+                            cv2.putText(frame, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
                             # return is_goal
                     # 공이 (홀컵기준)위에 있을 때
                     else:
                         if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y - goal_range <= b_min_y and b_max_y <= f_max_y - goal_range:
                             print("Goal!")
                             is_goal = True
-                            cv2.putText(img, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
+                            cv2.putText(frame, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
                             # return is_goal
+                    # return is_goal
 
             # Display the original frame
             cv2.imshow('Frame', frame)
