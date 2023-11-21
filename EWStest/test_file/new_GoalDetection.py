@@ -117,7 +117,7 @@ class NewGoalDetection:
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
                         print('flag points :', box)
-                        cv2.drawContours(frame, [box], -1, (0,255,0), 3)
+                        # cv2.drawContours(frame, [box], -1, (0,255,0), 3)
 
                         f_max_x, f_min_x = self.getMaxMin(box)
                         f_max_y, f_min_y = self.getyMaxMin(box)
@@ -135,7 +135,7 @@ class NewGoalDetection:
                             rect = cv2.minAreaRect(cnt)
                             box = cv2.boxPoints(rect)
                             box = np.int0(box)
-                            # cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
+                            cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
                             M = cv2.moments(cnt)
                             if M['m00'] != 0:
                                 cx = int(M['m10'] / M['m00'])
