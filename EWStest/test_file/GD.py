@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 
 # Open the video file
-cap = cv2.VideoCapture(0, cv2.CAP_V4L)
+cap = cv2.VideoCapture(0)
 
 # Filter and font-related variables
 kernel = np.ones((5, 5), 'uint8')
@@ -27,9 +27,10 @@ while True:
     g_img = cv2.morphologyEx(mask_green, cv2.MORPH_CLOSE, kernel, iterations=3)
 
     # Color range for yellow
-    lower_yellow = np.array([0, 16, 144])
-    upper_yellow = np.array([43, 184, 255])
-    mask_yellow = cv2.inRange(hsv_img, lower_yellow, upper_yellow)
+    lower_flag = np.array([20, 90, 144])
+            # upper_flag = np.array([43, 184, 255])
+    upper_flag = np.array([45, 200, 255])
+    mask_yellow = cv2.inRange(hsv_img, lower_flag, upper_flag)
     mask_yellow_in_green = cv2.bitwise_and(mask_yellow, mask_yellow, mask=g_img)
     y_img = cv2.morphologyEx(mask_yellow_in_green, cv2.MORPH_CLOSE, kernel, iterations=11)
 
