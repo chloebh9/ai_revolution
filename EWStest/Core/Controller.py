@@ -766,6 +766,29 @@ class Controller:
 
         else:
             print("원하는 값이 반환되지 않았습니다.")
+
+    @classmethod # TeeShot 하기 전에 깃발 확인하고 방향 트는건데 CV랑 협의할 부분 있음.
+    def TeeFlagC(self):
+        print("Debug TeeShot in Controller")
+        time.sleep(0.1)
+
+        flagxcenter = FlagxCenterMeasurer(img_width=640, img_height=480)
+        FlagL = flagxcenter.run()
+
+        self.robo._motion.set_head("LEFT",90)
+
+        while FlagL != 'C':
+
+            if FlagL == 'C':
+                return True
+            elif FlagL == "L":
+                self.robo._motion.turn("LEFT",5)
+            elif FlagL == "R":
+                self.robo._motion.turn("RIGHT",5)
+            else:
+                print("원하는 값이 들어오지 않음.")
+
+
             
 #######################################################################################################################################
     @classmethod
@@ -784,22 +807,6 @@ class Controller:
         ########################################################## # test
         if act == act.TEST:
             
-            self.robo._motion.set_head("LEFTRIGHT_CENTER")
-            time.sleep(0.5)
-            self.robo._motion.walk_side("LEFT", 10)
-
-            # 이 밑 부분은 확인을 통해서 바꿔야 함.
-            self.robo._motion.turn("RIGHT", 20, 2)
-            time.sleep(0.8)
-            self.robo._motion.walk_side("LEFT", 3)
-            time.sleep(0.5)
-            self.robo._motion.turn("RIGHT", 20)
-            time.sleep(0.8)
-            self.robo._motion.walk_side("RIGHT")
-
-            self.ball_feature_ball()
-            time.sleep(1)
-        
             exit()
         
 #############################################################################
