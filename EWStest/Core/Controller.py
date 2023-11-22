@@ -268,7 +268,7 @@ class Controller:
                         print("flag_y: ", flag_y_angle[0])  # 판단 내용 출력
 
                         if before_flag_y_angle != flag_y_angle[0]:
-                            recent_will_angle = 1
+                            recent_will_angle = 2
 
                         if flag_y_angle[0] == "U":  # 판단 내용 판단
                             self.robo._motion.set_head_small("UP", recent_will_angle)
@@ -297,7 +297,7 @@ class Controller:
                     print("flag_x: ", flag_x_angle[0])  # 판단 내용 출력
 
                     if before_flag_x_angle != flag_x_angle[0]:
-                        recent_will_angle = 1
+                        recent_will_angle = 2
 
                     if flag_x_angle[0] == "L":
                         self.robo._motion.set_head_small("LEFT", recent_will_angle)
@@ -406,7 +406,7 @@ class Controller:
                         print("ball_y: ", ball_y_angle[0])
 
                         if before_ball_y_angle != ball_y_angle[0]:
-                            recent_will_angle = 1
+                            recent_will_angle = 2
 
                         if ball_y_angle[0] == "U":
                             self.robo._motion.set_head_small("UP", recent_will_angle)
@@ -947,7 +947,7 @@ class Controller:
                         print("ball_y: ", ball_y_angle[0])
 
                         if before_ball_y_angle != ball_y_angle[0]:  # 이전에 고개를 돌렸던 값과 현재 고개를 돌릴 값이 일치하면 3도 말고 1도씩만 돌리게 만듬
-                            recent_will_angle = 1
+                            recent_will_angle = 2
 
                         if ball_y_angle[0] == "U":
                             self.robo._motion.set_head_small("UP", recent_will_angle)
