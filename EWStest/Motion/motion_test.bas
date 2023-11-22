@@ -421,7 +421,7 @@ GOSUB_RX_EXIT2:
     GOSUB All_motor_mode3
     보행COUNT = 0
     보행속도 = 13
-    좌우속도 = 4
+    좌우속도 = 5
     넘어진확인= 0 
 
 
@@ -1861,6 +1861,8 @@ GOSUB_RX_EXIT2:
     MOVE G6C,100,  100,  80, 190
     WAIT
     mode = 2
+    
+    GOSUB 기본자세
     RETURN
 
     '******************************************
@@ -2861,7 +2863,7 @@ KEY7:
 KEY8:
     ETX  4800,8
 
-    GOTO 세레머니
+    GOSUB 세레머니
 
 
     GOTO RX_EXIT
