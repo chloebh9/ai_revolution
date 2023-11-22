@@ -2229,7 +2229,7 @@ GOSUB_RX_EXIT2:
     '******************************************
 전방하향:
     SPEED 머리이동속도
-    angle_y = angle_y - 1
+    angle_y = angle_y - 2
     IF angle_y < 10 THEN
         MUSIC "C"
         angle_y = 10
@@ -2244,7 +2244,7 @@ GOSUB_RX_EXIT2:
     '******************************************
 전방상향:
     SPEED 머리이동속도
-    angle_y = angle_y + 1
+    angle_y = angle_y + 2
     IF angle_y > 110 THEN
         MUSIC "C"
         angle_y = 110
@@ -2260,7 +2260,7 @@ GOSUB_RX_EXIT2:
     '******************************************
 우향:
     SPEED 머리이동속도
-    angle_x = angle_x + 1
+    angle_x = angle_x + 2
     IF angle_x > 190 THEN
         MUSIC "C"	
         angle_x = 190
@@ -2275,7 +2275,7 @@ GOSUB_RX_EXIT2:
     '******************************************	
 좌향:
     SPEED 머리이동속도
-    angle_x = angle_x - 1
+    angle_x = angle_x - 2
     IF angle_x < 10 THEN
         MUSIC "C"
         angle_x = 10
