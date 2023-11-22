@@ -421,14 +421,14 @@ GOSUB_RX_EXIT2:
     GOSUB All_motor_mode3
     보행COUNT = 0
     보행속도 = 7
-    좌우속도 = 5
+    좌우속도 = 4
     넘어진확인= 0 
 
 
     IF 보행순서 = 0 THEN
         보행순서 = 1
 
-        SPEED 8
+        SPEED 4
 
         MOVE G6A, 88,  74, 144,  95, 110
         MOVE G6D,108,  76, 146,  93,  96
@@ -436,7 +436,7 @@ GOSUB_RX_EXIT2:
         MOVE G6C,100
         WAIT
 
-        SPEED 8
+        SPEED 10
 
         MOVE G6A, 90, 90, 120, 105, 110,100
         MOVE G6D,110,  76, 147,  93,  96,100
@@ -449,7 +449,7 @@ GOSUB_RX_EXIT2:
     ELSE
         보행순서 = 0
 
-        SPEED 8
+        SPEED 4
 
         MOVE G6D,  88,  74, 144,  95, 110
         MOVE G6A, 108,  76, 146,  93,  96
@@ -457,7 +457,7 @@ GOSUB_RX_EXIT2:
         MOVE G6B, 100
         WAIT
 
-        SPEED 8
+        SPEED 10
 
         MOVE G6D, 90, 90, 120, 105, 110,100
         MOVE G6A,110,  76, 147,  93,  96,100
@@ -509,6 +509,7 @@ GOSUB_RX_EXIT2:
         MOVE G6B,110
         MOVE G6C,90
         WAIT
+        HIGHSPEED SETOFF
 
         SPEED 8
         MOVE G6A, 106,  76, 146,  93,  96,100		
@@ -566,6 +567,7 @@ GOSUB_RX_EXIT2:
         MOVE G6C,110
         WAIT
         SPEED 8
+        HIGHSPEED SETOFF
 
         MOVE G6D, 106,  76, 146,  93,  96,100		
         MOVE G6A,  88,  71, 152,  91, 106,100
