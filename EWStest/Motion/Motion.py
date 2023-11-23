@@ -118,7 +118,7 @@ class Motion:
             time.sleep(sleep) # 주석하면 큰일날듯
 
 
-    # 머리 각도 (36~67)
+    # 머리 각도 (36~69)
     def set_head(self, dir, angle=0):
         """
         dir: {DOWN, LEFT, RIGHT, UPDOWN_CENTER, LEFTRIGHT_CENTER} - 머리 방향
@@ -178,7 +178,7 @@ class Motion:
         # time.sleep(0.3)
         
     
-    # n도씩 set_head하기 (60~67)
+    # n도씩 set_head하기 (70~77)
     def set_head_small(self, dir, angle=0):
         """
         dir: {UP, DOWN, LEFT, RIGHT} - 머리 방향
@@ -216,17 +216,17 @@ class Motion:
             print("===========================")
 
         dir_list = {
-            "UP": {2: 60, 3:64},
-            "DOWN": {2: 61, 3:65},
-            "LEFT": {2: 62, 3:66},
-            "RIGHT": {2: 63, 3:67},
+            "UP": {2: 70, 3: 74},
+            "DOWN": {2: 71, 3: 75},
+            "LEFT": {2: 72, 3: 76},
+            "RIGHT": {2: 73, 3: 77},
         }
 
         self.TX_data_py3(dir_list[dir][angle])
         # time.sleep(0.3)
 
 
-    # 돌기 (68~79)
+    # 돌기 (78~89)
     def turn(self, dir, angle, loop=1, sleep=0.5):
         """
         dir: {LEFT, RIGHT} - 회전 방향
@@ -240,14 +240,15 @@ class Motion:
         dir : {LEFT, RIGHT}
         """
         dir_list = {
-            "LEFT": {3:68, 5:69, 10: 70, 20: 71, 45: 72, 60: 73},
-            "RIGHT": {3:74, 5:75, 10: 76, 20: 77, 45: 78, 60: 79},
+            "LEFT": {3:78, 5:79, 10: 80, 20: 81, 45: 82, 60: 83},
+            "RIGHT": {3:84, 5:85, 10: 86, 20: 87, 45: 88, 60: 89},
         }
         for _ in range(loop):
             self.TX_data_py3(dir_list[dir][angle])
             time.sleep(sleep) # 이 타임 슬립 지우면 절대 안 돼
 
-    # 옆으로 이동 (80, 81)
+
+    # 옆으로 이동 (90, 91)
     def walk_side(self, dir, loop=1, sleep=0.5):
         """
         dir: {LEFT, RIGHT} - 이동 
@@ -256,14 +257,14 @@ class Motion:
         """ parameter :
         dir : {LEFT, RIGHT}
         """
-        dir_list = {"LEFT": 80, "RIGHT": 81}
+        dir_list = {"LEFT": 90, "RIGHT": 91}
 
         for _ in range(loop):
             self.TX_data_py3(dir_list[dir])
             time.sleep(sleep)
 
 
-    # 공 치기 (2, 5 / 82, 85) (참고: 83, 84에 길게 치는 거 또 있음)
+    # 공 치기 (2, 5 / 92, 95) (참고: 93, 94에 길게 치는 거 또 있음)
     def hit_the_ball(self, dir, short=False):
         """
         dir: {LEFT, RIGHT} - 치는 방향
@@ -272,9 +273,9 @@ class Motion:
         dir_list = {"LEFT": 2, "RIGHT": 5}
         
 
-        # 짧게 치기: 왼쪽 82, 오른쪽 85
+        # 짧게 치기: 왼쪽 92, 오른쪽 95
         if short:
-            dir_list[dir] += 80
+            dir_list[dir] += 90
 
         if dir == "LEFT":
             print("왼쪽에서 치겠습니다.")

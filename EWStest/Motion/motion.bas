@@ -3249,110 +3249,110 @@ KEY69:
     GOTO 머리좌우중앙
     GOTO RX_EXIT
     '****************** n도씩 set_head ******************
-KEY60:
-    ETX 4800, 60
-    GOTO 전방상향  '2도씩 움직이기
-    GOTO RX_EXIT
-KEY61:
-    ETX 4800, 61
-    GOTO 전방하향  '2도씩 움직이기
-    GOTO RX_EXIT
-KEY62:
-    ETX 4800, 62
-    GOTO 좌향  '2도씩 움직이기
-    GOTO RX_EXIT
-KEY63:
-    ETX 4800, 63
-    GOTO 우향  '2도씩 움직이기
-    GOTO RX_EXIT
-KEY64:
-    ETX 4800, 64
-    GOTO 전방상향3도  '3도씩 움직이기
-    GOTO RX_EXIT
-KEY65:
-    ETX 4800, 65
-    GOTO 전방하향3도  '3도씩 움직이기
-    GOTO RX_EXIT
-KEY66:
-    ETX 4800, 66
-    GOTO 좌향3도  '3도씩 움직이기
-    GOTO RX_EXIT
-KEY67:
-    ETX 4800, 67
-    GOTO 우향3도  '3도씩 움직이기
-    GOTO RX_EXIT
-    '****************** turn ******************
-KEY68:
-    ETX 4800, 68
-    GOTO 왼쪽턴3
-    GOTO RX_EXIT
-KEY69:
-    ETX 4800, 69
-    GOTO 왼쪽턴5_골프
-    GOTO RX_EXIT
 KEY70:
     ETX 4800, 70
-    GOTO 왼쪽턴10_골프
+    GOTO 전방상향  '2도씩 움직이기
     GOTO RX_EXIT
 KEY71:
     ETX 4800, 71
-    GOTO 왼쪽턴20_골프
+    GOTO 전방하향  '2도씩 움직이기
     GOTO RX_EXIT
 KEY72:
     ETX 4800, 72
-    GOTO 왼쪽턴45_골프
+    GOTO 좌향  '2도씩 움직이기
     GOTO RX_EXIT
 KEY73:
     ETX 4800, 73
-    GOTO 왼쪽턴60_골프
+    GOTO 우향  '2도씩 움직이기
     GOTO RX_EXIT
 KEY74:
     ETX 4800, 74
-    GOTO 오른쪽턴3
+    GOTO 전방상향3도  '3도씩 움직이기
     GOTO RX_EXIT
 KEY75:
     ETX 4800, 75
-    GOTO 오른쪽턴5_골프
+    GOTO 전방하향3도  '3도씩 움직이기
     GOTO RX_EXIT
 KEY76:
     ETX 4800, 76
-    GOTO 오른쪽턴10_골프
+    GOTO 좌향3도  '3도씩 움직이기
     GOTO RX_EXIT
 KEY77:
     ETX 4800, 77
-    GOTO 오른쪽턴20_골프
+    GOTO 우향3도  '3도씩 움직이기
     GOTO RX_EXIT
+    '****************** turn ******************
 KEY78:
     ETX 4800, 78
-    GOTO 오른쪽턴45_골프
+    GOTO 왼쪽턴3
     GOTO RX_EXIT
 KEY79:
     ETX 4800, 79
-    GOTO 오른쪽턴60_골프
+    GOTO 왼쪽턴5_골프
     GOTO RX_EXIT
-    '**************** walk_side ********************
 KEY80:
     ETX 4800, 80
-    GOTO 왼쪽옆으로20_골프
+    GOTO 왼쪽턴10_골프
     GOTO RX_EXIT
 KEY81:
     ETX 4800, 81
-    GOTO 오른쪽옆으로20_골프
+    GOTO 왼쪽턴20_골프
     GOTO RX_EXIT
-    '**************** Putting ********************
 KEY82:
     ETX 4800, 82
-    GOTO 골프_오른쪽으로_샷5
+    GOTO 왼쪽턴45_골프
     GOTO RX_EXIT
 KEY83:
     ETX 4800, 83
-    GOTO 골프_왼쪽으로_샷10
+    GOTO 왼쪽턴60_골프
     GOTO RX_EXIT
 KEY84:
     ETX 4800, 84
-    GOTO 골프_오른쪽으로_샷10
+    GOTO 오른쪽턴3
     GOTO RX_EXIT
 KEY85:
     ETX 4800, 85
+    GOTO 오른쪽턴5_골프
+    GOTO RX_EXIT
+KEY86:
+    ETX 4800, 86
+    GOTO 오른쪽턴10_골프
+    GOTO RX_EXIT
+KEY87:
+    ETX 4800, 87
+    GOTO 오른쪽턴20_골프
+    GOTO RX_EXIT
+KEY88:
+    ETX 4800, 88
+    GOTO 오른쪽턴45_골프
+    GOTO RX_EXIT
+KEY89:
+    ETX 4800, 89
+    GOTO 오른쪽턴60_골프
+    GOTO RX_EXIT
+    '**************** walk_side ********************
+KEY90:
+    ETX 4800, 90
+    GOTO 왼쪽옆으로20_골프
+    GOTO RX_EXIT
+KEY91:
+    ETX 4800, 91
+    GOTO 오른쪽옆으로20_골프
+    GOTO RX_EXIT
+    '**************** Putting ********************
+KEY92:
+    ETX 4800, 92
+    GOTO 골프_오른쪽으로_샷5
+    GOTO RX_EXIT
+KEY93:
+    ETX 4800, 93
+    GOTO 골프_왼쪽으로_샷10
+    GOTO RX_EXIT
+KEY94:
+    ETX 4800, 94
+    GOTO 골프_오른쪽으로_샷10
+    GOTO RX_EXIT
+KEY95:
+    ETX 4800, 95
     GOTO 골프_왼쪽으로_샷5
     GOTO RX_EXIT
