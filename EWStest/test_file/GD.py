@@ -12,7 +12,7 @@ while True:
     hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
     # Color range for red
-    lower_red = np.array([0, 0, 50])
+    lower_red = np.array([10, 0, 50])
     upper_red = np.array([20, 200, 200])
     lower_red2 = np.array([137, 0, 0])
     upper_red2 = np.array([200, 255, 200])
