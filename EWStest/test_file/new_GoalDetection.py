@@ -116,14 +116,14 @@ class NewGoalDetection:
                         rect = cv2.minAreaRect(flag_cnt)
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
-                        # print('flag points :', box)
-                        # # cv2.drawContours(frame, [box], -1, (0,255,0), 3)
+                        print('flag points :', box)
+                        # cv2.drawContours(frame, [box], -1, (0,255,0), 3)
 
-                        # f_max_x, f_min_x = self.getMaxMin(box)
-                        # f_max_y, f_min_y = self.getyMaxMin(box)
-                        # isMiddle = self.judgeMiddle(f_max_x, f_min_x)
+                        f_max_x, f_min_x = self.getMaxMin(box)
+                        f_max_y, f_min_y = self.getyMaxMin(box)
+                        isMiddle = self.judgeMiddle(f_max_x, f_min_x)
                         
-                        # frame = self.get_dist(rect, frame, 'flag', isMiddle)
+                        frame = self.get_dist(rect, frame, 'flag', isMiddle)
                         
                     # flag의 중점값을 저장하는 리스트
                     flag_centers = []
@@ -135,14 +135,14 @@ class NewGoalDetection:
                             rect = cv2.minAreaRect(cnt)
                             box = cv2.boxPoints(rect)
                             box = np.int0(box)
-                            print('flag points :', box)
-                            # cv2.drawContours(frame, [box], -1, (0,255,0), 3)
+                            # print('flag points :', box)
+                            # # cv2.drawContours(frame, [box], -1, (0,255,0), 3)
 
-                            f_max_x, f_min_x = self.getMaxMin(box)
-                            f_max_y, f_min_y = self.getyMaxMin(box)
-                            isMiddle = self.judgeMiddle(f_max_x, f_min_x)
+                            # f_max_x, f_min_x = self.getMaxMin(box)
+                            # f_max_y, f_min_y = self.getyMaxMin(box)
+                            # isMiddle = self.judgeMiddle(f_max_x, f_min_x)
                             
-                            frame = self.get_dist(rect, frame, 'flag', isMiddle)
+                            # frame = self.get_dist(rect, frame, 'flag', isMiddle)
                             
                             cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
                             M = cv2.moments(cnt)
