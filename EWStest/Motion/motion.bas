@@ -411,7 +411,97 @@ GOSUB_RX_EXIT2:
     RETURN
     '**********************************************
     '**********************************************
+	' #############################################
+	
+	
+	
+	
+	
+횟수전진:
+    GOSUB All_motor_mode3
+    보행COUNT = 0
+    보행속도 = 13
+    좌우속도 = 5
+    넘어진확인= 0 
 
+
+
+	SPEED 4
+
+    MOVE G6A, 88,  74, 144,  95, 110
+    MOVE G6D,108,  76, 146,  93,  96
+    MOVE G6B,100
+    MOVE G6C,100
+    WAIT
+
+    SPEED 10
+
+    MOVE G6A, 90, 90, 120, 105, 110,100
+    MOVE G6D,110,  76, 147,  93,  96,100
+    MOVE G6B,90
+    MOVE G6C,110
+    WAIT
+
+
+    GOTO 횟수전진_골프_1
+
+
+    '**********************
+
+횟수전진_골프_1:
+
+    ETX 4800,11 '진행코드를 보냄
+    SPEED 보행속도
+
+    MOVE G6A, 86,  56, 145, 115, 110
+    MOVE G6D,108,  76, 147,  93,  96
+    WAIT
+
+	SPEED 좌우속도
+    GOSUB Leg_motor_mode3
+
+    MOVE G6A,110,  76, 147, 93,  96
+    MOVE G6D,86, 100, 145,  69, 110
+    WAIT
+
+
+    SPEED 보행속도
+
+    GOSUB 앞뒤기울기측정
+    IF 넘어진확인 = 1 THEN
+        넘어진확인 = 0
+        GOTO MAIN
+    ENDIF
+
+	보행COUNT = 보행COUNT + 1
+	IF 보행COUNT > 보행횟수 THEN GOTO 횟수전진_골프_2_stop
+
+        
+횟수전진_골프_2_stop:   
+        MOVE G6A,112,  76, 146,  93, 96,100
+        MOVE G6D,90, 100, 100, 115, 110,100
+        MOVE G6B,110
+        MOVE G6C,90
+        WAIT
+
+        SPEED 8
+        MOVE G6A, 106,  76, 146,  93,  96,100		
+        MOVE G6D,  88,  71, 152,  91, 106,100
+        MOVE G6B, 100
+        MOVE G6C, 100
+        WAIT	
+
+        SPEED 2
+        GOSUB 기본자세2
+
+        GOTO RX_EXIT
+
+    '*********************************
+	
+	
+	
+	
+	
 
 
     ' #############################################
@@ -1132,18 +1222,18 @@ GOSUB_RX_EXIT2:
     MOTORMODE G6D,3,3,3,3,2
 
     SPEED 12
-    MOVE G6D, 95,  90, 125, 100, 107, 100
-    MOVE G6A,107,  77, 147,  93, 107 , 100
+    MOVE G6D, 95,  90, 125, 100, 104, 100
+    MOVE G6A,105,  76, 146,  93, 104 , 100
     WAIT
 
     SPEED 12
-    MOVE G6D, 102,  77, 147, 93, 100, 100
+    MOVE G6D, 102,  76, 146, 93, 100, 100
     MOVE G6A,90,  80, 140,  95, 107, 100
     WAIT
 
     SPEED 12
-    MOVE G6D,95,  76, 147,  93, 98, 100
-    MOVE G6A,95,  76, 147,  93, 98, 100
+    MOVE G6D,95,  76, 146,  93, 98, 100
+    MOVE G6A,95,  76, 146,  93, 98, 100
     WAIT
 
     SPEED 3
@@ -1397,13 +1487,13 @@ GOSUB_RX_EXIT2:
     MOTORMODE G6A,3,3,3,3,2
     MOTORMODE G6D,3,3,3,3,2
     SPEED 5
-    MOVE G6A,97,  71, 145,  98, 103, 100
-    MOVE G6D,97,  81, 145,  88, 103, 100
+    MOVE G6A,94,  71, 145,  98, 100, 100
+    MOVE G6D,100,  81, 145,  88, 106, 100
     WAIT
 
     SPEED 12
-    MOVE G6A,94,  71, 145,  98, 101, 100
-    MOVE G6D,94,  81, 145,  88, 101, 100
+    MOVE G6A,91,  71, 145,  98, 96, 100
+    MOVE G6D,97,  81, 145,  88, 104, 100
     WAIT
     SPEED 6
     MOVE G6A,101,  76, 146,  93, 98, 100
@@ -1441,13 +1531,13 @@ GOSUB_RX_EXIT2:
     MOTORMODE G6A,3,3,3,3,2
     MOTORMODE G6D,3,3,3,3,2
     SPEED 5
-    MOVE G6A,97,  66, 145,  103, 103, 100
-    MOVE G6D,97,  86, 145,  83, 103, 100
+    MOVE G6A,94,  66, 145,  103, 100, 100
+    MOVE G6D,100,  86, 145,  83, 106, 100
     WAIT
 
     SPEED 12
-    MOVE G6A,94,  66, 145,  103, 101, 100
-    MOVE G6D,94,  86, 145,  83, 101, 100
+    MOVE G6A,91,  66, 145,  103, 96, 100
+    MOVE G6D,97,  86, 145,  83, 101, 100
     WAIT
     SPEED 6
     MOVE G6A,101,  76, 146,  93, 98, 100
@@ -1462,6 +1552,7 @@ GOSUB_RX_EXIT2:
 왼쪽턴20_골프:
     MOTORMODE G6A,3,3,3,3,2
     MOTORMODE G6D,3,3,3,3,2
+    
     SPEED 8
     MOVE G6A,95,  96, 145,  73, 108, 100
     MOVE G6D,91,  56, 145,  113, 102, 100
@@ -1471,6 +1562,7 @@ GOSUB_RX_EXIT2:
     MOVE G6A,91,  96, 145,  73, 108, 100
     MOVE G6D,88,  56, 145,  113, 102, 100
     WAIT
+    
     SPEED 6
     MOVE G6A,101,  76, 146,  93, 98, 100
     MOVE G6D,101,  76, 146,  93, 98, 100
@@ -1483,20 +1575,20 @@ GOSUB_RX_EXIT2:
 오른쪽턴20_골프:
     MOTORMODE G6A,3,3,3,3,2
     MOTORMODE G6D,3,3,3,3,2
+    
     SPEED 8
-    MOVE G6A,95,  56, 145,  113, 105, 100
-    MOVE G6D,95,  96, 145,  73, 105, 100
+    MOVE G6A,91,  56, 145,  113, 102, 100
+    MOVE G6D,95,  96, 145,  73, 108, 100
     WAIT
 
     SPEED 12
-    MOVE G6A,93,  56, 145,  113, 105, 100
-    MOVE G6D,93,  96, 145,  73, 105, 100
+    MOVE G6A,88,  56, 145,  113, 102, 100
+    MOVE G6D,91,  96, 145,  73, 108, 100
     WAIT
 
     SPEED 6
     MOVE G6A,101,  76, 146,  93, 98, 100
     MOVE G6D,101,  76, 146,  93, 98, 100
-
     WAIT
 
     GOSUB 기본자세2
@@ -1536,13 +1628,13 @@ GOSUB_RX_EXIT2:
 
 
     SPEED 10
-    MOVE G6A,95,  46, 145,  123, 105, 100
-    MOVE G6D,95,  106, 145,  63, 105, 100
+    MOVE G6A,91,  46, 145,  123, 102, 100
+    MOVE G6D,95,  106, 145,  63, 108, 100
     WAIT
 
     SPEED 12
-    MOVE G6A,93,  46, 145,  123, 105, 100
-    MOVE G6D,93,  106, 145,  63, 105, 100
+    MOVE G6A,88,  46, 145,  123, 102, 100
+    MOVE G6D,91,  106, 145,  63, 108, 100
     WAIT
 
     SPEED 8
@@ -1577,13 +1669,13 @@ GOSUB_RX_EXIT2:
 
 
     SPEED 15
-    MOVE G6A,95,  36, 145,  133, 105, 100
-    MOVE G6D,95,  116, 145,  53, 105, 100
+    MOVE G6A,91,  36, 145,  133, 102, 100
+    MOVE G6D,95,  116, 145,  53, 108, 100
     WAIT
 
     SPEED 15
-    MOVE G6A,90,  36, 145,  133, 105, 100
-    MOVE G6D,90,  116, 145,  53, 105, 100
+    MOVE G6A,88,  36, 145,  133, 102, 100
+    MOVE G6D,91,  116, 145,  53, 108, 100
     WAIT
 
     SPEED 10
@@ -1769,6 +1861,8 @@ GOSUB_RX_EXIT2:
     MOVE G6C,100,  100,  80, 190
     WAIT
     mode = 2
+    
+    GOSUB 기본자세
     RETURN
 
     '******************************************
@@ -2135,7 +2229,7 @@ GOSUB_RX_EXIT2:
     '******************************************
 전방하향:
     SPEED 머리이동속도
-    angle_y = angle_y - 1
+    angle_y = angle_y - 2
     IF angle_y < 10 THEN
         MUSIC "C"
         angle_y = 10
@@ -2150,7 +2244,7 @@ GOSUB_RX_EXIT2:
     '******************************************
 전방상향:
     SPEED 머리이동속도
-    angle_y = angle_y + 1
+    angle_y = angle_y + 2
     IF angle_y > 110 THEN
         MUSIC "C"
         angle_y = 110
@@ -2166,7 +2260,7 @@ GOSUB_RX_EXIT2:
     '******************************************
 우향:
     SPEED 머리이동속도
-    angle_x = angle_x + 1
+    angle_x = angle_x + 2
     IF angle_x > 190 THEN
         MUSIC "C"	
         angle_x = 190
@@ -2181,7 +2275,7 @@ GOSUB_RX_EXIT2:
     '******************************************	
 좌향:
     SPEED 머리이동속도
-    angle_x = angle_x - 1
+    angle_x = angle_x - 2
     IF angle_x < 10 THEN
         MUSIC "C"
         angle_x = 10
@@ -2769,7 +2863,7 @@ KEY7:
 KEY8:
     ETX  4800,8
 
-    GOTO 세레머니
+    GOSUB 세레머니
 
 
     GOTO RX_EXIT
@@ -2966,7 +3060,7 @@ KEY26: ' ■
     '***************
 KEY27: ' D
     ETX  4800,27
-    GOTO 머리오른쪽90도
+    GOTO 횟수전진
 
 
     GOTO RX_EXIT
