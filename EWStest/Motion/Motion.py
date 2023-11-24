@@ -109,7 +109,7 @@ class Motion:
     def basic(self):
         self.TX_data_py3(100)
 
-    # 걷기 (101~120)
+    # 걷기 (34, 35)
     def walk(self, dir, loop=1, sleep=0.1, short=False):
         """
         dir: {FORWARD, BACKWARD} - 로봇 이동 방향
@@ -121,7 +121,7 @@ class Motion:
         """ parameter :
         dir : {FORWARD, BACKWARD}
         """
-        dir_list = {"FORWARD": 101, "BACKWARD": 111}  # motion.bas 수정 해야할 듯?
+        dir_list = {"FORWARD": 34, "BACKWARD": 35}
         if short:
             dir_list[dir] += 1
 
@@ -130,7 +130,7 @@ class Motion:
             time.sleep(sleep) # 주석하면 큰일날듯
 
 
-    # 머리 각도 (121~140)
+    # 머리 각도 (36~69)
     def set_head(self, dir, angle=0):
         """
         dir: {DOWN, LEFT, RIGHT, UPDOWN_CENTER, LEFTRIGHT_CENTER} - 머리 방향
@@ -154,32 +154,32 @@ class Motion:
             print("x_head_angle: ", self.x_head_angle)
             print("===========================")
 
-        center_list = {"UPDOWN_CENTER": 140, "LEFTRIGHT_CENTER": 135}
+        center_list = {"UPDOWN_CENTER": 68, "LEFTRIGHT_CENTER": 69}
         dir_list = {
             "DOWN": {
-                20: 121,
-                21: 198,
-                30: 122,
-                33: 195,
-                40: 189,
-                42: 194,
-                45: 123,
-                46: 199,
-                50: 188,
-                55: 124,
-                60: 125,
-                73: 193,
-                75: 126,
-                80: 127,
-                85: 192,
-                90: 128,
-                92: 191,
-                95: 190,
-                100: 129,
-                110: 130,
+                20: 36,
+                21: 37,
+                30: 38,
+                33: 39,
+                40: 40,
+                42: 41,
+                45: 42,
+                46: 43,
+                50: 44,
+                55: 45,
+                60: 46,
+                73: 47,
+                75: 48,
+                80: 49,
+                85: 50,
+                90: 51,
+                92: 52,
+                95: 53,
+                100: 54,
+                110: 55,
             },
-            "LEFT": {30: 134, 40: 196, 45: 133, 54: 173, 60: 132, 90: 131},
-            "RIGHT": {30: 136, 45: 137, 54: 172, 60: 138, 69: 197, 90: 139},
+            "LEFT": {30: 56, 40: 57, 45: 58, 54: 59, 60: 60, 90: 61},
+            "RIGHT": {30: 62, 45: 63, 54: 64, 60: 65, 69: 66, 90: 67},
         }
 
         if dir in center_list:
@@ -188,64 +188,9 @@ class Motion:
             self.TX_data_py3(dir_list[dir][angle])
 
         # time.sleep(0.3)
-
-    # 돌기 (141~160) + (178~181)
-    def turn(self, dir, angle, loop=1, sleep=0.5):
-        """
-        dir: {LEFT, RIGHT} - 회전 방향
-        angle: 회전 각도
-        loop: 반복 횟수
-        sleep: 각 동작 간 간격 (초)
-        arm: 팔을 들고 회전 여부
-        """
-
-        """ parameter :
-        dir : {LEFT, RIGHT}
-        """
-        dir_list = {
-            "LEFT": {3:181, 5:179, 10: 141, 20: 142, 45: 143, 60: 144},
-            "RIGHT": {3:180, 5:178, 10: 145, 20: 146, 45: 147, 60: 148},
-        }
-        for _ in range(loop):
-            self.TX_data_py3(dir_list[dir][angle])
-            time.sleep(sleep) # 이 타임 슬립 지우면 절대 안 돼
-
-    # 옆으로 이동 (161~169)
-    def walk_side(self, dir, loop=1, sleep=0.5):
-        """
-        dir: {LEFT, RIGHT} - 이동 
-        """
-
-        """ parameter :
-        dir : {LEFT, RIGHT}
-        """
-        dir_list = {"LEFT": 161, "RIGHT": 169}
-
-        for _ in range(loop):
-            self.TX_data_py3(dir_list[dir])
-            time.sleep(sleep)
-
-    # 공 치기 (170~171)
-    def hit_the_ball(self, dir, short=False):
-        """
-        dir: {LEFT, RIGHT} - 치는 방향
-        """
-
-        dir_list = {"LEFT": 2, "RIGHT": 5}
         
-
-        if short:
-            dir_list[dir] += 16 # 짧게 치는게 왼쪽 187, 오른쪽 186임.
-
-        if dir == "LEFT":
-            print("왼쪽에서 치겠습니다.")
-            self.TX_data_py3(dir_list[dir])
-        elif dir == "RIGHT":
-            print("오른쪽에서 치겠습니다.")
-            self.TX_data_py3(dir_list[dir])
-        time.sleep(8)
-
-    # 1도씩 set_head하기 (174~177) + (182+185)
+    
+    # n도씩 set_head하기 (70~77)
     def set_head_small(self, dir, angle=0):
         """
         dir: {UP, DOWN, LEFT, RIGHT} - 머리 방향
@@ -283,14 +228,74 @@ class Motion:
             print("===========================")
 
         dir_list = {
-            "UP": {2: 175, 3:183},
-            "DOWN": {2: 174, 3:182},
-            "LEFT": {2: 176, 3:184},
-            "RIGHT": {2: 177, 3:185},
+            "UP": {2: 70, 3: 74},
+            "DOWN": {2: 71, 3: 75},
+            "LEFT": {2: 72, 3: 76},
+            "RIGHT": {2: 73, 3: 77},
         }
 
         self.TX_data_py3(dir_list[dir][angle])
         # time.sleep(0.3)
+
+
+    # 돌기 (78~89)
+    def turn(self, dir, angle, loop=1, sleep=0.5):
+        """
+        dir: {LEFT, RIGHT} - 회전 방향
+        angle: 회전 각도
+        loop: 반복 횟수
+        sleep: 각 동작 간 간격 (초)
+        arm: 팔을 들고 회전 여부
+        """
+
+        """ parameter :
+        dir : {LEFT, RIGHT}
+        """
+        dir_list = {
+            "LEFT": {3:78, 5:79, 10: 80, 20: 81, 45: 82, 60: 83},
+            "RIGHT": {3:84, 5:85, 10: 86, 20: 87, 45: 88, 60: 89},
+        }
+        for _ in range(loop):
+            self.TX_data_py3(dir_list[dir][angle])
+            time.sleep(sleep) # 이 타임 슬립 지우면 절대 안 돼
+
+
+    # 옆으로 이동 (90, 91)
+    def walk_side(self, dir, loop=1, sleep=0.5):
+        """
+        dir: {LEFT, RIGHT} - 이동 
+        """
+
+        """ parameter :
+        dir : {LEFT, RIGHT}
+        """
+        dir_list = {"LEFT": 90, "RIGHT": 91}
+
+        for _ in range(loop):
+            self.TX_data_py3(dir_list[dir])
+            time.sleep(sleep)
+
+
+    # 공 치기 (2, 5 / 92, 95) (참고: 93, 94에 길게 치는 거 또 있음)
+    def hit_the_ball(self, dir, short=False):
+        """
+        dir: {LEFT, RIGHT} - 치는 방향
+        """
+
+        dir_list = {"LEFT": 2, "RIGHT": 5}
+        
+
+        # 짧게 치기: 왼쪽 92, 오른쪽 95
+        if short:
+            dir_list[dir] += 90
+
+        if dir == "LEFT":
+            print("왼쪽에서 치겠습니다.")
+            self.TX_data_py3(dir_list[dir])
+        elif dir == "RIGHT":
+            print("오른쪽에서 치겠습니다.")
+            self.TX_data_py3(dir_list[dir])
+        time.sleep(8)
 
   
     # 세레머니하기 (8)

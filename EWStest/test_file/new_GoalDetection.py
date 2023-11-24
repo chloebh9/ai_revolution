@@ -116,18 +116,19 @@ class NewGoalDetection:
                         rect = cv2.minAreaRect(flag_cnt)
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
-                        # print('flag points :', box)
-                        # # cv2.drawContours(frame, [box], -1, (0,255,0), 3)
+                        print('flag points :', box)
+                        # cv2.drawContours(frame, [box], -1, (0,255,0), 3)
 
-                        # f_max_x, f_min_x = self.getMaxMin(box)
-                        # f_max_y, f_min_y = self.getyMaxMin(box)
-                        # isMiddle = self.judgeMiddle(f_max_x, f_min_x)
+                        f_max_x, f_min_x = self.getMaxMin(box)
+                        f_max_y, f_min_y = self.getyMaxMin(box)
+                        isMiddle = self.judgeMiddle(f_max_x, f_min_x)
                         
-                        # frame = self.get_dist(rect, frame, 'flag', isMiddle)
+                        frame = self.get_dist(rect, frame, 'flag', isMiddle)
                         
                     # flag의 중점값을 저장하는 리스트
                     flag_centers = []
 
+                    is_flag = False
                     for cnt in yellow_contours:
                         # 영역의 면적 계산
                         area = cv2.contourArea(cnt)
@@ -135,14 +136,19 @@ class NewGoalDetection:
                             rect = cv2.minAreaRect(cnt)
                             box = cv2.boxPoints(rect)
                             box = np.int0(box)
-                            print('flag points :', box)
-                            # cv2.drawContours(frame, [box], -1, (0,255,0), 3)
-
-                            f_max_x, f_min_x = self.getMaxMin(box)
-                            f_max_y, f_min_y = self.getyMaxMin(box)
-                            isMiddle = self.judgeMiddle(f_max_x, f_min_x)
+                            # 사각형의 중심 계산
+                            rect_center_x = np.mean([point[0] for point in box])
+                            rect_center_y = np.mean([point[1] for point in box])
+                            rect_center = (rect_center_x, rect_center_y)
                             
-                            frame = self.get_dist(rect, frame, 'flag', isMiddle)
+                            # print('flag points :', box)
+                            # # cv2.drawContours(frame, [box], -1, (0,255,0), 3)
+
+                            # f_max_x, f_min_x = self.getMaxMin(box)
+                            # f_max_y, f_min_y = self.getyMaxMin(box)
+                            # isMiddle = self.judgeMiddle(f_max_x, f_min_x)
+                            
+                            # frame = self.get_dist(rect, frame, 'flag', isMiddle)
                             
                             cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
                             M = cv2.moments(cnt)
@@ -150,9 +156,14 @@ class NewGoalDetection:
                                 cx = int(M['m10'] / M['m00'])
                                 cy = int(M['m01'] / M['m00'])
                                 cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-
+                                
                                 # flag_centers 리스트에 중점값 추가
                                 flag_centers.append((cx, cy))
+                                
+                                contour_center = (cx, cy)
+
+                                dist = np.sqrt((rect_center[0] - contour_center[0]) ** 2 + (rect_center[1] - contour_center[1]) ** 2)
+                                is_flag = dist <= 15
 
                     # 공 찾기 추가
                     # ball hsv
@@ -210,7 +221,7 @@ class NewGoalDetection:
                         
                         goal_range = 15
                         #공이 있을 때
-                        if cont:
+                        if cont and is_flag:
                             # 공이 (홀컵기준)밑에 있을 때
                             if (f_min_y + f_max_y)/2 < (b_min_y + b_max_y)/2:
                                 if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y <= b_min_y and b_max_y <= f_max_y - goal_range:
