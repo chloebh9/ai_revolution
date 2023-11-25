@@ -340,6 +340,7 @@ class Controller:
                 y_dir += 1
                 time.sleep(0.2)
                 if y_dir == len(down_y):
+                    return False # 공을 아예 못 찾을 시, 그냥 false return
                     break
         
                 # 고개 오른쪽으로 찾기
@@ -1005,6 +1006,7 @@ class Controller:
 #############################################################################
         elif act == act.SEARCH_FLAG:
             print("Act:", act)  # Debug
+            shot_way = "N" # 오류 방지를 위한 shot_way 정의(shot_way가 N이면 아직 공을 찾지 않았다는 의미)
 
             while(True):
 
@@ -1047,7 +1049,15 @@ class Controller:
                 # print(dist_ball)
                 
                 # 공이 로봇 화면에서 공이 중심에 있을 수 있도록 로봇의 고개를 돌려 x, y를 맞춤
-                self.check_ball_distance()
+                # 만약 공이 안 잡히고, shot_way가 N이면 앞으로 걷고, 다시 깃발부터 찾기
+                # 만약 공이 안 잡히고, shot_way가 R이나 L이면 hit_will_angle을 90으로 설정하고, 티샷파트로 넘어감
+                if self.check_ball_distance() == False:
+                    if shot_way == "N":
+                        self.robo._motion.walk("FORWARD", 1)
+                        continue
+                    else:
+                        hit_will_anlge = 90
+                        break
 
                 time.sleep(0.2)
 
