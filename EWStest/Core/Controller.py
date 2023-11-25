@@ -826,7 +826,7 @@ class Controller:
         
             if self.L_right == 1:  # 퍼팅 판단 return 받은걸로 모션
                 print("로봇: 왼쪽, 공: 오른쪽")
-                self.robo._motion.walk("FORWARD", 10, 1.0)
+                self.robo._motion.walk("FORWARD", 10, 3.5)
                 time.sleep(0.1)
 
                 # 화면에 보이는 공을 화면상의 중심에 맞추기 위해, 로봇의 몸체를 좌우로 이동
@@ -836,7 +836,7 @@ class Controller:
             
             elif self.L_center == 1:
                 print("로봇: 왼쪽, 공: 가운데")
-                self.robo._motion.walk("FORWARD", 5, 1.0)
+                self.robo._motion.walk("FORWARD", 5, 3.5)
                 time.sleep(0.1)
 
                 # 화면에 보이는 공을 화면상의 중심에 맞추기 위해, 로봇의 몸체를 좌우로 이동
