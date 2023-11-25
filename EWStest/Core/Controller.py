@@ -1090,6 +1090,9 @@ class Controller:
                 print(real_angle)
                 print("distflag: ",distflag)
                 
+                self.robo._motion.set_head("LEFTRIGHT_CENTER")
+                self.robo._motion.set_head("UPDOWN_CENTER")
+                
                 self.check_flag()   # 깃발 찾기
                 time.sleep(0.1)
                 self.check_flag_distance() # 깃발 센터 맞추기
