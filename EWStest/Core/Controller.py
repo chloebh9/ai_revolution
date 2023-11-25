@@ -1118,8 +1118,83 @@ class Controller:
                 self.find_best_actions(hit_will_anlge, shot_way)
 
             time.sleep(0.1)
-            print("퍼팅 위치까지 왔습니다.")
-            print("퍼팅해주세요")    
+            
+            # +======================== 티샷 보정하는 부분 ==============================================+
+            print("티샷 보정을 시작하겠습니다.")
+
+            # ballycenter = BallyCenterMeasurer(img_width=640, img_height=480)
+            ball_y_angle = ["N"]  # 공을 못 찾았을 때 반환하는 값
+            correctAngle = 0
+            putting_angle = 30
+            putting_angle_error = 2
+            # dist_Process = DistMeasurer()
+
+            while correctAngle != 1:
+                # 이미 x축 기준으로 센터이므로, y축 기준으로 어디에 있는지 판별
+                ball_y_angle = ballycenter.process()
+                time.sleep(0.2)
+                if ball_y_angle[0] == "C":
+                    print("ball_y_angle: ", ball_y_angle[0])
+                    print("중앙에 왔습니다.")
+                    correctAngle = 1
+                    break
+
+                elif ball_y_angle[0] == "D" or ball_y_angle[0] == "U":
+                    
+                    # 아래로 1도씩 움직이기
+                    recent_will_angle = 3
+                    while True:
+                        self.ball_feature_ball()
+                        before_ball_y_angle = copy.copy(ball_y_angle[0])
+                        ball_y_angle = ballycenter.process()
+                        time.sleep(0.2)
+                        print("ball_y: ", ball_y_angle[0])
+
+                        if before_ball_y_angle != ball_y_angle[0]:  # 이전에 고개를 돌렸던 값과 현재 고개를 돌릴 값이 일치하면 3도 말고 1도씩만 돌리게 만듬
+                            recent_will_angle = 2
+
+                        if ball_y_angle[0] == "U":
+                            self.robo._motion.set_head_small("UP", recent_will_angle)
+                            time.sleep(0.1)
+
+                        elif ball_y_angle[0] == "D":
+                            self.robo._motion.set_head_small("DOWN", recent_will_angle)
+                            time.sleep(0.1)
+                        
+                        elif ball_y_angle[0] == "C":
+                            correctAngle = 1
+                            print("중앙에 왔습니다.")
+                        
+                            # 공 센터 맞추면 해당 각도 저장
+                            ball_angle = self.robo._motion.y_head_angle
+                            print("공 찾아서 각도 저장함")
+
+                            # dist = dist_Process.display_distance(abs(ball_angle - 11.6))
+                            robot_ball_angle = ball_angle - 11.6
+
+                            # print("dist:",dist)
+                            print("robot_ball_angle", robot_ball_angle)
+                            print("======================")
+                            time.sleep(0.1)
+
+                            if robot_ball_angle > (putting_angle - putting_angle_error) and robot_ball_angle < (putting_angle + putting_angle_error):
+                                print("보정완료")
+                                break
+
+                            elif robot_ball_angle < (putting_angle - putting_angle_error):
+                                print("뒤로 가겠습니다.")
+                                self.robo._motion.walk("BACKWARD", 1)
+
+                            elif robot_ball_angle > (putting_angle + putting_angle_error):
+                                print("앞으로 가겠습니다.")
+                                self.robo._motion.walk("FORWARD", 1)
+
+                            else:
+                                print("T샷 C_left 오류")
+
+            # ========================================== 티샷 보정하는 부분의 끝 ==================================================
+            
+            print("퍼팅하겠습니다")
 
             if flag_ball_dis <= 60:
                 self.robo._motion.hit_the_ball("LEFT",short=True) # 짧게 치기
