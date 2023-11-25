@@ -123,7 +123,7 @@ class Motion:
         """ parameter :
         dir : {FORWARD, BACKWARD}
         """
-        dir_list = {"FORWARD": 27, "BACKWARD": 35}
+        dir_list = {"FORWARD": 34, "BACKWARD": 35}
         if short:
             dir_list[dir] += 1
 
