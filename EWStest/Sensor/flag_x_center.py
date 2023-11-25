@@ -109,9 +109,9 @@ class FlagxCenterMeasurer:
         cv2.destroyAllWindows()
 
         if self.farthest_flag_boxes:
-            print("여기 실행")
-            max_x, min_x, max_y, min_y = self.max_x, self.min_x, self.max_y, self.min_y
-        print(max_x)
+            max_x, min_x, max_y, min_y = x+farthest_flag_center[0], x, y+farthest_flag_center[0], y
+            # max_x, min_x, max_y, min_y = self.max_x, self.min_x, self.max_y, self.min_y
+
         flag_x_isMiddle = self.judgeMiddle(max_x, min_x)
         return [flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1], have_flag]
 
