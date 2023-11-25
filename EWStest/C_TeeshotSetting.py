@@ -139,7 +139,7 @@ class BallCenterMeasurer:
 
             image = cv2.putText(
                 img,
-                "flag Middle : {}, robot_x_angle: {}, robot_y_angle".format(ball_y_isMiddle, x_angle, y_angle),
+                "flag Middle : {}, robot_x_angle: {}".format(ball_y_isMiddle, x_angle),
                 org,
                 font,
                 1,
