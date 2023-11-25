@@ -968,7 +968,7 @@ class Controller:
                             print("공 찾아서 각도 저장함")
 
                             # dist = dist_Process.display_distance(abs(ball_angle - 11.6))
-                            robot_ball_angle = ball_angle - 16.6
+                            robot_ball_angle = ball_angle - 11.6
 
                             # print("dist:",dist)
                             print("robot_ball_angle", robot_ball_angle)
@@ -1045,7 +1045,7 @@ class Controller:
             time.sleep(0.2)
 
             ball_angle = self.robo._motion.x_head_angle
-            angle = abs(self.robo._motion.y_head_angle - 11.6)  # angle 값 수정
+            angle = abs(self.robo._motion.y_head_angle - 16.6)  # angle 값 수정
             distball = DistMeasurer().display_distance(angle) # 공 거리값
             print("ball distance: ", end="") 
             print(distball)
