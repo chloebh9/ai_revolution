@@ -340,6 +340,7 @@ class Controller:
                 y_dir += 1
                 time.sleep(0.2)
                 if y_dir == len(down_y):
+                    return False # 공을 아예 못 찾을 시, 그냥 false return
                     break
         
                 # 고개 오른쪽으로 찾기
@@ -358,6 +359,9 @@ class Controller:
                         break
                 self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
                 time.sleep(0.2)
+
+                if find_ball == True:
+                    break
                 
                 x_dir = 0
                 # 고개 왼쪽으로 찾기
@@ -1002,6 +1006,7 @@ class Controller:
 #############################################################################
         elif act == act.SEARCH_FLAG:
             print("Act:", act)  # Debug
+            shot_way = "N" # 오류 방지를 위한 shot_way 정의(shot_way가 N이면 아직 공을 찾지 않았다는 의미)
 
             while(True):
 
@@ -1044,7 +1049,15 @@ class Controller:
                 # print(dist_ball)
                 
                 # 공이 로봇 화면에서 공이 중심에 있을 수 있도록 로봇의 고개를 돌려 x, y를 맞춤
-                self.check_ball_distance()
+                # 만약 공이 안 잡히고, shot_way가 N이면 앞으로 걷고, 다시 깃발부터 찾기
+                # 만약 공이 안 잡히고, shot_way가 R이나 L이면 hit_will_angle을 90으로 설정하고, 티샷파트로 넘어감
+                if self.check_ball_distance() == False:
+                    if shot_way == "N":
+                        self.robo._motion.walk("FORWARD", 1)
+                        continue
+                    else:
+                        hit_will_anlge = 90
+                        break
 
                 time.sleep(0.2)
 
@@ -1094,7 +1107,7 @@ class Controller:
                 hit_angle = int(hit_angle)
                 self.find_best_actions(hit_angle, shot_way)
 
-                if (hit_dist < 10):
+                if (hit_dist < 15):
                     print("퍼팅 지점과 매우 가까움")
                     print("퍼팅할 준비를 하겠습니다.")
                     break
@@ -1104,6 +1117,7 @@ class Controller:
                 self.robo._motion.walk("FORWARD", will_goto_ball, 3.0)  # 퍼팅 지점까지 걸어가기
                 print("퍼팅 지점까지 이동")
 
+            # 로봇이 퍼팅 지점 예측을 멈추고, 티샷 준비를 하는 상황 (티샷 부분)
             if ball_is_flag_back == False: # 공이 깃발 뒤에 있을 떄
                 if shot_way == "R": # 깃발 뒤에 있으면 치는 방향이 바뀌기 때문에 
                     shot_way = "L" # shot_way를 L로 
@@ -1119,7 +1133,7 @@ class Controller:
 
             time.sleep(0.1)
             
-            # +======================== 티샷 보정하는 부분 ==============================================+
+            # +======================== 티샷 보정하는 부분(공이 가운데 올 때까지 로봇을 움직여 x,y 조절) ==============================================+
             print("티샷 보정을 시작하겠습니다.")
 
             # ballycenter = BallyCenterMeasurer(img_width=640, img_height=480)
@@ -1192,6 +1206,7 @@ class Controller:
                             else:
                                 print("T샷 C_left 오류")
 
+
             # ========================================== 티샷 보정하는 부분의 끝 ==================================================
             
             print("퍼팅하겠습니다")
@@ -1204,7 +1219,7 @@ class Controller:
             
             
             # 홀컵과 공의 거리의 차를 구해서 홀인 체크 파트로 넘어가는 부분
-            if abs(flag_ball_dis) <= 30:
+            if abs(flag_ball_dis) <= 10:
                 self.act = act.CHECK
             else:
                 self.act = act.SEARCH_BALL
