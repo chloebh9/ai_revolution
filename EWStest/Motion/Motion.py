@@ -271,7 +271,7 @@ class Motion:
         """ parameter :
         dir : {LEFT, RIGHT}
         """
-        dir_list = {"LEFT": 90, "RIGHT": 91}
+        dir_list = {"LEFT": 14, "RIGHT": 13}
 
         for _ in range(loop):
             self.TX_data_py3(dir_list[dir])

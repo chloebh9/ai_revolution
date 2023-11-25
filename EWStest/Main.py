@@ -13,13 +13,13 @@ def main():
 if __name__ == "__main__":
     Motion = Motion()
 
-    Motion.TX_data_py3(90)
-    time.sleep(1)
-    Motion.TX_data_py3(91)
-    time.sleep(1)
-    Motion.TX_data_py3(13)
-    time.sleep(1)
-    Motion.TX_data_py3(14)
+    # Motion.TX_data_py3(90)
+    # time.sleep(1)
+    # Motion.TX_data_py3(91)
+    # time.sleep(1)
+    # Motion.TX_data_py3(13)
+    # time.sleep(1)
+    # Motion.TX_data_py3(14)
 
     # Motion.TX_data_py3(143)
     # time.sleep(0.5)
