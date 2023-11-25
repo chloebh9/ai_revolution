@@ -1097,7 +1097,7 @@ class Controller:
                 hit_angle = int(hit_angle)
                 self.find_best_actions(hit_angle, shot_way)
 
-                if (hit_dist < 10):
+                if (hit_dist < 15):
                     print("퍼팅 지점과 매우 가까움")
                     print("퍼팅할 준비를 하겠습니다.")
                     break
