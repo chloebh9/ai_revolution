@@ -459,7 +459,7 @@ class Controller:
                     print("ball_x: ", ball_x_angle[0])
 
                     if before_ball_x_angle != ball_x_angle[0]:
-                        recent_will_angle = 1
+                        recent_will_angle = 2
 
                     if ball_x_angle[0] == "L":
                         self.robo._motion.set_head_small("LEFT", recent_will_angle)
