@@ -44,12 +44,14 @@ class Motion:
         
         if self.lock == False:
             self.serial_port.write(serial.to_bytes([one_byte]))  # python3
+            print("Debug 지워야 함: 데이터 보냄")
             self.lock = True
             #time.sleep(0.1)
         else:
             while True:
                 if self.lock == False:
                     self.serial_port.write(serial.to_bytes([one_byte]))  # python3
+                    print("Debug 지워야 함: 데이터 보냄")
                     self.lock = True
                     break
                 else:
