@@ -1003,97 +1003,106 @@ class Controller:
         elif act == act.SEARCH_FLAG:
             print("Act:", act)  # Debug
 
-            self.robo._motion.set_head("DOWN", 90)
-            time.sleep(0.2)
-            
-            self.check_flag()   # 깃발 찾기
-            # print("TEST")
-            # self.find_best_actions(60, 'R')
-            # print("===================")
-            # exit()
+            while(True):
 
-            # self.robo._motion.set_head("UPDOWN_CENTER")
-            # time.sleep(0.2)
-            # self.robo._motion.set_head("LEFTRIGHT_CENTER")
-            # time.sleep(0.1)
+                self.robo._motion.set_head("DOWN", 90)
+                time.sleep(0.2)
+                
+                self.check_flag()   # 깃발 찾기
+                # print("TEST")
+                # self.find_best_actions(60, 'R')
+                # print("===================")
+                # exit()
 
-            self.check_flag_distance() # 깃발 센터 맞추기
-            
-            time.sleep(0.2)
-            angle = abs(self.robo._motion.y_head_angle - 15.6) # angle 값 수정
-            distflag = DistMeasurer().display_distance(angle) # 깃발 거리값
-            flag_angle = self.robo._motion.x_head_angle
-            print("flag distance: ", end="")
-            print(distflag)
-            print("flag angle: ", end="")
-            print(angle)
-            # 깃발 거리를 측정하고 프로그램 종료
-            # exit()
+                # self.robo._motion.set_head("UPDOWN_CENTER")
+                # time.sleep(0.2)
+                # self.robo._motion.set_head("LEFTRIGHT_CENTER")
+                # time.sleep(0.1)
 
-#############################################################################
-            # ACT: SEARCH_BALL
-            print("Act: SEARCH_BALL")  # Debug
-            time.sleep(0.1)
+                self.check_flag_distance() # 깃발 센터 맞추기
+                
+                time.sleep(0.2)
+                angle = abs(self.robo._motion.y_head_angle - 15.6) # angle 값 수정
+                distflag = DistMeasurer().display_distance(angle) # 깃발 거리값
+                flag_angle = self.robo._motion.x_head_angle
+                print("flag distance: ", end="")
+                print(distflag)
+                print("flag angle: ", end="")
+                print(angle)
+                
+                # 깃발 거리를 측정하고 프로그램 종료
+                # exit()
 
-            # 아래 주석 부분 필요 없는 거 같음
-            # angle = abs(self.robo._motion.y_head_angle - 11.6)
-            # dist_ball = DistMeasurer(angle)  # 볼 거리 구한 값 저장
-            # print(dist_ball)
-            
-            # 공이 로봇 화면에서 공이 중심에 있을 수 있도록 로봇의 고개를 돌려 x, y를 맞춤
-            self.check_ball_distance()
+    #############################################################################
+                # ACT: SEARCH_BALL
+                print("Act: SEARCH_BALL")  # Debug
+                time.sleep(0.1)
 
-            time.sleep(0.2)
+                # 아래 주석 부분 필요 없는 거 같음
+                # angle = abs(self.robo._motion.y_head_angle - 11.6)
+                # dist_ball = DistMeasurer(angle)  # 볼 거리 구한 값 저장
+                # print(dist_ball)
+                
+                # 공이 로봇 화면에서 공이 중심에 있을 수 있도록 로봇의 고개를 돌려 x, y를 맞춤
+                self.check_ball_distance()
 
-            ball_angle = self.robo._motion.x_head_angle
-            angle = abs(self.robo._motion.y_head_angle - 16.6)  # angle 값 수정
-            distball = DistMeasurer().display_distance(angle) # 공 거리값
-            print("ball distance: ", end="") 
-            print(distball)
+                time.sleep(0.2)
 
-            time.sleep(0.2)
+                ball_angle = self.robo._motion.x_head_angle
+                angle = abs(self.robo._motion.y_head_angle - 16.6)  # angle 값 수정
+                distball = DistMeasurer().display_distance(angle) # 공 거리값
+                print("ball distance: ", end="") 
+                print(distball)
 
-            # 공 거리 구하고 끝내고 싶으면
-            # exit()
-            # self.ball_feature_ball()
-            
-#############################################################################
-            print("Act: SEARCH_PUTTING_LOCATION")  # Debug
+                time.sleep(0.2)
 
-            # 공의 거리 구할 때 여기를 exit하면 공의 거리를 출력하고 멈춤
-            # exit()
+                # 공 거리 구하고 끝내고 싶으면
+                # exit()
+                # self.ball_feature_ball()
+                
+    #############################################################################
+                print("Act: SEARCH_PUTTING_LOCATION")  # Debug
 
-            if ball_angle >= flag_angle:   # ball angle이 더 크면 오른쪽
-                real_angle = ball_angle - flag_angle  
-                shot_way = "R" # 공이 오른쪽에 있으니 오른쪽으로
-            else:  # ball angle이 더 작으면 왼쪽
-                real_angle = flag_angle - ball_angle  
-                shot_way = "L" # 공이 왼쪽에 있으니 왼쪽으로
+                # 공의 거리 구할 때 여기를 exit하면 공의 거리를 출력하고 멈춤
+                # exit()
 
-            print("Real angle: ", end="")  # 값 확인
-            print(real_angle)
-            print("distflag: ",distflag)
-            
-            self.check_flag()   # 깃발 찾기
-            time.sleep(0.1)
-            self.check_flag_distance() # 깃발 센터 맞추기
-            time.sleep(0.1)
-            self.putting_robot_turn() # 깃발이랑 로봇 몸이 일직선이 되게 만들기
+                if ball_angle >= flag_angle:   # ball angle이 더 크면 오른쪽
+                    real_angle = ball_angle - flag_angle  
+                    shot_way = "R" # 공이 오른쪽에 있으니 오른쪽으로
+                else:  # ball angle이 더 작으면 왼쪽
+                    real_angle = flag_angle - ball_angle  
+                    shot_way = "L" # 공이 왼쪽에 있으니 왼쪽으로
 
-            solver = HitPointer(distflag, distball, real_angle, 7)
-            hit_dist, hit_angle, hit_will_anlge, ball_is_flag_back, flag_ball_dis = solver.solve()
-            print("가야하는 거리: ", hit_dist)
-            print("돌아야하는 각도", hit_angle)
-            print("공앞에서 돌아야하는 각도", hit_will_anlge)
-            print("공이 깃발 뒤에 있는지 없는지 (T/F): ", ball_is_flag_back)
-            print("공과 깃발 사이의 거리(cm): ", flag_ball_dis)
+                print("Real angle: ", end="")  # 값 확인
+                print(real_angle)
+                print("distflag: ",distflag)
+                
+                self.check_flag()   # 깃발 찾기
+                time.sleep(0.1)
+                self.check_flag_distance() # 깃발 센터 맞추기
+                time.sleep(0.1)
+                self.putting_robot_turn() # 깃발이랑 로봇 몸이 일직선이 되게 만들기
 
-            hit_angle = int(hit_angle)
-            self.find_best_actions(hit_angle, shot_way)
+                solver = HitPointer(distflag, distball, real_angle, 7)
+                hit_dist, hit_angle, hit_will_anlge, ball_is_flag_back, flag_ball_dis = solver.solve()
+                print("가야하는 거리: ", hit_dist)
+                print("돌아야하는 각도", hit_angle)
+                print("공앞에서 돌아야하는 각도", hit_will_anlge)
+                print("공이 깃발 뒤에 있는지 없는지 (T/F): ", ball_is_flag_back)
+                print("공과 깃발 사이의 거리(cm): ", flag_ball_dis)
 
-            hit_dist = int(hit_dist)
-            will_goto_ball = hit_dist // 4
-            self.robo._motion.walk("FORWARD", will_goto_ball, 3.0)  # 퍼팅 지점까지 걸어가기
+                hit_angle = int(hit_angle)
+                self.find_best_actions(hit_angle, shot_way)
+
+                if (hit_dist < 10):
+                    print("퍼팅 지점과 매우 가까움")
+                    print("퍼팅할 준비를 하겠습니다.")
+                    break
+
+                hit_dist = int(hit_dist)
+                will_goto_ball = hit_dist // 4
+                self.robo._motion.walk("FORWARD", will_goto_ball, 3.0)  # 퍼팅 지점까지 걸어가기
+                print("퍼팅 지점까지 이동")
 
             if ball_is_flag_back == False: # 공이 깃발 뒤에 있을 떄
                 if shot_way == "R": # 깃발 뒤에 있으면 치는 방향이 바뀌기 때문에 
