@@ -46,6 +46,7 @@ class Motion:
             self.serial_port.write(serial.to_bytes([one_byte]))  # python3
             print("Debug 지워야 함: 데이터 보냄")
             self.lock = True
+            print("Debug lock 지워야 함: ", self.lock)
             #time.sleep(0.1)
         else:
             while True:
@@ -67,6 +68,7 @@ class Motion:
     def RX_data(self):
         # 시리얼 포트로부터 데이터 수신
         time.sleep(0.02)
+        print("Debug lock 지워야 함: ", self.lock)
         if self.serial_port.inWaiting() > 0:
             result = self.serial_port.read(1)
             RX = ord(result)
