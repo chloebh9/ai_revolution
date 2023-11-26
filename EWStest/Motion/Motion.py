@@ -71,6 +71,7 @@ class Motion:
             result = self.serial_port.read(1)
             RX = ord(result)
             print("Debug RX 지워야 함: ", RX)
+            self.lock = False
             return RX
         else:
             return 0
