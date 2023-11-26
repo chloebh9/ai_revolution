@@ -69,14 +69,14 @@ class Motion:
         # 시리얼 포트로부터 데이터 수신
         time.sleep(0.02)
         print("Debug lock 지워야 함: ", self.lock)
-        if self.serial_port.inWaiting() > 0:
-            result = self.serial_port.read(1)
-            RX = ord(result)
-            print("Debug RX 지워야 함: ", RX)
-            self.lock = False
-            return RX
-        else:
-            return 0
+        # if self.serial_port.inWaiting() > 0:
+        result = self.serial_port.read(1)
+        RX = ord(result)
+        print("Debug RX 지워야 함: ", RX)
+        self.lock = False
+        return RX
+        # else:
+        #     return 0
 
     def Receiving(self, ser):
         # time.sleep(0.1)
