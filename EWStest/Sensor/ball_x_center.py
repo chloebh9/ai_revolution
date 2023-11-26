@@ -110,9 +110,9 @@ class BallxCenterMeasurer:
             mask += cv2.inRange(hsv_img, lower1, upper1)
 
             #모폴로지 연산
-            # d_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, self.kernel, iterations = 5)
+            d_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, self.kernel, iterations = 5)
             
-            cont,hei = cv2.findContours(mask,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+            cont,hei = cv2.findContours(d_img,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
             cont = sorted(cont, key = cv2.contourArea, reverse = True)[:1]
 
             max_x, min_x, max_y, min_y = -1, self.img_width + 1, -1, self.img_width + 1
