@@ -74,7 +74,7 @@ class ShapeRecognition:
             # Compare the farthest flag center with the red center
             goal_status = "NO GOAL"
             if farthest_flag_center and red_center:
-                if np.linalg.norm(np.array(farthest_flag_center) - np.array(red_center)) <= 10:
+                if np.linalg.norm(np.array(farthest_flag_center) - np.array(red_center)) <= 30:
                     goal_status = "GOAL"
 
             cv2.putText(frame, goal_status, (self.img_width_middle - 100, self.img_height_middle - 100),
