@@ -12,6 +12,7 @@ class ShapeRecognition:
         self.img_height, self.img_width = frame.shape[:2]
         self.img_width_middle = self.img_width // 2
         self.img_height_middle = self.img_height // 2
+        self.kernel = np.ones((3, 3), "uint8")
 
     def process_frame(self, frame):
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -45,6 +46,7 @@ class ShapeRecognition:
 
         # Process red color
         red_mask = cv2.inRange(hsv_frame, *red_range1) + cv2.inRange(hsv_frame, *red_range2)
+        red_mask = cv2.morphologyEx(red_mask, cv2.MORPH_OPEN, self.kernel, iterations=5)
         red_contours, _ = cv2.findContours(red_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
         for cnt in red_contours:
