@@ -51,7 +51,7 @@ class ShapeRecognition:
 
         for cnt in red_contours:
             area = cv2.contourArea(cnt)
-            if area > 10:
+            if area > 1:
                 x_red, y_red, w_red, h_red = cv2.boundingRect(cnt)
                 cv2.rectangle(frame, (x_red, y_red), (x_red + w_red, y_red + h_red), (0, 0, 255), 2)  # Red box
                 red_boxes.append((x_red, y_red, w_red, h_red))
