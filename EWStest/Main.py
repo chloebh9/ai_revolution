@@ -34,4 +34,11 @@ if __name__ == "__main__":
     # time.sleep(3)
     # print("head right")
     # Motion.TX_data_py3(177)
-    main() # 그냥 모션만 테스트할거면 여기 주석 처리
+    # main() # 그냥 모션만 테스트할거면 여기 주석 처리
+    
+    Motion.TX_data_py3(96)
+    time.sleep(0.5)
+    Motion.TX_data_py3(97)
+    time.sleep(0.5)
+    Motion.TX_data_py3(42)
+    time.sleep(0.5)
