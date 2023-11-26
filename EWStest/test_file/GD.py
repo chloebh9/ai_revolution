@@ -20,7 +20,7 @@ class ShapeRecognition:
         # Define the color ranges
         green_range = (np.array([57, 78, 61]), np.array([89, 255, 255]))
         yellow_range = (np.array([0, 16, 144]), np.array([43, 184, 255]))
-        red_range1 = (np.array([0, 100, 50]), np.array([10, 200, 200]))
+        red_range1 = (np.array([0, 76, 97]), np.array([11, 186, 160]))
         red_range2 = (np.array([137, 0, 0]), np.array([200, 255, 255]))
 
         # Process green color
@@ -51,7 +51,7 @@ class ShapeRecognition:
 
         for cnt in red_contours:
             area = cv2.contourArea(cnt)
-            if area > 1:
+            if area > 30:
                 x_red, y_red, w_red, h_red = cv2.boundingRect(cnt)
                 cv2.rectangle(frame, (x_red, y_red), (x_red + w_red, y_red + h_red), (0, 0, 255), 2)  # Red box
                 red_boxes.append((x_red, y_red, w_red, h_red))
