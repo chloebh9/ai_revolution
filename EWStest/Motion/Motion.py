@@ -70,6 +70,7 @@ class Motion:
         if self.serial_port.inWaiting() > 0:
             result = self.serial_port.read(1)
             RX = ord(result)
+            print("Debug RX 지워야 함: ", RX)
             return RX
         else:
             return 0
