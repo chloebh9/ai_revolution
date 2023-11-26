@@ -36,9 +36,12 @@ if __name__ == "__main__":
     # Motion.TX_data_py3(177)
     # main() # 그냥 모션만 테스트할거면 여기 주석 처리
     
-    Motion.TX_data_py3(96)
+    Motion.TX_data_py3(49)
+    print("70도")
     time.sleep(0.5)
     Motion.TX_data_py3(97)
+    print("60도")
     time.sleep(0.5)
     Motion.TX_data_py3(42)
+    print("35도")
     time.sleep(0.5)
