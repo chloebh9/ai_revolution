@@ -19,7 +19,7 @@ class ShapeRecognition:
         # Define the color ranges
         green_range = (np.array([57, 78, 61]), np.array([89, 255, 255]))
         yellow_range = (np.array([0, 16, 144]), np.array([43, 184, 255]))
-        red_range1 = (np.array([0, 100, 50]), np.array([137, 200, 200]))
+        red_range1 = (np.array([0, 100, 50]), np.array([10, 200, 200]))
         red_range2 = (np.array([137, 0, 0]), np.array([200, 255, 255]))
 
         # Process green color
