@@ -219,21 +219,37 @@ class Motion:
             print("2_up_angle: ", angle)
             print("y_head_angle: ", self.y_head_angle)
             print("===========================")
+            if self.x_head_angle > 180:
+                print("더 이상 갈 수 없음")
+                self.y_head_angle = 90
+                self.set_head("UPDOWN_CENTER")
         elif dir == "DOWN":
             self.y_head_angle -= angle
             print("2_down_angle: ", angle)
             print("y_head_angle: ", self.y_head_angle)
             print("===========================")
+            if self.y_head_angle < 0:
+                print("더 이상 갈 수 없음")
+                self.y_head_angle = 90
+                self.set_head("UPDOWN_CENTER")
         elif dir == "LEFT":
             self.x_head_angle -= angle
             print("2_left_angle: ", angle)
             print("x_head_angle: ", self.x_head_angle)
             print("===========================")
+            if self.x_head_angle < -90:
+                print("더 이상 갈 수 없음")
+                self.x_head_angle = 0
+                self.set_head("LEFTRIGHT_CENTER")
         elif dir == "RIGHT":
             self.x_head_angle += angle
             print("2_right_angle: ", angle)
             print("x_head_angle: ", self.x_head_angle)
             print("===========================")
+            if self.x_head_angle > 90:
+                print("더 이상 갈 수 없음")
+                self.x_head_angle = 0
+                self.set_head("LEFTRIGHT_CENTER")
 
         dir_list = {
             "UP": {2: 70, 3: 74},
