@@ -39,30 +39,30 @@ class Motion:
 
         return decorated
 
-    # def TX_data_py3(self, one_byte):  # one_byte= 0~255
-    #     # 1바이트 데이터를 시리얼 포트로 전송
+    def TX_data_py3(self, one_byte):  # one_byte= 0~255
+        # 1바이트 데이터를 시리얼 포트로 전송
         
-    #     if self.lock == False:
-    #         self.serial_port.write(serial.to_bytes([one_byte]))  # python3
-    #         print("Debug 지워야 함: 데이터 보냄")
-    #         self.lock = True
-    #         #time.sleep(0.1)
-    #     else:
-    #         while True:
-    #             if self.lock == False:
-    #                 self.serial_port.write(serial.to_bytes([one_byte]))  # python3
-    #                 print("Debug 지워야 함: 데이터 보냄")
-    #                 self.lock = True
-    #                 break
-    #             else:
-    #                time.sleep(0.1) 
+        if self.lock == False:
+            self.serial_port.write(serial.to_bytes([one_byte]))  # python3
+            print("Debug 지워야 함: 데이터 보냄")
+            self.lock = True
+            #time.sleep(0.1)
+        else:
+            while True:
+                if self.lock == False:
+                    self.serial_port.write(serial.to_bytes([one_byte]))  # python3
+                    print("Debug 지워야 함: 데이터 보냄")
+                    self.lock = True
+                    break
+                else:
+                   time.sleep(0.1) 
                     
 
 
-    def TX_data_py3(self, one_byte):
-        self.lock = True
-        self.serial_port.write(serial.to_bytes([one_byte]))
-        time.sleep(0.1)
+    # def TX_data_py3(self, one_byte):
+    #     self.lock = True
+    #     self.serial_port.write(serial.to_bytes([one_byte]))
+    #     time.sleep(0.1)
 
     def RX_data(self):
         # 시리얼 포트로부터 데이터 수신
