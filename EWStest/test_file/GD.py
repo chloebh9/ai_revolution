@@ -3,7 +3,7 @@ import cv2
 
 class ShapeRecognition:
     def __init__(self, video_path):
-        self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
+        self.cap = cv2.VideoCapture(video_path)
         if not self.cap.isOpened():
             raise ValueError(f"Video at {video_path} cannot be opened")
         ret, frame = self.cap.read()
@@ -26,7 +26,9 @@ class ShapeRecognition:
         green_mask = cv2.inRange(hsv_frame, *green_range)
         green_contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-        farthest_flag_center = None
+        flag_boxes = []  # 깃발 박스 저장을 위한 리스트
+        red_boxes = []  # 빨간색 박스 저장을 위한 리스트
+
         for contour in green_contours:
             x, y, w, h = cv2.boundingRect(contour)
 
@@ -39,28 +41,20 @@ class ShapeRecognition:
                 if area > 10:
                     x_yellow, y_yellow, w_yellow, h_yellow = cv2.boundingRect(cnt)
                     cv2.rectangle(frame, (x + x_yellow, y + y_yellow), (x + x_yellow + w_yellow, y + y_yellow + h_yellow), (0, 255, 255), 2)  # Yellow box
-
-                    M = cv2.moments(cnt)
-                    if M['m00'] != 0:
-                        cx, cy = int(M['m10'] / M['m00']), int(M['m01'] / M['m00'])
-                        if farthest_flag_center is None or cy < farthest_flag_center[1]:
-                            farthest_flag_center = (x + cx, y + cy)
+                    flag_boxes.append((x + x_yellow, y + y_yellow, w_yellow, h_yellow))
 
         # Process red color
         red_mask = cv2.inRange(hsv_frame, *red_range1) + cv2.inRange(hsv_frame, *red_range2)
         red_contours, _ = cv2.findContours(red_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        red_center = None
+
         for cnt in red_contours:
             area = cv2.contourArea(cnt)
             if area > 100:
                 x_red, y_red, w_red, h_red = cv2.boundingRect(cnt)
                 cv2.rectangle(frame, (x_red, y_red), (x_red + w_red, y_red + h_red), (0, 0, 255), 2)  # Red box
+                red_boxes.append((x_red, y_red, w_red, h_red))
 
-                M = cv2.moments(cnt)
-                if M['m00'] != 0:
-                    red_center = (int(M['m10'] / M['m00']), int(M['m01'] / M['m00']))
-
-        return farthest_flag_center, red_center
+        return flag_boxes, red_boxes
 
     def run(self):
         while True:
@@ -69,13 +63,19 @@ class ShapeRecognition:
                 print("Failed to grab a frame")
                 break
 
-            farthest_flag_center, red_center = self.process_frame(frame)
+            flag_boxes, red_boxes = self.process_frame(frame)
 
-            # Compare the farthest flag center with the red center
             goal_status = "NO GOAL"
-            if farthest_flag_center and red_center:
-                if np.linalg.norm(np.array(farthest_flag_center) - np.array(red_center)) <= 30:
-                    goal_status = "GOAL"
+            for f_x, f_y, f_w, f_h in flag_boxes:
+                for r_x, r_y, r_w, r_h in red_boxes:
+                    if (f_x <= r_x <= f_x + f_w and
+                        f_x <= r_x + r_w <= f_x + f_w and
+                        f_y <= r_y <= f_y + f_h and
+                        f_y <= r_y + r_h <= f_y + f_h):
+                        goal_status = "GOAL"
+                        break
+                if goal_status == "GOAL":
+                    break
 
             cv2.putText(frame, goal_status, (self.img_width_middle - 100, self.img_height_middle - 100),
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
