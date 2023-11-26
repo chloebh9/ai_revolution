@@ -46,7 +46,7 @@ class ShapeRecognition:
 
         # Process red color
         red_mask = cv2.inRange(hsv_frame, *red_range1) + cv2.inRange(hsv_frame, *red_range2)
-        red_mask = cv2.morphologyEx(red_mask, cv2.MORPH_OPEN, self.kernel, iterations=5)
+        red_mask = cv2.morphologyEx(red_mask, cv2.MORPH_DILATE, self.kernel, iterations=5)
         red_contours, _ = cv2.findContours(red_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
         for cnt in red_contours:
