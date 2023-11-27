@@ -1100,6 +1100,7 @@ class Controller:
                 self.check_flag_distance() # 깃발 센터 맞추기
                 time.sleep(0.1)
                 self.putting_robot_turn() # 깃발이랑 로봇 몸이 일직선이 되게 만들기
+                time.sleep(3)
 
                 solver = HitPointer(distflag, distball, real_angle, 7)
                 hit_dist, hit_angle, hit_will_anlge, ball_is_flag_back, flag_ball_dis = solver.solve()
