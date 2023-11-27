@@ -357,7 +357,7 @@ class Controller:
                         # print("find_ball == True: ", find_ball == True)  # 테스트용
                         # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
                         break
-                self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
+
                 time.sleep(0.2)
 
                 if find_ball == True:
