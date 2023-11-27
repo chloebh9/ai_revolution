@@ -478,10 +478,11 @@ class Controller:
                     elif ball_x_angle[0] == "R":
                         self.robo._motion.set_head_small("RIGHT", recent_will_angle)
                         time.sleep(0.1)
-                    elif ball_rl == "L":
-                        self.robo._motion.set_head_small("LEFT", recent_will_angle)
-                    elif ball_rl == "R":
-                        self.robo._motion.set_head_small("RIGHT", recent_will_angle)
+                    elif ball_x_angle == "N":
+                        if ball_rl == "L":
+                            self.robo._motion.set_head_small("LEFT", recent_will_angle)
+                        elif ball_rl == "R":
+                            self.robo._motion.set_head_small("RIGHT", recent_will_angle)
 
             else:
                 print("check_ball_distance 함수에서 원하는 X angle이 안 들어옴.")
