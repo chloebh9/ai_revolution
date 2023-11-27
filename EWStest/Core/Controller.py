@@ -639,8 +639,6 @@ class Controller:
             if best_action <= remaining_angle:
                 best_actions.append(best_action)
                 remaining_angle -= best_action
-                [print("best_action: ")]
-                print(best_action)
 
                 if robot_way == "R":
                     self.robo._motion.turn("RIGHT", best_action)
