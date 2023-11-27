@@ -320,6 +320,7 @@ class Controller:
         # 공을 못 찾았을 때 반환하는 값
         ball_x_angle = ["N", "N", "N"]
         ball_y_angle = ["N"]
+        ball_rl = "N"
         
         # 공과 로봇의 거리(dist)와 공이랑 깃발 사이의 각도(flag_ball_angle_fin), 방향(direction)을 구하는 부분
         flag_angle = self.robo._motion.x_head_angle  # 깃발 각도 저장
@@ -353,9 +354,12 @@ class Controller:
                     print("=============================")
                     x_dir += 1
                     time.sleep(0.2)
-                    if (find_ball == True) or (x_dir == len(right_left)):
+                    if x_dir == len(right_left):
                         # print("find_ball == True: ", find_ball == True)  # 테스트용
                         # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
+                        break
+                    elif find_ball == True:
+                        ball_rl = "R"
                         break
                 self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
                 time.sleep(0.2)
@@ -374,9 +378,12 @@ class Controller:
                     print("=============================")
                     x_dir += 1
                     time.sleep(0.2)
-                    if (find_ball == True) or (x_dir == len(right_left)):
+                    if x_dir == len(right_left):
                         # print("find_ball == True: ", find_ball == True)  # 테스트용
                         # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
+                        break
+                    elif find_ball == True:
+                        ball_rl = "L"
                         break
                 self.robo._motion.set_head("LEFTRIGHT_CENTER")
                 time.sleep(0.2)
@@ -454,7 +461,7 @@ class Controller:
                     print("check_ball_distance 함수에서 원하는 Y angle이 안 들어옴.")
 
             # x축 기준으로 공의 센터가 안 맞는다면 실행
-            elif ball_x_angle[0] == "L" or ball_x_angle[0] == "R":
+            elif ball_x_angle[0] == "L" or ball_x_angle[0] == "R" or ball_x_angle[0] == "N":
                 recent_will_angle = 3
                 while ball_x_angle[0] != "C":
                     before_ball_x_angle = copy.copy(ball_x_angle[0])
@@ -468,9 +475,13 @@ class Controller:
                     if ball_x_angle[0] == "L":
                         self.robo._motion.set_head_small("LEFT", recent_will_angle)
                         time.sleep(0.1)
-                    if ball_x_angle[0] == "R":
+                    elif ball_x_angle[0] == "R":
                         self.robo._motion.set_head_small("RIGHT", recent_will_angle)
                         time.sleep(0.1)
+                    elif ball_rl == "L":
+                        self.robo._motion.set_head_small("LEFT", recent_will_angle)
+                    elif ball_rl == "R":
+                        self.robo._motion.set_head_small("RIGHT", recent_will_angle)
 
             else:
                 print("check_ball_distance 함수에서 원하는 X angle이 안 들어옴.")
@@ -1027,6 +1038,8 @@ class Controller:
                 # time.sleep(0.1)
 
                 self.check_flag_distance() # 깃발 센터 맞추기
+
+                self.putting_robot_turn() # 깃발이랑 로봇 몸이 일직선이 되게 만들기
                 
                 time.sleep(0.2)
                 angle = abs(self.robo._motion.y_head_angle - 15.6) # angle 값 수정
@@ -1095,12 +1108,11 @@ class Controller:
                 self.robo._motion.set_head("LEFTRIGHT_CENTER")
                 self.robo._motion.set_head("UPDOWN_CENTER")
                 
-                self.check_flag()   # 깃발 찾기
-                time.sleep(0.1)
-                self.check_flag_distance() # 깃발 센터 맞추기
-                time.sleep(0.1)
-                self.putting_robot_turn() # 깃발이랑 로봇 몸이 일직선이 되게 만들기
-                time.sleep(3)
+                # self.check_flag()   # 깃발 찾기
+                # time.sleep(0.1)
+                # self.check_flag_distance() # 깃발 센터 맞추기
+                # time.sleep(0.1)
+                # self.putting_robot_turn() # 깃발이랑 로봇 몸이 일직선이 되게 만들기
 
                 solver = HitPointer(distflag, distball, real_angle, 7)
                 hit_dist, hit_angle, hit_will_anlge, ball_is_flag_back, flag_ball_dis = solver.solve()
