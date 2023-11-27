@@ -642,9 +642,11 @@ class Controller:
 
                 if robot_way == "R":
                     self.robo._motion.turn("RIGHT", best_action)
+                    print(best_action, "도 실행")
 
                 elif robot_way == "L":
                     self.robo._motion.turn("LEFT", best_action)
+                    print(best_action, "도 실행")
 
                 else:
                     print("shot_way의 값이 이상함.")
