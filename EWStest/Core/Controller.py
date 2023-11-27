@@ -357,7 +357,7 @@ class Controller:
                         # print("find_ball == True: ", find_ball == True)  # 테스트용
                         # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
                         break
-
+                self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
                 time.sleep(0.2)
 
                 if find_ball == True:
@@ -1051,14 +1051,13 @@ class Controller:
                 # 공이 로봇 화면에서 공이 중심에 있을 수 있도록 로봇의 고개를 돌려 x, y를 맞춤
                 # 만약 공이 안 잡히고, shot_way가 N이면 앞으로 걷고, 다시 깃발부터 찾기
                 # 만약 공이 안 잡히고, shot_way가 R이나 L이면 hit_will_angle을 90으로 설정하고, 티샷파트로 넘어감
-                # if self.check_ball_distance() == False:
-                #     if shot_way == "N":
-                #         self.robo._motion.walk("FORWARD", 1)
-                #         continue
-                #     else:
-                #         hit_will_anlge = 90
-                #         break
-                self.check_ball_distance()
+                if self.check_ball_distance() == False:
+                    if shot_way == "N":
+                        self.robo._motion.walk("FORWARD", 1)
+                        continue
+                    else:
+                        hit_will_anlge = 90
+                        break
 
                 time.sleep(0.2)
 
