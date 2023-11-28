@@ -365,7 +365,10 @@ class Controller:
                 # self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
                 time.sleep(0.2)
 
+                find_ball = FindBall().process()
+
                 if find_ball == True:
+                    print("오른쪽에서 찾았습니다.")
                     break
                 
                 x_dir = 0
