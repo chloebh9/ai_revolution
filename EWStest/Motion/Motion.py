@@ -174,7 +174,7 @@ class Motion:
             self.x_head_angle = 0
             print("LEFTRIGHT_CENTER", self.x_head_angle)
         elif dir == "UPDOWN_CENTER":
-            self.x_head_angle = 90
+            self.y_head_angle = 90
             print("UPDOWN_CENTER", self.y_head_angle)
 
 
