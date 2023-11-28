@@ -350,7 +350,7 @@ class Controller:
                     time.sleep(0.1)
                     print("공이 안 보여 오른쪽부터 찾겠습니다.")
                     self.robo._motion.set_head("RIGHT", right_left[x_dir])
-                    print("Debug: ", right_left[x_dir])
+                    print("Debug(right): ", right_left[x_dir])
                     print("=============================")
                     x_dir += 1
                     time.sleep(0.2)
@@ -359,6 +359,7 @@ class Controller:
                         # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
                         break
                     elif find_ball == True:
+                        print("오른쪽에서 찾았습니다.")
                         ball_rl = "R"
                         break
                 # self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
@@ -374,7 +375,7 @@ class Controller:
                     time.sleep(0.1)
                     print("공이 안 보여 왼쪽부터 찾겠습니다.")
                     self.robo._motion.set_head("LEFT", right_left[x_dir])
-                    print("Debug: ", right_left[x_dir])
+                    print("Debug(left): ", right_left[x_dir])
                     print("=============================")
                     x_dir += 1
                     time.sleep(0.2)
@@ -383,6 +384,7 @@ class Controller:
                         # print("x_dir == len(right_left): ", x_dir == len(right_left))  # 테스트용
                         break
                     elif find_ball == True:
+                        print("왼쪽에서 찾았습니다.")
                         ball_rl = "L"
                         break
                 # self.robo._motion.set_head("LEFTRIGHT_CENTER")
