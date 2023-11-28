@@ -1043,7 +1043,7 @@ class Controller:
                 self.putting_robot_turn() # 깃발이랑 로봇 몸이 일직선이 되게 만들기
                 
                 time.sleep(0.2)
-                angle = abs(self.robo._motion.y_head_angle - 15.6) # angle 값 수정
+                angle = abs(self.robo._motion.y_head_angle - 11.6) # angle 값 수정
                 distflag = DistMeasurer().display_distance(angle) # 깃발 거리값
                 flag_angle = self.robo._motion.x_head_angle
                 print("flag distance: ", end="")
