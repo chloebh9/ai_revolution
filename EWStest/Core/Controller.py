@@ -1039,9 +1039,9 @@ class Controller:
                 # time.sleep(0.1)
 
                 self.check_flag_distance() # 깃발 센터 맞추기
-
                 self.putting_robot_turn() # 깃발이랑 로봇 몸이 일직선이 되게 만들기
-                
+                self.check_flag_distance() # 깃발 센터 맞추기
+
                 time.sleep(0.2)
                 angle = abs(self.robo._motion.y_head_angle - 11.6) # angle 값 수정
                 distflag = DistMeasurer().display_distance(angle) # 깃발 거리값
