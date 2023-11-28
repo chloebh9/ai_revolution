@@ -368,7 +368,7 @@ class Controller:
                 find_ball = FindBall().process()
                 print(x_dir)
 
-                if x_dir == 4:
+                if x_dir == 5:
                     print("고개 각도가 최대라 몸을 돌립니다.")
                     self.robo._motion.turn("RIGHT", 45, 3, 0.5)   # 로봇 각도가 최대 각도라서 수정하는 부분
                     self.robo._motion.turn("RIGHT", 20)
@@ -400,7 +400,7 @@ class Controller:
                         ball_rl = "L"
                         break
                 # self.robo._motion.set_head("LEFTRIGHT_CENTER")
-                if x_dir==4:
+                if x_dir == 5:
                     print("고개 각도가 최대라 몸을 돌립니다.")
                     self.robo._motion.turn("LEFT", 45, 3, 0.5)   # 로봇 각도가 최대 각도라서 수정하는 부분
                     self.robo._motion.turn("LEFT", 20)
