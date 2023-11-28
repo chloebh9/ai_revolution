@@ -366,6 +366,7 @@ class Controller:
                 time.sleep(0.2)
 
                 find_ball = FindBall().process()
+                print(x_dir)
 
                 if x_dir == 4:
                     print("고개 각도가 최대라 몸을 돌립니다.")
