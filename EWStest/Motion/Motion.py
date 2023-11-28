@@ -154,22 +154,22 @@ class Motion:
             print("down_angle: ", angle)
             print("y_head_angle: ", self.y_head_angle)
             print("===========================")
-        elif dir == "LEFT" or dir == "RIGHT":
-            self.x_head_angle = angle
-            print("left_right_angle: ", angle)
-            print("x_head_angle: ", self.x_head_angle)
-            print("===========================")
-
-        # elif dir == "LEFT":
-        #     self.x_head_angle = (-angle)
-        #     print("left_right_angle: ", angle)
-        #     print("x_head_angle: ", self.x_head_angle)
-        #     print("===========================")
-        # elif dir == "RIGHT":
+        # elif dir == "LEFT" or dir == "RIGHT":
         #     self.x_head_angle = angle
         #     print("left_right_angle: ", angle)
         #     print("x_head_angle: ", self.x_head_angle)
         #     print("===========================")
+
+        elif dir == "LEFT":
+            self.x_head_angle = (-angle)
+            print("left_right_angle: ", angle)
+            print("x_head_angle: ", self.x_head_angle)
+            print("===========================")
+        elif dir == "RIGHT":
+            self.x_head_angle = angle
+            print("left_right_angle: ", angle)
+            print("x_head_angle: ", self.x_head_angle)
+            print("===========================")
 
 
 
