@@ -42,7 +42,7 @@ class ColorTracker:
             # 마우스 위치 아래에 HSV 값을 표시
             text = f"HSV: {self.hsv_value}"
             cv2.putText(res, text, (self.mouse_x, self.mouse_y + 20), 
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (128, 0, 128), 1)
 
             cv2.imshow("Mask", mask)
             cv2.imshow("Result", res)
