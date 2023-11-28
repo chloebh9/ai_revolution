@@ -1106,9 +1106,6 @@ class Controller:
                 print(real_angle)
                 print("distflag: ",distflag)
                 
-                self.robo._motion.set_head("LEFTRIGHT_CENTER")
-                self.robo._motion.set_head("UPDOWN_CENTER")
-                
                 # self.check_flag()   # 깃발 찾기
                 # time.sleep(0.1)
                 # self.check_flag_distance() # 깃발 센터 맞추기
@@ -1130,6 +1127,9 @@ class Controller:
                     print("퍼팅 지점과 매우 가까움")
                     print("퍼팅할 준비를 하겠습니다.")
                     break
+
+                self.robo._motion.set_head("LEFTRIGHT_CENTER")
+                self.robo._motion.set_head("UPDOWN_CENTER")
 
                 hit_dist = int(hit_dist)
                 will_goto_ball = hit_dist // 4
