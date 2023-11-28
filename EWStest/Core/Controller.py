@@ -361,7 +361,7 @@ class Controller:
                     elif find_ball == True:
                         ball_rl = "R"
                         break
-                self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
+                # self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
                 time.sleep(0.2)
 
                 if find_ball == True:
@@ -385,7 +385,7 @@ class Controller:
                     elif find_ball == True:
                         ball_rl = "L"
                         break
-                self.robo._motion.set_head("LEFTRIGHT_CENTER")
+                # self.robo._motion.set_head("LEFTRIGHT_CENTER")
                 time.sleep(0.2)
             # 여기까지 오면 공을 찾은 상황
  
