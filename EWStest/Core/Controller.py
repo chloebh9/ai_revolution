@@ -371,7 +371,6 @@ class Controller:
                 # if x_dir == 5 and find_ball == True:
                 #     print("고개 각도가 최대라 몸을 돌립니다.")
                 #     self.robo._motion.turn("RIGHT", 45, 2, 0.5)   # 로봇 각도가 최대 각도라서 수정하는 부분
-                #     self.robo._motion.turn("RIGHT", 10)
                 #     self.robo._motion.set_head("LEFTRIGHT_CENTER")
                 #     time.sleep(0.1)
                 #     return None
@@ -403,7 +402,6 @@ class Controller:
                 if x_dir == 5 and find_ball == True:
                     print("고개 각도가 최대라 몸을 돌립니다.")
                     self.robo._motion.turn("LEFT", 45, 2, 0.5)   # 로봇 각도가 최대 각도라서 수정하는 부분
-                    self.robo._motion.turn("LEFT", 10)
                     self.robo._motion.set_head("LEFTRIGHT_CENTER")
                     time.sleep(0.1)
                     return None
