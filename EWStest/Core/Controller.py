@@ -325,7 +325,7 @@ class Controller:
         # 공과 로봇의 거리(dist)와 공이랑 깃발 사이의 각도(flag_ball_angle_fin), 방향(direction)을 구하는 부분
         flag_angle = self.robo._motion.x_head_angle  # 깃발 각도 저장
         down_y = [20, 50, 80] # 공 찾기 위한 Y축
-        right_left = [30, 45, 54, 60, 90] # 일단 모션에 있는 값 넣었는데, 확인하고 바꿔야 함..
+        right_left = [30, 45, 54, 60] # 일단 모션에 있는 값 넣었는데, 확인하고 바꿔야 함..
         find_ball = FindBall().process()
         
         
@@ -368,7 +368,7 @@ class Controller:
                 find_ball = FindBall().process()
                 print(x_dir)
 
-                if x_dir == 5 and find_ball == True:
+                if x_dir == 4 and find_ball == True:
                     print("고개 각도가 최대라 몸을 돌립니다.")
                     self.robo._motion.turn("RIGHT", 45, 2, 0.5)   # 로봇 각도가 최대 각도라서 수정하는 부분
                     self.robo._motion.set_head("LEFTRIGHT_CENTER")
@@ -399,7 +399,7 @@ class Controller:
                         ball_rl = "L"
                         break
                 # self.robo._motion.set_head("LEFTRIGHT_CENTER")
-                if x_dir == 5 and find_ball == True:
+                if x_dir == 4 and find_ball == True:
                     print("고개 각도가 최대라 몸을 돌립니다.")
                     self.robo._motion.turn("LEFT", 45, 2, 0.5)   # 로봇 각도가 최대 각도라서 수정하는 부분
                     self.robo._motion.set_head("LEFTRIGHT_CENTER")
