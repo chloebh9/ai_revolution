@@ -396,6 +396,7 @@ class Controller:
  
         # 공 센터 맞추는 부분
         while correctAngle != 1:
+            print("공 센터 맞추는 부분")
             ball_x_angle = ballxcenter.process()
             time.sleep(0.2)
             print("ball_x_angle: ", end="")
