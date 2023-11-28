@@ -102,7 +102,7 @@ class BallxCenterMeasurer:
 
             # # robot version
             # ball hsv
-            lower1 = np.array([0, 0, 50])
+            lower1 = np.array([0, 15, 50])
             upper1 = np.array([20, 200, 200])
             lower = np.array([137, 0, 0])
             upper = np.array([200, 255, 255])
