@@ -133,7 +133,7 @@ class BallyCenterMeasurer:
             ball_y_isMiddle = 'N'
 
             for cnt in cont:
-                if cv2.contourArea(cnt) > 5 and cv2.contourArea(cnt) < 306000:
+                if cv2.contourArea(cnt) > 100 and cv2.contourArea(cnt) < 306000:
                     rect = cv2.minAreaRect(cnt)
                     ball_box = cv2.boxPoints(rect)
                     ball_box = np.int0(ball_box)

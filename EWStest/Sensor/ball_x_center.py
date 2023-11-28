@@ -123,7 +123,7 @@ class BallxCenterMeasurer:
             ball_y = 'N'
             
             for cnt in cont:
-                if (cv2.contourArea(cnt)>10 and cv2.contourArea(cnt)<306000): # cv2.contourArea(cnt)>100 and
+                if (cv2.contourArea(cnt)>100 and cv2.contourArea(cnt)<306000): # cv2.contourArea(cnt)>100 and
 
                     rect = cv2.minAreaRect(cnt)
                     ball_box = cv2.boxPoints(rect)
