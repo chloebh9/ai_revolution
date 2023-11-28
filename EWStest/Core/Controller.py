@@ -1188,7 +1188,8 @@ class Controller:
 
             while correctAngle != 1:
                 # 퍼팅 위치까지 가고, 공 앞에서 돌아야할 각도만큼 돌았는데 공이 없을시, 공을 찾고 몸을 공과 일자로 맞추는 코드
-
+                self.ball_feature_ball()
+                
                 # 이미 x축 기준으로 센터이므로, y축 기준으로 어디에 있는지 판별
                 ball_y_angle = ballycenter.process()
                 time.sleep(0.2)
