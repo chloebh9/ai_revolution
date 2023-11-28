@@ -1168,6 +1168,7 @@ class Controller:
                 self.putting_robot_turn()
 
                 # 이미 x축 기준으로 센터이므로, y축 기준으로 어디에 있는지 판별
+                time.sleep(1)
                 ball_y_angle = ballycenter.process()
                 time.sleep(0.2)
                 if ball_y_angle[0] == "C":
