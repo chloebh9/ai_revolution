@@ -1161,11 +1161,11 @@ class Controller:
             putting_angle = 30
             putting_angle_error = 2
             # dist_Process = DistMeasurer()
+            self.check_ball_distance()
+            self.putting_robot_turn()
 
             while correctAngle != 1:
                 # 퍼팅 위치까지 가고, 공 앞에서 돌아야할 각도만큼 돌았는데 공이 없을시, 공을 찾고 몸을 공과 일자로 맞추는 코드
-                self.check_ball_distance()
-                self.putting_robot_turn()
 
                 # 이미 x축 기준으로 센터이므로, y축 기준으로 어디에 있는지 판별
                 time.sleep(1)
