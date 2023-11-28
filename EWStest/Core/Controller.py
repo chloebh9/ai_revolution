@@ -986,7 +986,7 @@ class Controller:
                             print("공 찾아서 각도 저장함")
 
                             # dist = dist_Process.display_distance(abs(ball_angle - 11.6))
-                            robot_ball_angle = ball_angle - 11.6
+                            robot_ball_angle = ball_angle - 12.6
 
                             # print("dist:",dist)
                             print("robot_ball_angle", robot_ball_angle)
@@ -1207,7 +1207,7 @@ class Controller:
                             print("공 찾아서 각도 저장함")
 
                             # dist = dist_Process.display_distance(abs(ball_angle - 11.6))
-                            robot_ball_angle = ball_angle - 11.6
+                            robot_ball_angle = ball_angle - 12.6
 
                             # print("dist:",dist)
                             print("robot_ball_angle", robot_ball_angle)
