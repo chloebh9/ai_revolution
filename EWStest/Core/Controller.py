@@ -1086,9 +1086,9 @@ class Controller:
                 # 공이 로봇 화면에서 공이 중심에 있을 수 있도록 로봇의 고개를 돌려 x, y를 맞춤
                 # 만약 공이 안 잡히고, shot_way가 N이면 앞으로 걷고, 다시 깃발부터 찾기
                 # 만약 공이 안 잡히고, shot_way가 R이나 L이면 hit_will_angle을 90으로 설정하고, 티샷파트로 넘어감
-                if self.check_ball_distance() == False:
+                if self.check_ball_distance() == None:
                     if shot_way == "N":
-                        self.robo._motion.walk("FORWARD", 1)
+                        self.robo._motion.walk("FORWARD", 3)
                         continue
                     else:
                         hit_will_anlge = 90
