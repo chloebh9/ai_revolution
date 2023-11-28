@@ -393,12 +393,6 @@ class Controller:
                         ball_rl = "L"
                         break
                 # self.robo._motion.set_head("LEFTRIGHT_CENTER")
-                if x_dir == 4 and find_ball == True:
-                    print("고개 각도가 최대라 몸을 돌립니다.")
-                    self.robo._motion.turn("LEFT", 45, 2, 0.5)   # 로봇 각도가 최대 각도라서 수정하는 부분
-                    self.robo._motion.set_head("LEFTRIGHT_CENTER")
-                    time.sleep(0.1)
-                    return None
 
                 time.sleep(0.2)
             # 여기까지 오면 공을 찾은 상황
