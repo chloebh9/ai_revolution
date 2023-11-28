@@ -137,11 +137,11 @@ class BallxCenterMeasurer:
                     ball_y = round((max_y + min_y / 2), 2)
 
 
-        #     cv2.imshow('Object Dist Measure ', mask)
-        #     print(ball_x_isMiddle)
-        #     if cv2.waitKey(1) & 0xFF == ord('q'):
-        #         break
-        # cv2.destroyAllWindows()
+                cv2.imshow('Object Dist Measure ', mask)
+                print(ball_x_isMiddle)
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
+            cv2.destroyAllWindows()
 
                         
             if ball_x_isMiddle != 'N':
