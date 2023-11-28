@@ -367,6 +367,7 @@ class Controller:
 
                 find_ball = FindBall().process()
                 print(x_dir)
+                print(find_ball)
 
                 if x_dir == 5 and find_ball == True:
                     print("고개 각도가 최대라 몸을 돌립니다.")
