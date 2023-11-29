@@ -1246,10 +1246,11 @@ class Controller:
             print("퍼팅하겠습니다")
             print("퍼팅할 당시의 거리: ", flag_ball_dis)
 
-            if flag_ball_dis <= 60:
-                self.robo._motion.hit_the_ball("LEFT",short=True) # 짧게 치기
-            else:
-                self.robo._motion.hit_the_ball("LEFT") # 길게 치기
+            # if flag_ball_dis <= 60:
+            #     self.robo._motion.hit_the_ball("LEFT",short=True) # 짧게 치기
+            # else:
+            #     self.robo._motion.hit_the_ball("LEFT") # 길게 치기
+            self.robo._motion.hit_the_ball("LEFT", dist=flag_ball_dis)
             time.sleep(6)
 
             self.robo._motion.turn("LEFT", 45)
