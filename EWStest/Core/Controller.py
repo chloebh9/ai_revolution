@@ -1234,9 +1234,10 @@ class Controller:
                                 print("T샷 C_left 오류")
 
 
-            # ========================================== 티샷 보정하는 부분의 끝 ==================================================
+            # ========================================== 퍼팅 보정하는 부분의 끝 ==================================================
             
             print("퍼팅하겠습니다")
+            print("퍼팅할 당시의 거리: ", flag_ball_dis)
 
             if flag_ball_dis <= 60:
                 self.robo._motion.hit_the_ball("LEFT",short=True) # 짧게 치기
@@ -1249,7 +1250,7 @@ class Controller:
             if abs(flag_ball_dis) <= 10:
                 self.act = act.CHECK
             else:
-                self.act = act.SEARCH_BALL
+                self.act = act.SEARCH_FLAG
                 
 #############################################################################
         elif act == act.CHECK:  # 홀인했는지 확인
