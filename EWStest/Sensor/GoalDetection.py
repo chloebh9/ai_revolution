@@ -82,7 +82,7 @@ class ShapeRecognition:
                     break
             return is_goal
             #cv2.putText(frame, goal_status, (self.img_width_middle - 100, self.img_height_middle - 100),
-                        cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
+            # cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
             #cv2.imshow('Frame', frame)
 
             #if cv2.waitKey(1) & 0xFF == ord('q'):
