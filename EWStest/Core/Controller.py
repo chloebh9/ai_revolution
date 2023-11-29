@@ -1075,13 +1075,7 @@ class Controller:
                 # 공이 로봇 화면에서 공이 중심에 있을 수 있도록 로봇의 고개를 돌려 x, y를 맞춤
                 # 만약 공이 안 잡히고, shot_way가 N이면 앞으로 걷고, 다시 깃발부터 찾기
                 # 만약 공이 안 잡히고, shot_way가 R이나 L이면 hit_will_angle을 90으로 설정하고, 티샷파트로 넘어감
-                if self.check_ball_distance() == None:
-                    if shot_way == "N":
-                        self.robo._motion.walk("FORWARD", 3)
-                        continue
-                    else:
-                        hit_will_anlge = 90
-                        break
+                self.check_ball_distance()
 
                 time.sleep(0.2)
 
@@ -1166,13 +1160,14 @@ class Controller:
             ballycenter = BallyCenterMeasurer(img_width=640, img_height=480)
             ball_y_angle = ["N"]  # 공을 못 찾았을 때 반환하는 값
             correctAngle = 0
-            putting_angle = 30
-            putting_angle_error = 2
+            putting_angle = 20
+            putting_angle_error = 4
             # dist_Process = DistMeasurer()
-            self.check_ball_distance()
-            self.putting_robot_turn()
-
+            # self.check_ball_distance()
+            # self.putting_robot_turn()
+            self.robo._motion.set_head("LEFTRIGHT_CENTER")
             while correctAngle != 1:
+
                 # 퍼팅 위치까지 가고, 공 앞에서 돌아야할 각도만큼 돌았는데 공이 없을시, 공을 찾고 몸을 공과 일자로 맞추는 코드
                 self.ball_feature_ball()
                 
@@ -1242,6 +1237,7 @@ class Controller:
             # ========================================== 티샷 보정하는 부분의 끝 ==================================================
             
             print("퍼팅하겠습니다")
+            print("퍼팅할 당시의 거리: ", flag_ball_dis)
 
             if flag_ball_dis <= 60:
                 self.robo._motion.hit_the_ball("LEFT",short=True) # 짧게 치기

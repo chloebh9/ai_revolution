@@ -2535,7 +2535,7 @@ Number_Play: '  BUTTON_NO = 숫자대입
     RETURN
 
     '************************************************
-골프_왼쪽으로_샷10:
+골프_왼쪽으로_샷10: '100cm
 
     CONST 골프채높이 = 135
 
@@ -2578,7 +2578,47 @@ Number_Play: '  BUTTON_NO = 숫자대입
     '******************************************
 
     '************************************************
-골프_왼쪽으로_샷5:
+골프_왼쪽으로_샷5: '50cm
+
+    SPEED 8
+    MOVE G6A,97,  76, 145,  93, 100, 100
+    MOVE G6D,97,  76, 145,  93, 100, 100
+    MOVE G6B,100,  35,  90,
+    MOVE G6C,150,  100,  10, 10
+    WAIT
+
+    MOVE G6C,135,  20,  90, 10
+    WAIT
+
+    DELAY 400
+
+
+    MOVE G6C,135,  40,  90, 10
+    WAIT
+
+    '**** 골프 _왼쪽으로_샷 스피드 *******
+    'HIGHSPEED SETON
+    SPEED 8
+    MOVE G6C,135,  10,  76, 10
+    WAIT
+    DELAY 1000
+    ' HIGHSPEED SETOFF
+
+    '************
+
+    SPEED 8
+    MOVE G6C,135,  100,  10, 10
+    WAIT
+
+    MOVE G6C,135,  50,  60, 190
+    WAIT
+
+    GOSUB 기본자세
+
+    RETURN
+    '******************************************
+
+골프_왼쪽으로_샷2: '50cm
 
     SPEED 8
     MOVE G6A,97,  76, 145,  93, 100, 100
@@ -2599,7 +2639,7 @@ Number_Play: '  BUTTON_NO = 숫자대입
     '**** 골프 _왼쪽으로_샷 스피드 *******
     'HIGHSPEED SETON
     SPEED 4
-    MOVE G6C,135,  10,  70, 10
+    MOVE G6C,135,  10,  80, 10
     WAIT
     DELAY 1000
     ' HIGHSPEED SETOFF
@@ -2809,24 +2849,28 @@ MAIN_2:
 
 KEY1:
     ETX  4800,1
-    GOTO 왼쪽턴5_골프
+    'GOTO 왼쪽턴5_골프
+    'gosub 골프_왼쪽으로_샷 'test
+   	GOSUB 골프_왼쪽으로_샷2 'test
 
 
     GOTO RX_EXIT
     '***************	
 KEY2:
     ETX  4800,2
-
-
-    GOSUB 골프_왼쪽으로_샷10
-
+    '
+    ' GOSUB 골프_왼쪽으로_샷10
+	GOSUB 골프_왼쪽으로_샷5 'test
 
     GOTO RX_EXIT
     '***************
 KEY3:
     ETX  4800,3
 
-    GOTO 오른쪽턴5_골프
+    'GOTO 오른쪽턴5_골프
+    GOSUB 골프_왼쪽으로_샷10
+    
+    'GOTO 오른쪽턴3 ' test
 
     GOTO RX_EXIT
     '***************
@@ -2903,14 +2947,14 @@ KEY12: ' ▼
     '***************
 KEY13: '▶
     ETX  4800,13
-    GOTO 오른쪽옆으로70연속_골프
+    GOTO 오른쪽옆으로20_골프
 
 
     GOTO RX_EXIT
     '***************
 KEY14: ' ◀
     ETX  4800,14
-    GOTO 왼쪽옆으로70연속_골프
+    GOTO 왼쪽옆으로20_골프
 
 
     GOTO RX_EXIT
@@ -3344,26 +3388,30 @@ KEY91:
     '**************** Putting ********************
 KEY92:
     ETX 4800, 92
-    GOTO 골프_오른쪽으로_샷5
+    GOSUB 골프_왼쪽으로_샷5
     GOTO RX_EXIT
 KEY93:
     ETX 4800, 93
-    GOTO 골프_왼쪽으로_샷10
+    GOSUB 골프_왼쪽으로_샷10
     GOTO RX_EXIT
 KEY94:
     ETX 4800, 94
-    GOTO 골프_오른쪽으로_샷10
+    GOSUB 골프_오른쪽으로_샷10
     GOTO RX_EXIT
 KEY95:
     ETX 4800, 95
-    GOTO 골프_왼쪽으로_샷5
+    GOSUB 골프_오른쪽으로_샷5
     GOTO RX_EXIT
-    '****************** set_head more ******************
 KEY96:
+	ETX 4800, 96
+	GOSUB 골프_왼쪽으로_샷2
+	GOTO RX_EXIT
+    '****************** set_head more ******************
+KEY97:
     ETX 4800, 96
     GOTO 전방하향72도
     GOTO RX_EXIT
-KEY97:
+KEY98:
     ETX 4800, 97
     GOTO 전방하향60도
     GOTO RX_EXIT
