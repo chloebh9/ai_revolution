@@ -1139,7 +1139,7 @@ class Controller:
                 print("퍼팅 지점까지 이동")
 
             # 로봇이 퍼팅 지점 예측을 멈추고, 티샷 준비를 하는 상황 (티샷 부분)
-            if ball_is_flag_back == True: # 공이 깃발 뒤에 있을 떄
+            if ball_is_flag_back == False: # 공이 깃발 뒤에 있을 떄
                 if shot_way == "R": # 깃발 뒤에 있으면 치는 방향이 바뀌기 때문에 
                     shot_way = "L" # shot_way를 L로 
                     print("shot way를 R에서 L로 변경합니다.")
