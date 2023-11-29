@@ -1,190 +1,97 @@
 import numpy as np
 import cv2
 
-class GoalDetect:
-    def __init__(self, img_width=640, img_height=480, width=4, focal=450):
-        self.dist = 0 
-        self.focal = focal
-        self.pixels = 30
-        self.width = width
+class ShapeRecognition:
+    def __init__(self, video_path):
+        self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
+        if not self.cap.isOpened():
+            raise ValueError(f"Video at {video_path} cannot be opened")
+        ret, frame = self.cap.read()
+        if not ret:
+            raise ValueError("Failed to grab the first frame")
+        self.img_height, self.img_width = frame.shape[:2]
+        self.img_width_middle = self.img_width // 2
+        self.img_height_middle = self.img_height // 2
+        self.kernel = np.ones((3, 3), "uint8")
 
-        self.img_width = img_width
-        self.img_height = img_height
-        self.img_width_middle = img_width // 2
-        self.img_height_middle = img_height // 2
+    def process_frame(self, frame):
+        hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        is_goal = False
 
-        self.kernel = np.ones((3, 3), 'uint8')
-        self.font = cv2.FONT_HERSHEY_SIMPLEX
-        self.org = (0, 20)
-        self.fontScale = 0.6
-        self.color = (0, 0, 255)
-        self.thickness = 2
-        
-        self.middle = img_width // 2
+        # Define the color ranges
+        green_range = (np.array([57, 78, 61]), np.array([89, 255, 255]))
+        yellow_range = (np.array([0, 16, 144]), np.array([43, 184, 255]))
+        red_range1 = (np.array([0, 76, 97]), np.array([11, 186, 160]))
+        red_range2 = (np.array([137, 0, 0]), np.array([200, 255, 255]))
 
-    #find the distance from then camera
-    def get_dist(self, rectange_params, image, name, isMiddle):
-        #find no of pixels covered
-        pixels = rectange_params[1][0]
+        # Process green color
+        green_mask = cv2.inRange(hsv_frame, *green_range)
+        green_contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-        #calculate distance
-        dist = (self.img_width * self.focal)/pixels
+        flag_boxes = []  # 깃발 박스 저장을 위한 리스트
+        red_boxes = []  # 빨간색 박스 저장을 위한 리스트
 
-        image = cv2.putText(image, str(dist), (110,50), self.font,  
-        self.fontScale, self.color, 1, cv2.LINE_AA)
+        for contour in green_contours:
+            x, y, w, h = cv2.boundingRect(contour)
 
-        return image
+            # Process yellow within green
+            yellow_mask = cv2.inRange(hsv_frame[y:y+h, x:x+w], *yellow_range)
+            yellow_contours, _ = cv2.findContours(yellow_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-    # box 좌표의 x축 최댓값과 최솟값을 return하는 함수
-    def getMaxMin(self, box):
-        min_x, max_x = self.img_width, 0
+            for cnt in yellow_contours:
+                area = cv2.contourArea(cnt)
+                if area > 10:
+                    x_yellow, y_yellow, w_yellow, h_yellow = cv2.boundingRect(cnt)
+                    cv2.rectangle(frame, (x + x_yellow, y + y_yellow), (x + x_yellow + w_yellow, y + y_yellow + h_yellow), (0, 255, 255), 2)  # Yellow box
+                    flag_boxes.append((x + x_yellow, y + y_yellow, w_yellow, h_yellow))
 
-        for x, y in box:
-            if x < min_x:
-                min_x = x
-            elif x > max_x:
-                max_x = x
-        return max_x, min_x
+        # Process red color
+        red_mask = cv2.inRange(hsv_frame, *red_range1) + cv2.inRange(hsv_frame, *red_range2)
+        red_mask = cv2.morphologyEx(red_mask, cv2.MORPH_DILATE, self.kernel, iterations=5)
+        red_contours, _ = cv2.findContours(red_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-    # box 좌표의 y축 최댓값과 최솟값을 return하는 함수
-    def getyMaxMin(self, box):
-        min_y, max_y = self.img_height, 0
+        for cnt in red_contours:
+            area = cv2.contourArea(cnt)
+            if area > 30:
+                x_red, y_red, w_red, h_red = cv2.boundingRect(cnt)
+                cv2.rectangle(frame, (x_red, y_red), (x_red + w_red, y_red + h_red), (0, 0, 255), 2)  # Red box
+                red_boxes.append((x_red, y_red, w_red, h_red))
 
-        for x, y in box:
-            if y < min_y:
-                min_y = y
-            elif y > max_y:
-                max_y = y
-        return max_y, min_y
+        return flag_boxes, red_boxes
 
-
-    # max_x, min_x를 입력받으면 해당 물체가 중간에 있는지 return하는 함수
-    def judgeMiddle(self, max_x, min_x):
-
-        l_dist = min_x
-        r_dist = self.img_width - max_x
-        error_range = 30
-        
-        if abs(l_dist - r_dist) < error_range:
-            return True
-        else:
-            return False
-
-    def process(self):
-        cap = cv2.VideoCapture(0, cv2.CAP_V4L)
-
-        #basic constants for opencv Functs
-        kernel = np.ones((3,3),'uint8')
-
-        # imshow 실행시 주석 빼기
-        cv2.namedWindow('Object Dist Measure ', cv2.WINDOW_NORMAL)
-        cv2.resizeWindow('Object Dist Measure ', 700,600)
-
-        #loop to capture video frames
+    def run(self):
         while True:
-            ret, img = cap.read()
-            
+            ret, frame = self.cap.read()
             if not ret:
-                break
-            
-            hsv_img = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
-
-            # window version
-            # ball hsv
-            lower1 = np.array([0, 100, 50])
-            upper1 = np.array([10, 200, 200])
-            lower = np.array([137, 0, 0])
-            upper = np.array([200, 255, 255])
-            mask = cv2.inRange(hsv_img, lower, upper)
-            mask += cv2.inRange(hsv_img, lower1, upper1)
-
-            lower_flag = np.array([20, 90, 144])
-            # upper_flag = np.array([43, 184, 255])
-            upper_flag = np.array([45, 200, 255])
-            mask_flag = cv2.inRange(hsv_img, lower_flag, upper_flag)
-
-
-            #Remove Extra garbage from image
-            d_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel,iterations = 5)
-            f_img = cv2.morphologyEx(mask_flag, cv2.MORPH_OPEN, kernel,iterations = 5)
-
-
-            #find the histogram -> 공
-            cont,hei = cv2.findContours(d_img,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
-            cont = sorted(cont, key = cv2.contourArea, reverse = True)[:1]
-            
-            b_max_x, b_min_x = 0, 0
-            b_max_y, b_min_y = 0, 0
-            
-            is_goal = False
-            
-            if len(cont) > 0:
-                ball_cnt = cont[0]
-                #check for contour area
-                if (cv2.contourArea(ball_cnt)>70 and cv2.contourArea(ball_cnt)<306000):
-                    
-                    #Draw a rectange on the contour
-                    rect = cv2.minAreaRect(ball_cnt)
-                    box = cv2.boxPoints(rect)
-                    box = np.int0(box)
-                    print('ball points :', box)
-                    cv2.drawContours(img, [box], -1, (255,0,0), 3)
-
-                    b_max_x, b_min_x = self.getMaxMin(box)
-                    b_max_y, b_min_y = self.getyMaxMin(box)
-                    isMiddle = self.judgeMiddle(b_max_x, b_min_x)
-                    
-                    img = self.get_dist(rect, img, 'ball', isMiddle)
-
-            # 깃발
-            cont2,hei2 = cv2.findContours(f_img,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
-            cont2 = sorted(cont2, key = cv2.contourArea, reverse = True)[:1]
-
-            if len(cont2) > 0:
-                flag_cnt = cont2[0]
-                #check for contour area
-                if (cv2.contourArea(flag_cnt)>100 and cv2.contourArea(flag_cnt)<306000):
-
-                    #Draw a rectange on the contour
-                    rect = cv2.minAreaRect(flag_cnt)
-                    box = cv2.boxPoints(rect)
-                    box = np.int0(box)
-                    print('flag points :', box)
-                    cv2.drawContours(img, [box], -1, (0,255,0), 3)
-
-                    f_max_x, f_min_x = self.getMaxMin(box)
-                    f_max_y, f_min_y = self.getyMaxMin(box)
-                    isMiddle = self.judgeMiddle(f_max_x, f_min_x)
-                    
-                    img = self.get_dist(rect,img, 'flag', isMiddle)
-                    
-                    print(b_max_x, " ", b_min_x)
-                    goal_range = 15
-                    # 공이 (홀컵기준)밑에 있을 때
-                    if (f_min_y + f_max_y)/2 < (b_min_y + b_max_y)/2:
-                        if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y <= b_min_y and b_max_y <= f_max_y - goal_range:
-                            print("Goal!")
-                            is_goal = True
-                            cv2.putText(img, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
-                            # return is_goal
-                    # 공이 (홀컵기준)위에 있을 때
-                    else:
-                        if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y - goal_range <= b_min_y and b_max_y <= f_max_y - goal_range:
-                            print("Goal!")
-                            is_goal = True
-                            cv2.putText(img, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
-                            # return is_goal
-                        
-            #return is_goal
-                
-        #     imshow 실행시 주석 빼기
-            cv2.imshow('Object Dist Measure ', img)
-
-            if cv2.waitKey(1) & 0xFF == ord('q'):
+                print("Failed to grab a frame")
                 break
 
+            flag_boxes, red_boxes = self.process_frame(frame)
+
+            goal_status = "NO GOAL"
+            for f_x, f_y, f_w, f_h in flag_boxes:
+                for r_x, r_y, r_w, r_h in red_boxes:
+                    if (f_x <= r_x <= f_x + f_w and
+                        f_x <= r_x + r_w <= f_x + f_w and
+                        f_y <= r_y <= f_y + f_h and
+                        f_y <= r_y + r_h <= f_y + f_h):
+                        goal_status = "GOAL"
+                        break
+                if goal_status == "GOAL":
+                    is_goal = True
+                    break
+            return is_goal
+            #cv2.putText(frame, goal_status, (self.img_width_middle - 100, self.img_height_middle - 100),
+                        cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
+            #cv2.imshow('Frame', frame)
+
+            #if cv2.waitKey(1) & 0xFF == ord('q'):
+                #break
+
+        self.cap.release()
         cv2.destroyAllWindows()
-    
+
 if __name__ == "__main__":
-    goal_detector = GoalDetect()
-    print(goal_detector.process())
+    video_path = 0  # Use 0 for webcam
+    shape_recognition = ShapeRecognition(video_path)
+    shape_recognition.run()
