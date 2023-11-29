@@ -3491,5 +3491,5 @@ KEY103:
     GOTO RX_EXIT
 KEY104:
     ETX 4800, 104
-    GOTO 머리오른쪽도
+    GOTO 머리오른쪽61도
     GOTO RX_EXIT
