@@ -320,26 +320,34 @@ class Motion:
 
 
     # 공 치기 (2, 5 / 92, 95) (참고: 93, 94에 길게 치는 거 또 있음)
-    def hit_the_ball(self, dir, short=False):
+    def hit_the_ball(self, dir, dist = 150):
         """
         dir: {LEFT, RIGHT} - 치는 방향
         """
 
-        dir_list = {"LEFT": 2, "RIGHT": 5}
+        dir_list = {"LEFT": {1: 96, 2: 92, 3:93}, "RIGHT": 5}
         
 
         # 짧게 치기: 왼쪽 92, 오른쪽 95
-        if short:
-            dir_list[dir] += 90
+        # if short:
+        #     dir_list[dir] += 90
 
+        # century: 공의 세기 (영어 단어 아닌 거 알고 있음!!)
         if dir == "LEFT":
             print("왼쪽에서 치겠습니다.")
-            self.TX_data_py3(dir_list[dir])
+            if dist >= 150:
+                century = 2
+                self.TX_data_py3(dir_list[dir][century])
+                print("중간 세기로 치겠습니다.")
+            elif dist < 150:
+                century = 1
+                self.TX_data_py3(dir_list[dir][century])
+                print("약한 세기로 치겠습니다.")
+            # self.TX_data_py3(dir_list[dir])
         elif dir == "RIGHT":
             print("오른쪽에서 치겠습니다.")
             self.TX_data_py3(dir_list[dir])
         time.sleep(8)
-
   
     # 세레머니하기 (8)
     def ceremony(self, goal):
