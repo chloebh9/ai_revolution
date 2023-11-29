@@ -401,6 +401,8 @@ class Controller:
         while correctAngle != 1:
             print("공 센터 맞추는 부분")
             ball_x_angle = ballxcenter.process()
+            if ball_x_angle[0] == "N":
+                y_dir += 1
             time.sleep(0.2)
             print("ball_x_angle: ", end="")
             print(ball_x_angle[0])
