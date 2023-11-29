@@ -1122,6 +1122,13 @@ class Controller:
                 print("공이 깃발 뒤에 있는지 없는지 (T/F): ", ball_is_flag_back)
                 print("공과 깃발 사이의 거리(cm): ", flag_ball_dis)
 
+                # 홀컵과 공의 거리의 차를 구해서 홀인 체크 파트로 넘어가는 부분
+                if abs(flag_ball_dis) <= 10:
+                    self.act = act.CHECK
+                else:
+                    self.act = act.SEARCH_FLAG
+
+
                 hit_angle = int(hit_angle)
                 self.find_best_actions(hit_angle, shot_way)
 
@@ -1249,12 +1256,6 @@ class Controller:
             time.sleep(0.1)
             self.robo._motion.turn("LEFT", 45)
             time.sleep(0.1)
-            
-            # 홀컵과 공의 거리의 차를 구해서 홀인 체크 파트로 넘어가는 부분
-            if abs(flag_ball_dis) <= 10:
-                self.act = act.CHECK
-            else:
-                self.act = act.SEARCH_FLAG
                 
 #############################################################################
         elif act == act.CHECK:  # 홀인했는지 확인
