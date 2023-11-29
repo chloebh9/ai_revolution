@@ -16,6 +16,7 @@ class ShapeRecognition:
 
     def process_frame(self, frame):
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        is_goal = False
 
         # Define the color ranges
         green_range = (np.array([57, 78, 61]), np.array([89, 255, 255]))
@@ -77,8 +78,9 @@ class ShapeRecognition:
                         goal_status = "GOAL"
                         break
                 if goal_status == "GOAL":
+                    is_goal = True
                     break
-
+            return is_goal
             cv2.putText(frame, goal_status, (self.img_width_middle - 100, self.img_height_middle - 100),
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
             cv2.imshow('Frame', frame)
