@@ -1244,7 +1244,11 @@ class Controller:
             else:
                 self.robo._motion.hit_the_ball("LEFT") # 길게 치기
             time.sleep(6)
-            
+
+            self.robo._motion.turn("LEFT", 45)
+            time.sleep(0.1)
+            self.robo._motion.turn("LEFT", 45)
+            time.sleep(0.1)
             
             # 홀컵과 공의 거리의 차를 구해서 홀인 체크 파트로 넘어가는 부분
             if abs(flag_ball_dis) <= 10:
@@ -1255,11 +1259,6 @@ class Controller:
 #############################################################################
         elif act == act.CHECK:  # 홀인했는지 확인
             print("Act:", act)  # Debug
-
-            self.robo._motion.turn("LEFT", 45)
-            time.sleep(0.1)
-            self.robo._motion.turn("LEFT", 45)
-            time.sleep(0.1)
 
             self.robo._motion.set_head("LEFTRIGHT_CENTER")
             time.sleep(0.2)
