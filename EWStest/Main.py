@@ -42,6 +42,6 @@ if __name__ == "__main__":
     # Motion.TX_data_py3(97)
     # print("60도")
     # time.sleep(0.5)
-    Motion.TX_data_py3(42)
-    print("35도")
+    Motion.TX_data_py3(99)
+    print("25도")
     # time.sleep(0.5)
