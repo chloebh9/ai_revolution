@@ -3388,7 +3388,7 @@ KEY91:
     '**************** Putting ********************
 KEY92:
     ETX 4800, 92
-    GOSUB 골프_오른쪽으로_샷5
+    GOSUB 골프_왼쪽으로_샷5
     GOTO RX_EXIT
 KEY93:
     ETX 4800, 93
@@ -3400,7 +3400,7 @@ KEY94:
     GOTO RX_EXIT
 KEY95:
     ETX 4800, 95
-    GOSUB 골프_왼쪽으로_샷5
+    GOSUB 골프_오른쪽으로_샷5
     GOTO RX_EXIT
 KEY96:
 	ETX 4800, 96
