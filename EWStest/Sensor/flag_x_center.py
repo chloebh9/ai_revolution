@@ -102,7 +102,7 @@ class FlagxCenterMeasurer:
                     self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
                     have_flag = True
                     
-            #break
+            break
             cv2.imshow('프레임', frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
@@ -113,7 +113,7 @@ class FlagxCenterMeasurer:
             # max_x, min_x, max_y, min_y = self.max_x, self.min_x, self.max_y, self.min_y
 
         flag_x_isMiddle = self.judgeMiddle(max_x, min_x)
-        #return [flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1], have_flag]
+        return [flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1], have_flag]
 
 
 if __name__ == "__main__":
