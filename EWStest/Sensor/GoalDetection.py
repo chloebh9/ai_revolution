@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-class ShapeRecognition:
+class GoalDetect:
     def __init__(self, video_path):
         self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
         if not self.cap.isOpened():
