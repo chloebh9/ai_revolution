@@ -114,7 +114,7 @@ class Controller:
                     
             elif Tput_x_center == False:
                 print("가운데 가운데 X")
-                self.robo._motion.set_head("LEFT", 46)
+                self.robo._motion.set_head("LEFT", 61)
                 time.sleep(0.1)
                 Tput_x_center = Tputting_x_BallCenterMeasurer().process()
                 time.sleep(0.1)
@@ -128,7 +128,7 @@ class Controller:
                         return
 
                 print("가운데 왼쪽 X")
-                self.robo._motion.set_head("RIGHT", 61)
+                self.robo._motion.set_head("RIGHT", 51)
                 time.sleep(0.1)
                 Tput_x_center = Tputting_x_BallCenterMeasurer().process()
                 time.sleep(0.1)
