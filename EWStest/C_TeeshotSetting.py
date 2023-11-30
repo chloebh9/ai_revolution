@@ -1,4 +1,5 @@
 # 공이 X축 기준으로 가운데 있을 때 true, 아니면 false
+from Sensor.HSVAdjust import MaskGenerator
 
 # -*- coding: utf-8 -*-
 import numpy as np
@@ -96,15 +97,17 @@ class BallCenterMeasurer:
             # mask = mask1+mask2
             
             # 424 version
-            lower = np.array([0, 20, 187])
-            upper = np.array([37, 255, 255])
-            lower1 = np.array([118, 0, 0])
-            upper1 = np.array([255, 255, 255])
+            # lower = np.array([0, 20, 187])
+            # upper = np.array([37, 255, 255])
+            # lower1 = np.array([118, 0, 0])
+            # upper1 = np.array([255, 255, 255])
             
-            mask1 = cv2.inRange(hsv_img, lower, upper)
-            mask2 = cv2.inRange(hsv_img, lower1, upper1)
+            # mask1 = cv2.inRange(hsv_img, lower, upper)
+            # mask2 = cv2.inRange(hsv_img, lower1, upper1)
 
-            mask = mask1+mask2
+            # mask = mask1+mask2
+            
+            mask = MaskGenerator.ball_generate_mask(hsv_img)
 
 
             # lower_flag = np.array([10, 150, 100])
