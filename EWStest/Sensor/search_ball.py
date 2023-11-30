@@ -27,7 +27,7 @@ class FindBall:
             
             # mask = MaskGenerator.ball_generate_mask(hsv_img)
             lower = np.array([0, 22, 213])
-            upper = np.array([22, 96, 255])
+            upper = np.array([18, 96, 255])
             lower1 = np.array([160, 17, 187])
             upper1 = np.array([255, 255, 255])
             
