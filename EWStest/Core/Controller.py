@@ -114,7 +114,7 @@ class Controller:
                     
             elif Tput_x_center == False:
                 print("가운데 가운데 X")
-                self.robo._motion.set_head("LEFT", 67)
+                self.robo._motion.set_head("LEFT", 43)
                 time.sleep(0.1)
                 Tput_x_center = Tputting_x_BallCenterMeasurer().process()
                 time.sleep(0.1)
@@ -141,8 +141,8 @@ class Controller:
                         self.C_right = 1
                         return
 
-                else:
-                    print("티샷 부분에서 공을 어디서도 찾지 못했습니다.")
+            else:
+                print("티샷 부분에서 공을 어디서도 찾지 못했습니다.")
                         
     ###################################################################################################
     # 깃발이 있는지 찾는 코드
