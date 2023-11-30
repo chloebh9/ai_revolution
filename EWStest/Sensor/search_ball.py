@@ -35,10 +35,10 @@ class FindBall:
             mask = mask1+mask2
 
             # 모폴로지 연산
-            # d_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, self.kernel, iterations=5)
+            d_img = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, self.kernel, iterations=5)
 
             cont, hei = cv2.findContours(
-                mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
+                d_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
             )
             cont = sorted(cont, key=cv2.contourArea, reverse=True)[:1]
 
