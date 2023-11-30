@@ -1,3 +1,5 @@
+from Sensor.HSVAdjust import MaskGenerator
+
 import numpy as np
 import cv2
 
@@ -19,13 +21,17 @@ class GoalDetect:
         is_goal = False
 
         # Define the color ranges
-        green_range = (np.array([57, 78, 61]), np.array([89, 255, 255]))
-        yellow_range = (np.array([0, 16, 144]), np.array([43, 184, 255]))
-        red_range1 = (np.array([0, 76, 97]), np.array([11, 186, 160]))
-        red_range2 = (np.array([137, 0, 0]), np.array([200, 255, 255]))
+        # green_range = (np.array([57, 78, 61]), np.array([89, 255, 255]))
+        # yellow_range = (np.array([0, 16, 144]), np.array([43, 184, 255]))
+        # red_range1 = (np.array([0, 76, 97]), np.array([11, 186, 160]))
+        # red_range2 = (np.array([137, 0, 0]), np.array([200, 255, 255]))
+        
+        green_mask = MaskGenerator.ground_generate_mask(hsv_frame)
+        yellow_range = MaskGenerator.flag_generate_mask(hsv_frame)
+        red_mask = MaskGenerator.ball_generate_mask(hsv_frame)
 
         # Process green color
-        green_mask = cv2.inRange(hsv_frame, *green_range)
+        # green_mask = cv2.inRange(hsv_frame, *green_range)
         green_contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
         flag_boxes = []  # 깃발 박스 저장을 위한 리스트
@@ -46,7 +52,7 @@ class GoalDetect:
                     flag_boxes.append((x + x_yellow, y + y_yellow, w_yellow, h_yellow))
 
         # Process red color
-        red_mask = cv2.inRange(hsv_frame, *red_range1) + cv2.inRange(hsv_frame, *red_range2)
+        # red_mask = cv2.inRange(hsv_frame, *red_range1) + cv2.inRange(hsv_frame, *red_range2)
         red_mask = cv2.morphologyEx(red_mask, cv2.MORPH_DILATE, self.kernel, iterations=5)
         red_contours, _ = cv2.findContours(red_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
