@@ -273,20 +273,20 @@ class Controller:
                         if before_flag_y_angle != flag_y_angle[0]:
                             recent_will_angle = 2
                         
-                        repeat = ["U", "D", "U", "D", "U", "D", "U", "D", "U", "D"]
-                        repeat2 = ["D", "U", "D", "U", "D", "U", "D", "U", "D", "U"]
+                        repeat_UD = ["U", "D", "U", "D", "U", "D", "U", "D", "U", "D"]
+                        repeat_UD_2 = ["D", "U", "D", "U", "D", "U", "D", "U", "D", "U"]
                         
                         lst_UD = []
                         
                         if len(lst_UD) == 11:
                             del lst_UD[0]
-                        if lst_UD == repeat or lst_UD == repeat2:
-                            if lst_UD == repeat:
+                        if lst_UD == repeat_UD or lst_UD == repeat_UD_2:
+                            if lst_UD == repeat_UD:
                                 self.robo._motion.y_head_angle += 1
                                 self.robo._motion.set_head_small("UP", 1)
                                 print("위아래 중간값으로 설정하겠습니다.")
                                 break
-                            elif lst_UD == repeat2:
+                            elif lst_UD == repeat_UD_2:
                                 self.robo._motion.y_head_angle -= 1
                                 self.robo._motion.set_head_small("DOWN", 1)
                                 print("위아래 중간값으로 설정하겠습니다.")
@@ -323,20 +323,20 @@ class Controller:
                     if before_flag_x_angle != flag_x_angle[0]:
                         recent_will_angle = 2
                         
-                    repeat = ["L", "R", "L", "R", "L", "R", "L", "R", "L", "R"]
-                    repeat2 = ["R", "L", "R", "L", "R", "L", "R", "L", "R", "L"]
+                    repeat_LR = ["L", "R", "L", "R", "L", "R", "L", "R", "L", "R"]
+                    repeat_LR_2 = ["R", "L", "R", "L", "R", "L", "R", "L", "R", "L"]
                     
                     lst_LR = []
                     
                     if len(lst_LR) == 11:
                         del lst_LR[0]
-                    if lst_LR == repeat or lst_LR == repeat2:
-                        if lst_LR == repeat:
+                    if lst_LR == repeat_LR or lst_LR == repeat_LR_2:
+                        if lst_LR == repeat_LR:
                             self.robo._motion.y_head_angle += 1
                             self.robo._motion.set_head_small("LEFT", 1)
                             print("왼쪽오른쪽 중간값으로 설정하겠습니다.")
                             break
-                        elif lst_LR == repeat2:
+                        elif lst_LR == repeat_LR_2:
                             self.robo._motion.y_head_angle -= 1
                             self.robo._motion.set_head_small("RIGHT", 1)
                             print("왼쪽오른쪽 중간값으로 설정하겠습니다.")
