@@ -131,9 +131,9 @@ class Tputting_x_BallCenterMeasurer:
                         cv2.LINE_AA,
                     )
 
-                    cv2.imshow("Object Dist Measure ", img)
-                    if cv2.waitKey(1) & 0xFF == ord("q"):
-                        break
+            cv2.imshow("Object Dist Measure ", img)
+            if cv2.waitKey(1) & 0xFF == ord("q"):
+                break
 
         cv2.destroyAllWindows()
 
