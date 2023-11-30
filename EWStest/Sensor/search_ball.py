@@ -4,6 +4,7 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 import cv2
+import time
 
 
 class FindBall:
@@ -20,6 +21,7 @@ class FindBall:
 
         while True:
             ret, img = cap.read()
+            time.sleep(0.3)
             dilimg = cv2.dilate(img, self.kernel, iterations=1)
             hsv_img = cv2.cvtColor(dilimg, cv2.COLOR_BGR2HSV)
             
