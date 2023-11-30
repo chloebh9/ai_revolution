@@ -80,7 +80,17 @@ class Tputting_x_BallCenterMeasurer:
             img = cv2.dilate(img, self.kernel, iterations=1)
             hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-            mask = MaskGenerator.ball_generate_mask(hsv_img)
+            # mask = MaskGenerator.ball_generate_mask(hsv_img)
+
+            lower = np.array([0, 20, 187])
+            upper = np.array([37, 255, 255])
+            lower1 = np.array([118, 0, 0])
+            upper1 = np.array([255, 255, 255])
+            
+            mask1 = cv2.inRange(hsv_img, lower, upper)
+            mask2 = cv2.inRange(hsv_img, lower1, upper1)
+
+            mask = mask1+mask2
 
             # 모폴로지 연산
             d_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, self.kernel, iterations=5)
