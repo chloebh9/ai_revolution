@@ -117,7 +117,7 @@ class Controller:
                 self.robo._motion.set_head("LEFT", 62)
                 time.sleep(0.1)
                 # Tput_x_center = Tputting_x_BallCenterMeasurer().process()
-                goal_detector = GoalDetect(img_width=640, img_height=480)
+                goal_detector = GoalDetect(0)
                 is_goal = goal_detector.process() # 골이 들어갔는지 판단
                 print("홀인 유무 (T/F): ", is_goal)
                 time.sleep(0.1)
@@ -134,7 +134,7 @@ class Controller:
                 self.robo._motion.set_head("RIGHT", 57)
                 time.sleep(0.1)
                 # Tput_x_center = Tputting_x_BallCenterMeasurer().process()
-                goal_detector = GoalDetect(img_width=640, img_height=480)
+                goal_detector = GoalDetect(0)
                 is_goal = goal_detector.process() # 골이 들어갔는지 판단
                 print("홀인 유무 (T/F): ", is_goal)
                 time.sleep(0.1)
@@ -1280,7 +1280,7 @@ class Controller:
             self.check_flag_distance() # 깃발 거리 angle 구하기
             time.sleep(0.2)
 
-            goal_detector = GoalDetect(img_width=640, img_height=480)
+            goal_detector = GoalDetect(0)
             is_goal = goal_detector.process() # 골이 들어갔는지 판단
             print("홀인 유무 (T/F): ", is_goal)
 
