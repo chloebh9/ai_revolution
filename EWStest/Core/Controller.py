@@ -272,14 +272,31 @@ class Controller:
 
                         if before_flag_y_angle != flag_y_angle[0]:
                             recent_will_angle = 2
+                        
+                        repeat = ["U", "D", "U", "D", "U", "D", "U", "D", "U", "D"]
+                        repeat2 = ["D", "U", "D", "U", "D", "U", "D", "U", "D", "U"]
+                        
+                        lst = []
+                        
+                        if len(lst) == 11:
+                            del lst[0]
+                        if lst == repeat or lst == repeat2:
+                            if lst == repeat:
+                                self.robo._motion.y_head_angle += 1
+                                self.robo._motion.set_head_small("UP", 1)
+                            elif lst == repeat2:
+                                self.robo._motion.y_head_angle -= 1
+                                self.robo._motion.set_head_small("DOWN", 1)
 
                         if flag_y_angle[0] == "U":  # 판단 내용 판단
                             self.robo._motion.set_head_small("UP", recent_will_angle)
                             time.sleep(0.1)
+                            lst.append("U")
 
                         if flag_y_angle[0] == "D":  # 판단 내용 판단
                             self.robo._motion.set_head_small("DOWN", recent_will_angle)
                             time.sleep(0.1)
+                            lst.append("D")
 
                     correctAngle = 1
                     print("중앙에 왔습니다.")
