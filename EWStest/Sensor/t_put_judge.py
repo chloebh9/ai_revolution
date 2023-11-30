@@ -1,5 +1,5 @@
 # 공이 Y축 기준으로 가운데 있을 때 true, 아니면 false
-from Sensor.HSVAdjust import MaskGenerator
+from HSVAdjust import MaskGenerator
 
 # -*- coding: utf-8 -*-
 import numpy as np
