@@ -1259,6 +1259,8 @@ class Controller:
             time.sleep(0.1)
             self.robo._motion.turn("LEFT", 45)
             time.sleep(0.1)
+            self.robo._motion.turn("LEFT", 45)
+            time.sleep(0.1)
                 
 #############################################################################
         elif act == act.CHECK:  # 홀인했는지 확인
