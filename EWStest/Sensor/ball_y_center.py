@@ -109,12 +109,23 @@ class BallyCenterMeasurer:
             
             # robot version
             # ball hsv
-            lower1 = np.array([0, 15, 50])
-            upper1 = np.array([20, 200, 200])
-            lower = np.array([137, 0, 0])
-            upper = np.array([200, 255, 255])
-            mask = cv2.inRange(hsv_img, lower, upper)
-            mask += cv2.inRange(hsv_img, lower1, upper1)
+            # lower1 = np.array([0, 15, 50])
+            # upper1 = np.array([20, 200, 200])
+            # lower = np.array([137, 0, 0])
+            # upper = np.array([200, 255, 255])
+            # mask = cv2.inRange(hsv_img, lower, upper)
+            # mask += cv2.inRange(hsv_img, lower1, upper1)
+            
+            # 424 version
+            lower = np.array([0, 20, 187])
+            upper = np.array([37, 255, 255])
+            lower1 = np.array([118, 0, 0])
+            upper1 = np.array([255, 255, 255])
+            
+            mask1 = cv2.inRange(hsv_img, lower, upper)
+            mask2 = cv2.inRange(hsv_img, lower1, upper1)
+
+            mask = mask1+mask2
 
             # lower_flag = np.array([10, 150, 100])
             # upper_flag = np.array([35, 255, 255])
