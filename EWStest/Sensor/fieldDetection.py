@@ -1,3 +1,5 @@
+from Sensor.HSVAdjust import MaskGenerator
+
 import cv2
 import numpy as np
 
@@ -17,11 +19,7 @@ class FieldDetection:
         hsv = cv2.cvtColor(resized_frame, cv2.COLOR_BGR2HSV)
         
         # 경기장 색인식 범위 지정
-        lower_green = np.array([40, 100, 40])
-        upper_green = np.array([80, 255, 255])
-        
-        # 경기장 mask
-        mask = cv2.inRange(hsv, lower_green, upper_green)
+        mask = MaskGenerator.ground_generate_mask(hsv)
         
         kernel = np.ones((5, 5), np.uint8)
         mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)

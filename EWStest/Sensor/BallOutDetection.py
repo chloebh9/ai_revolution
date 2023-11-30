@@ -1,3 +1,5 @@
+from Sensor.HSVAdjust import MaskGenerator
+
 import cv2
 import numpy as np
 
@@ -23,18 +25,7 @@ class BallOutDetection:
     
     def ball_detector(self, hsv, resized_frame):
         
-        # robot version
-        # ball hsv
-        lower1 = np.array([0, 100, 50])
-        upper1 = np.array([10, 200, 200])
-        lower = np.array([137, 0, 0])
-        upper = np.array([200, 255, 255])
-        mask_ball = cv2.inRange(hsv, lower, upper)
-        mask_ball += cv2.inRange(hsv, lower1, upper1)
-        
-        # lower = np.array([137, 0, 0])
-        # upper = np.array([255, 255, 255])
-        # mask_ball = cv2.inRange(hsv, lower, upper)
+        mask_ball = MaskGenerator.ball_generate_mask(hsv)
 
         # 마스크에서 공을 찾음.
         contours_ball, _ = cv2.findContours(mask_ball, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -55,11 +46,7 @@ class BallOutDetection:
         hsv = cv2.cvtColor(resized_frame, cv2.COLOR_BGR2HSV)
         
         # 경기장 색인식 범위 지정
-        lower_green = np.array([40, 70, 40])
-        upper_green = np.array([140, 180, 255])
-        
-        # 경기장 mask
-        mask = cv2.inRange(hsv, lower_green, upper_green)
+        mask = MaskGenerator.ground_generate_mask(hsv)
         
         kernel = np.ones((5, 5), np.uint8)
         mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
