@@ -59,14 +59,22 @@ class FlagxCenterMeasurer:
             
             hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-            low_green = np.array([38, 100, 61])
-            high_green = np.array([86, 255, 255])
+            # 녹색 범위 정의
+            # low_green = np.array([38, 100, 61])
+            # high_green = np.array([86, 255, 255])
+            # 424 version
+            low_green = np.array([35, 84, 0])
+            high_green = np.array([255, 255, 141])
             green_mask = cv2.inRange(hsv_frame, low_green, high_green)
             contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             self.green_boxes = [cv2.boundingRect(contour) for contour in contours]
 
-            low_yellow = np.array([0, 16, 144])
-            high_yellow = np.array([43, 184, 255])
+            # 과방
+            # low_yellow = np.array([0, 16, 144])
+            # high_yellow = np.array([43, 184, 255])
+            # 노랑색 범위 정의 (424)
+            low_yellow = np.array([0, 56, 169])
+            high_yellow = np.array([97, 255, 255])
             yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
             max_x, min_x = 0,0 # 깃발을 못 찾았을 때 오류나는 것을 방지하기 위해 바운딩 박스의 좌표를 0으로 초기화
 
