@@ -120,27 +120,27 @@ class Tputting_x_BallCenterMeasurer:
                     color = (0, 0, 255)
                     thickness = 2
 
-                    image = cv2.putText(
-                        img,
-                        "ball Middle : {}".format(ball_x_isMiddle),
-                        org,
-                        font,
-                        1,
-                        color,
-                        2,
-                        cv2.LINE_AA,
+                    return (
+                        ball_x_isMiddle  # imshow 하려함 => 위에 있는 주석을 활성화하고, return은 주석처리
                     )
+            image = cv2.putText(
+                img,
+                "ball Middle : {}".format(ball_x_isMiddle),
+                org,
+                font,
+                1,
+                color,
+                2,
+                cv2.LINE_AA,
+            )
 
             cv2.imshow("Object Dist Measure ", img)
             if cv2.waitKey(1) & 0xFF == ord("q"):
                 break
+        return False
 
         cv2.destroyAllWindows()
 
-            #         return (
-            #             ball_x_isMiddle  # imshow 하려함 => 위에 있는 주석을 활성화하고, return은 주석처리
-            #         )
-            # return False
 
 
 if __name__ == "__main__":
