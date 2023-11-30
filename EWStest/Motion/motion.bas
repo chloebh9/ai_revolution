@@ -1889,6 +1889,12 @@ GOSUB_RX_EXIT2:
     angle_x = 60
     GOTO RX_EXIT
 
+머리왼쪽43도:
+    SPEED 머리이동속도
+    SERVO 11, 57
+    angle_x = 57
+    GOTO RX_EXIT
+
 머리왼쪽45도:
     SPEED 머리이동속도
     SERVO 11, 55
@@ -3507,7 +3513,7 @@ KEY104:
     GOTO RX_EXIT
 KEY105:
     ETX 4800, 105
-    GOTO 머리왼쪽67도
+    GOTO 머리왼쪽43도
     GOTO RX_EXIT
 KEY106:
     ETX 4800, 106
