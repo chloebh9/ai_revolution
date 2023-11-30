@@ -276,27 +276,31 @@ class Controller:
                         repeat = ["U", "D", "U", "D", "U", "D", "U", "D", "U", "D"]
                         repeat2 = ["D", "U", "D", "U", "D", "U", "D", "U", "D", "U"]
                         
-                        lst = []
+                        lst_UD = []
                         
-                        if len(lst) == 11:
-                            del lst[0]
-                        if lst == repeat or lst == repeat2:
-                            if lst == repeat:
+                        if len(lst_UD) == 11:
+                            del lst_UD[0]
+                        if lst_UD == repeat or lst_UD == repeat2:
+                            if lst_UD == repeat:
                                 self.robo._motion.y_head_angle += 1
                                 self.robo._motion.set_head_small("UP", 1)
-                            elif lst == repeat2:
+                                print("위아래 중간값으로 설정하겠습니다.")
+                                break
+                            elif lst_UD == repeat2:
                                 self.robo._motion.y_head_angle -= 1
                                 self.robo._motion.set_head_small("DOWN", 1)
+                                print("위아래 중간값으로 설정하겠습니다.")
+                                break
 
                         if flag_y_angle[0] == "U":  # 판단 내용 판단
                             self.robo._motion.set_head_small("UP", recent_will_angle)
                             time.sleep(0.1)
-                            lst.append("U")
+                            lst_UD.append("U")
 
                         if flag_y_angle[0] == "D":  # 판단 내용 판단
                             self.robo._motion.set_head_small("DOWN", recent_will_angle)
                             time.sleep(0.1)
-                            lst.append("D")
+                            lst_UD.append("D")
 
                     correctAngle = 1
                     print("중앙에 왔습니다.")
@@ -318,13 +322,34 @@ class Controller:
 
                     if before_flag_x_angle != flag_x_angle[0]:
                         recent_will_angle = 2
+                        
+                    repeat = ["L", "R", "L", "R", "L", "R", "L", "R", "L", "R"]
+                    repeat2 = ["R", "L", "R", "L", "R", "L", "R", "L", "R", "L"]
+                    
+                    lst_LR = []
+                    
+                    if len(lst_LR) == 11:
+                        del lst_LR[0]
+                    if lst_LR == repeat or lst_LR == repeat2:
+                        if lst_LR == repeat:
+                            self.robo._motion.y_head_angle += 1
+                            self.robo._motion.set_head_small("LEFT", 1)
+                            print("왼쪽오른쪽 중간값으로 설정하겠습니다.")
+                            break
+                        elif lst_LR == repeat2:
+                            self.robo._motion.y_head_angle -= 1
+                            self.robo._motion.set_head_small("RIGHT", 1)
+                            print("왼쪽오른쪽 중간값으로 설정하겠습니다.")
+                            break
 
                     if flag_x_angle[0] == "L":
                         self.robo._motion.set_head_small("LEFT", recent_will_angle)
                         time.sleep(0.1)
+                        lst_LR.append("L")
                     if flag_x_angle[0] == "R":
                         self.robo._motion.set_head_small("RIGHT", recent_will_angle)
                         time.sleep(0.1)
+                        lst_LR.append("R")
             else:
                 print("flag_ball_distance 함수에서 원하는 X angle이 안 들어왔습니다.")
                         
