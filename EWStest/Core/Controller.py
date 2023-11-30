@@ -369,7 +369,7 @@ class Controller:
         
         # 공과 로봇의 거리(dist)와 공이랑 깃발 사이의 각도(flag_ball_angle_fin), 방향(direction)을 구하는 부분
         flag_angle = self.robo._motion.x_head_angle  # 깃발 각도 저장
-        down_y = [20, 50, 80] # 공 찾기 위한 Y축
+        down_y = [30, 50, 80] # 공 찾기 위한 Y축
         right_left = [30, 45, 54, 60] # 일단 모션에 있는 값 넣었는데, 확인하고 바꿔야 함..
         find_ball = FindBall().process()
         
