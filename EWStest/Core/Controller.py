@@ -117,14 +117,13 @@ class Controller:
                 self.robo._motion.set_head("LEFT", 62)
                 time.sleep(0.1)
                 # Tput_x_center = Tputting_x_BallCenterMeasurer().process()
-                goal_detector = GoalDetect(0)
-                is_goal = goal_detector.process() # 골이 들어갔는지 판단
-                print("홀인 유무 (T/F): ", is_goal)
+                find_ball = FindBall().process()
+
                 time.sleep(0.1)
                 cnt += 1
                 # print("Tput_x_center: ", Tput_x_center)
 
-                if is_goal == True:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+                if find_ball == True:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
                     if cnt == 4:
                         print("Center: 공을 왼쪽에서 찾았습니다.")
                         self.C_left = 1
@@ -133,15 +132,13 @@ class Controller:
                 print("가운데 왼쪽 X")
                 self.robo._motion.set_head("RIGHT", 57)
                 time.sleep(0.1)
-                # Tput_x_center = Tputting_x_BallCenterMeasurer().process()
-                goal_detector = GoalDetect(0)
-                is_goal = goal_detector.process() # 골이 들어갔는지 판단
-                print("홀인 유무 (T/F): ", is_goal)
+                find_ball = FindBall().process()
+                print("공의 유무: ", find_ball)
                 time.sleep(0.1)
                 cnt += 1
                 # print("Tput_x_center: ", Tput_x_center)
                 
-                if is_goal == True:
+                if find_ball == True:
                     if cnt == 5:
                         print("Center: 공을 오른쪽에서 찾았습니다.")
                         self.C_right = 1
@@ -941,7 +938,7 @@ class Controller:
                 time.sleep(0.8)
                 self.robo._motion.walk_side("LEFT", 3)
                 time.sleep(0.5)
-                self.robo._motion.turn("RIGHT", 20)
+                self.robo._motion.turn("RIGHT", 20, 2)
                 time.sleep(0.8)
                 self.robo._motion.walk_side("RIGHT")
 
@@ -1281,7 +1278,7 @@ class Controller:
             time.sleep(0.2)
 
             goal_detector = GoalDetect(0)
-            is_goal = goal_detector.process() # 골이 들어갔는지 판단
+            is_goal = goal_detector.run() # 골이 들어갔는지 판단
             print("홀인 유무 (T/F): ", is_goal)
 
             if is_goal == True:
