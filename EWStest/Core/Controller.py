@@ -103,6 +103,7 @@ class Controller:
             print("로봇이 가운데에 있다고 생각하겠습니다.")
             # Tput_center_y_Big = Tputting_y_BallCenterMeasurer().process()
             # print("Ball find and y center T/F: ", Tput_center_y_Big)
+            Tputting_x_BallCenterMeasurer().process()
             Tput_x_center = Tputting_x_BallCenterMeasurer().process()
             print("Ball find and x center T/F: ", Tput_x_center)
 
@@ -116,6 +117,7 @@ class Controller:
                 print("가운데 가운데 X")
                 self.robo._motion.set_head("LEFT", 62)
                 time.sleep(0.1)
+                Tputting_x_BallCenterMeasurer().process()
                 Tput_x_center = Tputting_x_BallCenterMeasurer().process()
                 time.sleep(0.1)
                 cnt += 1
@@ -130,6 +132,7 @@ class Controller:
                 print("가운데 왼쪽 X")
                 self.robo._motion.set_head("RIGHT", 57)
                 time.sleep(0.1)
+                Tputting_x_BallCenterMeasurer().process()
                 Tput_x_center = Tputting_x_BallCenterMeasurer().process()
                 time.sleep(0.1)
                 cnt += 1
