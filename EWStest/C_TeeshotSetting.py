@@ -60,7 +60,7 @@ class BallCenterMeasurer:
     def judgeMiddle(self, max_y, min_y):
         up_dist = min_y  # l_dist: 공을 표시한 박스 가장 왼쪽으로부터 영상 가장 왼쪽 끝까지의 거리
         down_dist = (
-            self.img_height - max_y
+            self.img_width - max_y
         )  # r_dist: 공을 표시한 박스 가장 오른쪽으로부터 영상 가장 오른쪽 끝까지의 거리
 
         # error_range = self.img_height // 12  # 오차 허용 범위
