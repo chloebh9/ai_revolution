@@ -81,9 +81,12 @@ class Tputting_y_BallCenterMeasurer:
 
             # mask = MaskGenerator.ball_generate_mask(hsv_img)
             # 424 version
-            lower = np.array([0, 20, 187])
-            upper = np.array([37, 255, 255])
-            lower1 = np.array([118, 0, 0])
+            # lower = np.array([0, 20, 187])
+            # upper = np.array([37, 255, 255])
+            lower = np.array([0, 22, 213])
+            upper = np.array([25, 96, 255])
+            # lower1 = np.array([118, 0, 0])
+            lower1 = np.array([160, 17, 187])
             upper1 = np.array([255, 255, 255])
             
             mask1 = cv2.inRange(hsv_img, lower, upper)
