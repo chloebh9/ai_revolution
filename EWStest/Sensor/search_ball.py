@@ -52,6 +52,7 @@ class FindBall:
                     is_ball = True
 
             cv2.imshow("Object Dist Measure ", img)
+            cv2.imshow("mask ", mask)
             if cv2.waitKey(1) & 0xFF == ord("q"):
                 cv2.destroyAllWindows()
                 break
