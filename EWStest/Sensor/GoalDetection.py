@@ -93,5 +93,5 @@ class GoalDetect:
 
 if __name__ == "__main__":
     video_path = 0  # Use 0 for webcam
-    shape_recognition = ShapeRecognition(video_path)
+    shape_recognition = GoalDetect(video_path)
     shape_recognition.run()
