@@ -69,14 +69,25 @@ class GoalDetect:
             flag_boxes, red_boxes = self.process_frame(frame)
 
             goal_status = "NO GOAL"
+            goal_range = 15
             for f_x, f_y, f_w, f_h in flag_boxes:
                 for r_x, r_y, r_w, r_h in red_boxes:
-                    if (f_x <= r_x <= f_x + f_w and
-                        f_x <= r_x + r_w <= f_x + f_w and
-                        f_y <= r_y <= f_y + f_h and
-                        f_y <= r_y + r_h <= f_y + f_h):
-                        goal_status = "GOAL"
-                        break
+                    # 공이 (홀컵기준)밑에 있을 때
+                    if (2*f_y + f_h)/2 < (2*r_y + r_h)/2:
+                        if (f_x + goal_range <= r_x <= f_x + f_w and
+                            f_x <= r_x + r_w <= f_x + f_w - goal_range and
+                            f_y <= r_y <= f_y + f_h and
+                            f_y <= r_y + r_h <= f_y + f_h - goal_range):
+                            goal_status = "GOAL"
+                            break
+                    # 공이 (홀컵기준)위에 있을 때
+                    else:
+                        if (f_x + goal_range <= r_x <= f_x + f_w and
+                            f_x <= r_x + r_w <= f_x + f_w - goal_range and
+                            f_y - goal_range <= r_y <= f_y + f_h and
+                            f_y <= r_y + r_h <= f_y + f_h):
+                            goal_status = "GOAL"
+                            break
                 if goal_status == "GOAL":
                     is_goal = True
                     break
