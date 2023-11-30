@@ -938,7 +938,7 @@ class Controller:
                 time.sleep(0.8)
                 self.robo._motion.walk_side("LEFT", 3)
                 time.sleep(0.5)
-                self.robo._motion.turn("RIGHT", 20)
+                self.robo._motion.turn("RIGHT", 20, 2)
                 time.sleep(0.8)
                 self.robo._motion.walk_side("RIGHT")
 
