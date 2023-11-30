@@ -85,18 +85,25 @@ class BallCenterMeasurer:
             hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
             # robot version
-            lower1 = np.array([0, 100, 50])
-            upper1 = np.array([10, 200, 200])
-            lower = np.array([137, 0, 0])
-            upper = np.array([200, 255, 255])
-            # lower2 = np.array([168, 0, 0])
-            # upper2 = np.array([255, 255, 255])
+            # lower1 = np.array([0, 100, 50])
+            # upper1 = np.array([10, 200, 200])
+            # lower = np.array([137, 0, 0])
+            # upper = np.array([200, 255, 255])
             
-            mask1 = cv2.inRange(hsv_img, lower, upper)
-            mask2 = cv2.inRange(hsv_img, lower1, upper1)
+            # mask1 = cv2.inRange(hsv_img, lower, upper)
+            # mask2 = cv2.inRange(hsv_img, lower1, upper1)
+            # # mask3 = cv2.inRange(hsv_img, lower2, upper2)
+
+            # mask = mask1+mask2
+            
+            # 424 version
+            lower = np.array([0, 20, 187])
+            upper = np.array([37, 255, 255])
+            
+            mask = cv2.inRange(hsv_img, lower, upper)
+            # mask2 = cv2.inRange(hsv_img, lower1, upper1)
             # mask3 = cv2.inRange(hsv_img, lower2, upper2)
 
-            mask = mask1+mask2
 
             # lower_flag = np.array([10, 150, 100])
             # upper_flag = np.array([35, 255, 255])
