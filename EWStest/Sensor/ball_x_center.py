@@ -1,4 +1,5 @@
 # 공이 가운데, 왼쪽, 오른쪽 중 어디에 있는지 판별하는 코드 (isMiddle)
+from Sensor.HSVAdjust import MaskGenerator
 
 # -*- coding: utf-8 -*-
 import numpy as np
@@ -83,42 +84,7 @@ class BallxCenterMeasurer:
             img = cv2.dilate(img, self.kernel, iterations=1)
             hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
             
-            #window version
-            # lower = np.array([170, 99, 100])
-            # upper = np.array([180, 255, 255])
-            # mask = cv2.inRange(hsv_img, lower, upper)
-            # lower1 = np.array([1, 99, 100])
-            # upper1 = np.array([5, 255, 255])
-            # mask += cv2.inRange(hsv_img, lower1, upper1)
-
-            # lower_flag = np.array([35, 130, 150])
-            # upper_flag = np.array([45, 255, 255])
-            # mask_flag = cv2.inRange(hsv_img, lower_flag, upper_flag)
-
-            #mac version
-            # lower = np.array([170, 100, 100])
-            # upper = np.array([180, 255, 255])
-            # mask = cv2.inRange(hsv_img, lower, upper)
-
-            # # robot version
-            # ball hsv
-            # lower1 = np.array([0, 15, 50])
-            # upper1 = np.array([20, 200, 200])
-            # lower = np.array([137, 0, 0])
-            # upper = np.array([200, 255, 255])
-            # mask = cv2.inRange(hsv_img, lower, upper)
-            # mask += cv2.inRange(hsv_img, lower1, upper1)
-            
-            # 424 version
-            lower = np.array([0, 20, 187])
-            upper = np.array([37, 255, 255])
-            lower1 = np.array([118, 0, 0])
-            upper1 = np.array([255, 255, 255])
-            
-            mask1 = cv2.inRange(hsv_img, lower, upper)
-            mask2 = cv2.inRange(hsv_img, lower1, upper1)
-
-            mask = mask1+mask2
+            mask = MaskGenerator.ball_generate_mask(hsv_img)
 
             #모폴로지 연산
             # d_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, self.kernel, iterations = 5)

@@ -79,42 +79,7 @@ class Tputting_y_BallCenterMeasurer:
             img = cv2.dilate(img, self.kernel, iterations=1)
             hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-            # robot version(안쓸듯)
-            # lower = np.array([137, 0, 0])
-            # upper = np.array([255, 255, 255])
-            # lower1 = np.array([0, 66, 87])
-            # upper1 = np.array([14, 255, 255])
-            
-            # mask1 = cv2.inRange(hsv_img, lower, upper)
-            # mask2 = cv2.inRange(hsv_img, lower1, upper1)
-
-            # mask = mask1+mask2
-            
-            # robot version
-            # ball hsv
-            # lower1 = np.array([0, 100, 50])
-            # upper1 = np.array([10, 200, 200])
-            # lower = np.array([137, 0, 0])
-            # upper = np.array([200, 255, 255])
-            # mask = cv2.inRange(hsv_img, lower, upper)
-            # mask += cv2.inRange(hsv_img, lower1, upper1)
-            
-            # # 424 version
-            # lower = np.array([0, 20, 187])
-            # upper = np.array([37, 255, 255])
-            # lower1 = np.array([118, 0, 0])
-            # upper1 = np.array([255, 255, 255])
-            
-            # mask1 = cv2.inRange(hsv_img, lower, upper)
-            # mask2 = cv2.inRange(hsv_img, lower1, upper1)
-
-            # mask = mask1+mask2
-            
             mask = MaskGenerator.ball_generate_mask(hsv_img)
-
-            # lower_flag = np.array([10, 150, 100])
-            # upper_flag = np.array([35, 255, 255])
-            # mask_flag = cv2.inRange(hsv_img, lower_flag, upper_flag)
 
             # 모폴로지 연산
             d_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, self.kernel, iterations=5)
