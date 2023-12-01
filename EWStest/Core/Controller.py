@@ -1342,7 +1342,7 @@ class Controller:
             if is_goal == True:
                 self.act = act.EXIT
             else:
-                self.act = act.SEARCH_BALL
+                self.act = act.SEARCH_FLAG
                 
 #############################################################################
         elif act == act.EXIT:
