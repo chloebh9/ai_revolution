@@ -1,7 +1,10 @@
-from Sensor.HSVAdjust import MaskGenerator
 
+from Sensor.HSVAdjust import MaskGenerator
 import numpy as np
 import cv2
+
+# GoalDetect 클래스와 관련된 다른 부분은 변경하지 않았습니다.
+
 
 class GoalDetect:
     def __init__(self, video_path):
@@ -19,16 +22,14 @@ class GoalDetect:
     def process_frame(self, frame):
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         is_goal = False
-
-        # Define the color ranges
-        # green_range = (np.array([57, 78, 61]), np.array([89, 255, 255]))
-        # yellow_range = (np.array([0, 16, 144]), np.array([43, 184, 255]))
-        # red_range1 = (np.array([0, 76, 97]), np.array([11, 186, 160]))
-        # red_range2 = (np.array([137, 0, 0]), np.array([200, 255, 255]))
         
-        green_mask = MaskGenerator.ground_generate_mask(hsv_frame)
-        yellow_range = MaskGenerator.flag_generate_mask(hsv_frame)
-        red_mask = MaskGenerator.ball_generate_mask(hsv_frame)
+        # MaskGenerator 클래스의 메서드를 호출하여 마스크 생성
+        mask_generator = MaskGenerator()  # MaskGenerator 객체 생성
+        
+        green_mask = mask_generator.ground_generate_mask(hsv_frame)
+        yellow_mask = mask_generator.flag_generate_mask(hsv_frame)
+        red_mask = mask_generator.ball_generate_mask(hsv_frame)
+        
 
         # Process green color
         # green_mask = cv2.inRange(hsv_frame, *green_range)
