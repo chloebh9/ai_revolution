@@ -1,4 +1,4 @@
-from Sensor.HSVAdjust import MaskGenerator
+# from Sensor.HSVAdjust import MaskGenerator
 
 import numpy as np
 import cv2
@@ -51,7 +51,10 @@ class FlagyCenterMeasurer:
             # 초록 영역 박스 정보 업데이트
             green_boxes = [cv2.boundingRect(contour) for contour in contours]
 
-            yellow_mask = MaskGenerator.flag_generate_mask(hsv_frame)
+            # yellow_mask = MaskGenerator.flag_generate_mask(hsv_frame)
+            low_yellow = np.array([21, 56, 171])
+            high_yellow = np.array([97, 255, 255])
+            yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
 
             shape_info_list = []
 
