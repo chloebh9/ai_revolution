@@ -94,15 +94,8 @@ class GoalDetect:
                         break
                 if goal_status == "GOAL":
                     return True  # 목표가 있을 때 True 반환
-            cv2.imshow("Processed Frame", result)
-            
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                        cv2.destroyAllWindows()
-                        break
 
-        self.cap.release()
-        cv2.destroyAllWindows()
-        #return False  # 루프가 완료되면 False 반환
+        return False  # 루프가 완료되면 False 반환
 
 if __name__ == "__main__":
     video_path = 0  # Use 0 for webcam
