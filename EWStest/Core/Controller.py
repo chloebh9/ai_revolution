@@ -13,6 +13,7 @@ from Sensor.HitPoint import HitPointer  # 타격지점 구하는 코드
 from Sensor.GoalDetection import GoalDetect # 홀인 했는지 확인하는 코드
 import time
 import copy
+from collections import Counter
 
 
 class Act(Enum):
@@ -273,34 +274,25 @@ class Controller:
                         if before_flag_y_angle != flag_y_angle[0]:
                             recent_will_angle = 2
                         
-                        repeat_UD = ["U", "D", "U", "D", "U", "D", "U", "D", "U", "D"]
-                        repeat_UD_2 = ["D", "U", "D", "U", "D", "U", "D", "U", "D", "U"]
-                        
+                        # 반복 고치기: 반복값이 n번 이상일 때, 그 값으로 설정
                         lst_UD = []
-                        
-                        if len(lst_UD) == 11:
-                            del lst_UD[0]
-                        if lst_UD == repeat_UD or lst_UD == repeat_UD_2:
-                            if lst_UD == repeat_UD:
-                                self.robo._motion.y_head_angle += 1
-                                self.robo._motion.set_head_small("UP", 1)
-                                print("위아래 중간값으로 설정하겠습니다.")
-                                break
-                            elif lst_UD == repeat_UD_2:
-                                self.robo._motion.y_head_angle -= 1
-                                self.robo._motion.set_head_small("DOWN", 1)
-                                print("위아래 중간값으로 설정하겠습니다.")
-                                break
+                        cnt_UD = Counter(lst_UD)
+                        result = cnt_UD.most_common()
+                        if result[0][1] >= 3:  # 최빈값이 나온 개수
+                            self.flag_angle = result[0][0]
+                            break
 
                         if flag_y_angle[0] == "U":  # 판단 내용 판단
                             self.robo._motion.set_head_small("UP", recent_will_angle)
                             time.sleep(0.1)
-                            lst_UD.append("U")
+                            tmp = self.robo._motion.y_head_angle
+                            lst_UD.append(tmp)
 
                         if flag_y_angle[0] == "D":  # 판단 내용 판단
                             self.robo._motion.set_head_small("DOWN", recent_will_angle)
                             time.sleep(0.1)
-                            lst_UD.append("D")
+                            tmp = self.robo._motion.y_head_angle
+                            lst_UD.append(tmp)
 
                     correctAngle = 1
                     print("중앙에 왔습니다.")
@@ -323,33 +315,24 @@ class Controller:
                     if before_flag_x_angle != flag_x_angle[0]:
                         recent_will_angle = 2
                         
-                    repeat_LR = ["L", "R", "L", "R", "L", "R", "L", "R", "L", "R"]
-                    repeat_LR_2 = ["R", "L", "R", "L", "R", "L", "R", "L", "R", "L"]
-                    
+                    # 반복 고치기: 20번이 넘어갈 경우, 최빈수로 설정하게끔           
                     lst_LR = []
-                    
-                    if len(lst_LR) == 11:
-                        del lst_LR[0]
-                    if lst_LR == repeat_LR or lst_LR == repeat_LR_2:
-                        if lst_LR == repeat_LR:
-                            self.robo._motion.y_head_angle += 1
-                            self.robo._motion.set_head_small("LEFT", 1)
-                            print("왼쪽오른쪽 중간값으로 설정하겠습니다.")
-                            break
-                        elif lst_LR == repeat_LR_2:
-                            self.robo._motion.y_head_angle -= 1
-                            self.robo._motion.set_head_small("RIGHT", 1)
-                            print("왼쪽오른쪽 중간값으로 설정하겠습니다.")
+                    cnt_LR = Counter(lst_LR)
+                    result = cnt_LR.most_common()
+                    if result[0][1] >= 3:  # 최빈값이 나온 개수
+                            self.flag_angle = result[0][0]
                             break
 
                     if flag_x_angle[0] == "L":
                         self.robo._motion.set_head_small("LEFT", recent_will_angle)
                         time.sleep(0.1)
-                        lst_LR.append("L")
+                        tmp = self.robo._motion.x_head_angle
+                        lst_LR.append(tmp)
                     if flag_x_angle[0] == "R":
                         self.robo._motion.set_head_small("RIGHT", recent_will_angle)
                         time.sleep(0.1)
-                        lst_LR.append("R")
+                        tmp = self.robo._motion.x_head_angle
+                        lst_LR.append(tmp)
             else:
                 print("flag_ball_distance 함수에서 원하는 X angle이 안 들어왔습니다.")
                         
@@ -474,14 +457,26 @@ class Controller:
 
                         if before_ball_y_angle != ball_y_angle[0]:
                             recent_will_angle = 2
+                            
+                        # 반복 고치기: 반복값이 n번 이상일 때, 그 값으로 설정
+                        lst_UD = []
+                        cnt_UD = Counter(lst_UD)
+                        result = cnt_UD.most_common()
+                        if result[0][1] >= 3:  # 최빈값이 나온 개수
+                            self.ball_angle = result[0][0]
+                            break
 
                         if ball_y_angle[0] == "U":
                             self.robo._motion.set_head_small("UP", recent_will_angle)
                             time.sleep(0.1)
+                            tmp = self.robo._motion.y_head_angle
+                            lst_UD.append(tmp)
 
                         if ball_y_angle[0] == "D":
                             self.robo._motion.set_head_small("DOWN", recent_will_angle)
                             time.sleep(0.1)
+                            tmp = self.robo._motion.y_head_angle
+                            lst_UD.append(tmp)
 
                     correctAngle = 1
                     print("중앙에 왔습니다.")
@@ -527,13 +522,27 @@ class Controller:
 
                     if before_ball_x_angle != ball_x_angle[0]:
                         recent_will_angle = 2
+                        
+                    # 반복 고치기: 반복값이 n번 이상일 때, 그 값으로 설정
+                    lst_LR = []
+                    cnt_LR = Counter(lst_LR)
+                    result = cnt_LR.most_common()
+                    if result[0][1] >= 3:  # 최빈값이 나온 개수
+                        self.ball_angle = result[0][0]
+                        break
 
                     if ball_x_angle[0] == "L":
                         self.robo._motion.set_head_small("LEFT", recent_will_angle)
                         time.sleep(0.1)
+                        tmp = self.robo._motion.x_head_angle
+                        lst_LR.append(tmp)
+                        
                     elif ball_x_angle[0] == "R":
                         self.robo._motion.set_head_small("RIGHT", recent_will_angle)
                         time.sleep(0.1)
+                        tmp = self.robo._motion.x_head_angle
+                        lst_LR.append(tmp)
+                        
                     elif ball_x_angle[0] == "N":
                         if ball_rl == "L":
                             self.robo._motion.set_head_small("LEFT", recent_will_angle)
