@@ -280,8 +280,10 @@ class Controller:
                         lst_UD = [0]  # 인덱스 에러 방지
                         cnt_UD = Counter(lst_UD)
                         result = cnt_UD.most_common()
+                        print("result: ", result)
                         if result[0][1] >= 3:  # 최빈값이 나온 개수
                             self.flag_angle = result[0][0]
+                            print("반복 멈춘 후의 self.flag_angle: ", self.flag_angle)
                             break
 
                         if flag_y_angle[0] == "U":  # 판단 내용 판단
