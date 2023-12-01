@@ -1323,15 +1323,21 @@ class Controller:
 
             self.robo._motion.set_head("LEFTRIGHT_CENTER")
             time.sleep(0.2)
-            self.robo._motion.set_head("DOWN", 45)
-            time.sleep(0.1)
 
-            self.check_flag_distance() # 깃발 거리 angle 구하기
-            time.sleep(0.2)
+            # self.check_flag_distance() # 깃발 거리 angle 구하기
+            # time.sleep(0.2)
 
             goal_detector = GoalDetect(0)
             is_goal = goal_detector.run() # 골이 들어갔는지 판단
             print("홀인 유무 (T/F): ", is_goal)
+
+            if is_goal == 'N':
+                self.robo._motion.set_head("DOWN", 45)
+                time.sleep(0.1)
+
+                goal_detector = GoalDetect(0)
+                is_goal = goal_detector.run() # 골이 들어갔는지 판단
+                print("홀인 유무 (T/F): ", is_goal)
 
             if is_goal == True:
                 self.act = act.EXIT
