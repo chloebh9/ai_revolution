@@ -12,8 +12,9 @@ class MaskGenerator:
         # lower1 = np.array([118, 0, 0])
         # upper1 = np.array([255, 255, 255])
         
+        # 동방 version
         lower = np.array([0, 22, 213])
-        upper = np.array([25, 96, 255])
+        upper = np.array([18, 96, 255])
         lower1 = np.array([160, 17, 187])
         upper1 = np.array([255, 255, 255])
         
