@@ -31,7 +31,7 @@ class Act(Enum):
 class Controller:
     robo: Robo = Robo()
     # act: Act = Act.START  # 순서도 시작
-    act: Act = Act.SEARCH_FLAG
+    act: Act = Act.START
     # act: Act = Act.START가 시작 지점
 
     count_putting: int = 0  # 퍼팅 횟수
@@ -267,6 +267,7 @@ class Controller:
 
                 elif flag_y_angle[0] == "D" or flag_y_angle[0] == "U":
                     recent_will_angle = 3
+                    lst_UD = [0]  # 인덱스 에러 방지
                     while flag_y_angle[0] != "C":
                         before_flag_y_angle = copy.copy(flag_y_angle[0])
                         flag_y_angle = flagycenter.run()  # 여기서 U/C/D 판단
@@ -277,11 +278,12 @@ class Controller:
                             recent_will_angle = 2
                         
                         # 반복 고치기: 반복값이 n번 이상일 때, 그 값으로 설정
-                        lst_UD = [0]  # 인덱스 에러 방지
                         cnt_UD = Counter(lst_UD)
                         result = cnt_UD.most_common()
+                        print("result: ", result)
                         if result[0][1] >= 3:  # 최빈값이 나온 개수
                             self.flag_angle = result[0][0]
+                            print("반복 멈춘 후의 self.flag_angle: ", self.flag_angle)
                             break
 
                         if flag_y_angle[0] == "U":  # 판단 내용 판단
@@ -307,6 +309,7 @@ class Controller:
                 print("flag_x_angle: R or L이 들어왔습니다.")
                 print(flag_x_angle[0])
                 recent_will_angle = 3
+                lst_LR = [0]  # 인덱스 에러 방지
                 while flag_x_angle[0] != "C":
                     print("while문이 실행되었습니다.")
                     before_flag_x_angle = copy.copy(flag_x_angle[0])
@@ -317,12 +320,13 @@ class Controller:
                     if before_flag_x_angle != flag_x_angle[0]:
                         recent_will_angle = 2
                         
-                    # 반복 고치기: 20번이 넘어갈 경우, 최빈수로 설정하게끔           
-                    lst_LR = [0]  # 인덱스 에러 방지
+                    # 반복 고치기: 20번이 넘어갈 경우, 최빈수로 설정하게끔
                     cnt_LR = Counter(lst_LR)
                     result = cnt_LR.most_common()
+                    print("result: ", result)
                     if result[0][1] >= 3:  # 최빈값이 나온 개수
                             self.flag_angle = result[0][0]
+                            print("반복 멈춘 후의 self.flag_angle: ", self.flag_angle)
                             break
 
                     if flag_x_angle[0] == "L":
@@ -451,6 +455,7 @@ class Controller:
                 elif ball_y_angle[0] == "D" or ball_y_angle[0] == "U":
                     # 아래로 1도씩 움직이기
                     recent_will_angle = 3
+                    lst_UD = [0]  # 인덱스 에러 방지
                     while ball_y_angle[0] != "C":
                         before_ball_y_angle = copy.copy(ball_y_angle[0])
                         ball_y_angle = ballycenter.process()
@@ -461,11 +466,12 @@ class Controller:
                             recent_will_angle = 2
                             
                         # 반복 고치기: 반복값이 n번 이상일 때, 그 값으로 설정
-                        lst_UD = [0]  # 인덱스 에러 방지
                         cnt_UD = Counter(lst_UD)
                         result = cnt_UD.most_common()
+                        print("result: ", result)
                         if result[0][1] >= 3:  # 최빈값이 나온 개수
                             self.ball_angle = result[0][0]
+                            print("반복 멈춘 후의 self.flag_angle: ", self.flag_angle)
                             break
 
                         if ball_y_angle[0] == "U":
@@ -516,6 +522,7 @@ class Controller:
             # x축 기준으로 공의 센터가 안 맞는다면 실행
             elif ball_x_angle[0] == "L" or ball_x_angle[0] == "R" or ball_x_angle[0] == "N":
                 recent_will_angle = 3
+                lst_LR = [0]  # 인덱스 에러 방지
                 while ball_x_angle[0] != "C":
                     before_ball_x_angle = copy.copy(ball_x_angle[0])
                     ball_x_angle = ballxcenter.process()
@@ -526,11 +533,12 @@ class Controller:
                         recent_will_angle = 2
                         
                     # 반복 고치기: 반복값이 n번 이상일 때, 그 값으로 설정
-                    lst_LR = [0]  # 인덱스 에러 방지
                     cnt_LR = Counter(lst_LR)
                     result = cnt_LR.most_common()
+                    print("result: ", result)
                     if result[0][1] >= 3:  # 최빈값이 나온 개수
                         self.ball_angle = result[0][0]
+                        print("반복 멈춘 후의 self.flag_angle: ", self.flag_angle)
                         break
 
                     if ball_x_angle[0] == "L":
