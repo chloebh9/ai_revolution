@@ -66,7 +66,9 @@ class GoalDetect:
                 red_boxes.append((x_red, y_red, w_red, h_red))
 
         # flag_boxes와 red_boxes를 반환합니다.
-        return tuple(flag_boxes or []), tuple(red_boxes or [])
+        combined_data = flag_boxes + red_boxes  # Or any method to concatenate the two lists
+        return tuple(combined_data)
+ 
 
 
     def run(self):
@@ -77,20 +79,26 @@ class GoalDetect:
                 break
 
             result = self.process_frame(frame)
-            flag_boxes, red_boxes = result
-            goal_status = "NO GOAL"
-            for f_x, f_y, f_w, f_h in flag_boxes:
-                for r_x, r_y, r_w, r_h in red_boxes:
-                    if (f_x-10 <= r_x <= f_x + f_w+10 and
-                        f_x-10 <= r_x + r_w <= f_x + f_w+10 and
-                        f_y-10 <= r_y <= f_y + f_h+10 and
-                        f_y-10 <= r_y + r_h <= f_y + f_h):
-                        goal_status = "GOAL"
-                        break
-                if goal_status == "GOAL":
-                    return True  # 목표가 있을 때 True 반환
 
-        return False  # 루프가 완료되면 False 반환
+            if isinstance(result, str):  # Handling the case when 'N' is returned
+                if result == 'N':
+                    print("Yellow detected outside the green box")
+                    return False  # Or handle this case accordingly
+            else:  # Handling the case when tuples are returned
+                flag_boxes, red_boxes = result
+                goal_status = "NO GOAL"
+                for f_x, f_y, f_w, f_h in flag_boxes:
+                    for r_x, r_y, r_w, r_h in red_boxes:
+                        if (f_x - 10 <= r_x <= f_x + f_w + 10 and
+                                f_x - 10 <= r_x + r_w <= f_x + f_w + 10 and
+                                f_y - 10 <= r_y <= f_y + f_h + 10 and
+                                f_y - 10 <= r_y + r_h <= f_y + f_h):
+                            goal_status = "GOAL"
+                            break
+                    if goal_status == "GOAL":
+                        return True  # Goal detected
+
+        return False  # No goal detected or completion of loop
 
 if __name__ == "__main__":
     video_path = 0  # Use 0 for webcam
