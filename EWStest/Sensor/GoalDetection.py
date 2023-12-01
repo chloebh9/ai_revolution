@@ -76,8 +76,12 @@ class GoalDetect:
                 print("Failed to grab a frame")
                 break
 
-            flag_boxes, red_boxes = self.process_frame(frame)
+            result = self.process_frame(frame)
 
+            if result == 'N':
+                return False  # 'N'이 반환되면 False를 반환
+
+            flag_boxes, red_boxes = result
             goal_status = "NO GOAL"
             for f_x, f_y, f_w, f_h in flag_boxes:
                 for r_x, r_y, r_w, r_h in red_boxes:
@@ -88,13 +92,11 @@ class GoalDetect:
                         goal_status = "GOAL"
                         break
                 if goal_status == "GOAL":
-                    is_goal = True
-                    break
-
-            return is_goal
+                    return True  # 목표가 있을 때 True 반환
 
         self.cap.release()
         cv2.destroyAllWindows()
+        return False  # 루프가 완료되면 False 반환
 
 if __name__ == "__main__":
     video_path = 0  # Use 0 for webcam
