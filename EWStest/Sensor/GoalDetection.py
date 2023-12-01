@@ -19,10 +19,10 @@ class GoalDetect:
         is_goal = False
 
         # Define the color ranges
-        green_range = (np.array([57, 78, 61]), np.array([89, 255, 255]))
-        yellow_range = (np.array([0, 16, 144]), np.array([43, 184, 255]))
-        red_range1 = (np.array([0, 76, 97]), np.array([11, 186, 160]))
-        red_range2 = (np.array([137, 0, 0]), np.array([200, 255, 255]))
+        green_range = (np.array([35, 84, 0]), np.array([255, 255, 141]))
+        yellow_range = (np.array([21, 56, 171]), np.array([97, 255, 255]))
+        red_range1 = (np.array([0, 0, 43]), np.array([19, 183, 200]))
+        red_range2 = (np.array([167, 135, 119]), np.array([187, 255, 255]))
 
         # Process green color
         green_mask = cv2.inRange(hsv_frame, *green_range)
