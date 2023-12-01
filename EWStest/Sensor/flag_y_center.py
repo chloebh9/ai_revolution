@@ -42,7 +42,10 @@ class FlagyCenterMeasurer:
             hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
             # 녹색 범위 정의
-            green_mask = MaskGenerator.ground_generate_mask(hsv_frame)
+            # green_mask = MaskGenerator.ground_generate_mask(hsv_frame)
+            low_green = np.array([35, 84, 0])
+            high_green = np.array([255, 255, 141])
+            green_mask = cv2.inRange(hsv_frame, low_green, high_green)
 
 
             # 녹색 영역의 윤곽선 찾기
