@@ -1,5 +1,5 @@
 # 공이 있는지 없는지 판별하는 코드 (is_ball)
-from Sensor.HSVAdjust import MaskGenerator
+# from Sensor.HSVAdjust import MaskGenerator
 
 # -*- coding: utf-8 -*-
 import numpy as np

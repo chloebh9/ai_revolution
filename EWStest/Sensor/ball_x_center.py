@@ -1,5 +1,5 @@
 # 공이 가운데, 왼쪽, 오른쪽 중 어디에 있는지 판별하는 코드 (isMiddle)
-from Sensor.HSVAdjust import MaskGenerator
+# from Sensor.HSVAdjust import MaskGenerator
 
 # -*- coding: utf-8 -*-
 import numpy as np
