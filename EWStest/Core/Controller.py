@@ -275,7 +275,7 @@ class Controller:
                             recent_will_angle = 2
                         
                         # 반복 고치기: 반복값이 n번 이상일 때, 그 값으로 설정
-                        lst_UD = []
+                        lst_UD = [0]  # 인덱스 에러 방지
                         cnt_UD = Counter(lst_UD)
                         result = cnt_UD.most_common()
                         if result[0][1] >= 3:  # 최빈값이 나온 개수
@@ -316,7 +316,7 @@ class Controller:
                         recent_will_angle = 2
                         
                     # 반복 고치기: 20번이 넘어갈 경우, 최빈수로 설정하게끔           
-                    lst_LR = []
+                    lst_LR = [0]  # 인덱스 에러 방지
                     cnt_LR = Counter(lst_LR)
                     result = cnt_LR.most_common()
                     if result[0][1] >= 3:  # 최빈값이 나온 개수
@@ -459,7 +459,7 @@ class Controller:
                             recent_will_angle = 2
                             
                         # 반복 고치기: 반복값이 n번 이상일 때, 그 값으로 설정
-                        lst_UD = []
+                        lst_UD = [0]  # 인덱스 에러 방지
                         cnt_UD = Counter(lst_UD)
                         result = cnt_UD.most_common()
                         if result[0][1] >= 3:  # 최빈값이 나온 개수
@@ -524,7 +524,7 @@ class Controller:
                         recent_will_angle = 2
                         
                     # 반복 고치기: 반복값이 n번 이상일 때, 그 값으로 설정
-                    lst_LR = []
+                    lst_LR = [0]  # 인덱스 에러 방지
                     cnt_LR = Counter(lst_LR)
                     result = cnt_LR.most_common()
                     if result[0][1] >= 3:  # 최빈값이 나온 개수
@@ -1107,7 +1107,8 @@ class Controller:
                 self.check_flag_distance() # 깃발 센터 맞추기
 
                 time.sleep(0.2)
-                angle = abs(self.robo._motion.y_head_angle - 11.6) # angle 값 수정
+                angle = abs(self.flag_angle - 11.6)  # angle 값 수정
+                # angle = abs(self.robo._motion.y_head_angle - 11.6) # angle 값 수정
                 distflag = DistMeasurer().display_distance(angle) # 깃발 거리값
                 flag_angle = self.robo._motion.x_head_angle
                 print("flag distance: ", end="")
