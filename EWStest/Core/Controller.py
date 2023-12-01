@@ -323,8 +323,10 @@ class Controller:
                     lst_LR = [0]  # 인덱스 에러 방지
                     cnt_LR = Counter(lst_LR)
                     result = cnt_LR.most_common()
+                    print("result: ", result)
                     if result[0][1] >= 3:  # 최빈값이 나온 개수
                             self.flag_angle = result[0][0]
+                            print("반복 멈춘 후의 self.flag_angle: ", self.flag_angle)
                             break
 
                     if flag_x_angle[0] == "L":
