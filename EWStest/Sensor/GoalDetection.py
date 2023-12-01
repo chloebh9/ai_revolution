@@ -65,7 +65,9 @@ class GoalDetect:
                 cv2.rectangle(frame, (x_red, y_red), (x_red + w_red, y_red + h_red), (0, 0, 255), 2)  # Red box
                 red_boxes.append((x_red, y_red, w_red, h_red))
 
+        # flag_boxes와 red_boxes를 반환합니다.
         return flag_boxes, red_boxes
+
 
     def run(self):
         while True:
