@@ -20,7 +20,7 @@ class GoalDetect:
 
         # Define the color ranges
         green_range = (np.array([35, 84, 0]), np.array([255, 255, 141]))
-        yellow_range = (np.array([21, 56, 171]), np.array([97, 255, 255]))
+        yellow_range = (np.array([13, 56, 124]), np.array([46, 255, 255]))
         red_range1 = (np.array([0, 0, 43]), np.array([19, 183, 200]))
         red_range2 = (np.array([167, 135, 119]), np.array([187, 255, 255]))
 
