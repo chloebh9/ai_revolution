@@ -1,5 +1,5 @@
 # 공이 있는지 없는지 판별하는 코드 (is_ball)
-# from Sensor.HSVAdjust import MaskGenerator
+from Sensor.HSVAdjust import MaskGenerator
 
 # -*- coding: utf-8 -*-
 import numpy as np
@@ -25,16 +25,7 @@ class FindBall:
             dilimg = cv2.dilate(img, self.kernel, iterations=1)
             hsv_img = cv2.cvtColor(dilimg, cv2.COLOR_BGR2HSV)
             
-            # mask = MaskGenerator.ball_generate_mask(hsv_img)
-            lower = np.array([0, 22, 213])
-            upper = np.array([18, 96, 255])
-            lower1 = np.array([160, 17, 187])
-            upper1 = np.array([255, 255, 255])
-            
-            mask1 = cv2.inRange(hsv_img, lower, upper)
-            mask2 = cv2.inRange(hsv_img, lower1, upper1)
-
-            mask = mask1+mask2
+            mask = MaskGenerator.ball_generate_mask(hsv_img)
 
             # 모폴로지 연산
             d_img = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, self.kernel, iterations=5)
