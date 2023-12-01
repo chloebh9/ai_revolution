@@ -16,7 +16,7 @@ class GoalDetect:
 
     def process_frame(self, frame):
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-        is_goal = False
+        is_goal = True
 
         # Define the color ranges
         green_range = (np.array([35, 84, 0]), np.array([255, 255, 141]))
@@ -80,7 +80,7 @@ class GoalDetect:
             result = self.process_frame(frame)
 
             if result == 'N':
-                return False  # 'N'이 반환되면 False를 반환
+                return 'N'  # 'N'이 반환되면 False를 반환
 
             flag_boxes, red_boxes = result
             goal_status = "NO GOAL"
@@ -93,9 +93,9 @@ class GoalDetect:
                         goal_status = "GOAL"
                         break
                 if goal_status == "GOAL":
-                    return True  # 목표가 있을 때 True 반환
+                    return False  # 목표가 있을 때 True 반환
 
-        return False  # 루프가 완료되면 False 반환
+        return True  # 루프가 완료되면 False 반환
 
 if __name__ == "__main__":
     video_path = 0  # Use 0 for webcam
