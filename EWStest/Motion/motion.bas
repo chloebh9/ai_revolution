@@ -460,7 +460,7 @@ GOSUB_RX_EXIT2:
     SPEED 좌우속도
     GOSUB Leg_motor_mode3
 
-    MOVE G6A,110,  76, 147, 93,  96
+    MOVE G6A,110,  76, 147, 93,  98
     MOVE G6D,86, 100, 145,  69, 110
     WAIT
 
@@ -476,17 +476,17 @@ GOSUB_RX_EXIT2:
 
 
 횟수전진_골프_2_stop:
-	SPEED 8
-    MOVE G6A,113,  76, 146,  93, 100,100 ' 왼발 각도, (왼다리)
-    MOVE G6D,90, 100, 100, 115, 110,100 ' 오른발좌우, 발앞뒤, 그 위모터
-    SPEED 15
+	SPEED 15
     MOVE G6B,110 ' 왼팔
     MOVE G6C,90 ' 오른팔
+	SPEED 8
+    MOVE G6A,113,  76, 146,  93, 100,100 ' 왼발 각도, (왼다리)
+    MOVE G6D,90, 95, 100, 115, 110,100 ' 오른발좌우, 발앞뒤, 그 위모터
     WAIT
 
     SPEED 6
-    MOVE G6A, 103,  75, 146,  93,  98,100		'
-    MOVE G6D,  94,  75, 152,  91, 106,100		' 
+    MOVE G6D,  96,  75, 152,  91, 107,100
+    MOVE G6A, 103,  75, 146,  93,  98,100		'		' 
     MOVE G6B, 100
     MOVE G6C, 100
     WAIT	
@@ -499,7 +499,6 @@ GOSUB_RX_EXIT2:
     GOTO RX_EXIT
 
     '*********************************
-
 
 
 
