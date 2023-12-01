@@ -85,10 +85,10 @@ class GoalDetect:
             goal_status = "NO GOAL"
             for f_x, f_y, f_w, f_h in flag_boxes:
                 for r_x, r_y, r_w, r_h in red_boxes:
-                    if (f_x <= r_x <= f_x + f_w and
-                        f_x <= r_x + r_w <= f_x + f_w and
-                        f_y <= r_y <= f_y + f_h and
-                        f_y <= r_y + r_h <= f_y + f_h):
+                    if (f_x-10 <= r_x <= f_x + f_w+10 and
+                        f_x-10 <= r_x + r_w <= f_x + f_w+10 and
+                        f_y-10 <= r_y <= f_y + f_h+10 and
+                        f_y-10 <= r_y + r_h <= f_y + f_h+10):
                         goal_status = "GOAL"
                         break
                 if goal_status == "GOAL":
