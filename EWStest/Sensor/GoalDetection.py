@@ -80,7 +80,7 @@ class GoalDetect:
             result = self.process_frame(frame)
 
             if result == 'N':
-                return 'N'  # 'N'이 반환되면 False를 반환
+                return True # 'N'이 반환되면 False를 반환
 
             flag_boxes, red_boxes = result
             goal_status = "NO GOAL"
