@@ -12,16 +12,24 @@ class MaskGenerator:
         # lower1 = np.array([118, 0, 0])
         # upper1 = np.array([255, 255, 255])
         
-        # 동방 version
-        lower = np.array([0, 22, 213])
-        upper = np.array([18, 96, 255])
-        lower1 = np.array([160, 17, 187])
-        upper1 = np.array([255, 255, 255])
+        # 424 version - 2
+        # lower = np.array([0, 22, 213])
+        # upper = np.array([18, 96, 255])
+        # lower1 = np.array([160, 17, 187])
+        # upper1 = np.array([255, 255, 255])
         
-        mask1 = cv2.inRange(hsv_img, lower, upper)
-        mask2 = cv2.inRange(hsv_img, lower1, upper1)
+        # mask1 = cv2.inRange(hsv_img, lower, upper)
+        # mask2 = cv2.inRange(hsv_img, lower1, upper1)
 
-        mask = mask1+mask2
+        # mask = mask1+mask2
+        
+        # 동방 version
+        lower1 = np.array([0, 100, 50])
+        upper1 = np.array([10, 200, 200])
+        lower = np.array([137, 0, 0])
+        upper = np.array([200, 255, 255])
+        mask = cv2.inRange(hsv_img, lower, upper)
+        mask += cv2.inRange(hsv_img, lower1, upper1)
         
         # window version
         # lower = np.array([170, 99, 100])
@@ -45,26 +53,6 @@ class MaskGenerator:
         # upper = np.array([255, 255, 255])
         # lower1 = np.array([0, 66, 87])
         # upper1 = np.array([14, 255, 255])
-        
-        # mask1 = cv2.inRange(hsv_img, lower, upper)
-        # mask2 = cv2.inRange(hsv_img, lower1, upper1)
-
-        # mask = mask1+mask2
-        
-        # robot version
-        # ball hsv
-        # lower1 = np.array([0, 100, 50])
-        # upper1 = np.array([10, 200, 200])
-        # lower = np.array([137, 0, 0])
-        # upper = np.array([200, 255, 255])
-        # mask = cv2.inRange(hsv_img, lower, upper)
-        # mask += cv2.inRange(hsv_img, lower1, upper1)
-        
-        # # 424 version
-        # lower = np.array([0, 20, 187])
-        # upper = np.array([37, 255, 255])
-        # lower1 = np.array([118, 0, 0])
-        # upper1 = np.array([255, 255, 255])
         
         # mask1 = cv2.inRange(hsv_img, lower, upper)
         # mask2 = cv2.inRange(hsv_img, lower1, upper1)
