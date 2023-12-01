@@ -78,7 +78,7 @@ class BallyCenterMeasurer:
         # cv2.namedWindow('Object Dist Measure ', cv2.WINDOW_NORMAL)
         # cv2.resizeWindow('Object Dist Measure ', 700, 600)
 
-        for _ in range(10):
+        for _ in range(100000):
             ret, img = cap.read()
             if not ret:
                 print("영상정보를 가져올 수 없습니다.")
