@@ -16,7 +16,7 @@ class GoalDetect:
 
     def process_frame(self, frame):
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-        is_goal = None
+      
 
         # Define the color ranges
         green_range = (np.array([35, 84, 0]), np.array([255, 255, 141]))
@@ -49,11 +49,10 @@ class GoalDetect:
 
         if yellow_outside_green:
             print("초록 상자 외부에 노랑 영역이 감지됨")
-            return is_goal  # 초록 상자 외부에 노랑 영역이 감지됨
+            return 'N'  # 초록 상자 외부에 노랑 영역이 감지됨
 
         # Process red color
         red_mask = cv2.inRange(hsv_frame, *red_range1) + cv2.inRange(hsv_frame, *red_range2)
-        red_mask = cv2.morphologyEx(red_mask, cv2.MORPH_DILATE, self.kernel, iterations=5)
         red_contours, _ = cv2.findContours(red_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
         flag_boxes = []  # 깃발 박스 저장을 위한 리스트
