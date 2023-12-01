@@ -84,7 +84,15 @@ class BallxCenterMeasurer:
             img = cv2.dilate(img, self.kernel, iterations=1)
             hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
             
-            mask = MaskGenerator.ball_generate_mask(hsv_img)
+            # mask = MaskGenerator.ball_generate_mask(hsv_img)
+            lower1 = np.array([10, 43, 80])
+            upper1 = np.array([28, 119, 230])
+            # lower1 = np.array([0, 100, 50])
+            # upper1 = np.array([10, 200, 200])
+            lower = np.array([137, 0, 0])
+            upper = np.array([200, 255, 255])
+            mask = cv2.inRange(hsv_img, lower, upper)
+            mask += cv2.inRange(hsv_img, lower1, upper1)
 
             #모폴로지 연산
             # d_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, self.kernel, iterations = 5)
