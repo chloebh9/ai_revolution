@@ -24,12 +24,12 @@ class MaskGenerator:
         # mask = mask1+mask2
         
         # 동방 version
-        lower1 = np.array([0, 0, 50])
-        upper1 = np.array([20, 200, 200])
+        lower1 = np.array([0, 0, 43])
+        upper1 = np.array([19, 183, 200])
         # lower1 = np.array([0, 100, 50])
         # upper1 = np.array([10, 200, 200])
-        lower = np.array([137, 0, 0])
-        upper = np.array([200, 255, 255])
+        lower = np.array([148, 0, 0])
+        upper = np.array([255, 255, 255])
         mask = cv2.inRange(hsv_img, lower, upper)
         mask += cv2.inRange(hsv_img, lower1, upper1)
         
