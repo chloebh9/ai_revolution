@@ -66,7 +66,7 @@ class GoalDetect:
                 red_boxes.append((x_red, y_red, w_red, h_red))
 
         # flag_boxes와 red_boxes를 반환합니다.
-        return flag_boxes or [], red_boxes or []
+        return tuple(flag_boxes or []), tuple(red_boxes or [])
 
 
     def run(self):
