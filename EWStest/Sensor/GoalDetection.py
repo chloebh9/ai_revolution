@@ -80,6 +80,9 @@ class GoalDetect:
 
             result = self.process_frame(frame)
 
+            if result == 'N':
+                return 'N'
+
             if isinstance(result, str):  # Handling the case when 'N' is returned
                 if result == 'N':
                     print("Yellow detected outside the green box")
