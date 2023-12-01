@@ -46,6 +46,8 @@ class Controller:
     C_right: int = 0  # 로봇: C / 공: right
     C_center: int = 0  # 로봇: C / 공: center
     C_left: int = 0  # 로봇: C / 공: left
+    
+    flag_angle: int = 0  # check_flag_distance에서 쓰이는 깃발 센터 각도
 
     canPutting: float = 11.0  # 칠 수 있는 거리있는지 판단 변수 (길이)
 
