@@ -14,7 +14,7 @@ class GoalDetect:
         self.img_height_middle = self.img_height // 2
         self.kernel = np.ones((3, 3), "uint8")
 
-        def process_frame(self, frame):
+    def process_frame(self, frame):
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
         # Define the color ranges
