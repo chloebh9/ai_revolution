@@ -559,7 +559,8 @@ class Controller:
 
                     if before_ball_x_angle != ball_x_angle[0]:
                         recent_will_angle = 2
-                        
+                    
+                    # 공을 찾고, 센터 맞추다가 공을 잃어버린 경우 break하고 다시 공을 찾도록
                     if ball_x_angle[0] == 'N':
                         break
                         
