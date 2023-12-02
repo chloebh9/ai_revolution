@@ -28,16 +28,16 @@ class ShapeRecognition:
             red_mask2 = cv2.inRange(hsv_frame, lower2, upper2)
             red_mask = cv2.bitwise_or(red_mask1, red_mask2)
             # 녹색 범위 정의
-            low_green = np.array([57, 78, 61])
-            high_green = np.array([89, 255, 255])
+            low_green = np.array([35, 84, 0])
+            high_green = np.array([255, 255, 144])
             green_mask = cv2.inRange(hsv_frame, low_green, high_green)
             result_frame = cv2.bitwise_and(frame, frame, mask=green_mask)
             contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             self.green_boxes = [cv2.boundingRect(contour) for contour in contours]
 
             # 노랑색 범위 정의
-            low_yellow = np.array([0, 16, 144])
-            high_yellow = np.array([43, 184, 255])
+            low_yellow = np.array([21, 56, 171])
+            high_yellow = np.array([97, 255, 255])
             yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
 
             for green_box in self.green_boxes:
