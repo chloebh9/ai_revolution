@@ -111,8 +111,10 @@ class GoalDetect:
                                     farthest_center[1] - 10 <= red_center[1] <= farthest_center[1] + 10):
                                 red_in_farthest_flag = True
                                 break
-            
-            return red_in_farthest_flag
+
+            cv2.imshow('Frame', frame)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
         self.cap.release()
         cv2.destroyAllWindows()
