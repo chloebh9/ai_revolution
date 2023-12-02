@@ -151,20 +151,20 @@ class FlagyCenterMeasurer:
                 else:
                     cv2.putText(frame, f'Shape: {shape_text}', (center[0], center[1] + offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
-            # is_y_middle = self.judgeMiddle(farthest_center, self.img_height)
+            is_y_middle = self.judgeMiddle(farthest_center, self.img_height)
 
             
-            # return is_y_middle
-            cv2.imshow('Green and Yellow Frame', frame)
+            return is_y_middle
+            # cv2.imshow('Green and Yellow Frame', frame)
             # print(is_y_middle)
 
-            key = cv2.waitKey(1) & 0xFF
-            if key == ord('q'):
-                break
+        #     key = cv2.waitKey(1) & 0xFF
+        #     if key == ord('q'):
+        #         break
             
 
-        cap.release()
-        cv2.destroyAllWindows()
+        # cap.release()
+        # cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     shape_recognition = FlagyCenterMeasurer(img_width=640, img_height=480)
