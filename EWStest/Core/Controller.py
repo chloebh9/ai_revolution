@@ -182,6 +182,7 @@ class Controller:
                 print(find_flag)
 
                 if find_flag[3] == True:
+                    print("찾았습니다.")
                     break
 
                 print("깃발이 안 보여 오른쪽부터 찾겠습니다.")
@@ -208,6 +209,7 @@ class Controller:
             time.sleep(0.2)
             
             if find_flag[3] == True:
+                print("찾았습니다.")
                 break
 
             x_dir = 0
@@ -217,6 +219,7 @@ class Controller:
                 time.sleep(0.1)
 
                 if find_flag[3] == True:
+                    print("찾았습니다.")
                     break
 
                 print("깃발이 안 보여 왼쪽부터 찾겠습니다.")
