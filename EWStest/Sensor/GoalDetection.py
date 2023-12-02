@@ -111,7 +111,7 @@ class GoalDetect:
                                     farthest_center[1] - 10 <= red_center[1] <= farthest_center[1] + 10):
                                 cv2.rectangle(frame, (x_red, y_red), (x_red + w_red, y_red + h_red), (0, 0, 255), 2)  # Red box for red area
                                 red_in_farthest_flag = True
-                                break
+                                #break
 
             cv2.imshow('Frame', frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
