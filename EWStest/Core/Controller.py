@@ -179,6 +179,10 @@ class Controller:
             for i in range(len(right_left)):
                 find_flag = FlagxCenterMeasurer(img_width=640, img_height=480).run()
                 time.sleep(0.1)
+
+                if find_flag == True:
+                    break
+
                 print("깃발이 안 보여 오른쪽부터 찾겠습니다.")
                 self.robo._motion.set_head("RIGHT", right_left[x_dir])
                 
@@ -210,6 +214,10 @@ class Controller:
             for i in range(len(right_left)):
                 find_flag = FlagxCenterMeasurer(img_width=640, img_height=480).run()
                 time.sleep(0.1)
+
+                if find_flag == True:
+                    break
+
                 print("깃발이 안 보여 왼쪽부터 찾겠습니다.")
                 self.robo._motion.set_head("LEFT", right_left[x_dir])
                 
