@@ -218,10 +218,6 @@ class Controller:
                 find_flag = FlagxCenterMeasurer(img_width=640, img_height=480).run()
                 time.sleep(0.1)
 
-                if find_flag[3] == True:
-                    print("찾았습니다.")
-                    break
-
                 print("깃발이 안 보여 왼쪽부터 찾겠습니다.")
                 self.robo._motion.set_head("LEFT", right_left[x_dir])
                 
