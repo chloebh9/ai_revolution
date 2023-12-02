@@ -1367,7 +1367,6 @@ class Controller:
 #####################################
 
             flagxcenter = FlagxCenterMeasurer(img_width=640, img_height=480)
-            flag_x_angle = flagxcenter.run()
         
             print(flag_x_angle)
             for i in range(3):
