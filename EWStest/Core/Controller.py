@@ -394,6 +394,7 @@ class Controller:
                         ball_is_where = BallxCenterMeasurer().process()
                         if ball_is_where[0] == "R":
                             self.robo._motion.walk("BACKWARD")
+                            print("공이 시야보다 더 오른쪽에 있어 한 발자국 뒤로 감")
                             self.stop = True
                             return
                         
@@ -433,6 +434,7 @@ class Controller:
                         ball_is_where = BallxCenterMeasurer().process()
                         if ball_is_where[0] == "L":
                             self.robo._motion.walk("BACKWARD")
+                            print("공이 시야보다 더 왼쪽에 있어 한 발자국 뒤로 감")
                             self.stop = True
                             return
                         
