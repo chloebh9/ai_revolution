@@ -77,29 +77,31 @@ class ShapeRecognition:
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                     # farthest_flag_boxes 리스트에 중점값과 "FLAG" 추가
                     self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
+                
                 x, y, w, h = green_box
                 red_roi_mask = red_mask[y:y+h, x:x+w]
                 red_contours, _ = cv2.findContours(red_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-                goal_found = False
+                largest_red_area = 0
+                largest_red_center = None
+
                 for cnt in red_contours:
                     area = cv2.contourArea(cnt)
-                    if area > 10:  # 일정 면적 이상의 영역만 처리
+                    if area > largest_red_area:
+                        largest_red_area = area
                         M = cv2.moments(cnt)
                         if M['m00'] != 0:
                             cx = int(M['m10'] / M['m00']) + x
                             cy = int(M['m01'] / M['m00']) + y
+                            largest_red_center = (cx, cy)
 
-                            # farthest_flag_boxes 리스트 내 각 flag 상자 확인
-                            for flag_box in self.farthest_flag_boxes:
-                                flag_x, flag_y, _ = flag_box
-                                if flag_x <= cx <= flag_x + w and flag_y <= cy <= flag_y + h:
-                                    goal_found = True
-                                    break
-
-                            if goal_found:
-                                cv2.putText(frame, 'GOAL', (cx, cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-                                break
+                # 가장 큰 빨간색 영역이 farthest_flag_boxes 내에 있는지 확인
+                if largest_red_center:
+                    for flag_box in self.farthest_flag_boxes:
+                        flag_x, flag_y, _ = flag_box
+                        if flag_x <= largest_red_center[0] <= flag_x + w and flag_y <= largest_red_center[1] <= flag_y + h:
+                            cv2.putText(frame, 'GOAL', largest_red_center, cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                            break
             # Display the original frame
             cv2.imshow('Frame', frame)
 
