@@ -14,9 +14,8 @@ class GoalDetect:
         self.img_height_middle = self.img_height // 2
         self.kernel = np.ones((3, 3), "uint8")
 
-    def process_frame(self, frame):
+        def process_frame(self, frame):
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-      
 
         # Define the color ranges
         green_range = (np.array([35, 84, 0]), np.array([255, 255, 141]))
@@ -28,28 +27,30 @@ class GoalDetect:
         green_mask = cv2.inRange(hsv_frame, *green_range)
         green_contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-        yellow_outside_green = False  # 초록 상자 외부에 있는 노랑 영역 감지 여부
+        flag_detected = False  # Flag area detection flag
+        yellow_outside_flag = False  # Yellow outside flag area detection flag
 
         for contour in green_contours:
             x, y, w, h = cv2.boundingRect(contour)
 
             # Process yellow within green
-            yellow_mask = cv2.inRange(hsv_frame[y:y+h, x:x+w], *yellow_range)
+            yellow_mask = cv2.inRange(hsv_frame[y:y + h, x:x + w], *yellow_range)
             yellow_contours, _ = cv2.findContours(yellow_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
             for cnt in yellow_contours:
                 area = cv2.contourArea(cnt)
                 if area > 10:
-                    # If yellow is detected outside green box
-                    yellow_outside_green = True
+                    yellow_outside_flag = True  # Yellow outside flag area detected
                     break
 
-            if yellow_outside_green:
-                break
+            # If flag area is detected, set the flag_detected to True
+            if not yellow_outside_flag:
+                flag_detected = True
 
-        if yellow_outside_green:
-            print("초록 상자 외부에 노랑 영역이 감지됨")
-            return 'N'  # 초록 상자 외부에 노랑 영역이 감지됨
+        # Check conditions for returning 'N'
+        if not flag_detected and yellow_outside_flag:
+            print("Yellow detected outside the flag area")
+            return 'N'  # Yellow detected outside the flag area
 
         # Process red color
         red_mask = cv2.inRange(hsv_frame, *red_range1) + cv2.inRange(hsv_frame, *red_range2)
@@ -65,9 +66,7 @@ class GoalDetect:
                 cv2.rectangle(frame, (x_red, y_red), (x_red + w_red, y_red + h_red), (0, 0, 255), 2)  # Red box
                 red_boxes.append((x_red, y_red, w_red, h_red))
 
-        # flag_boxes와 red_boxes를 반환합니다.
-        combined_data = flag_boxes + red_boxes  # Or any method to concatenate the two lists
-        return tuple(combined_data)
+        return flag_boxes, red_boxes
  
 
 
