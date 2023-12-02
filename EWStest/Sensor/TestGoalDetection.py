@@ -131,7 +131,7 @@ class GoalDetect:
             # ball hsv
             low_green = np.array([35, 82, 0])
             high_green = np.array([152, 255, 141])
-            green_mask = cv2.inRange(hsv_frame, low_green, high_green)
+            green_mask = cv2.inRange(hsv_img, low_green, high_green)
 
             lower1 = np.array([0, 0, 43])
             upper1 = np.array([19, 183, 200])
