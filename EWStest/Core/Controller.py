@@ -560,6 +560,9 @@ class Controller:
                     if before_ball_x_angle != ball_x_angle[0]:
                         recent_will_angle = 2
                         
+                    if ball_x_angle[0] == 'N':
+                        break
+                        
                     # 반복 고치기: 반복값이 n번 이상일 때, 그 값으로 설정
                     cnt_LR = Counter(lst_LR)
                     result = cnt_LR.most_common()
