@@ -1370,11 +1370,16 @@ class Controller:
             flag_x_angle = flagxcenter.run()
         
             print(flag_x_angle)
-            if flag_x_angle[0] == "R":
-                self.robo._motion.turn("RIGHT", 5)
-                
-            if flag_x_angle[0] == "L":
-                self.robo._motion.turn("LEFT", 5)
+            for i in range(3):
+                flag_x_angle = flagxcenter.run()
+                if flag_x_angle[0] == "R":
+                    self.robo._motion.turn("RIGHT", 5)
+                    
+                if flag_x_angle[0] == "L":
+                    self.robo._motion.turn("LEFT", 5)
+                if flag_x_angle[0] == "C":
+                    print("중앙")
+                    break
 
             self.robo._motion.hit_the_ball("LEFT", dist=flag_ball_dis)
             time.sleep(6)
