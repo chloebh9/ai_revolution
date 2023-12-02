@@ -29,7 +29,7 @@ class GoalDetect:
             high_green = np.array([152, 255, 141])
             green_mask = cv2.inRange(hsv_frame, low_green, high_green)
 
-            contours, _ = cv2.findContours(green_mask, cv2.RETㄴR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             green_boxes = [cv2.boundingRect(contour) for contour in contours]
 
             low_yellow = np.array([21, 58, 126])
