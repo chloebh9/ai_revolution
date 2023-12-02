@@ -1366,14 +1366,7 @@ class Controller:
 #############################################################################
         elif act == act.CHECK:  # 홀인했는지 확인
             print("Act:", act)  # Debug
-
-#####################################
-            self.robo._motion.hit_the_ball("LEFT", dist=flag_ball_dis)
-            time.sleep(6)
-
-            self.robo._motion.turn("LEFT", 45, 3, 0.5)   # 티샷 끝나고 깃발 찾기 위해 턴
-            self.robo._motion.turn("LEFT", 10)
-##########################################
+            
             self.robo._motion.set_head("LEFTRIGHT_CENTER")
             time.sleep(0.2)
             self.robo._motion.set_head("UPDOWN_CENTER")
