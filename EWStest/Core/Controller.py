@@ -1379,7 +1379,7 @@ class Controller:
                 if flag_x_angle[0] == "C":
                     print("중앙")
                     break
-
+            flag_ball_dis = 10
             self.robo._motion.hit_the_ball("LEFT", dist=flag_ball_dis)
             time.sleep(6)
 
