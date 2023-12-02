@@ -1325,6 +1325,22 @@ class Controller:
             print("퍼팅하겠습니다")
             print("퍼팅할 당시의 거리: ", flag_ball_dis)
 
+            if shot_way == "R":
+                self.robo._motion.set_head("LEFT", 90)
+
+            else:
+                self.robo._motion.set_head("RIGHT", 90)
+
+            flagxcenter = FlagxCenterMeasurer(img_width=640, img_height=480)
+            flag_x_angle = flagxcenter.run()
+
+            while flag_x_angle != "C":
+                if flag_x_angle == "R":
+                    self.robo._motion.turn("RIGHT", 5)
+                    
+                if flag_x_angle == "L":
+                    self.robo._motion.turn("LEFT", 5)
+
             self.robo._motion.hit_the_ball("LEFT", dist=flag_ball_dis)
             time.sleep(6)
 
