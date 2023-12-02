@@ -21,7 +21,7 @@ class FindBall:
 
         while True:
             ret, img = cap.read()
-            time.sleep(0.3)
+
             hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
             
             # mask = MaskGenerator.ball_generate_mask(hsv_img)
