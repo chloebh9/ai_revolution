@@ -925,13 +925,13 @@ class Controller:
 
         self.robo._motion.set_head("LEFT",90)
 
-        while FlagL != 'C':
+        while FlagL[0] != 'C':
 
-            if FlagL == 'C':
+            if FlagL[0] == 'C':
                 return True
-            elif FlagL == "L":
+            elif FlagL[0] == "L":
                 self.robo._motion.turn("LEFT",5)
-            elif FlagL == "R":
+            elif FlagL[0] == "R":
                 self.robo._motion.turn("RIGHT",5)
             else:
                 print("원하는 값이 들어오지 않음.")
