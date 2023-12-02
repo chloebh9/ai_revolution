@@ -94,7 +94,7 @@ class GoalDetect:
                 if goal_status == "GOAL":
                     return True  # 목표가 있을 때 True 반환
 
-        return False  # 루프가 완료되면 False 반환
+            return False  # 루프가 완료되면 False 반환
 
 if __name__ == "__main__":
     video_path = 0  # Use 0 for webcam
