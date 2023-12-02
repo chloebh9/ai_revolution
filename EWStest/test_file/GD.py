@@ -97,14 +97,14 @@ class ShapeRecognition:
 
                 # 가장 큰 빨간색 영역이 farthest_flag_boxes 내에 있는지 확인
                 if largest_red_center:
-                    red_top_left = (largest_red_center[0] - 5, largest_red_center[1] - 5)
-                    red_bottom_right = (largest_red_center[0] + 5, largest_red_center[1] + 5)
+                    red_top_left = (largest_red_center[0] - 10, largest_red_center[1] - 10)
+                    red_bottom_right = (largest_red_center[0] + 10, largest_red_center[1] + 10)
                     cv2.rectangle(frame, red_top_left, red_bottom_right, (0, 0, 255), 2)
 
                     # 'Farthest Flag' 박스와 'Largest Red' 박스의 겹침 확인
                     for flag_box in self.farthest_flag_boxes:
                         flag_x, flag_y, _ = flag_box
-                        if (flag_x - 10 <= largest_red_center[0] <= flag_x + 10) and (flag_y - 10 <= largest_red_center[1] <= flag_y + 10):
+                        if (flag_x <= largest_red_center[0] <= flag_x) and (flag_y  <= largest_red_center[1] <= flag_y ):
                             cv2.putText(frame, 'GOAL', largest_red_center, cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
                             break
             # Display the original frame
