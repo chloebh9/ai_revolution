@@ -281,8 +281,10 @@ class Controller:
                         cnt_UD = Counter(lst_UD)
                         result = cnt_UD.most_common()
                         print("result: ", result)
+                        print("result[0][1]: ", result[0][1])
                         if result[0][1] >= 3:  # 최빈값이 나온 개수
                             self.flag_angle = result[0][0]
+                            # print("result[0][1]: ", result[0][1])
                             print("반복 멈춘 후의 self.flag_angle: ", self.flag_angle)
                             break
 
