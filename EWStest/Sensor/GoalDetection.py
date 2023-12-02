@@ -25,15 +25,15 @@ class GoalDetect:
 
             hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-            low_green = np.array([35, 84, 0])
-            high_green = np.array([255, 255, 141])
+            low_green = np.array([35, 82, 0])
+            high_green = np.array([152, 255, 141])
             green_mask = cv2.inRange(hsv_frame, low_green, high_green)
 
-            contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            contours, _ = cv2.findContours(green_mask, cv2.RETㄴR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             green_boxes = [cv2.boundingRect(contour) for contour in contours]
 
-            low_yellow = np.array([21, 56, 171])
-            high_yellow = np.array([97, 255, 255])
+            low_yellow = np.array([21, 58, 126])
+            high_yellow = np.array([34, 255, 255])
             yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
 
             shape_info_list = []
@@ -95,7 +95,7 @@ class GoalDetect:
 
                     red_lower1 = np.array([0, 0, 43])
                     red_upper1 = np.array([19, 183, 200])
-                    red_lower2 = np.array([167, 135, 119])
+                    red_lower2 = np.array([167, 135, 8])
                     red_upper2 = np.array([187, 255, 255])
 
                     red_mask = cv2.inRange(hsv_frame, red_lower1, red_upper1) + cv2.inRange(hsv_frame, red_lower2, red_upper2)
