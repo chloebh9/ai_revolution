@@ -387,6 +387,7 @@ class Controller:
                     find_ball = FindBall().process()
                     time.sleep(0.1)
                     print("공이 안 보여 오른쪽부터 찾겠습니다.")
+                    self.robo._motion.set_head("RIGHT", right_left[x_dir])
                     
                     # 공이 고개 끝보다 더 오른쪽에 있을 때, 한 발자국 뒤로 감
                     if right_left[-1] == right_left[x_dir]:
@@ -395,8 +396,7 @@ class Controller:
                             self.robo._motion.walk("BACKWARD")
                             self.stop = True
                             return
-
-                    self.robo._motion.set_head("RIGHT", right_left[x_dir])
+                        
                     print("Debug(right): ", right_left[x_dir])
                     print("=============================")
                     x_dir += 1
@@ -426,6 +426,7 @@ class Controller:
                     find_ball = FindBall().process()
                     time.sleep(0.1)
                     print("공이 안 보여 왼쪽부터 찾겠습니다.")
+                    self.robo._motion.set_head("LEFT", right_left[x_dir])
                     
                     # 공이 고개 끝보다 더 왼쪽에 있을 때, 한 발자국 뒤로 감
                     if right_left[-1] == right_left[x_dir]:
@@ -435,7 +436,6 @@ class Controller:
                             self.stop = True
                             return
                         
-                    self.robo._motion.set_head("LEFT", right_left[x_dir])
                     print("Debug(left): ", right_left[x_dir])
                     print("=============================")
                     x_dir += 1
