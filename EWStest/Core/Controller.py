@@ -284,6 +284,7 @@ class Controller:
                         print("result[0][1]: ", result[0][1])
                         if result[0][1] >= 3:  # 최빈값이 나온 개수
                             self.flag_angle = result[0][0]
+                            correctAngle = 1
                             # print("result[0][1]: ", result[0][1])
                             print("반복 멈춘 후의 self.flag_angle: ", self.flag_angle)
                             break
@@ -329,6 +330,7 @@ class Controller:
                     print("result[0][1]: ", result[0][1])
                     if result[0][1] >= 3:  # 최빈값이 나온 개수
                             self.flag_angle = result[0][0]
+                            correctAngle = 1
                             print("반복 멈춘 후의 self.flag_angle: ", self.flag_angle)
                             break
 
@@ -477,6 +479,7 @@ class Controller:
                         print("result[0][1]: ", result[0][1])
                         if result[0][1] >= 3:  # 최빈값이 나온 개수
                             self.ball_angle = result[0][0]
+                            correctAngle = 1
                             print("반복 멈춘 후의 self.flag_angle: ", self.flag_angle)
                             break
 
@@ -545,6 +548,7 @@ class Controller:
                     print("result[0][1]: ", result[0][1])
                     if result[0][1] >= 3:  # 최빈값이 나온 개수
                         self.ball_angle = result[0][0]
+                        correctAngle = 1
                         print("반복 멈춘 후의 self.flag_angle: ", self.flag_angle)
                         break
 
