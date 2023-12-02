@@ -46,7 +46,7 @@ class FindBall:
 
             is_ball = False  # 공이 인식되어 있는지를 나타내는 변수
             for cnt in cont:
-                if cv2.contourArea(cnt) > 100 and cv2.contourArea(cnt) < 306000:
+                if cv2.contourArea(cnt) > 10 and cv2.contourArea(cnt) < 306000:
                     is_ball = True
 
             # cv2.imshow("Object Dist Measure ", img)
