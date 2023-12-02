@@ -202,6 +202,9 @@ class Controller:
             self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
             time.sleep(0.2)
             
+            if find_flag == True:
+                break
+
             x_dir = 0
             # 고개 왼쪽으로 찾기
             for i in range(len(right_left)):
@@ -248,7 +251,7 @@ class Controller:
                 break
 
             # 여기까지 오면 깃발을 찾은 상황 -> 깃발 센터 맞추는 함수로 넘어가기
-            self.check_flag_distance()
+            # self.check_flag_distance()
                 
     ###################################################################################################
     # 깃발 1도씩 조정하면서 각도 확인
