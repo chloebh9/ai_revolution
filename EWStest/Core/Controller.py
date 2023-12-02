@@ -1207,8 +1207,7 @@ class Controller:
                 # 홀컵과 공의 거리의 차를 구해서 홀인 체크 파트로 넘어가는 부분
                 if abs(flag_ball_dis) <= 10:
                     self.act = act.CHECK
-                else:
-                    self.act = act.SEARCH_FLAG
+                    return
 
 
                 hit_angle = int(hit_angle)
@@ -1332,7 +1331,6 @@ class Controller:
             self.robo._motion.turn("LEFT", 45, 3, 0.5)   # 티샷 끝나고 깃발 찾기 위해 턴
             self.robo._motion.turn("LEFT", 10)
 
-            act == act.CHECK
                 
 #############################################################################
         elif act == act.CHECK:  # 홀인했는지 확인
