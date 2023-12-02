@@ -12,52 +12,6 @@ class ShapeRecognition:
         self.img_height, self.img_width = frame.shape[:2]
         self.img_width_middle = self.img_width // 2
         self.img_height_middle = self.img_height // 2
-        self.kernel = np.ones((3, 3), "uint8")
-
-    def process_frame(self, frame):
-        hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-        is_goal = False
-
-        # Define the color ranges
-        green_range = (np.array([57, 78, 61]), np.array([89, 255, 255]))
-        yellow_range = (np.array([0, 16, 144]), np.array([43, 184, 255]))
-        red_range1 = (np.array([0, 76, 97]), np.array([11, 186, 160]))
-        red_range2 = (np.array([137, 0, 0]), np.array([200, 255, 255]))
-
-        # Process green color
-        green_mask = cv2.inRange(hsv_frame, *green_range)
-        green_contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-        flag_boxes = []  # 깃발 박스 저장을 위한 리스트
-        red_boxes = []  # 빨간색 박스 저장을 위한 리스트
-
-        for contour in green_contours:
-            x, y, w, h = cv2.boundingRect(contour)
-
-            # Process yellow within green
-            yellow_mask = cv2.inRange(hsv_frame[y:y+h, x:x+w], *yellow_range)
-            yellow_contours, _ = cv2.findContours(yellow_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-            for cnt in yellow_contours:
-                area = cv2.contourArea(cnt)
-                if area > 10:
-                    x_yellow, y_yellow, w_yellow, h_yellow = cv2.boundingRect(cnt)
-                    cv2.rectangle(frame, (x + x_yellow, y + y_yellow), (x + x_yellow + w_yellow, y + y_yellow + h_yellow), (0, 255, 255), 2)  # Yellow box
-                    flag_boxes.append((x + x_yellow, y + y_yellow, w_yellow, h_yellow))
-
-        # Process red color
-        red_mask = cv2.inRange(hsv_frame, *red_range1) + cv2.inRange(hsv_frame, *red_range2)
-        red_mask = cv2.morphologyEx(red_mask, cv2.MORPH_DILATE, self.kernel, iterations=5)
-        red_contours, _ = cv2.findContours(red_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-        for cnt in red_contours:
-            area = cv2.contourArea(cnt)
-            if area > 30:
-                x_red, y_red, w_red, h_red = cv2.boundingRect(cnt)
-                cv2.rectangle(frame, (x_red, y_red), (x_red + w_red, y_red + h_red), (0, 0, 255), 2)  # Red box
-                red_boxes.append((x_red, y_red, w_red, h_red))
-
-        return flag_boxes, red_boxes
 
     def run(self):
         cap = cv2.VideoCapture(0, cv2.CAP_V4L)
@@ -157,9 +111,10 @@ class ShapeRecognition:
                             if (farthest_center[0] - 10 <= red_center[0] <= farthest_center[0] + 10 and
                                     farthest_center[1] - 10 <= red_center[1] <= farthest_center[1] + 10):
                                 red_in_farthest_flag = True
-                                break
+                                return red_in_farthest_flag
+            return False
 
-                    return red_in_farthest_flag
+                    
             #cv2.putText(frame, goal_status, (self.img_width_middle - 100, self.img_height_middle - 100),
             #            cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
             #cv2.imshow('Frame', frame)
