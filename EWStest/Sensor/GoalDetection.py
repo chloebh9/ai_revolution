@@ -93,25 +93,25 @@ class GoalDetect:
 
                     farthest_center = farthest_flag_box[0]
 
-                    red_lower1 = np.array([0, 0, 43])
-                    red_upper1 = np.array([19, 183, 200])
-                    red_lower2 = np.array([167, 135, 8])
-                    red_upper2 = np.array([187, 255, 255])
+                red_lower1 = np.array([0, 0, 43])
+                red_upper1 = np.array([19, 183, 200])
+                red_lower2 = np.array([167, 135, 8])
+                red_upper2 = np.array([187, 255, 255])
 
-                    red_mask = cv2.inRange(hsv_frame, red_lower1, red_upper1) + cv2.inRange(hsv_frame, red_lower2, red_upper2)
-                    red_contours, _ = cv2.findContours(red_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                red_mask = cv2.inRange(hsv_frame, red_lower1, red_upper1) + cv2.inRange(hsv_frame, red_lower2, red_upper2)
+                red_contours, _ = cv2.findContours(red_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-                    for cnt in red_contours:
-                        area = cv2.contourArea(cnt)
-                        if area > 0:
-                            x_red, y_red, w_red, h_red = cv2.boundingRect(cnt)
-                            red_center = (x_red + w_red // 2, y_red + h_red // 2)
+                for cnt in red_contours:
+                    area = cv2.contourArea(cnt)
+                    if area > 0:
+                        x_red, y_red, w_red, h_red = cv2.boundingRect(cnt)
+                        red_center = (x_red + w_red // 2, y_red + h_red // 2)
 
-                            if (farthest_center[0] - 10 <= red_center[0] <= farthest_center[0] + 10 and
-                                    farthest_center[1] - 10 <= red_center[1] <= farthest_center[1] + 10):
-                                cv2.rectangle(frame, (x_red, y_red), (x_red + w_red, y_red + h_red), (0, 0, 255), 2)  # Red box for red area
-                                red_in_farthest_flag = True
-                                #break
+                        if (farthest_center[0] - 10 <= red_center[0] <= farthest_center[0] + 10 and
+                                farthest_center[1] - 10 <= red_center[1] <= farthest_center[1] + 10):
+                            cv2.rectangle(frame, (x_red, y_red), (x_red + w_red, y_red + h_red), (0, 0, 255), 2)  # Red box for red area
+                            red_in_farthest_flag = True
+                            #break
 
             cv2.imshow('Frame', frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
