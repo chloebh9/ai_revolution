@@ -1365,6 +1365,9 @@ class Controller:
             print("Act:", act)  # Debug
 
 #####################################
+
+            flagxcenter = FlagxCenterMeasurer(img_width=640, img_height=480)
+            flag_x_angle = flagxcenter.run()
             while flag_x_angle[0] != "C":
                 print(flag_x_angle)
                 if flag_x_angle[0] == "R":
