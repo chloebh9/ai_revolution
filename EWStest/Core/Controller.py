@@ -1343,15 +1343,18 @@ class Controller:
                 self.robo._motion.set_head("RIGHT", 90)
 
             flagxcenter = FlagxCenterMeasurer(img_width=640, img_height=480)
-            flag_x_angle = flagxcenter.run()
 
-            while flag_x_angle[0] != "C":
+            for i in range(3):
+                flag_x_angle = flagxcenter.run()
                 print(flag_x_angle)
                 if flag_x_angle[0] == "R":
                     self.robo._motion.turn("RIGHT", 5)
                     
                 if flag_x_angle[0] == "L":
                     self.robo._motion.turn("LEFT", 5)
+                if flag_x_angle[0] == "C":
+                    print("중앙")
+                    break
 
             self.robo._motion.hit_the_ball("LEFT", dist=flag_ball_dis)
             time.sleep(6)
@@ -1365,21 +1368,6 @@ class Controller:
             print("Act:", act)  # Debug
 
 #####################################
-
-            flagxcenter = FlagxCenterMeasurer(img_width=640, img_height=480)
-    
-            for i in range(3):
-                flag_x_angle = flagxcenter.run()
-                print(flag_x_angle)
-                if flag_x_angle[0] == "R":
-                    self.robo._motion.turn("RIGHT", 5)
-                    
-                if flag_x_angle[0] == "L":
-                    self.robo._motion.turn("LEFT", 5)
-                if flag_x_angle[0] == "C":
-                    print("중앙")
-                    break
-            flag_ball_dis = 10
             self.robo._motion.hit_the_ball("LEFT", dist=flag_ball_dis)
             time.sleep(6)
 
