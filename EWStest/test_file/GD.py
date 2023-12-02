@@ -71,14 +71,14 @@ class ShapeRecognition:
                     # flag_centers 리스트에서 중점값이 가장 높은 flag 선택
                     farthest_flag_center = min(flag_centers, key=lambda center: center[1])
                     # 해당 flag의 박스 그리기
-                    cv2.rectangle(green_roi, (farthest_flag_center[0] - 10, farthest_flag_center[1] - 10),
-                                  (farthest_flag_center[0] + 10, farthest_flag_center[1] + 10), (0, 0, 255), 2)
+                    farthest_flag_top_left = (x + farthest_flag_center[0] - 10, y + farthest_flag_center[1] - 10)
+                    farthest_flag_bottom_right = (x + farthest_flag_center[0] + 10, y + farthest_flag_center[1] + 10)
+                    cv2.rectangle(frame, farthest_flag_top_left, farthest_flag_bottom_right, (255, 0, 0), 2)
                     cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                     # farthest_flag_boxes 리스트에 중점값과 "FLAG" 추가
                     self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
                 
-                x, y, w, h = green_box
                 red_roi_mask = red_mask[y:y+h, x:x+w]
                 red_contours, _ = cv2.findContours(red_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
@@ -97,15 +97,14 @@ class ShapeRecognition:
 
                 # 가장 큰 빨간색 영역이 farthest_flag_boxes 내에 있는지 확인
                 if largest_red_center:
-                    box_size = 5  # 박스의 반 가로/세로 길이
-                    top_left = (largest_red_center[0] - box_size, largest_red_center[1] - box_size)
-                    bottom_right = (largest_red_center[0] + box_size, largest_red_center[1] + box_size)
+                    red_top_left = (largest_red_center[0] - 5, largest_red_center[1] - 5)
+                    red_bottom_right = (largest_red_center[0] + 5, largest_red_center[1] + 5)
+                    cv2.rectangle(frame, red_top_left, red_bottom_right, (0, 0, 255), 2)
 
-                    cv2.rectangle(frame, top_left, bottom_right, (0, 0, 255), 2)  # 빨간색 박스 그리기
-
+                    # 'Farthest Flag' 박스와 'Largest Red' 박스의 겹침 확인
                     for flag_box in self.farthest_flag_boxes:
                         flag_x, flag_y, _ = flag_box
-                        if flag_x <= largest_red_center[0] <= flag_x + w and flag_y <= largest_red_center[1] <= flag_y + h:
+                        if (flag_x - 10 <= largest_red_center[0] <= flag_x + 10) and (flag_y - 10 <= largest_red_center[1] <= flag_y + 10):
                             cv2.putText(frame, 'GOAL', largest_red_center, cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
                             break
             # Display the original frame
@@ -122,6 +121,7 @@ class ShapeRecognition:
         self.cap.release()
         cv2.destroyAllWindows()
         return farthest_flag_center
+
 if __name__ == "__main__":
     video_path = 0  # Use 0 for webcam
     shape_recognition = ShapeRecognition(video_path)
