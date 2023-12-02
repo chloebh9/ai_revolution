@@ -48,6 +48,8 @@ class Controller:
     C_left: int = 0  # 로봇: C / 공: left
     
     flag_angle: int = 0  # check_flag_distance에서 쓰이는 깃발 센터 각도
+    
+    stop: bool = False  # 공 찾을 때, 끝 각도에서 더 공이 끝에 있을 때 한 발자국 뒤로 가는 코드에서 쓰이는 판단 변수
 
     canPutting: float = 11.0  # 칠 수 있는 거리있는지 판단 변수 (길이)
 
@@ -385,6 +387,15 @@ class Controller:
                     find_ball = FindBall().process()
                     time.sleep(0.1)
                     print("공이 안 보여 오른쪽부터 찾겠습니다.")
+                    
+                    # 공이 고개 끝보다 더 오른쪽에 있을 때, 한 발자국 뒤로 감
+                    if right_left[-1]:
+                        ball_is_where = BallxCenterMeasurer().process()
+                        if ball_is_where[0] == "R":
+                            self.robo._motion.walk("BACKWARD")
+                            self.stop = True
+                            return
+
                     self.robo._motion.set_head("RIGHT", right_left[x_dir])
                     print("Debug(right): ", right_left[x_dir])
                     print("=============================")
@@ -415,6 +426,15 @@ class Controller:
                     find_ball = FindBall().process()
                     time.sleep(0.1)
                     print("공이 안 보여 왼쪽부터 찾겠습니다.")
+                    
+                    # 공이 고개 끝보다 더 왼쪽에 있을 때, 한 발자국 뒤로 감
+                    if right_left[-1]:
+                        ball_is_where = BallxCenterMeasurer().process()
+                        if ball_is_where[0] == "L":
+                            self.robo._motion.walk("BACKWARD")
+                            self.stop = True
+                            return
+                        
                     self.robo._motion.set_head("LEFT", right_left[x_dir])
                     print("Debug(left): ", right_left[x_dir])
                     print("=============================")
@@ -1149,6 +1169,9 @@ class Controller:
                 # 만약 공이 안 잡히고, shot_way가 N이면 앞으로 걷고, 다시 깃발부터 찾기
                 # 만약 공이 안 잡히고, shot_way가 R이나 L이면 hit_will_angle을 90으로 설정하고, 티샷파트로 넘어감
                 self.check_ball_distance()
+                
+                if self.stop == True:
+                    return
 
                 time.sleep(0.2)
 
