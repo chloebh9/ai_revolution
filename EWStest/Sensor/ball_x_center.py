@@ -81,7 +81,7 @@ class BallxCenterMeasurer:
             ret, img = cap.read()
             if not ret:
                 break
-            img = cv2.dilate(img, self.kernel, iterations=1)
+            # img = cv2.dilate(img, self.kernel, iterations=1)
             hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
             
             # mask = MaskGenerator.ball_generate_mask(hsv_img)
