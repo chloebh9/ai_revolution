@@ -440,6 +440,7 @@ class Controller:
             time.sleep(0.2)
             print("ball_x_angle: ", end="")
             print(ball_x_angle[0])
+            print("이 부분")
 
             # x축 기준으로 센터라면, y축 기준으로 센터를 맞추기
             if ball_x_angle[0] == "C":
