@@ -389,7 +389,7 @@ class Controller:
                     print("공이 안 보여 오른쪽부터 찾겠습니다.")
                     
                     # 공이 고개 끝보다 더 오른쪽에 있을 때, 한 발자국 뒤로 감
-                    if right_left[-1]:
+                    if right_left[-1] == right_left[x_dir]:
                         ball_is_where = BallxCenterMeasurer().process()
                         if ball_is_where[0] == "R":
                             self.robo._motion.walk("BACKWARD")
@@ -428,7 +428,7 @@ class Controller:
                     print("공이 안 보여 왼쪽부터 찾겠습니다.")
                     
                     # 공이 고개 끝보다 더 왼쪽에 있을 때, 한 발자국 뒤로 감
-                    if right_left[-1]:
+                    if right_left[-1] == right_left[x_dir]:
                         ball_is_where = BallxCenterMeasurer().process()
                         if ball_is_where[0] == "L":
                             self.robo._motion.walk("BACKWARD")
