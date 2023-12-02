@@ -177,14 +177,14 @@ class Controller:
             global tmp_angle
             # 고개 오른쪽으로 찾기
             for i in range(len(right_left)):
-                find_flag = FlagxCenterMeasurer(img_width=640, img_height=480).run
+                find_flag = FlagxCenterMeasurer(img_width=640, img_height=480).run()
                 time.sleep(0.1)
                 print("깃발이 안 보여 오른쪽부터 찾겠습니다.")
                 self.robo._motion.set_head("RIGHT", right_left[x_dir])
                 
                 # 깃발이 고개 끝보다 더 오른쪽에 있을 때, 한 발자국 뒤로 감
                 if right_left[-1] == right_left[x_dir]:
-                    flag_is_where = FlagxCenterMeasurer(img_width=640, img_height=480).run
+                    flag_is_where = FlagxCenterMeasurer(img_width=640, img_height=480).run()
                     if flag_is_where[0] == "R":
                         self.robo._motion.walk("BACKWARD")
                         print("flag_is_where[0]: ", flag_is_where[0])
@@ -205,14 +205,14 @@ class Controller:
             x_dir = 0
             # 고개 왼쪽으로 찾기
             for i in range(len(right_left)):
-                find_flag = FlagxCenterMeasurer(img_width=640, img_height=480).run
+                find_flag = FlagxCenterMeasurer(img_width=640, img_height=480).run()
                 time.sleep(0.1)
                 print("깃발이 안 보여 왼쪽부터 찾겠습니다.")
                 self.robo._motion.set_head("LEFT", right_left[x_dir])
                 
                 # 깃발이 고개 끝보다 더 왼쪽에 있을 때, 한 발자국 뒤로 감
                 if right_left[-1] == right_left[x_dir]:
-                    flag_is_where = FlagxCenterMeasurer(img_width=640, img_height=480).run
+                    flag_is_where = FlagxCenterMeasurer(img_width=640, img_height=480).run()
                     if flag_is_where[0] == "L":
                         self.robo._motion.walk("BACKWARD")
                         print("flag_is_where[0]: ", flag_is_where[0])
