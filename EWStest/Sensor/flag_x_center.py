@@ -118,7 +118,10 @@ class FlagxCenterMeasurer:
         #     max_x, min_x, max_y, min_y = x+farthest_flag_center[0], x, y+farthest_flag_center[0], y
             # max_x, min_x, max_y, min_y = self.max_x, self.min_x, self.max_y, self.min_y
 
-        flag_x_isMiddle = self.judgeMiddle(max_x, min_x)
+        if have_flag == True:
+            flag_x_isMiddle = self.judgeMiddle(max_x, min_x)
+        else:
+            flag_x_isMiddle = "N"
         return [flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1], have_flag]
 
 
