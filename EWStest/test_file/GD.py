@@ -97,6 +97,12 @@ class ShapeRecognition:
 
                 # 가장 큰 빨간색 영역이 farthest_flag_boxes 내에 있는지 확인
                 if largest_red_center:
+                    box_size = 5  # 박스의 반 가로/세로 길이
+                    top_left = (largest_red_center[0] - box_size, largest_red_center[1] - box_size)
+                    bottom_right = (largest_red_center[0] + box_size, largest_red_center[1] + box_size)
+
+                    cv2.rectangle(frame, top_left, bottom_right, (0, 0, 255), 2)  # 빨간색 박스 그리기
+
                     for flag_box in self.farthest_flag_boxes:
                         flag_x, flag_y, _ = flag_box
                         if flag_x <= largest_red_center[0] <= flag_x + w and flag_y <= largest_red_center[1] <= flag_y + h:
