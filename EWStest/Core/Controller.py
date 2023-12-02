@@ -267,7 +267,7 @@ class Controller:
 
                 elif flag_y_angle[0] == "D" or flag_y_angle[0] == "U":
                     recent_will_angle = 3
-                    lst_UD = [0]  # 인덱스 에러 방지
+                    lst_UD = ["hi"]  # 인덱스 에러 방지
                     while flag_y_angle[0] != "C":
                         before_flag_y_angle = copy.copy(flag_y_angle[0])
                         flag_y_angle = flagycenter.run()  # 여기서 U/C/D 판단
@@ -311,7 +311,7 @@ class Controller:
                 print("flag_x_angle: R or L이 들어왔습니다.")
                 print(flag_x_angle[0])
                 recent_will_angle = 3
-                lst_LR = [0]  # 인덱스 에러 방지
+                lst_LR = ["hi"]  # 인덱스 에러 방지
                 while flag_x_angle[0] != "C":
                     print("while문이 실행되었습니다.")
                     before_flag_x_angle = copy.copy(flag_x_angle[0])
@@ -460,7 +460,7 @@ class Controller:
                 elif ball_y_angle[0] == "D" or ball_y_angle[0] == "U":
                     # 아래로 1도씩 움직이기
                     recent_will_angle = 3
-                    lst_UD = [0]  # 인덱스 에러 방지
+                    lst_UD = ["hi"]  # 인덱스 에러 방지
                     while ball_y_angle[0] != "C":
                         before_ball_y_angle = copy.copy(ball_y_angle[0])
                         ball_y_angle = ballycenter.process()
@@ -528,7 +528,7 @@ class Controller:
             # x축 기준으로 공의 센터가 안 맞는다면 실행
             elif ball_x_angle[0] == "L" or ball_x_angle[0] == "R" or ball_x_angle[0] == "N":
                 recent_will_angle = 3
-                lst_LR = [0]  # 인덱스 에러 방지
+                lst_LR = ["hi"]  # 인덱스 에러 방지
                 while ball_x_angle[0] != "C":
                     before_ball_x_angle = copy.copy(ball_x_angle[0])
                     ball_x_angle = ballxcenter.process()
