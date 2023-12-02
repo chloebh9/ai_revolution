@@ -3,7 +3,7 @@ import numpy as np
 
 class ColorTracker:
     def __init__(self):
-        self.cap = cv2.VideoCapture(0, cv2.CAP_V4L)
+        self.cap = cv2.VideoCapture(0)
         cv2.namedWindow("Tracking")
         self.create_trackbars()
 
