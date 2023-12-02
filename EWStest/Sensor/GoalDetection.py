@@ -16,7 +16,7 @@ class GoalDetect:
 
     def process_frame(self, frame):
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-        is_goal = True
+        is_goal = False
 
         # Define the color ranges
         green_range = (np.array([35, 84, 0]), np.array([255, 255, 141]))
@@ -62,7 +62,7 @@ class GoalDetect:
                 cv2.rectangle(frame, (x_red, y_red), (x_red + w_red, y_red + h_red), (0, 0, 255), 2)  # Red box
                 red_boxes.append((x_red, y_red, w_red, h_red))
         
-        if flag_boxes and red_boxes == []:
+        if flag_boxes and red_boxes == [] and yellow_outside_green == True:
             return None
 
         # flag_boxes와 red_boxes를 반환합니다.
@@ -77,7 +77,7 @@ class GoalDetect:
                 break
 
             result = self.process_frame(frame)
-
+            print("result 들어갔어")
             if result == None :
                 return 'N'  # 'N'이 반환되면 False를 반환
 
