@@ -147,11 +147,11 @@ class GoalDetect:
 
             #Remove Extra garbage from image
 
-            yellow_in_green = cv2.bitwise_and(mask_flag, mask_flag, mask=green_mask)
+            yellow_in_green = cv2.bitwise_and(yellow_mask, yellow_mask, mask=green_mask)
 
 # 노란색 영역의 윤곽선 찾기
             #find the histogram -> 공
-            cont,hei = cv2.findContours(yellow_in_green, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            cont,hei = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             cont = sorted(cont, key = cv2.contourArea, reverse = True)[:1]
             
             b_max_x, b_min_x = 0, 0
@@ -176,7 +176,7 @@ class GoalDetect:
                     img = self.get_dist(rect, img, 'ball', isMiddle)
 
             # 깃발
-            cont2,hei2 = cv2.findContours(mask_flag,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+            cont2,hei2 = cv2.findContours(yellow_in_green, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             cont2 = sorted(cont2, key = cv2.contourArea, reverse = True)[:1]
 
             if len(cont2) > 0:
