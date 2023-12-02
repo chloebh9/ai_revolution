@@ -280,12 +280,11 @@ class Controller:
                         # 반복 고치기: 반복값이 n번 이상일 때, 그 값으로 설정
                         cnt_UD = Counter(lst_UD)
                         result = cnt_UD.most_common()
-                        print("result: ", result)
+                        # print("result: ", result)
                         if result[0][1] >= 3:  # 최빈값이 나온 개수
                             self.flag_angle = result[0][0]
                             correctAngle = 1
-                            print("반복 멈춘 후의 result[0][1]: ", result[0][1])
-                            print("반복 멈춘 후의 self.flag_angle: ", self.flag_angle)
+                            print("반복 멈춘 후의 저장된 self.flag_angle: ", self.flag_angle)
                             break
 
                         if flag_y_angle[0] == "U":  # 판단 내용 판단
@@ -322,15 +321,14 @@ class Controller:
                     if before_flag_x_angle != flag_x_angle[0]:
                         recent_will_angle = 2
                         
-                    # 반복 고치기: 20번이 넘어갈 경우, 최빈수로 설정하게끔
+                    # 반복 고치기: 반복값이 n번 이상일 때, 그 값으로 설정
                     cnt_LR = Counter(lst_LR)
                     result = cnt_LR.most_common()
-                    print("result: ", result)
+                    # print("result: ", result)
                     if result[0][1] >= 3:  # 최빈값이 나온 개수
                             self.flag_angle = result[0][0]
                             correctAngle = 1
-                            print("반복 멈춘 후의 result[0][1]: ", result[0][1])
-                            print("반복 멈춘 후의 self.flag_angle: ", self.flag_angle)
+                            print("반복 멈춘 후의 저장된 self.flag_angle: ", self.flag_angle)
                             break
 
                     if flag_x_angle[0] == "L":
@@ -474,12 +472,11 @@ class Controller:
                         # 반복 고치기: 반복값이 n번 이상일 때, 그 값으로 설정
                         cnt_UD = Counter(lst_UD)
                         result = cnt_UD.most_common()
-                        print("result: ", result)
+                        # print("result: ", result)
                         if result[0][1] >= 3:  # 최빈값이 나온 개수
                             self.ball_angle = result[0][0]
                             correctAngle = 1
-                            print("반복 멈춘 후의 result[0][1]: ", result[0][1])
-                            print("반복 멈춘 후의 self.flag_angle: ", self.flag_angle)
+                            print("반복 멈춘 후의 저장된 self.flag_angle: ", self.flag_angle)
                             break
 
                         if ball_y_angle[0] == "U":
@@ -543,12 +540,11 @@ class Controller:
                     # 반복 고치기: 반복값이 n번 이상일 때, 그 값으로 설정
                     cnt_LR = Counter(lst_LR)
                     result = cnt_LR.most_common()
-                    print("result: ", result)
+                    # print("result: ", result)
                     if result[0][1] >= 3:  # 최빈값이 나온 개수
                         self.ball_angle = result[0][0]
                         correctAngle = 1
-                        print("반복 멈춘 후의 self.flag_angle: ", self.flag_angle)
-                        print("반복 멈춘 후의 result[0][1]: ", result[0][1])
+                        print("반복 멈춘 후의 저장된 self.flag_angle: ", self.flag_angle)
                         break
 
                     if ball_x_angle[0] == "L":
