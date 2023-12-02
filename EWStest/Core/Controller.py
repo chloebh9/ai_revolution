@@ -1367,10 +1367,10 @@ class Controller:
 #####################################
 
             flagxcenter = FlagxCenterMeasurer(img_width=640, img_height=480)
-        
-            print(flag_x_angle)
+    
             for i in range(3):
                 flag_x_angle = flagxcenter.run()
+                print(flag_x_angle)
                 if flag_x_angle[0] == "R":
                     self.robo._motion.turn("RIGHT", 5)
                     
