@@ -103,7 +103,7 @@ class GoalDetect:
 
                     for cnt in red_contours:
                         area = cv2.contourArea(cnt)
-                        if area > 30:
+                        if area > 0:
                             x_red, y_red, w_red, h_red = cv2.boundingRect(cnt)
                             red_center = (x_red + w_red // 2, y_red + h_red // 2)
 
