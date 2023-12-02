@@ -1335,6 +1335,7 @@ class Controller:
             flag_x_angle = flagxcenter.run()
 
             while flag_x_angle != "C":
+                print(flag_x_angle)
                 if flag_x_angle == "R":
                     self.robo._motion.turn("RIGHT", 5)
                     
