@@ -50,7 +50,7 @@ class GoalDetect:
                     if area_blob <= 100:
                         continue
 
-                    cv2.rectangle(frame, (x + x_blob, y + y_blob), (x + x_blob + w_blob, y + y_blob + h_blob), (0, 255, 0), 2)
+                    cv2.rectangle(frame, (x + x_blob, y + y_blob), (x + x_blob + w_blob, y + y_blob + h_blob), (0, 255, 255), 2)  # Yellow box for flags
 
                     yellow_binary = np.zeros_like(yellow_roi)
                     yellow_binary[y_blob:y_blob + h_blob, x_blob:x_blob + w_blob] = yellow_roi[y_blob:y_blob + h_blob, x_blob:x_blob + w_blob]
@@ -109,6 +109,7 @@ class GoalDetect:
 
                             if (farthest_center[0] - 10 <= red_center[0] <= farthest_center[0] + 10 and
                                     farthest_center[1] - 10 <= red_center[1] <= farthest_center[1] + 10):
+                                cv2.rectangle(frame, (x_red, y_red), (x_red + w_red, y_red + h_red), (0, 0, 255), 2)  # Red box for red area
                                 red_in_farthest_flag = True
                                 break
 
