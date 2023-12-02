@@ -14,11 +14,10 @@ class GoalDetect:
         self.img_height_middle = self.img_height // 2
 
     def run(self):
-        cap = cv2.VideoCapture(0, cv2.CAP_V4L)
-
         while True:
-            ret, frame = cap.read()
+            ret, frame = self.cap.read()
             if not ret:
+                print("Failed to grab a frame")
                 break
 
             farthest_flag_box = None
@@ -111,16 +110,9 @@ class GoalDetect:
                             if (farthest_center[0] - 10 <= red_center[0] <= farthest_center[0] + 10 and
                                     farthest_center[1] - 10 <= red_center[1] <= farthest_center[1] + 10):
                                 red_in_farthest_flag = True
-                                return red_in_farthest_flag
-            return False
-
-                    
-            #cv2.putText(frame, goal_status, (self.img_width_middle - 100, self.img_height_middle - 100),
-            #            cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
-            #cv2.imshow('Frame', frame)
-
-            #if cv2.waitKey(1) & 0xFF == ord('q'):
-            #    break
+                                break
+            
+            return red_in_farthest_flag
 
         self.cap.release()
         cv2.destroyAllWindows()
