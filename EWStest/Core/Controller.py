@@ -31,7 +31,7 @@ class Act(Enum):
 class Controller:
     robo: Robo = Robo()
     #act: Act = Act.START  # 순서도 시작
-    act: Act = Act.SEARCH_FLAG
+    act: Act = Act.CHECK
     # act: Act = Act.START가 시작 지점
 
     count_putting: int = 0  # 퍼팅 횟수
@@ -1364,6 +1364,21 @@ class Controller:
         elif act == act.CHECK:  # 홀인했는지 확인
             print("Act:", act)  # Debug
 
+#####################################
+            while flag_x_angle[0] != "C":
+                print(flag_x_angle)
+                if flag_x_angle[0] == "R":
+                    self.robo._motion.turn("RIGHT", 5)
+                    
+                if flag_x_angle[0] == "L":
+                    self.robo._motion.turn("LEFT", 5)
+
+            self.robo._motion.hit_the_ball("LEFT", dist=flag_ball_dis)
+            time.sleep(6)
+
+            self.robo._motion.turn("LEFT", 45, 3, 0.5)   # 티샷 끝나고 깃발 찾기 위해 턴
+            self.robo._motion.turn("LEFT", 10)
+##########################################
             self.robo._motion.set_head("LEFTRIGHT_CENTER")
             time.sleep(0.2)
             self.robo._motion.set_head("UPDOWN_CENTER")
