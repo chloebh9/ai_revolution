@@ -545,7 +545,7 @@ class Controller:
                     cnt_LR = Counter(lst_LR)
                     result = cnt_LR.most_common()
                     print("result: ", result)
-                    print("result[0][1]: ", result[0][1])
+                    print("result[0][1]: ", type(result[0][1]))
                     if result[0][1] >= 3:  # 최빈값이 나온 개수
                         self.ball_angle = result[0][0]
                         correctAngle = 1
