@@ -444,6 +444,7 @@ class Controller:
 
             # x축 기준으로 센터라면, y축 기준으로 센터를 맞추기
             if ball_x_angle[0] == "C":
+                print("여기 들어옴.")
                 ball_y_angle = ballycenter.process()
                 time.sleep(0.2)
                 if ball_y_angle[0] == "C":
