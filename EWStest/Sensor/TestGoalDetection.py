@@ -129,6 +129,10 @@ class GoalDetect:
 
             # window version
             # ball hsv
+            low_green = np.array([35, 82, 0])
+            high_green = np.array([152, 255, 141])
+            green_mask = cv2.inRange(hsv_frame, low_green, high_green)
+
             lower1 = np.array([0, 0, 43])
             upper1 = np.array([19, 183, 200])
             lower = np.array([167, 135, 8])
@@ -143,9 +147,11 @@ class GoalDetect:
 
             #Remove Extra garbage from image
 
+            yellow_in_green = cv2.bitwise_and(yellow_mask, yellow_mask, mask=green_mask)
 
+# 노란색 영역의 윤곽선 찾기
             #find the histogram -> 공
-            cont,hei = cv2.findContours(mask,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+            cont,hei = cv2.findContours(yellow_in_green, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             cont = sorted(cont, key = cv2.contourArea, reverse = True)[:1]
             
             b_max_x, b_min_x = 0, 0
