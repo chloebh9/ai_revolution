@@ -16,7 +16,7 @@ class GoalDetect:
 
     def process_frame(self, frame):
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-        is_goal = False
+     
 
         # Define the color ranges
         green_range = (np.array([35, 84, 0]), np.array([255, 255, 141]))
@@ -42,6 +42,7 @@ class GoalDetect:
                 if area > 10:
                     # If yellow is detected outside green box
                     yellow_outside_green = True
+                    
                     break
 
             if yellow_outside_green:
