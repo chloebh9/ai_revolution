@@ -567,8 +567,8 @@ class Controller:
                 else:
                     print("check_ball_distance 함수에서 원하는 Y angle이 안 들어옴.")
 
-            # x축 기준으로 공의 센터가 안 맞는다면 실행
-            elif ball_x_angle[0] == "L" or ball_x_angle[0] == "R" or ball_x_angle[0] == "N":
+            # x축 기준으로 공의 센터가 안 맞는다면 실행 (여기여기)
+            elif ball_x_angle[0] == "L" or ball_x_angle[0] == "R":
                 recent_will_angle = 3
                 lst_LR = ["hi"]  # 인덱스 에러 방지
                 while ball_x_angle[0] != "C":
