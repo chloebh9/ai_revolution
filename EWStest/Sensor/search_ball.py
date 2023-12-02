@@ -55,7 +55,7 @@ class FindBall:
                cv2.destroyAllWindows()
                break
 
-            #print(is_ball)
+            print(is_ball)
             # break
             # return is_ball
 
