@@ -142,12 +142,10 @@ class GoalDetect:
 
 
             #Remove Extra garbage from image
-            d_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel,iterations = 5)
-            f_img = cv2.morphologyEx(mask_flag, cv2.MORPH_OPEN, kernel,iterations = 5)
 
 
             #find the histogram -> 공
-            cont,hei = cv2.findContours(d_img,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+            cont,hei = cv2.findContours(mask,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
             cont = sorted(cont, key = cv2.contourArea, reverse = True)[:1]
             
             b_max_x, b_min_x = 0, 0
@@ -172,7 +170,7 @@ class GoalDetect:
                     img = self.get_dist(rect, img, 'ball', isMiddle)
 
             # 깃발
-            cont2,hei2 = cv2.findContours(f_img,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+            cont2,hei2 = cv2.findContours(mask_flag,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
             cont2 = sorted(cont2, key = cv2.contourArea, reverse = True)[:1]
 
             if len(cont2) > 0:
