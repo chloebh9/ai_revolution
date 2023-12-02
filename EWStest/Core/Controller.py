@@ -49,7 +49,8 @@ class Controller:
     
     flag_angle: int = 0  # check_flag_distance에서 쓰이는 깃발 센터 각도
     
-    stop: bool = False  # 공 찾을 때, 끝 각도에서 더 공이 끝에 있을 때 한 발자국 뒤로 가는 코드에서 쓰이는 판단 변수
+    ball_stop: bool = False  # 공 찾을 때, 끝 각도에서 더 공이 끝에 있을 때 한 발자국 뒤로 가는 코드에서 쓰이는 판단 변수
+    flag_stop: bool = False  # 깃발 찾을 때, 끝 각도에서 더 깃발이 끝에 있을 때 한 발자국 뒤로 가는 코드에서 쓰이는 판단 변수
 
     canPutting: float = 11.0  # 칠 수 있는 거리있는지 판단 변수 (길이)
 
@@ -185,6 +186,17 @@ class Controller:
                 time.sleep(0.1)
                 print("깃발이 안 보여 오른쪽부터 찾겠습니다.")
                 self.robo._motion.set_head("RIGHT", right_left[x_dir])
+                
+                # 깃발이 고개 끝보다 더 오른쪽에 있을 때, 한 발자국 뒤로 감
+                if right_left[-1] == right_left[x_dir]:
+                    flag_is_where = FlagxCenterMeasurer(img_width=640, img_height=480).run
+                    if flag_is_where[0] == "R":
+                        self.robo._motion.walk("BACKWARD")
+                        print("flag_is_where[0]: ", flag_is_where[0])
+                        print("깃발이 시야보다 더 오른쪽에 있어 한 발자국 뒤로 감")
+                        self.flag_stop = True
+                        return
+                
                 print("Debug: ", right_left[x_dir])
                 print("=============================")
                 x_dir += 1
@@ -204,6 +216,17 @@ class Controller:
                 time.sleep(0.1)
                 print("깃발이 안 보여 왼쪽부터 찾겠습니다.")
                 self.robo._motion.set_head("LEFT", right_left[x_dir])
+                
+                # 깃발이 고개 끝보다 더 왼쪽에 있을 때, 한 발자국 뒤로 감
+                if right_left[-1] == right_left[x_dir]:
+                    flag_is_where = FlagxCenterMeasurer(img_width=640, img_height=480).run
+                    if flag_is_where[0] == "L":
+                        self.robo._motion.walk("BACKWARD")
+                        print("flag_is_where[0]: ", flag_is_where[0])
+                        print("깃발이 시야보다 더 왼쪽에 있어 한 발자국 뒤로 감")
+                        self.flag_stop = True
+                        return
+                
                 print("Debug: ", right_left[x_dir])
                 print("=============================")
                 x_dir += 1
@@ -396,7 +419,7 @@ class Controller:
                             self.robo._motion.walk("BACKWARD")
                             print("ball_is_where[0]: ", ball_is_where[0])
                             print("공이 시야보다 더 오른쪽에 있어 한 발자국 뒤로 감")
-                            self.stop = True
+                            self.ball_stop = True
                             return
                         
                     print("Debug(right): ", right_left[x_dir])
@@ -436,7 +459,7 @@ class Controller:
                         if ball_is_where[0] == "L":
                             self.robo._motion.walk("BACKWARD")
                             print("공이 시야보다 더 왼쪽에 있어 한 발자국 뒤로 감")
-                            self.stop = True
+                            self.ball_stop = True
                             return
                         
                     print("Debug(left): ", right_left[x_dir])
@@ -1135,6 +1158,8 @@ class Controller:
                 time.sleep(0.2)
                 
                 self.check_flag()   # 깃발 찾기
+                if self.flag_stop == True:
+                    return
                 # print("TEST")
                 # self.find_best_actions(60, 'R')
                 # print("===================")
@@ -1177,7 +1202,7 @@ class Controller:
                 # 만약 공이 안 잡히고, shot_way가 R이나 L이면 hit_will_angle을 90으로 설정하고, 티샷파트로 넘어감
                 self.check_ball_distance()
                 
-                if self.stop == True:
+                if self.ball_stop == True:
                     return
 
                 time.sleep(0.2)
