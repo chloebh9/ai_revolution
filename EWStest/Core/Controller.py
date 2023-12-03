@@ -1422,9 +1422,8 @@ class Controller:
             print("tmp_flag_y: ", tmp_flag_y)
             print("tmp_ball_x: ", tmp_ball_x)
             print("tmp_ball_y: ", tmp_ball_y)
-            print("abs(tmp_flag_x - tmp_flag_y): ")
             
-            if abs(tmp_flag_x - tmp_ball_x) <= 4 and abs(tmp_flag_y - tmp_ball_y) <= 4:
+            if abs(tmp_flag_x - tmp_ball_x) <= 8 and abs(tmp_flag_y - tmp_ball_y) <= 8:
                 is_goal = True
             print("홀인 유무 (T/F): ", is_goal)
             
