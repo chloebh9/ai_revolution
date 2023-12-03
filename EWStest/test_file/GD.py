@@ -18,14 +18,14 @@ class ShapeRecognition:
 
             hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
             # 빨간색 범위 정의
-
+            lower1 = np.array([0, 0, 43])
             upper1 = np.array([19, 183, 200])
             # lower1 = np.array([0, 100, 50])
             # upper1 = np.array([10, 200, 200])
             lower = np.array([167,135, 119])
             upper = np.array([187, 255, 255])
-            mask2 = cv2.inRange(hsv_img, lower, upper)
-            mask1= cv2.inRange(hsv_img, lower1, upper1)
+            mask2 = cv2.inRange(hsv_frame, lower, upper)
+            mask1= cv2.inRange(hsv_frame, lower1, upper1)
             red_mask = cv2.bitwise_or(mask1, mask2)
 
             # 녹색 범위 정의
