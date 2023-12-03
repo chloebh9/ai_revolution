@@ -92,6 +92,8 @@ class NewGoalDetection:
             self.green_boxes = [cv2.boundingRect(contour) for contour in contours]
 
             # 노랑색 범위 정의
+            # low_yellow = np.array([0, 16, 144])
+            # high_yellow = np.array([43, 184, 255])
             low_yellow = np.array([20, 90, 144])
             high_yellow = np.array([45, 200, 255])
             yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
@@ -106,31 +108,17 @@ class NewGoalDetection:
 
                     flag_cnt = cont2[0]
                     #check for contour area
-                    if (cv2.contourArea(flag_cnt) > 100 and cv2.contourArea(flag_cnt) < 306000):
+                    if (cv2.contourArea(flag_cnt)>100 and cv2.contourArea(flag_cnt)<306000):
 
                         #Draw a rectange on the contour
                         rect = cv2.minAreaRect(flag_cnt)
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
-                        
-                        # 회전된 경계 상자의 각도 가져오기
-                        angle = rect[2]
+                        print('flag points :', box)
+                        # cv2.drawContours(frame, [box], -1, (0,255,0), 3)
 
-                        # 회전된 경계 상자의 각도에 따라 각 꼭지점 좌표 계산
-                        cos_val = np.cos(np.deg2rad(angle))
-                        sin_val = np.sin(np.deg2rad(angle))
-                        corners = []
-                        for bx, by in box:
-                            # 각 꼭지점의 좌표를 회전하여 새로운 좌표 계산
-                            new_x = int(bx * cos_val - by * sin_val)
-                            new_y = int(bx * sin_val + by * cos_val)
-                            corners.append((new_x, new_y))
-
-                        # 각 꼭지점을 이용하여 직사각형 그리기
-                        cv2.drawContours(frame, [np.array(corners)], 0, (0, 255, 0), 2)
-                        
-                        f_max_x, f_min_x = self.getMaxMin(corners)
-                        f_max_y, f_min_y = self.getyMaxMin(corners)
+                        f_max_x, f_min_x = self.getMaxMin(box)
+                        f_max_y, f_min_y = self.getyMaxMin(box)
                         isMiddle = self.judgeMiddle(f_max_x, f_min_x)
                         
                         frame = self.get_dist(rect, frame, 'flag', isMiddle)
@@ -151,22 +139,16 @@ class NewGoalDetection:
                             rect_center_y = np.mean([point[1] for point in box])
                             rect_center = (rect_center_x, rect_center_y)
                             
-                            # 회전된 경계 상자의 각도 가져오기
-                            angle = rect[2]
+                            # print('flag points :', box)
+                            # # cv2.drawContours(frame, [box], -1, (0,255,0), 3)
 
-                            # 회전된 경계 상자의 각도에 따라 각 꼭지점 좌표 계산
-                            cos_val = np.cos(np.deg2rad(angle))
-                            sin_val = np.sin(np.deg2rad(angle))
-                            corners = []
-                            for bx, by in box:
-                                # 각 꼭지점의 좌표를 회전하여 새로운 좌표 계산
-                                new_x = int(bx * cos_val - by * sin_val)
-                                new_y = int(bx * sin_val + by * cos_val)
-                                corners.append((new_x, new_y))
-
-                            # 각 꼭지점을 이용하여 직사각형 그리기
-                            cv2.drawContours(green_roi, [np.array(corners)], 0, (0, 255, 0), 2)
+                            # f_max_x, f_min_x = self.getMaxMin(box)
+                            # f_max_y, f_min_y = self.getyMaxMin(box)
+                            # isMiddle = self.judgeMiddle(f_max_x, f_min_x)
                             
+                            # frame = self.get_dist(rect, frame, 'flag', isMiddle)
+                            
+                            cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
                             M = cv2.moments(cnt)
                             if M['m00'] != 0:
                                 cx = int(M['m10'] / M['m00'])
@@ -207,31 +189,17 @@ class NewGoalDetection:
                     if len(cont) > 0:
                         ball_cnt = cont[0]
                         #check for contour area
-                        if (cv2.contourArea(ball_cnt) > 70 and cv2.contourArea(ball_cnt) < 306000):
+                        if (cv2.contourArea(ball_cnt)>70 and cv2.contourArea(ball_cnt)<306000):
                             
                             #Draw a rectange on the contour
                             rect = cv2.minAreaRect(ball_cnt)
                             box = cv2.boxPoints(rect)
                             box = np.int0(box)
-                            
-                            # 회전된 경계 상자의 각도 가져오기
-                            angle = rect[2]
+                            print('ball points :', box)
+                            cv2.drawContours(frame, [box], -1, (255,0,0), 3)
 
-                            # 회전된 경계 상자의 각도에 따라 각 꼭지점 좌표 계산
-                            cos_val = np.cos(np.deg2rad(angle))
-                            sin_val = np.sin(np.deg2rad(angle))
-                            corners = []
-                            for bx, by in box:
-                                # 각 꼭지점의 좌표를 회전하여 새로운 좌표 계산
-                                new_x = int(bx * cos_val - by * sin_val)
-                                new_y = int(bx * sin_val + by * cos_val)
-                                corners.append((new_x, new_y))
-
-                            # 각 꼭지점을 이용하여 직사각형 그리기
-                            cv2.drawContours(frame, [np.array(corners)], -1, (255,0,0), 3)
-
-                            b_max_x, b_min_x = self.getMaxMin(corners)
-                            b_max_y, b_min_y = self.getyMaxMin(corners)
+                            b_max_x, b_min_x = self.getMaxMin(box)
+                            b_max_y, b_min_y = self.getyMaxMin(box)
                             isMiddle = self.judgeMiddle(b_max_x, b_min_x)
                             
                             # flag_centers가 비어있지 않을 때만 실행
@@ -240,18 +208,25 @@ class NewGoalDetection:
                                 farthest_flag_center = min(flag_centers, key=lambda center: center[1])
                                 # farthest_flag_center[0] -> x 중점 좌표, farthest_flag_center[1] -> y 중점 좌표
                                 # 해당 flag의 박스 그리기
+                                # cv2.rectangle(green_roi, (farthest_flag_center[0] - 10, farthest_flag_center[1] - 10),
+                                #             (farthest_flag_center[0] + 10, farthest_flag_center[1] + 10), (0, 0, 255), 2)
                                 cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
                                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                                 # farthest_flag_boxes 리스트에 중점값과 "FLAG" 추가
                                 self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
                                 
+                                goal_range = 50
                                 #공이 있을 때
                                 if cont:
                                     # 공이 (홀컵기준)밑에 있을 때
+                                    print("여기까지 왔어 1")
                                     if f_min_x  <= b_min_x and b_max_x <= f_max_x  and f_min_y <= b_min_y and b_max_y <= f_max_y:
                                         print("Goal!")
                                         is_goal = True
                                         cv2.putText(frame, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
+                                                                    # return is_goal
+                                    else: 
+                                        print("NOOOOOOOOOOOOOOOOOOOOOOOP            GOOOOOOOOOOOOOOALLLLLLLLLLLLLLLLLl")
                  
                 # Display the original frame
                 cv2.imshow('Frame', frame)
@@ -259,6 +234,10 @@ class NewGoalDetection:
                 key = cv2.waitKey(1) & 0xFF
                 if key == ord('q'):
                     break
+
+        # if self.farthest_flag_boxes:
+        #     for box in self.farthest_flag_boxes:
+        #         print(f"Farthest Flag Center: {box[0]}, {box[1]}")
 
         self.cap.release()
         cv2.destroyAllWindows()
