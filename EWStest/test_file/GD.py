@@ -119,8 +119,8 @@ class NewGoalDetection:
                 yellow_contours, _ = cv2.findContours(yellow_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
                 if yellow_contours:
                     cont2 = sorted(yellow_contours, key = cv2.contourArea, reverse = True)[:1]
-
-                    flag_cnt = cont2[0]
+                    flag_cnt = max(yellow_contours, key=cv2.contourArea)
+                
                     #check for contour area
                     if (cv2.contourArea(flag_cnt)>100 and cv2.contourArea(flag_cnt)<306000):
 
@@ -179,10 +179,12 @@ class NewGoalDetection:
 
                     # 공 찾기 추가
                     # ball hsv
-                    lower1 = np.array([0, 100, 50])
-                    upper1 = np.array([10, 200, 200])
-                    lower = np.array([137, 0, 0])
-                    upper = np.array([200, 255, 255])
+                    lower1 = np.array([0, 0, 43])
+                    upper1 = np.array([19, 183, 200])
+                    # lower1 = np.array([0, 100, 50])
+                    # upper1 = np.array([10, 200, 200])
+                    lower = np.array([167,135, 119])
+                    upper = np.array([187, 255, 255])
                     mask = cv2.inRange(hsv_frame, lower, upper)
                     mask += cv2.inRange(hsv_frame, lower1, upper1)
 
