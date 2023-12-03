@@ -156,11 +156,7 @@ class NewGoalDetection:
                                 # flag_centers 리스트에 중점값 추가
                                 flag_centers.append((cx, cy))
                                 
-                                contour_center = (cx, cy)
-
-                                dist = np.sqrt((rect_center[0] - contour_center[0]) ** 2 + (rect_center[1] - contour_center[1]) ** 2)
-                                is_flag = dist <= 15
-
+                                
                     # 공 찾기 추가
                     lower1 = np.array([0, 0, 43])
                     upper1 = np.array([19, 183, 200])
