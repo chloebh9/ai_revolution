@@ -447,11 +447,10 @@ class Controller:
                 time.sleep(0.2)
 
                 find_ball = FindBall().process()
-                print(x_dir)
-
+                # print(x_dir)
 
                 if find_ball == True:
-                    print("오른쪽에서 찾았습니다.")
+                    print("최종적으로 오른쪽에서 찾았습니다.")
                     break
                 
                 x_dir = 0
