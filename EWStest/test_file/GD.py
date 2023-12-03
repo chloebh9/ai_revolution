@@ -27,6 +27,7 @@ class ShapeRecognition:
             red_mask1 = cv2.inRange(hsv_frame, lower1, upper1)
             red_mask2 = cv2.inRange(hsv_frame, lower2, upper2)
             red_mask = cv2.bitwise_or(red_mask1, red_mask2)
+
             # 녹색 범위 정의
             low_green = np.array([57, 78, 61])
             high_green = np.array([89, 255, 255])
@@ -50,9 +51,8 @@ class ShapeRecognition:
                 flag_centers = []
 
                 for cnt in yellow_contours:
-                    # 영역의 면적 계산
                     area = cv2.contourArea(cnt)
-                    if area > 10:  # 일정 면적 이상의 영역만 처리
+                    if area > 10:
                         rect = cv2.minAreaRect(cnt)
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
@@ -62,13 +62,9 @@ class ShapeRecognition:
                             cx = int(M['m10'] / M['m00'])
                             cy = int(M['m01'] / M['m00'])
                             cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-
-                            # flag_centers 리스트에 중점값 추가
                             flag_centers.append((cx, cy))
 
-                # flag_centers가 비어있지 않을 때만 실행
                 if flag_centers:
-                    # flag_centers 리스트에서 중점값이 가장 높은 flag 선택
                     farthest_flag_center = min(flag_centers, key=lambda center: center[1])
                     farthest_flag_x, farthest_flag_y = farthest_flag_center
 
@@ -86,14 +82,12 @@ class ShapeRecognition:
 
                     for cnt in non_yellow_contours:
                         non_area = cv2.contourArea(cnt)
-                        if non_area > 10:  # 일정 면적 이상의 영역만 처리
+                        if non_area > 10:
                             non_rect = cv2.minAreaRect(cnt)
                             non_box = cv2.boxPoints(non_rect)
                             non_box = np.int0(non_box)
-                            # 'Farthest Flag' 영역 내부의 노랑색이 아닌 부분에 박스 그리기
                             cv2.drawContours(frame, [non_box], 0, (0, 255, 0), 2)
 
-                                
                 red_roi_mask = red_mask[y:y+h, x:x+w]
                 red_contours, _ = cv2.findContours(red_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
@@ -122,6 +116,7 @@ class ShapeRecognition:
                         if (flag_x <= largest_red_center[0] <= flag_x) and (flag_y  <= largest_red_center[1] <= flag_y ):
                             cv2.putText(frame, 'GOAL', largest_red_center, cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
                             break
+
             # Display the original frame
             cv2.imshow('Frame', frame)
 
