@@ -66,7 +66,10 @@ class ShapeRecognition:
 
                 # 가장 높은 flag 선택
                 if flag_centers:
-                    farthest_flag_center, farthest_flag_box = min(flag_centers, key=lambda center: center[1])[:3]
+                    farthest_flag_info = min(flag_centers, key=lambda center: center[1])
+                    farthest_flag_center = (farthest_flag_info[0], farthest_flag_info[1])
+                    farthest_flag_box = farthest_flag_info[2]
+
                     self.farthest_flag_boxes.append((farthest_flag_center[0] + x, farthest_flag_center[1] + y, "FLAG"))
 
                     # 해당 flag의 박스 그리기
