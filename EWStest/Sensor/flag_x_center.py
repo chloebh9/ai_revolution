@@ -74,6 +74,10 @@ class FlagxCenterMeasurer:
                 high_yellow = np.array([97, 255, 255])
                 yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
 
+                lower0 = np.array( 23 , 144 , 151 )
+                upper0 = np.array( 29 , 224 , 171 )
+                yellow_mask += cv2.inRange(hsv_frame, lower0 , upper0 )
+
                 max_x, min_x = 0,0 # 깃발을 못 찾았을 때 오류나는 것을 방지하기 위해 바운딩 박스의 좌표를 0으로 초기화
 
                 for green_box in self.green_boxes:
@@ -123,7 +127,6 @@ class FlagxCenterMeasurer:
                 flag_x_isMiddle = self.judgeMiddle(max_x, min_x)
             else:
                 flag_x_isMiddle = "N"
-            print(flag_x_isMiddle)
             
         return [flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1], have_flag]
 
