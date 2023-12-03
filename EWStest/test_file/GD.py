@@ -215,11 +215,14 @@ class NewGoalDetection:
                                 # farthest_flag_boxes 리스트에 중점값과 "FLAG" 추가
                                 self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
                                 
-                                goal_range = 15
+                                goal_range = 50
                                 #공이 있을 때
                                 if cont:
                                     # 공이 (홀컵기준)밑에 있을 때
+                                    print("여기까지 왔어 1")
                                     if (f_min_y + f_max_y)/2 < (b_min_y + b_max_y)/2:
+                                        print("여기도 왔어 1")
+
                                         if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y <= b_min_y and b_max_y <= f_max_y - goal_range:
                                             print("Goal!")
                                             is_goal = True
