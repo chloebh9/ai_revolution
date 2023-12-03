@@ -7,7 +7,6 @@ class ShapeRecognition:
         if not self.cap.isOpened():
             raise ValueError(f"Video at {video_path} cannot be opened")
         self.green_boxes = []
-        self.farthest_flag_boxes = []  # 모든 flag의 중점값을 저장하는 리스트
 
     def run(self):
         while True:
@@ -46,9 +45,6 @@ class ShapeRecognition:
                 yellow_roi_mask = yellow_mask[y:y+h, x:x+w]
                 yellow_contours, _ = cv2.findContours(yellow_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-                # flag의 중점값을 저장하는 리스트
-                flag_centers = []
-
                 for cnt in yellow_contours:
                     # 영역의 면적 계산
                     area = cv2.contourArea(cnt)
@@ -63,50 +59,35 @@ class ShapeRecognition:
                             cy = int(M['m01'] / M['m00'])
                             cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
 
-                            # flag_centers 리스트에 중점값 추가
-                            flag_centers.append((cx, cy))
-
-                # flag_centers가 비어있지 않을 때만 실행
-                if flag_centers:
-                    # flag_centers 리스트에서 중점값이 가장 높은 flag 선택
-                    farthest_flag_center = min(flag_centers, key=lambda center: center[1])
-                    # 해당 flag의 박스 그리기
-                    farthest_flag_top_left = (x + farthest_flag_center[0] - 10, y + farthest_flag_center[1] - 10)
-                    farthest_flag_bottom_right = (x + farthest_flag_center[0] + 10, y + farthest_flag_center[1] + 10)
-                    cv2.rectangle(frame, farthest_flag_top_left, farthest_flag_bottom_right, (255, 0, 0), 2)
-                    cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                    # farthest_flag_boxes 리스트에 중점값과 "FLAG" 추가
-                    self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
-                
                 red_roi_mask = red_mask[y:y+h, x:x+w]
                 red_contours, _ = cv2.findContours(red_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-                largest_red_area = 0
-                largest_red_center = None
-
                 for cnt in red_contours:
                     area = cv2.contourArea(cnt)
-                    if area > largest_red_area:
-                        largest_red_area = area
+                    if area > 10:  # 일정 면적 이상의 영역만 처리
+                        rect = cv2.minAreaRect(cnt)
+                        box = cv2.boxPoints(rect)
+                        box = np.int0(box)
+                        cv2.drawContours(green_roi, [box], 0, (0, 0, 255), 2)
                         M = cv2.moments(cnt)
                         if M['m00'] != 0:
-                            cx = int(M['m10'] / M['m00']) + x
-                            cy = int(M['m01'] / M['m00']) + y
-                            largest_red_center = (cx, cy)
+                            cx = int(M['m10'] / M['m00'])
+                            cy = int(M['m01'] / M['m00'])
+                            cv2.putText(frame, 'Red Ball', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
 
-                # 가장 큰 빨간색 영역이 farthest_flag_boxes 내에 있는지 확인
-                if largest_red_center:
-                    red_top_left = (largest_red_center[0] - 10, largest_red_center[1] - 10)
-                    red_bottom_right = (largest_red_center[0] + 10, largest_red_center[1] + 10)
-                    cv2.rectangle(frame, red_top_left, red_bottom_right, (0, 0, 255), 2)
+                            # flag와 빨간 공 중점값 비교
+                            for flag_box in yellow_contours:
+                                flag_area = cv2.contourArea(flag_box)
+                                if flag_area > 10:
+                                    flag_rect = cv2.minAreaRect(flag_box)
+                                    flag_cx = int(flag_rect[0][0] + x)
+                                    flag_cy = int(flag_rect[0][1] + y)
 
-                    # 'Farthest Flag' 박스와 'Largest Red' 박스의 겹침 확인
-                    for flag_box in self.farthest_flag_boxes:
-                        flag_x, flag_y, _ = flag_box
-                        if (flag_x <= largest_red_center[0] <= flag_x) and (flag_y  <= largest_red_center[1] <= flag_y ):
-                            cv2.putText(frame, 'GOAL', largest_red_center, cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-                            break
+                                    # flag와 빨간 공 중점 좌표 비교
+                                    distance = np.sqrt((cx - flag_cx)**2 + (cy - flag_cy)**2)
+                                    if distance < 20:  # 일정 거리 이내에 있다면 골로 인식
+                                        cv2.putText(frame, 'GOAL', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+
             # Display the original frame
             cv2.imshow('Frame', frame)
 
@@ -114,13 +95,8 @@ class ShapeRecognition:
             if key == ord('q'):
                 break
 
-        if self.farthest_flag_boxes:
-            for box in self.farthest_flag_boxes:
-                print(f"Farthest Flag Center: {box[0]}, {box[1]}")
-
         self.cap.release()
         cv2.destroyAllWindows()
-        return farthest_flag_center
 
 if __name__ == "__main__":
     video_path = 0  # Use 0 for webcam
