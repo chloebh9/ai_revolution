@@ -348,6 +348,10 @@ class Controller:
 
                     if before_flag_x_angle != flag_x_angle[0]:
                         recent_will_angle = 2
+                    
+                    # 깃발 찾고, 센터 맞추다가 깃발을 잃어버린 경우 break하고 다시 깃발을 찾도록
+                    if flag_x_angle[0] == 'N':
+                        break
                         
                     # 반복 고치기: 반복값이 n번 이상일 때, 그 값으로 설정
                     cnt_LR = Counter(lst_LR)
