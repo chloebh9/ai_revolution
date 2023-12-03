@@ -600,7 +600,7 @@ class Controller:
                     if result[0][1] >= 3:  # 최빈값이 나온 개수
                         self.ball_angle_x = result[0][0]
                         correctAngle = 1
-                        print("반복 멈춘 후의 저장된 self.flag_angle_x: ", self.flag_angle_x)
+                        print("반복 멈춘 후의 저장된 self.ball_angle_x: ", self.ball_angle_x)
                         break
 
                     if ball_x_angle[0] == "L":
@@ -1393,17 +1393,27 @@ class Controller:
             #     goal_detector = GoalDetect(0)
             #     is_goal = goal_detector.run() # 골이 들어갔는지 판단
             #     print("홀인 유무 (T/F): ", is_goal)
-                
+            
+            
             # 깃발과 공 사이의 각도가 2도 이하일 때 골로 인식하게끔
             is_goal = False
             self.check_flag()
             self.check_flag_distance()
-            if self.flag_stop:
+            if self.flag_stop:  # 반복에 걸리면 flag_angle, ball_angle 사용
                 if abs(self.flag_angle_x - self.ball_angle_x) <= 2 and abs(self.flag_angle_y - self.ball_angle_y) <= 2:
                     is_goal = True
                     print("홀인 유무 (T/F): ", is_goal)
-            self.check_ball_distance()
-            tmp_ball = self.ball_angle
+            else:
+                self.check_flag()
+                self.check_flag_distance()
+                tmp_flag_x = self.robo._motion.x_head_angle
+                tmp_flag_y = self.robo._motion.y_head_angle
+                self.check_ball_distance()
+                tmp_ball_x = self.robo._motion.x_head_angle
+                tmp_ball_y = self.robo._motion.y_head_angle
+                if abs(tmp_flag_x - tmp_ball_x) <= 2 and abs(tmp_flag_y - tmp_ball_y) <= 2:
+                    is_goal = True
+                    print("홀인 유무 (T/F): ", is_goal)
             
 
             if is_goal == True:
