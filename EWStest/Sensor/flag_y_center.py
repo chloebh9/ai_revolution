@@ -32,6 +32,8 @@ class FlagyCenterMeasurer:
         green_boxes = []
         green_box=[]
         farthest_flag_box = None
+        
+        farthest_center = -1
 
         while True:
             ret, frame = cap.read()
@@ -152,7 +154,7 @@ class FlagyCenterMeasurer:
                     else:
                         cv2.putText(frame, f'Shape: {shape_text}', (center[0], center[1] + offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
-                if farthest_center == None:
+                if farthest_center == -1:
                     continue
 
                 is_y_middle = self.judgeMiddle(farthest_center, self.img_height)
