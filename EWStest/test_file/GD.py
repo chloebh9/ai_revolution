@@ -70,15 +70,30 @@ class ShapeRecognition:
                 if flag_centers:
                     # flag_centers 리스트에서 중점값이 가장 높은 flag 선택
                     farthest_flag_center = min(flag_centers, key=lambda center: center[1])
+                    farthest_flag_x, farthest_flag_y = farthest_flag_center
+
                     # 해당 flag의 박스 그리기
-                    farthest_flag_top_left = (x + farthest_flag_center[0] - 10, y + farthest_flag_center[1] - 10)
-                    farthest_flag_bottom_right = (x + farthest_flag_center[0] + 10, y + farthest_flag_center[1] + 10)
+                    farthest_flag_top_left = (x + farthest_flag_x - 10, y + farthest_flag_y - 10)
+                    farthest_flag_bottom_right = (x + farthest_flag_x + 10, y + farthest_flag_y + 10)
                     cv2.rectangle(frame, farthest_flag_top_left, farthest_flag_bottom_right, (255, 0, 0), 2)
-                    cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
+                    cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_x, y + farthest_flag_y),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                    # farthest_flag_boxes 리스트에 중점값과 "FLAG" 추가
-                    self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
-                
+
+                    # 가장 멀리 있는 플래그의 ROI 영역 내에서 노랑색이 아닌 부분 검출
+                    farthest_flag_roi = yellow_mask[y + farthest_flag_y - 10:y + farthest_flag_y + 10, x + farthest_flag_x - 10:x + farthest_flag_x + 10]
+                    non_yellow_mask = cv2.bitwise_not(farthest_flag_roi)
+                    non_yellow_contours, _ = cv2.findContours(non_yellow_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+                    for cnt in non_yellow_contours:
+                        non_area = cv2.contourArea(cnt)
+                        if non_area > 10:  # 일정 면적 이상의 영역만 처리
+                            non_rect = cv2.minAreaRect(cnt)
+                            non_box = cv2.boxPoints(non_rect)
+                            non_box = np.int0(non_box)
+                            # 'Farthest Flag' 영역 내부의 노랑색이 아닌 부분에 박스 그리기
+                            cv2.drawContours(frame, [non_box], 0, (0, 255, 0), 2)
+
+                                
                 red_roi_mask = red_mask[y:y+h, x:x+w]
                 red_contours, _ = cv2.findContours(red_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
