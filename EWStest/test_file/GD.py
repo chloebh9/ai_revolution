@@ -48,32 +48,29 @@ class ShapeRecognition:
 
                 # flag의 중점값을 저장하는 리스트
                 flag_centers = []
+                farthest_flag_box = None
 
                 for cnt in yellow_contours:
-                    # 영역의 면적 계산
                     area = cv2.contourArea(cnt)
                     if area > 10:  # 일정 면적 이상의 영역만 처리
                         rect = cv2.minAreaRect(cnt)
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
                         cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
+
                         M = cv2.moments(cnt)
                         if M['m00'] != 0:
                             cx = int(M['m10'] / M['m00'])
                             cy = int(M['m01'] / M['m00'])
-                            cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                            flag_centers.append((cx, cy, box))  # 박스 정보 포함하여 추가
 
-                            # flag_centers 리스트에 중점값 추가
-                            flag_centers.append((cx, cy))
-
-                # flag_centers가 비어있지 않을 때만 실행
+                # 가장 높은 flag 선택
                 if flag_centers:
-                    # flag_centers 리스트에서 중점값이 가장 높은 flag 선택
-                    farthest_flag_center = min(flag_centers, key=lambda center: center[1])
+                    farthest_flag_center, farthest_flag_box = min(flag_centers, key=lambda center: center[1])[:3]
+                    self.farthest_flag_boxes.append((farthest_flag_center[0] + x, farthest_flag_center[1] + y, "FLAG"))
+
                     # 해당 flag의 박스 그리기
-                    farthest_flag_top_left = (x + farthest_flag_center[0] - 10, y + farthest_flag_center[1] - 10)
-                    farthest_flag_bottom_right = (x + farthest_flag_center[0] + 10, y + farthest_flag_center[1] + 10)
-                    cv2.rectangle(frame, farthest_flag_top_left, farthest_flag_bottom_right, (255, 0, 0), 2)
+                    cv2.drawContours(frame, [farthest_flag_box], 0, (255, 0, 0), 2)  # 가장 멀리 있는 플래그에 박스 그리기
                     cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                     # farthest_flag_boxes 리스트에 중점값과 "FLAG" 추가
