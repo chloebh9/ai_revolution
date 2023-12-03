@@ -5,12 +5,9 @@ class FlagxCenterMeasurer:
     def __init__(self, video_path=0, img_width=640, img_height=480):
         self.img_width = img_width
         self.img_height = img_height
-        self.green_boxes = []
-        self.max_x = None
-        self.min_x = None
-        self.max_y = None
-        self.min_y = None
-        self.farthest_flag_centers = []
+        self.max_flag_box = None
+        self.max_ball_box = None
+        self.farthest_flag_center = None
 
     def getMaxMin(self, box):
         min_x, max_x = self.img_width, 0
@@ -24,9 +21,9 @@ class FlagxCenterMeasurer:
 
         return max_x, min_x, max_y, min_y
 
-    def check_goal(self, frame, ball_center, flag_centers):
-        for (flag_x, flag_y) in flag_centers:
-            if flag_x < ball_center[0] < flag_x + self.img_width / 10 and flag_y < ball_center[1] < flag_y + self.img_height / 10:
+    def check_goal(self, frame, ball_center, flag_center):
+        if flag_center is not None:
+            if flag_center[0] < ball_center[0] < flag_center[0] + self.img_width / 10 and flag_center[1] < ball_center[1] < flag_center[1] + self.img_height / 10:
                 cv2.putText(frame, 'Goal', (int(ball_center[0]), int(ball_center[1]) - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
     def run(self):
@@ -38,7 +35,6 @@ class FlagxCenterMeasurer:
                 break
 
             have_flag = False
-            farthest_flag_centers = []
 
             hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
@@ -47,45 +43,47 @@ class FlagxCenterMeasurer:
             green_mask = cv2.inRange(hsv_frame, low_green, high_green)
 
             contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-            self.green_boxes = [cv2.boundingRect(contour) for contour in contours]
+            max_flag_area = 0  # Initialize max flag area to find the largest flag
+            max_flag_center = None
 
             low_yellow = np.array([21, 56, 171])
             high_yellow = np.array([97, 255, 255])
             yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
 
-            max_x, min_x = 0, 0
+            max_ball_area = 0  # Initialize max ball area to find the largest ball
+            max_ball_center = None
 
-            for green_box in self.green_boxes:
-                x, y, w, h = green_box
-                green_roi = frame[y:y + h, x:x + w]
-                yellow_roi_mask = yellow_mask[y:y + h, x:x + w]
-                yellow_contours, _ = cv2.findContours(yellow_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            for contour in contours:
+                area = cv2.contourArea(contour)
+                if area > 10:
+                    rect = cv2.minAreaRect(contour)
+                    box = cv2.boxPoints(rect)
+                    box = np.int0(box)
+                    max_x, min_x, max_y, min_y = self.getMaxMin(box)
 
-                flag_centers = []
+                    M = cv2.moments(contour)
+                    if M['m00'] != 0:
+                        cx = int(M['m10'] / M['m00'])
+                        cy = int(M['m01'] / M['m00'])
 
-                for cnt in yellow_contours:
-                    area = cv2.contourArea(cnt)
-                    if area > 10:
-                        rect = cv2.minAreaRect(cnt)
-                        box = cv2.boxPoints(rect)
-                        box = np.int0(box)
-                        max_x, min_x, max_y, min_y = self.getMaxMin(box)
-                        cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
-                        M = cv2.moments(cnt)
-                        if M['m00'] != 0:
-                            cx = int(M['m10'] / M['m00'])
-                            cy = int(M['m01'] / M['m00'])
-                            cv2.putText(frame, 'Flag', (x + cx, y + cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                            flag_centers.append((cx, cy))
+                        if max_x - min_x > max_flag_area:
+                            max_flag_area = max_x - min_x
+                            max_flag_center = (cx, cy)
 
-                if flag_centers:
-                    farthest_flag_center = min(flag_centers, key=lambda center: center[1])
-                    cv2.rectangle(green_roi, (farthest_flag_center[0] - 10, farthest_flag_center[1] - 10),
-                                  (farthest_flag_center[0] + 10, farthest_flag_center[1] + 10), (0, 0, 255), 2)
-                    cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                    self.farthest_flag_centers.append(farthest_flag_center)
-                    have_flag = True
+                        cv2.drawContours(frame, [box], 0, (0, 255, 0), 2)
+                        cv2.putText(frame, 'Flag', (cx, cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+
+                    if max_x - min_x > max_ball_area:
+                        max_ball_area = max_x - min_x
+                        max_ball_center = (cx, cy)
+
+            if max_flag_center is not None:
+                self.farthest_flag_center = max_flag_center
+                cv2.rectangle(frame, (max_flag_center[0] - 10, max_flag_center[1] - 10),
+                              (max_flag_center[0] + 10, max_flag_center[1] + 10), (0, 0, 255), 2)
+                cv2.putText(frame, 'Farthest Flag', (max_flag_center[0], max_flag_center[1]),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                have_flag = True
 
             # 공에 대한 색상 범위 정의
             red_lower1 = np.array([0, 0, 43])
@@ -96,23 +94,24 @@ class FlagxCenterMeasurer:
             # 공에 대한 마스크 생성
             red_mask = cv2.inRange(hsv_frame, red_lower1, red_upper1) + cv2.inRange(hsv_frame, red_lower2, red_upper2)
 
-            # 공의 중심 좌표 계산
             ball_contours, _ = cv2.findContours(red_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-            ball_centers = []
 
-            for cnt in ball_contours:
-                area = cv2.contourArea(cnt)
+            max_ball_area = 0  # Reset max ball area to find the largest ball
+
+            for contour in ball_contours:
+                area = cv2.contourArea(contour)
                 if area > 10:
-                    M = cv2.moments(cnt)
+                    M = cv2.moments(contour)
                     if M['m00'] != 0:
                         cx = int(M['m10'] / M['m00'])
                         cy = int(M['m01'] / M['m00'])
-                        ball_centers.append((cx, cy))
+
+                        if max_x - min_x > max_ball_area:
+                            max_ball_area = max_x - min_x
+                            max_ball_center = (cx, cy)
 
             # 플래그 중심 좌표와 공의 중심 좌표를 비교하여 골을 확인
-            if have_flag:
-                for farthest_flag_center in self.farthest_flag_centers:
-                    self.check_goal(frame, farthest_flag_center, ball_centers)
+            self.check_goal(frame, max_ball_center, self.farthest_flag_center)
 
             cv2.imshow('프레임', frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -120,12 +119,6 @@ class FlagxCenterMeasurer:
 
         cv2.destroyAllWindows()
 
-        if have_flag:
-            flag_x_isMiddle = self.judgeMiddle(max_x, min_x)
-        else:
-            flag_x_isMiddle = "N"
-
-        return [flag_x_isMiddle, farthest_flag_centers, have_flag]
 
 if __name__ == "__main__":
     video_path = 0  # 웹캠을 사용하려면 0을 사용
