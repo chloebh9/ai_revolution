@@ -1383,6 +1383,16 @@ class Controller:
                 goal_detector = GoalDetect(0)
                 is_goal = goal_detector.run() # 골이 들어갔는지 판단
                 print("홀인 유무 (T/F): ", is_goal)
+                
+            # 깃발과 공 사이의 각도가 2도 이하일 때 골로 인식하게끔
+            self.check_flag()
+            self.check_flag_distance()
+            tmp_flag = self.flag_angle
+            self.check_ball_distance()
+            tmp_ball = self.ball_angle
+            if abs(tmp_flag - tmp_ball) <= 2:
+                is_goal = True
+                print("홀인 유무 (T/F): ", is_goal)
 
             if is_goal == True:
                 self.act = act.EXIT
