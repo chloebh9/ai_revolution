@@ -1163,7 +1163,7 @@ class Controller:
 
                 time.sleep(0.2)
                 if self.flag_stop:
-                    angle = abs(self.flag_angle_y - 11.6)  # angle 값 수정
+                    angle = abs(self.flag_angle_y - 8.6)  # angle 값 수정
                 else:
                     angle = abs(self.robo._motion.y_head_angle - 11.6)  # angle 값 수정
                 distflag = DistMeasurer().display_distance(angle) # 깃발 거리값
