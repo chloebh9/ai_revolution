@@ -273,22 +273,22 @@ class Controller:
     # 깃발 1도씩 조정하면서 각도 확인
     @classmethod
     def check_flag_distance(self):
-        flagxcenter = FlagxCenterMeasurer(img_width=640, img_height=480)
-        flagycenter = FlagyCenterMeasurer(img_width=640, img_height=480)
+        # flagxcenter = FlagxCenterMeasurer(img_width=640, img_height=480)
+        # flagycenter = FlagyCenterMeasurer(img_width=640, img_height=480)
 
         correctAngle = 0  # 깃발이 센터에 왔을 때 1로 변경
 
         # 깃발을 못 찾았을 때 반환하는 값
 
         while correctAngle != 1:
-            flag_x_angle = flagxcenter.run()
+            flag_x_angle = FlagxCenterMeasurer(img_width=640, img_height=480).run()
             time.sleep(0.2)
             print("check_flag_distance에서의 flag_x_angle: ", flag_x_angle[0])
             print("flag_x_angle[0] == C: ", flag_x_angle[0] == "C")
 
             if flag_x_angle[0] == "C":
                 print("통과했어요")
-                flag_y_angle = flagycenter.run()
+                flag_y_angle = FlagyCenterMeasurer(img_width=640, img_height=480).run()
                 print(flag_y_angle[0])
                 time.sleep(0.2)
 
@@ -304,7 +304,7 @@ class Controller:
                     lst_UD = ["hi"]  # 인덱스 에러 방지
                     while flag_y_angle[0] != "C":
                         before_flag_y_angle = copy.copy(flag_y_angle[0])
-                        flag_y_angle = flagycenter.run()  # 여기서 U/C/D 판단
+                        flag_y_angle = FlagyCenterMeasurer(img_width=640, img_height=480).run()  # 여기서 U/C/D 판단
                         time.sleep(0.2)
                         print("flag_y: ", flag_y_angle[0])  # 판단 내용 출력
 
@@ -348,7 +348,7 @@ class Controller:
                 while flag_x_angle[0] != "C":
                     print("while문이 실행되었습니다.")
                     before_flag_x_angle = copy.copy(flag_x_angle[0])
-                    flag_x_angle = flagxcenter.run()  # 여기서 U/C/D 판단
+                    flag_x_angle = FlagxCenterMeasurer(img_width=640, img_height=480).run()  # 여기서 U/C/D 판단
                     time.sleep(0.2)
                     print("flag_x: ", flag_x_angle[0])  # 판단 내용 출력
 
