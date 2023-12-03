@@ -447,6 +447,7 @@ class Controller:
                 time.sleep(0.2)
 
                 find_ball = FindBall().process()
+                print("find_ball: ", find_ball)
                 # print(x_dir)
 
                 if find_ball == True:
