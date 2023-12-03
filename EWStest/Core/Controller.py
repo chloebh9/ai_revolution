@@ -47,12 +47,17 @@ class Controller:
     C_center: int = 0  # 로봇: C / 공: center
     C_left: int = 0  # 로봇: C / 공: left
     
-    flag_angle: int = 0  # check_flag_distance에서 쓰이는 깃발 센터 각도
-    ball_angle: int = 0  # check_ball_distance에서 쓰이는 공 센터 각도
+    # check_flag_distance에서 쓰이는 깃발 센터 각도
+    flag_angle_x: int = 0
+    flag_angle_y: int = 0
     
-    ball_stop: bool = False  # 공 찾을 때, 끝 각도에서 더 공이 끝에 있을 때 한 발자국 뒤로 가는 코드에서 쓰이는 판단 변수
+    # check_ball_distance에서 쓰이는 공 센터 각도
+    ball_angle_x: int = 0
+    ball_angle_y: int = 0
+    
     flag_stop: bool = False  # 깃발 찾을 때, 끝 각도에서 더 깃발이 끝에 있을 때 한 발자국 뒤로 가는 코드에서 쓰이는 판단 변수
-
+    ball_stop: bool = False  # 공 찾을 때, 끝 각도에서 더 공이 끝에 있을 때 한 발자국 뒤로 가는 코드에서 쓰이는 판단 변수
+    
     canPutting: float = 11.0  # 칠 수 있는 거리있는지 판단 변수 (길이)
 
     ###################################################################################################
@@ -310,9 +315,9 @@ class Controller:
                         result = cnt_UD.most_common()
                         # print("result: ", result)
                         if result[0][1] >= 3:  # 최빈값이 나온 개수
-                            self.flag_angle = result[0][0]
+                            self.flag_angle_y = result[0][0]
                             correctAngle = 1
-                            print("반복 멈춘 후의 저장된 self.flag_angle: ", self.flag_angle)
+                            print("반복 멈춘 후의 저장된 self.flag_angle_y: ", self.flag_angle_y)
                             break
 
                         if flag_y_angle[0] == "U":  # 판단 내용 판단
@@ -358,9 +363,9 @@ class Controller:
                     result = cnt_LR.most_common()
                     # print("result: ", result)
                     if result[0][1] >= 3:  # 최빈값이 나온 개수
-                            self.flag_angle = result[0][0]
+                            self.flag_angle_x = result[0][0]
                             correctAngle = 1
-                            print("반복 멈춘 후의 저장된 self.flag_angle: ", self.flag_angle)
+                            print("반복 멈춘 후의 저장된 self.flag_angle_x: ", self.flag_angle_x)
                             break
 
                     if flag_x_angle[0] == "L":
@@ -521,9 +526,9 @@ class Controller:
                         result = cnt_UD.most_common()
                         # print("result: ", result)
                         if result[0][1] >= 3:  # 최빈값이 나온 개수
-                            self.ball_angle = result[0][0]
+                            self.ball_angle_y = result[0][0]
                             correctAngle = 1
-                            print("반복 멈춘 후의 저장된 self.flag_angle: ", self.flag_angle)
+                            print("반복 멈춘 후의 저장된 self.flag_angle_y: ", self.flag_angle_y)
                             break
 
                         if ball_y_angle[0] == "U":
@@ -593,9 +598,9 @@ class Controller:
                     result = cnt_LR.most_common()
                     # print("result: ", result)
                     if result[0][1] >= 3:  # 최빈값이 나온 개수
-                        self.ball_angle = result[0][0]
+                        self.ball_angle_x = result[0][0]
                         correctAngle = 1
-                        print("반복 멈춘 후의 저장된 self.flag_angle: ", self.flag_angle)
+                        print("반복 멈춘 후의 저장된 self.flag_angle_x: ", self.flag_angle_x)
                         break
 
                     if ball_x_angle[0] == "L":
@@ -1157,7 +1162,7 @@ class Controller:
                 self.check_flag_distance() # 깃발 센터 맞추기
 
                 time.sleep(0.2)
-                angle = abs(self.flag_angle - 11.6)  # angle 값 수정
+                angle = abs(self.flag_angle_y - 11.6)  # angle 값 수정
                 distflag = DistMeasurer().display_distance(angle) # 깃발 거리값
                 flag_angle = self.robo._motion.x_head_angle
                 print("flag distance: ", end="")
@@ -1192,7 +1197,7 @@ class Controller:
                 time.sleep(0.2)
 
                 # 공 거리 구하고 끝내고 싶으면
-                # exit()
+                exit()
                 # self.ball_feature_ball()
                 
     #############################################################################
@@ -1390,15 +1395,16 @@ class Controller:
             #     print("홀인 유무 (T/F): ", is_goal)
                 
             # 깃발과 공 사이의 각도가 2도 이하일 때 골로 인식하게끔
+            is_goal = False
             self.check_flag()
             self.check_flag_distance()
-            tmp_flag = self.flag_angle
+            if self.flag_stop:
+                if abs(self.flag_angle_x - self.ball_angle_x) <= 2 and abs(self.flag_angle_y - self.ball_angle_y) <= 2:
+                    is_goal = True
+                    print("홀인 유무 (T/F): ", is_goal)
             self.check_ball_distance()
             tmp_ball = self.ball_angle
-            if abs(tmp_flag - tmp_ball) <= 2:
-                is_goal = True
-                print("홀인 유무 (T/F): ", is_goal)
-            else: is_goal = False
+            
 
             if is_goal == True:
                 self.act = act.EXIT
