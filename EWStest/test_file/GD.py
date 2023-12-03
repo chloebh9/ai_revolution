@@ -10,7 +10,7 @@ class FlagxCenterMeasurer:
         self.min_x = None
         self.max_y = None
         self.min_y = None
-        self.farthest_flag_boxes = []
+        self.farthest_flag_centers = []
 
     def getMaxMin(self, box):
         min_x, max_x = self.img_width, 0
@@ -24,8 +24,8 @@ class FlagxCenterMeasurer:
 
         return max_x, min_x, max_y, min_y
 
-    def check_goal(self, frame, ball_center, flag_boxes):
-        for (flag_x, flag_y, _) in flag_boxes:
+    def check_goal(self, frame, ball_center, flag_centers):
+        for (flag_x, flag_y) in flag_centers:
             if flag_x < ball_center[0] < flag_x + self.img_width / 10 and flag_y < ball_center[1] < flag_y + self.img_height / 10:
                 cv2.putText(frame, 'Goal', (int(ball_center[0]), int(ball_center[1]) - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
@@ -38,7 +38,7 @@ class FlagxCenterMeasurer:
                 break
 
             have_flag = False
-            farthest_flag_center = [0, 0]
+            farthest_flag_centers = []
 
             hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
@@ -84,7 +84,7 @@ class FlagxCenterMeasurer:
                                   (farthest_flag_center[0] + 10, farthest_flag_center[1] + 10), (0, 0, 255), 2)
                     cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                    self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
+                    self.farthest_flag_centers.append(farthest_flag_center)
                     have_flag = True
 
             # 공에 대한 색상 범위 정의
@@ -109,9 +109,10 @@ class FlagxCenterMeasurer:
                         cy = int(M['m01'] / M['m00'])
                         ball_centers.append((cx, cy))
 
-            # 플래그 박스와 공의 중심 좌표를 비교하여 골을 확인
+            # 플래그 중심 좌표와 공의 중심 좌표를 비교하여 골을 확인
             if have_flag:
-                self.check_goal(frame, farthest_flag_center, ball_centers)
+                for farthest_flag_center in self.farthest_flag_centers:
+                    self.check_goal(frame, farthest_flag_center, ball_centers)
 
             cv2.imshow('프레임', frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -124,7 +125,7 @@ class FlagxCenterMeasurer:
         else:
             flag_x_isMiddle = "N"
 
-        return [flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1], have_flag]
+        return [flag_x_isMiddle, farthest_flag_centers, have_flag]
 
 if __name__ == "__main__":
     video_path = 0  # 웹캠을 사용하려면 0을 사용
