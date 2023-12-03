@@ -108,7 +108,6 @@ class NewGoalDetection:
 
                         f_max_x, f_min_x = self.getMaxMin(box)
                         f_max_y, f_min_y = self.getyMaxMin(box)
-                        isMiddle = self.judgeMiddle(f_max_x, f_min_x)
                         
                         frame = self.get_dist(rect, frame, 'flag', isMiddle)
 
