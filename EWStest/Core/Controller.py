@@ -1398,6 +1398,7 @@ class Controller:
             if abs(tmp_flag - tmp_ball) <= 2:
                 is_goal = True
                 print("홀인 유무 (T/F): ", is_goal)
+            else: is_goal = False
 
             if is_goal == True:
                 self.act = act.EXIT
