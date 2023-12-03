@@ -221,40 +221,40 @@ class NewGoalDetection:
                             
                     
                     # flag_centers가 비어있지 않을 때만 실행
-                if flag_centers:
-                        # flag_centers 리스트에서 중점값이 가장 높은 flag 선택
-                    farthest_flag_center = min(flag_centers, key=lambda center: center[1])
+                    if flag_centers:
+                            # flag_centers 리스트에서 중점값이 가장 높은 flag 선택
+                        farthest_flag_center = min(flag_centers, key=lambda center: center[1])
                         # farthest_flag_center[0] -> x 중점 좌표, farthest_flag_center[1] -> y 중점 좌표
                         # 해당 flag의 박스 그리기
                         # cv2.rectangle(green_roi, (farthest_flag_center[0] - 10, farthest_flag_center[1] - 10),
                         #             (farthest_flag_center[0] + 10, farthest_flag_center[1] + 10), (0, 0, 255), 2)
-                    cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                        cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
+                                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                         # farthest_flag_boxes 리스트에 중점값과 "FLAG" 추가
-                    self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
-                       
-                    goal_range = 15
-                        #공이 있을 때
-                    if cont and is_flag:
-                        # 공이 (홀컵기준)밑에 있을 때
-                        if (f_min_y + f_max_y)/2 < (b_min_y + b_max_y)/2:
-                            if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y <= b_min_y and b_max_y <= f_max_y - goal_range:
-                                print("Goal!")
-                                is_goal = True
-                                cv2.putText(frame, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
-                                # return is_goal
-                            # 공이 (홀컵기준)위에 있을 때
-                        else:
-                            if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y - goal_range <= b_min_y and b_max_y <= f_max_y - goal_range:
-                                print("Goal!")
-                                is_goal = True
-                                cv2.putText(frame, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
+                        self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
+                        
+                        goal_range = 15
+                            #공이 있을 때
+                        if cont and is_flag:
+                            # 공이 (홀컵기준)밑에 있을 때
+                            if (f_min_y + f_max_y)/2 < (b_min_y + b_max_y)/2:
+                                if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y <= b_min_y and b_max_y <= f_max_y - goal_range:
+                                    print("Goal!")
+                                    is_goal = True
+                                    cv2.putText(frame, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
                                     # return is_goal
-                            # return is_goal
-                    else:
-                            print("공을 감지 못했어요")
-            else:
-                print("yellow_contours 감지 못했어요")
+                                # 공이 (홀컵기준)위에 있을 때
+                            else:
+                                if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y - goal_range <= b_min_y and b_max_y <= f_max_y - goal_range:
+                                    print("Goal!")
+                                    is_goal = True
+                                    cv2.putText(frame, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
+                                        # return is_goal
+                                # return is_goal
+                        else:
+                                print("공을 감지 못했어요")
+                else:
+                    print("yellow_contours 감지 못했어요")
 
             # Display the original frame
             cv2.imshow('Frame', frame)
