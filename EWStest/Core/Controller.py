@@ -1369,20 +1369,20 @@ class Controller:
             
             self.robo._motion.set_head("LEFTRIGHT_CENTER")
             time.sleep(0.2)
-            self.robo._motion.set_head("UPDOWN_CENTER")
+            self.robo._motion.set_head("DOWN", 45)
             time.sleep(0.2)
 
-            goal_detector = GoalDetect(0)
-            is_goal = goal_detector.run() # 골이 들어갔는지 판단
-            print("홀인 유무 (T/F): ", is_goal)
+            # goal_detector = GoalDetect(0)
+            # is_goal = goal_detector.run() # 골이 들어갔는지 판단
+            # print("홀인 유무 (T/F): ", is_goal)
 
-            if is_goal == 'N':
-                self.robo._motion.set_head("DOWN", 45)
-                time.sleep(0.1)
+            # if is_goal == 'N':
+            #     self.robo._motion.set_head("DOWN", 45)
+            #     time.sleep(0.1)
 
-                goal_detector = GoalDetect(0)
-                is_goal = goal_detector.run() # 골이 들어갔는지 판단
-                print("홀인 유무 (T/F): ", is_goal)
+            #     goal_detector = GoalDetect(0)
+            #     is_goal = goal_detector.run() # 골이 들어갔는지 판단
+            #     print("홀인 유무 (T/F): ", is_goal)
                 
             # 깃발과 공 사이의 각도가 2도 이하일 때 골로 인식하게끔
             self.check_flag()
