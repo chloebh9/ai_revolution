@@ -178,7 +178,7 @@ class NewGoalDetection:
                                 red_rect = cv2.minAreaRect(red_cnt)
                                 red_box = cv2.boxPoints(red_rect)
                                 red_box = np.int0(red_box)
-                                cv2.drawContours(frame, [red_box], 0, (0, 0, 255), 2)
+                                cv2.drawContours(frame, [red_box], 0, (0, 255, 255), 2)
 
                                 # 빨강 공의 중점 계산
                                 M = cv2.moments(red_cnt)
