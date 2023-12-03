@@ -150,9 +150,9 @@ class NewGoalDetection:
                         mask = cv2.inRange(hsv_frame, lower, upper)
                         mask += cv2.inRange(hsv_frame, lower1, upper1)
 
-                        d_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel, iterations=5)
+                        
 
-                        cont, _ = cv2.findContours(d_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                        cont, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
                         cont = sorted(cont, key=cv2.contourArea, reverse=True)[:1]
 
                         b_max_x, b_min_x = 0, 0
