@@ -48,6 +48,7 @@ class Controller:
     C_left: int = 0  # 로봇: C / 공: left
     
     flag_angle: int = 0  # check_flag_distance에서 쓰이는 깃발 센터 각도
+    ball_angle: int = 0  # check_ball_distance에서 쓰이는 공 센터 각도
     
     ball_stop: bool = False  # 공 찾을 때, 끝 각도에서 더 공이 끝에 있을 때 한 발자국 뒤로 가는 코드에서 쓰이는 판단 변수
     flag_stop: bool = False  # 깃발 찾을 때, 끝 각도에서 더 깃발이 끝에 있을 때 한 발자국 뒤로 가는 코드에서 쓰이는 판단 변수
@@ -537,24 +538,24 @@ class Controller:
                     print("중앙에 왔습니다.")
                 
                     # 공 센터 맞추면 해당 각도 저장
-                    ball_angle = self.robo._motion.x_head_angle
+                    self.ball_angle = self.robo._motion.x_head_angle
                     print("공을 센터에 맞추고, 각도를 저장하였습니다.")
                     print("=============================")
                 
                     # 공 센터 맞추면 로봇과 공의 거리 구하는 코드 실행
                     dist_Process = DistMeasurer()
-                    self.dist = dist_Process.display_distance(ball_angle)  # dist: 공과 로봇의 거리 ?? self.dist에 대한 정의가 없는데 어떻게 씀?
+                    self.dist = dist_Process.display_distance(self.ball_angle)  # dist: 공과 로봇의 거리 ?? self.dist에 대한 정의가 없는데 어떻게 씀?
                     time.sleep(0.1)
                 
                     # flag_ball_angle_fin: 공이랑 깃발 사이의 각도
-                    self.flag_ball_angle_fin = abs(ball_angle - flag_angle)
+                    self.flag_ball_angle_fin = abs(self.ball_angle - flag_angle)
                     print("공이랑 깃발 각도를 저장하였습니다.")
                     print("=============================")
                                 
                     # direction: 방향
-                    if (ball_angle - flag_angle) > 0:
+                    if (self.ball_angle - flag_angle) > 0:
                         direction = "R"
-                    elif (ball_angle - flag_angle) < 0:
+                    elif (self.ball_angle - flag_angle) < 0:
                         direction = "L"
                     else:
                         direction = ""  # 여기 나오면 안 되긴 함..
