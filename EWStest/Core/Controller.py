@@ -215,7 +215,7 @@ class Controller:
             time.sleep(0.2)
             
             if find_flag[3] == True:
-                print("찾았습니다.")
+                print("깃발을 오른쪽에서 최종적으로 찾았습니다.")
                 break
 
             x_dir = 0
