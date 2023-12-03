@@ -14,7 +14,19 @@ class FlagxCenterMeasurer:
         self.min_y = None
         self.farthest_flag_boxes = []
 
-    # 나머지 코드는 여기에 있어야 합니다.
+    # 나머지 코드는 여기에 있어야 합니다
+    # .
+    def getMaxMin(self, box):
+        min_x, max_x = self.img_width, 0
+        min_y, max_y = self.img_height, 0
+
+        for x, y in box:
+            min_x = min(min_x, x)
+            max_x = max(max_x, x)
+            min_y = min(min_y, y)
+            max_y = max(max_y, y)
+
+        return max_x, min_x, max_y, min_y
 
     def check_goal(self, frame, green_box, red_boxes):
         x, y, w, h = green_box
