@@ -1399,23 +1399,33 @@ class Controller:
             
             # 깃발과 공 사이의 각도가 2도 이하일 때 골로 인식하게끔
             is_goal = False
+            
+            print("홀인 체크하기 위한 깃발과 공 찾기")
             self.check_flag()
             self.check_flag_distance()
-            if self.flag_stop:  # 반복에 걸리면 flag_angle, ball_angle 사용
-                if abs(self.flag_angle_x - self.ball_angle_x) <= 2 and abs(self.flag_angle_y - self.ball_angle_y) <= 2:
-                    is_goal = True
-                    print("홀인 유무 (T/F): ", is_goal)
+            if self.flag_stop:
+                tmp_flag_x = self.flag_angle_x
+                tmp_flag_y = self.flag_angle_y
             else:
-                self.check_flag()
-                self.check_flag_distance()
                 tmp_flag_x = self.robo._motion.x_head_angle
                 tmp_flag_y = self.robo._motion.y_head_angle
-                self.check_ball_distance()
+                
+            self.check_ball_distance()
+            if self.ball_stop:
+                tmp_ball_x = self.ball_angle_x
+                tmp_ball_y = self.ball_angle_y
+            else:
                 tmp_ball_x = self.robo._motion.x_head_angle
                 tmp_ball_y = self.robo._motion.y_head_angle
-                if abs(tmp_flag_x - tmp_ball_x) <= 2 and abs(tmp_flag_y - tmp_ball_y) <= 2:
-                    is_goal = True
-                    print("홀인 유무 (T/F): ", is_goal)
+                
+            print("tmp_flag_x: ", tmp_flag_x)
+            print("tmp_flag_y: ", tmp_flag_y)
+            print("tmp_ball_x: ", tmp_ball_x)
+            print("tmp_ball_x: ", tmp_ball_y)
+            
+            if abs(tmp_flag_x - tmp_flag_y) <= 2 and abs(tmp_ball_x - tmp_ball_y) <= 2:
+                is_goal = True
+            print("홀인 유무 (T/F): ", is_goal)
             
 
             if is_goal == True:
