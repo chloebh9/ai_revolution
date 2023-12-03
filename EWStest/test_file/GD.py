@@ -186,7 +186,7 @@ class NewGoalDetection:
                 lower = np.array([167,135, 119])
                 upper = np.array([187, 255, 255])
                 mask = cv2.inRange(hsv_frame, lower, upper)
-                 mask += cv2.inRange(hsv_frame, lower1, upper1)
+                mask += cv2.inRange(hsv_frame, lower1, upper1)
 
 
                     #Remove Extra garbage from image
