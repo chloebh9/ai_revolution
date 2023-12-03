@@ -220,40 +220,20 @@ class NewGoalDetection:
                                 if cont:
                                     # 공이 (홀컵기준)밑에 있을 때
                                     print("여기까지 왔어 1")
-                                    if (f_min_y + f_max_y)/2 < (b_min_y + b_max_y)/2:
-                                        print("여기도 왔어 1")
+                                    if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y <= b_min_y and b_max_y <= f_max_y - goal_range:
+                                        print("Goal!")
+                                        is_goal = True
+                                        cv2.putText(frame, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
+                                                                    # return is_goal
+                                    else: 
+                                        print("NOOOOOOOOOOOOOOOOOOOOOOOP            GOOOOOOOOOOOOOOALLLLLLLLLLLLLLLLLl")
+                 
+                # Display the original frame
+                cv2.imshow('Frame', frame)
 
-                                        if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y <= b_min_y and b_max_y <= f_max_y - goal_range:
-                                            print("Goal!")
-                                            is_goal = True
-                                            cv2.putText(frame, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
-                                        # 플래그 박스 내부에 공이 존재할 때 골로 인식
-                                        elif f_min_x < b_min_x < f_max_x and f_min_y < b_min_y < f_max_y:
-                                            print("Goal!")
-                                            is_goal = True
-                                            cv2.putText(frame, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
-                                        # 공이 (홀컵기준)위에 있을 때
-                                        else:
-                                            if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y - goal_range <= b_min_y and b_max_y <= f_max_y - goal_range:
-                                                print("Goal!")
-                                                is_goal = True
-                                                cv2.putText(frame, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
-
-                                            # return is_goal
-                                    # return is_goal
-                                else:
-                                    print("공을 감지 못했어요")
-                        else:
-                            print("공의 크기가 올바르지 않아요")
-                else:
-                    print("yellow_contours 감지 못했어요")
-
-            # Display the original frame
-            cv2.imshow('Frame', frame)
-
-            key = cv2.waitKey(1) & 0xFF
-            if key == ord('q'):
-                break
+                key = cv2.waitKey(1) & 0xFF
+                if key == ord('q'):
+                    break
 
         # if self.farthest_flag_boxes:
         #     for box in self.farthest_flag_boxes:
