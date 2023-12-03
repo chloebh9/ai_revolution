@@ -87,6 +87,10 @@ class ShapeRecognition:
 
                 for cnt in red_contours:
                     area = cv2.contourArea(cnt)
+                    rect = cv2.minAreaRect(cnt)  # 최소 면적 사각형 계산
+                    box = cv2.boxPoints(rect)  # 사각형의 꼭짓점 계산
+                    box = np.int0(box)
+                    cv2.drawContours(frame, [box], 0, (0, 0, 255), 2)  # 빨간색 영역에 박스 그리기
                     if area > largest_red_area:
                         largest_red_area = area
                         M = cv2.moments(cnt)
@@ -97,16 +101,10 @@ class ShapeRecognition:
 
                 # 가장 큰 빨간색 영역이 farthest_flag_boxes 내에 있는지 확인
                 if largest_red_center:
-                    red_top_left = (largest_red_center[0] - 10, largest_red_center[1] - 10)
-                    red_bottom_right = (largest_red_center[0] + 10, largest_red_center[1] + 10)
-                    cv2.rectangle(frame, red_top_left, red_bottom_right, (0, 0, 255), 2)
-
-                    # 'Farthest Flag' 박스와 'Largest Red' 박스의 겹침 확인
                     for flag_box in self.farthest_flag_boxes:
                         flag_x, flag_y, _ = flag_box
-                        if (flag_x <= largest_red_center[0] <= flag_x) and (flag_y  <= largest_red_center[1] <= flag_y ):
+                        if cv2.pointPolygonTest(box, (flag_x, flag_y), False) >= 0:
                             cv2.putText(frame, 'GOAL', largest_red_center, cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-                            break
             # Display the original frame
             cv2.imshow('Frame', frame)
 
