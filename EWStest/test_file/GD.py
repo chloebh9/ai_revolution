@@ -18,9 +18,9 @@ class ShapeRecognition:
 
             hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
             # 빨간색 범위 정의
-            lower1 = np.array([0, 0, 43])
+            lower1 = np.array([0, 0, 132])
             upper1 = np.array([19, 183, 200])
-            lower2 = np.array([167, 135, 119])
+            lower2 = np.array([165, 134, 118])
             upper2 = np.array([187, 255, 255])
 
             # 빨간색 마스크 생성
