@@ -111,15 +111,16 @@ class NewGoalDetection:
             yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
 
             # 빨강색 범위 정의
-            low_red = np.array([0, 100, 100])
-            high_red = np.array([10, 255, 255])
-            red_mask1 = cv2.inRange(hsv_frame, low_red, high_red)
+            lower1 = np.array([0, 0, 43])
+            upper1 = np.array([19, 183, 200])
+        # lower1 = np.array([0, 100, 50])
+        # upper1 = np.array([10, 200, 200])
+            lower = np.array([167,135, 119])
+            upper = np.array([187, 255, 255])
+            mask2 = cv2.inRange(hsv_frame, lower, upper)
+            mask1= cv2.inRange(hsv_frame, lower1, upper1)
 
-            low_red = np.array([160, 100, 100])
-            high_red = np.array([180, 255, 255])
-            red_mask2 = cv2.inRange(hsv_frame, low_red, high_red)
-
-            red_mask = red_mask1 + red_mask2
+            red_mask = mask1 + mask2
 
             for green_box in self.green_boxes:
                 x, y, w, h = green_box
