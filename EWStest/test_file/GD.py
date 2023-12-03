@@ -108,7 +108,7 @@ class NewGoalDetection:
 
                         f_max_x, f_min_x = self.getMaxMin(box)
                         f_max_y, f_min_y = self.getyMaxMin(box)
-                        \
+                        
 
                         # 노란색 박스 내부 좌표 저장
                         yellow_box_points = [(x, y), (x + w, y), (x, y + h), (x + w, y + h)]
