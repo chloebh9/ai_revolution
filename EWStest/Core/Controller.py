@@ -283,8 +283,8 @@ class Controller:
         while correctAngle != 1:
             flag_x_angle = flagxcenter.run()
             time.sleep(0.2)
-            print("flag_x_angle: ", flag_x_angle[0])
-            print(flag_x_angle[0] == "C")
+            print("check_flag_distance에서의 flag_x_angle: ", flag_x_angle[0])
+            print("flag_x_angle[0] == C: ", flag_x_angle[0] == "C")
 
             if flag_x_angle[0] == "C":
                 print("통과했어요")
