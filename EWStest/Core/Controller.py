@@ -1420,33 +1420,36 @@ class Controller:
             
             
             # 깃발과 공 사이의 각도가 2도 이하일 때 골로 인식하게끔
-            is_goal = False
             
-            print("홀인 체크하기 위한 깃발과 공 찾기")
-            self.check_flag()
-            self.check_flag_distance()
-            if self.flag_stop:
-                tmp_flag_x = self.flag_angle_x
-                tmp_flag_y = self.flag_angle_y
-            else:
-                tmp_flag_x = self.robo._motion.x_head_angle
-                tmp_flag_y = self.robo._motion.y_head_angle
+            is_goal = GoalDetect.process()
+            #print("홀인 체크하기 위한 깃발과 공 찾기")
+            #self.check_flag()
+            #self.check_flag_distance()
+            #if self.flag_stop:
+            #    tmp_flag_x = self.flag_angle_x
+            #    tmp_flag_y = self.flag_angle_y
+            #else:
+            #    tmp_flag_x = self.robo._motion.x_head_angle
+            #    tmp_flag_y = self.robo._motion.y_head_angle
                 
-            self.check_ball_distance()
-            if self.ball_stop:
-                tmp_ball_x = self.ball_angle_x
-                tmp_ball_y = self.ball_angle_y
-            else:
-                tmp_ball_x = self.robo._motion.x_head_angle
-                tmp_ball_y = self.robo._motion.y_head_angle
+            #self.check_ball_distance()
+            #if self.ball_stop:
+            #    tmp_ball_x = self.ball_angle_x
+            #    tmp_ball_y = self.ball_angle_y
+            #else:
+            #    tmp_ball_x = self.robo._motion.x_head_angle
+            #    tmp_ball_y = self.robo._motion.y_head_angle
                 
-            print("tmp_flag_x: ", tmp_flag_x)
-            print("tmp_flag_y: ", tmp_flag_y)
-            print("tmp_ball_x: ", tmp_ball_x)
-            print("tmp_ball_y: ", tmp_ball_y)
+            #print("tmp_flag_x: ", tmp_flag_x)
+            #print("tmp_flag_y: ", tmp_flag_y)
+            #print("tmp_ball_x: ", tmp_ball_x)
+            #print("tmp_ball_y: ", tmp_ball_y)
             
-            if abs(tmp_flag_x - tmp_ball_x) <= 12 and abs(tmp_flag_y - tmp_ball_y) <= 12:
-                is_goal = True
+            #if abs(tmp_flag_x - tmp_ball_x) <= 12 and abs(tmp_flag_y - tmp_ball_y) <= 12:
+            #    is_goal = True
+            
+
+            
             print("홀인 유무 (T/F): ", is_goal)
             
 
