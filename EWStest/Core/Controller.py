@@ -1387,8 +1387,15 @@ class Controller:
             self.robo._motion.hit_the_ball("LEFT", dist=flag_ball_dis)
             time.sleep(6)
 
-            self.robo._motion.turn("LEFT", 45, 3, 0.5)   # 티샷 끝나고 깃발 찾기 위해 턴
-            self.robo._motion.turn("LEFT", 10)
+
+            if shot_way == 'R':
+
+                self.robo._motion.turn("LEFT", 45, 3, 0.5)   # 티샷 끝나고 깃발 찾기 위해 턴
+                self.robo._motion.turn("LEFT", 10)
+
+            else:
+                self.robo._motion.turn("RIGHT", 45, 3, 0.5)   # 티샷 끝나고 깃발 찾기 위해 턴
+                self.robo._motion.turn("RIGHT", 10)
 
                 
 #############################################################################
