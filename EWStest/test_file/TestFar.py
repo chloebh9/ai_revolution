@@ -70,7 +70,7 @@ class FlagxCenterMeasurer:
                 print(x, y, w, h)
 
                 # Flag 박스 크기 제한
-                if w <= 10 or h <= 10:
+                if w >= 10 and h >= 10:
                     
 
                     green_roi = frame[y:y+h, x:x+w]
