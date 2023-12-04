@@ -67,6 +67,11 @@ class FlagxCenterMeasurer:
 
             for green_box in self.green_boxes:
                 x, y, w, h = green_box
+
+                # 변경: Flag 박스 한 변이 5 픽셀 이하면 인식하지 않음
+                if w <= 5 or h <= 5:
+                    continue
+
                 green_roi = frame[y:y+h, x:x+w]
                 yellow_roi_mask = yellow_mask[y:y+h, x:x+w]
                 yellow_contours, _ = cv2.findContours(yellow_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -75,7 +80,9 @@ class FlagxCenterMeasurer:
 
                 for cnt in yellow_contours:
                     area = cv2.contourArea(cnt)
-                    if area > 10:
+
+                    # 변경: Flag 박스 한 변이 5 픽셀 이하면 인식하지 않음
+                    if area > 10 and w > 5 and h > 5:
                         rect = cv2.minAreaRect(cnt)
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
@@ -89,7 +96,6 @@ class FlagxCenterMeasurer:
                             flag_centers.append((cx, cy))
 
                 if flag_centers:
-                    # 변경: 더 위에 있는 플래그만 선택
                     flag_center = min(flag_centers, key=lambda center: center[1])
                     if flag_center[1] < farthest_flag_y:
                         farthest_flag_center = flag_center
