@@ -6,6 +6,7 @@ class FlagxCenterMeasurer:
         self.img_width = img_width
         self.img_height = img_height
         self.green_boxes = []
+        self.error_range = 500  # Flag 박스 크기 제한 변수
 
     def getMaxMin(self, box):
         min_x, max_x = self.img_width, 0
@@ -22,9 +23,9 @@ class FlagxCenterMeasurer:
     def judgeMiddle(self, max_x, min_x):
         l_dist = min_x
         r_dist = self.img_width - max_x
-        error_range = 50
 
-        is_Middle = abs(r_dist - l_dist) < error_range
+        # 변경: error_range 변수 사용
+        is_Middle = abs(r_dist - l_dist) < self.error_range
 
         if is_Middle:
             return 'C'
@@ -68,8 +69,8 @@ class FlagxCenterMeasurer:
             for green_box in self.green_boxes:
                 x, y, w, h = green_box
 
-                # 변경: Flag 박스 한 변이 5 픽셀 이하면 인식하지 않음
-                if w <= 150 or h <= 150:
+                # Flag 박스 크기 제한
+                if w <= self.error_range or h <= self.error_range:
                     continue
 
                 green_roi = frame[y:y+h, x:x+w]
@@ -81,8 +82,8 @@ class FlagxCenterMeasurer:
                 for cnt in yellow_contours:
                     area = cv2.contourArea(cnt)
 
-                    # 변경: Flag 박스 한 변이 5 픽셀 이하면 인식하지 않음
-                    if area > 10 and w > 5 and h > 5:
+                    # Flag 박스 크기 제한
+                    if area > self.error_range and w > self.error_range and h > self.error_range:
                         rect = cv2.minAreaRect(cnt)
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
