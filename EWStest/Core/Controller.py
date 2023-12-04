@@ -796,11 +796,11 @@ class Controller:
                 # 최적의 동작을 실행
                 best_actions.append(best_action)
 
-                if robot_way == "R":
+                if target_angle > 0:
                     self.robo._motion.turn("RIGHT", best_action)
                     print(f"{best_action}도 실행")
 
-                elif robot_way == "L":
+                elif target_angle < 0:
                     self.robo._motion.turn("LEFT", best_action)
                     print(f"{best_action}도 실행")
 
