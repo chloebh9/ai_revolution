@@ -69,10 +69,12 @@ class FlagxCenterMeasurer:
             self.green_boxes = [cv2.boundingRect(contour) for contour in contours]
 
             # yellow_mask = MaskGenerator.flag_generate_mask(hsv_frame)
-            low_yellow = np.array([21, 56, 171])
-            high_yellow = np.array([97, 255, 255])
-            yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
-
+            low_yellow = np.array([21, 56, 181])
+            high_yellow = np.array([42, 255, 255])
+            yellow_mask = cv2.inRange(hsv_frame, low_yellow , high_yellow)
+            lower0 = np.array( [23 , 144 , 151] )
+            upper0 = np.array( [29 , 224 , 171] )
+            yellow_mask += cv2.inRange(hsv_frame, lower0 , upper0 )
 
             max_x, min_x = 0,0 # 깃발을 못 찾았을 때 오류나는 것을 방지하기 위해 바운딩 박스의 좌표를 0으로 초기화
 
