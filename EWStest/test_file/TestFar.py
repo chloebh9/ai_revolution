@@ -6,8 +6,6 @@ class FlagxCenterMeasurer:
         self.img_width = img_width
         self.img_height = img_height
         self.green_boxes = []
-        self.farthest_flag_center = None  # 변경: 더 위에 있는 플래그의 중심 좌표 하나만 저장
-        self.farthest_flag_y = float('inf')  # 변경: 가장 위에 있는 플래그의 y 좌표 초기화
 
     def getMaxMin(self, box):
         min_x, max_x = self.img_width, 0
@@ -45,7 +43,8 @@ class FlagxCenterMeasurer:
                 break
                 
             have_flag = False
-            farthest_flag_center = [0, 0]
+            farthest_flag_center = None
+            farthest_flag_y = float('inf')
             
             hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
@@ -90,14 +89,14 @@ class FlagxCenterMeasurer:
                             flag_centers.append((cx, cy))
 
                 if flag_centers:
-                    farthest_flag_center = min(flag_centers, key=lambda center: center[1])
-                    # 변경: 더 위에 있는 플래그만 저장
-                    if farthest_flag_center[1] < self.farthest_flag_y:
-                        self.farthest_flag_center = farthest_flag_center
-                        self.farthest_flag_y = farthest_flag_center[1]
-                        cv2.rectangle(green_roi, (farthest_flag_center[0] - 10, farthest_flag_center[1] - 10),
-                                      (farthest_flag_center[0] + 10, farthest_flag_center[1] + 10), (0, 0, 255), 2)
-                        cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
+                    # 변경: 더 위에 있는 플래그만 선택
+                    flag_center = min(flag_centers, key=lambda center: center[1])
+                    if flag_center[1] < farthest_flag_y:
+                        farthest_flag_center = flag_center
+                        farthest_flag_y = flag_center[1]
+                        cv2.rectangle(green_roi, (flag_center[0] - 10, flag_center[1] - 10),
+                                      (flag_center[0] + 10, flag_center[1] + 10), (0, 0, 255), 2)
+                        cv2.putText(frame, 'Farthest Flag', (x + flag_center[0], y + flag_center[1]),
                                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                         have_flag = True
                     
@@ -111,7 +110,7 @@ class FlagxCenterMeasurer:
         else:
             flag_x_isMiddle = "N"
             
-        return [flag_x_isMiddle, self.farthest_flag_center[0], self.farthest_flag_center[1], have_flag]
+        return [flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1], have_flag]
 
 if __name__ == "__main__":
     video_path = 0
