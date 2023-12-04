@@ -72,7 +72,7 @@ class Controller:
         C_left = self.C_left  # 로봇: C / 공: left
 
         #  .process():  공에 유무를 반환함 T/F
-        dir_list = [30, 40, 65, 75]  # 임의로 지정한 로봇 머리의 각도 값 (실제 경기장에서 다시 설정해야 할 수도..)
+        dir_list = [20, 30, 55, 65]  # 임의로 지정한 로봇 머리의 각도 값 (실제 경기장에서 다시 설정해야 할 수도..)
         dir = 3  # dir_list에서 90을 고를 수 있도록 설정하는 값
         cnt = 0  # 로봇이 어디에서 찾았는지 구분하는 변수
 
@@ -973,7 +973,8 @@ class Controller:
 
         ########################################################## # test
         if act == act.TEST:
-            self.robo._motion.set_head("LEFT", 45)
+            self.robo._motion.turn("LEFT", 45, 2, 7)   # 티샷 끝나고 깃발 찾기 위해 턴
+            
             exit()
         
 #############################################################################
@@ -993,7 +994,11 @@ class Controller:
         
             if self.L_right == 1:  # 퍼팅 판단 return 받은걸로 모션
                 print("로봇: 왼쪽, 공: 오른쪽")
-                self.robo._motion.walk("FORWARD", 10, 3.5)
+                self.robo._motion.walk("FORWARD", 6, 3.5)
+                self.robo._motion.turn("LEFT", 3)
+                self.robo._motion.walk("FORWARD", 6, 3.5)
+                self.robo._motion.turn("LEFT", 3)
+                
                 time.sleep(0.1)
 
                 # 화면에 보이는 공을 화면상의 중심에 맞추기 위해, 로봇의 몸체를 좌우로 이동
@@ -1003,6 +1008,7 @@ class Controller:
             elif self.L_center == 1:
                 print("로봇: 왼쪽, 공: 가운데")
                 self.robo._motion.walk("FORWARD", 5, 3.5)
+                self.robo._motion.turn("LEFT", 3)
                 time.sleep(0.1)
 
                 # 화면에 보이는 공을 화면상의 중심에 맞추기 위해, 로봇의 몸체를 좌우로 이동
@@ -1145,8 +1151,7 @@ class Controller:
             self.robo._motion.hit_the_ball("LEFT")
             # +================================== 여기까지 추가 ================================================+
             time.sleep(0.1)
-            self.robo._motion.turn("LEFT", 45, 3, 0.5)   # 티샷 끝나고 깃발 찾기 위해 턴
-            self.robo._motion.turn("LEFT",20)
+            self.robo._motion.turn("LEFT", 45, 2, 6)   # 티샷 끝나고 깃발 찾기 위해 턴
             print("왼쪽으로 90도 회전")
 
             self.act = act.SEARCH_FLAG
