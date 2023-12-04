@@ -1256,6 +1256,11 @@ class Controller:
                 self.find_best_actions(hit_angle, shot_way)
 
                 if (hit_dist < 15):
+                    hit_will_go = hit_dist // 3
+                    hit_will_go = int(hit_will_go)
+                    self.robo._motion.walk("FORWARD", hit_will_go)
+
+                    self.find_best_actions(hit_will_anlge, shot_way)
                     print("퍼팅 지점과 매우 가까움")
                     print("퍼팅할 준비를 하겠습니다.")
                     break
