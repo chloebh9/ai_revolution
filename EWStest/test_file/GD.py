@@ -1,126 +1,202 @@
+from Sensor.HSVAdjust import MaskGenerator
 import numpy as np
 import cv2
 
-class FlagxCenterMeasurer:
-    def __init__(self, video_path=0, img_width=640, img_height=480):
+class GoalDetect:
+    def __init__(self, img_width=640, img_height=480, width=4, focal=450):
+        self.dist = 0 
+        self.focal = focal
+        self.pixels = 30
+        self.width = width
+
         self.img_width = img_width
         self.img_height = img_height
-        self.max_flag_box = None
-        self.max_ball_box = None
-        self.farthest_flag_center = None
+        self.img_width_middle = img_width // 2
+        self.img_height_middle = img_height // 2
 
+        self.kernel = np.ones((3, 3), 'uint8')
+        self.font = cv2.FONT_HERSHEY_SIMPLEX
+        self.org = (0, 20)
+        self.fontScale = 0.6
+        self.color = (0, 0, 255)
+        self.thickness = 2
+        
+        self.middle = img_width // 2
+
+    # find the distance from the camera
+    def get_dist(self, rectangle_params, image, name, isMiddle):
+        # find no of pixels covered
+        pixels = rectangle_params[1][0]
+
+        # calculate distance
+        dist = (self.img_width * self.focal) / pixels
+
+        image = cv2.putText(image, str(dist), (110, 50), self.font,
+                            self.fontScale, self.color, 1, cv2.LINE_AA)
+
+        return image
+
+    # box 좌표의 x축 최댓값과 최솟값을 return하는 함수
     def getMaxMin(self, box):
         min_x, max_x = self.img_width, 0
+
+        for x, y in box:
+            if x < min_x:
+                min_x = x
+            elif x > max_x:
+                max_x = x
+        return max_x, min_x
+
+    # box 좌표의 y축 최댓값과 최솟값을 return하는 함수
+    def getyMaxMin(self, box):
         min_y, max_y = self.img_height, 0
 
         for x, y in box:
-            min_x = min(min_x, x)
-            max_x = max(max_x, x)
-            min_y = min(min_y, y)
-            max_y = max(max_y, y)
+            if y < min_y:
+                min_y = y
+            elif y > max_y:
+                max_y = y
+        return max_y, min_y
 
-        return max_x, min_x, max_y, min_y
+    # max_x, min_x를 입력받으면 해당 물체가 중간에 있는지 return하는 함수
+    def judgeMiddle(self, max_x, min_x):
 
-    def check_goal(self, frame, ball_center, flag_center):
-        if flag_center is not None:
-            if flag_center[0] < ball_center[0] < flag_center[0] + self.img_width / 10 and flag_center[1] < ball_center[1] < flag_center[1] + self.img_height / 10:
-                cv2.putText(frame, 'Goal', (int(ball_center[0]), int(ball_center[1]) - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+        l_dist = min_x
+        r_dist = self.img_width - max_x
+        error_range = 30
 
-    def run(self):
-        cap = cv2.VideoCapture(0, cv2.CAP_V4L)
+        if abs(l_dist - r_dist) < error_range:
+            return True
+        else:
+            return False
+
+    def process(self):
+        cap = cv2.VideoCapture("FUCK.mp4")
+
+        # basic constants for opencv functions
+        kernel = np.ones((3, 3), 'uint8')
+
+        # imshow 실행시 주석 빼기
+        cv2.namedWindow('Object Dist Measure', cv2.WINDOW_NORMAL)
+        cv2.resizeWindow('Object Dist Measure', 700, 600)
+
+        # loop to capture video frames
         while True:
-            ret, frame = cap.read()
+            ret, img = cap.read()
+
             if not ret:
-                print("프레임 캡처에 실패했습니다.")
                 break
 
-            have_flag = False
+            hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-            hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+            # ball hsv
+            # lower1 = np.array([0, 100, 50])
+            # upper1 = np.array([10, 200, 200])
+            # lower = np.array([137, 0, 0])
+            # upper = np.array([200, 255, 255])
+            # mask = cv2.inRange(hsv_img, lower, upper)
+            # mask += cv2.inRange(hsv_img, lower1, upper1)
+            mask = MaskGenerator.ball_generate_mask(hsv_img)
 
-            low_green = np.array([35, 84, 0])
-            high_green = np.array([255, 255, 141])
-            green_mask = cv2.inRange(hsv_frame, low_green, high_green)
+            # lower_flag = np.array([20, 90, 144])
+            # # upper_flag = np.array([43, 184, 255])
+            # upper_flag = np.array([45, 200, 255])
+            # mask_flag = cv2.inRange(hsv_img, lower_flag, upper_flag)
 
-            contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-            max_flag_area = 0  # Initialize max flag area to find the largest flag
-            max_flag_center = None
+            # mask_flag = MaskGenerator.flag_generate_mask(hsv_img)
 
             low_yellow = np.array([21, 56, 171])
             high_yellow = np.array([97, 255, 255])
-            yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
+            mask_flag = cv2.inRange(hsv_img, low_yellow, high_yellow)
 
-            max_ball_area = 0  # Initialize max ball area to find the largest ball
-            max_ball_center = None
+            lower0 = np.array([23, 144, 151])
+            upper0 = np.array([29, 224, 171])
+            mask_flag += cv2.inRange(hsv_img, lower0, upper0)
 
-            for contour in contours:
-                area = cv2.contourArea(contour)
-                if area > 10:
-                    rect = cv2.minAreaRect(contour)
+            # Remove Extra garbage from image
+            d_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel, iterations=5)
+            f_img = cv2.morphologyEx(mask_flag, cv2.MORPH_OPEN, kernel, iterations=5)
+
+            # find the histogram -> 공
+            cont, hei = cv2.findContours(d_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            cont = sorted(cont, key=cv2.contourArea, reverse=True)[:1]
+
+            b_max_x, b_min_x = 0, 0
+            b_max_y, b_min_y = 0, 0
+
+            is_goal = False
+
+            if len(cont) > 0:
+                ball_cnt = cont[0]
+                # check for contour area
+                if (cv2.contourArea(ball_cnt) > 70 and cv2.contourArea(ball_cnt) < 306000):
+
+                    # Draw a rectangle on the contour
+                    rect = cv2.minAreaRect(ball_cnt)
                     box = cv2.boxPoints(rect)
                     box = np.int0(box)
-                    max_x, min_x, max_y, min_y = self.getMaxMin(box)
+                    print('ball points :', box)
+                    cv2.drawContours(img, [box], -1, (255, 0, 0), 3)
 
-                    M = cv2.moments(contour)
-                    if M['m00'] != 0:
-                        cx = int(M['m10'] / M['m00'])
-                        cy = int(M['m01'] / M['m00'])
+                    b_max_x, b_min_x = self.getMaxMin(box)
+                    b_max_y, b_min_y = self.getyMaxMin(box)
+                    isMiddle = self.judgeMiddle(b_max_x, b_min_x)
 
-                        if max_x - min_x > max_flag_area:
-                            max_flag_area = max_x - min_x
-                            max_flag_center = (cx, cy)
+                    img = self.get_dist(rect, img, 'ball', isMiddle)
 
-                        cv2.drawContours(frame, [box], 0, (0, 255, 0), 2)
-                        cv2.putText(frame, 'Flag', (cx, cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+            # 깃발
+            cont2, hei2 = cv2.findContours(f_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            cont2 = sorted(cont2, key=cv2.contourArea, reverse=True)
 
-                    if max_x - min_x > max_ball_area:
-                        max_ball_area = max_x - min_x
-                        max_ball_center = (cx, cy)
+            if len(cont2) > 0:
+                # 노랑 박스 그릴 때 컨투어가 3개인 경우 무시
+                for flag_cnt in cont2:
+                    if len(flag_cnt) == 3:
+                        continue
 
-            if max_flag_center is not None:
-                self.farthest_flag_center = max_flag_center
-                cv2.rectangle(frame, (max_flag_center[0] - 10, max_flag_center[1] - 10),
-                              (max_flag_center[0] + 10, max_flag_center[1] + 10), (0, 0, 255), 2)
-                cv2.putText(frame, 'Farthest Flag', (max_flag_center[0], max_flag_center[1]),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                have_flag = True
+                    # check for contour area
+                    if (cv2.contourArea(flag_cnt) > 100 and cv2.contourArea(flag_cnt) < 306000):
 
-            # 공에 대한 색상 범위 정의
-            red_lower1 = np.array([0, 0, 43])
-            red_upper1 = np.array([19, 183, 200])
-            red_lower2 = np.array([167, 135, 8])
-            red_upper2 = np.array([187, 255, 255])
+                        # Draw a rectangle on the contour
+                        rect = cv2.minAreaRect(flag_cnt)
+                        box = cv2.boxPoints(rect)
+                        box = np.int0(box)
+                        print('flag points :', box)
+                        cv2.drawContours(img, [box], -1, (0, 255, 0), 3)
 
-            # 공에 대한 마스크 생성
-            red_mask = cv2.inRange(hsv_frame, red_lower1, red_upper1) + cv2.inRange(hsv_frame, red_lower2, red_upper2)
+                        f_max_x, f_min_x = self.getMaxMin(box)
+                        f_max_y, f_min_y = self.getyMaxMin(box)
+                        isMiddle = self.judgeMiddle(f_max_x, f_min_x)
 
-            ball_contours, _ = cv2.findContours(red_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                        img = self.get_dist(rect, img, 'flag', isMiddle)
 
-            max_ball_area = 0  # Reset max ball area to find the largest ball
+                        print(b_max_x, " ", b_min_x)
+                        goal_range = 15
+                        # 공이 (홀컵기준)밑에 있을 때
+                        if (f_min_y + f_max_y) / 2 < (b_min_y + b_max_y) / 2:
+                            if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y <= b_min_y and b_max_y <= f_max_y - goal_range:
+                                print("Goal!")
+                                is_goal = True
+                                cv2.putText(img, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
+                                # return is_goal
+                        # 공이 (홀컵기준)위에 있을 때
+                        else:
+                            if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y - goal_range <= b_min_y and b_max_y <= f_max_y - goal_range:
+                                print("Goal!")
+                                is_goal = True
+                                cv2.putText(img, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
+                                # return is_goal
 
-            for contour in ball_contours:
-                area = cv2.contourArea(contour)
-                if area > 10:
-                    M = cv2.moments(contour)
-                    if M['m00'] != 0:
-                        cx = int(M['m10'] / M['m00'])
-                        cy = int(M['m01'] / M['m00'])
+            # return is_goal
 
-                        if max_x - min_x > max_ball_area:
-                            max_ball_area = max_x - min_x
-                            max_ball_center = (cx, cy)
+            # imshow 실행시 주석 빼기
+            cv2.imshow('Object Dist Measure', img)
 
-            # 플래그 중심 좌표와 공의 중심 좌표를 비교하여 골을 확인
-            self.check_goal(frame, max_ball_center, self.farthest_flag_center)
-
-            cv2.imshow('프레임', frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
         cv2.destroyAllWindows()
 
-
 if __name__ == "__main__":
-    video_path = 0  # 웹캠을 사용하려면 0을 사용
-    shape_recognition = FlagxCenterMeasurer(video_path, img_width=640, img_height=480)
-    print(shape_recognition.run())
+    goal_detector = GoalDetect()
+    goal_detector.process()

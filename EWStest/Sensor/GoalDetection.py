@@ -1,5 +1,4 @@
 from Sensor.HSVAdjust import MaskGenerator
-
 import numpy as np
 import cv2
 
