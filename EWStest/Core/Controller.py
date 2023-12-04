@@ -1391,6 +1391,19 @@ class Controller:
         elif act == act.CHECK:  # 홀인했는지 확인
             print("Act:", act)  # Debug
             
+            self.check_flag()
+            self.check_flag_distance()
+
+            if self.flag_stop:
+                angle = abs(self.flag_angle_y - 8.6)  # angle 값 수정
+            else:
+                angle = abs(self.robo._motion.y_head_angle - 8.6)  # angle 값 수정
+            distflag = DistMeasurer().display_distance(angle) # 깃발 거리값
+
+            check_flag_goto = distflag // 4
+            self.robo._motion.walk("FORWARD", check_flag_goto, 3.0)  # 퍼팅 지점까지 걸어가기
+                                
+
             self.robo._motion.set_head("LEFTRIGHT_CENTER")
             time.sleep(0.2)
             self.robo._motion.set_head("DOWN", 45)
