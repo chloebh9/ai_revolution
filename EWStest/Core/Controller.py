@@ -694,7 +694,7 @@ class Controller:
     @classmethod
     def find_best(self, target_angle):
         # target_angle: 로봇과 깃발을 일직선으로 맞추기 위해 틀어야 하는 각도
-        actions = [60, 45, 20, 10, 5]  # 가능한 동작 리스트
+        actions = [60, 45, 20, 10, 3]  # 가능한 동작 리스트
         remaining_angle = target_angle
         best_action = 0
         
@@ -740,7 +740,7 @@ class Controller:
             self.robo._motion.x_head_angle = head_plus(45)
             self.robo._motion.x_head_angle = head_plus(20)
             self.robo._motion.x_head_angle = head_plus(10)
-            self.robo._motion.x_head_angle = head_plus(5)
+            self.robo._motion.x_head_angle = head_plus(3)
             self.robo._motion.x_head_angle = 0
 
         # 현재 머리 각도가 마이너스면 왼쪽으로 턴해야 함
@@ -749,7 +749,7 @@ class Controller:
             self.robo._motion.x_head_angle = head_minus(45)
             self.robo._motion.x_head_angle = head_minus(20)
             self.robo._motion.x_head_angle = head_minus(10)
-            self.robo._motion.x_head_angle = head_minus(5)
+            self.robo._motion.x_head_angle = head_minus(3)
             self.robo._motion.x_head_angle = 0
 
         # 오른쪽으로 턴
@@ -784,7 +784,7 @@ class Controller:
     def find_best_actions(self,target_angle, way):
         # target_angle: 로봇이 퍼팅 위치 가기전 틀어야하는 각도
         # way: 공이 왼쪽에 있는지 오른쪽에 있는지 판단하는 값
-        actions = [60, 45, 20, 10, 5]  # 가능한 동작 리스트
+        actions = [60, 45, 20, 10, 3]  # 가능한 동작 리스트
         remaining_angle = target_angle
         robot_way = way
 
@@ -946,9 +946,9 @@ class Controller:
             if FlagL[0] == 'C':
                 return True
             elif FlagL[0] == "L":
-                self.robo._motion.turn("LEFT",5)
+                self.robo._motion.turn("LEFT",3)
             elif FlagL[0] == "R":
-                self.robo._motion.turn("RIGHT",5)
+                self.robo._motion.turn("RIGHT",3)
             else:
                 print("원하는 값이 들어오지 않음.")
 
