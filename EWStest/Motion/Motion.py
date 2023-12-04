@@ -309,7 +309,7 @@ class Motion:
         elif angle == 20:
             sleep = 4
         elif angle == 45:
-            sleep = 6
+            sleep = 5
         elif angle == 60:
             sleep = 0.5
 
