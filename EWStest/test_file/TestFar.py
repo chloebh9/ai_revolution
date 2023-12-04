@@ -6,7 +6,7 @@ class FlagxCenterMeasurer:
         self.img_width = img_width
         self.img_height = img_height
         self.green_boxes = []
-        self.error_range = 400  # Flag 박스 크기 제한 변수
+        self.error_range = 350  # Flag 박스 크기 제한 변수
 
     def getMaxMin(self, box):
         min_x, max_x = self.img_width, 0
