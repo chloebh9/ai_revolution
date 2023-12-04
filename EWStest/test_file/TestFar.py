@@ -67,6 +67,7 @@ class FlagxCenterMeasurer:
 
             for green_box in self.green_boxes:
                 x, y, w, h = green_box
+                print(x, y, w, h)
 
                 # Flag 박스 크기 제한
                 if w <= self.error_range or h <= self.error_range:
