@@ -1261,20 +1261,6 @@ class Controller:
                 self.robo._motion.walk("FORWARD", will_goto_ball, 3.0)  # 퍼팅 지점까지 걸어가기
                 print("퍼팅 지점까지 이동")
 
-            # 로봇이 퍼팅 지점 예측을 멈추고, 티샷 준비를 하는 상황 (티샷 부분)
-            if ball_is_flag_back == False: # 공이 깃발 뒤에 있을 떄
-                if shot_way == "R": # 깃발 뒤에 있으면 치는 방향이 바뀌기 때문에 
-                    shot_way = "L" # shot_way를 L로 
-                    print("shot way를 R에서 L로 변경합니다.")
-
-                else:
-                    shot_way = "R"
-                    print("shot_way를 L에서 R로 변경합니다.")
-
-                self.find_best_actions(hit_will_anlge, shot_way) # hit_will_angle로 몇도 돌아야 하는지, shot_way로 어느 방향으로 돌아야하는지
-            else:
-                self.find_best_actions(hit_will_anlge, shot_way)
-
             time.sleep(0.1)
             
             # +======================== 티샷 보정하는 부분(공이 가운데 올 때까지 로봇을 움직여 x,y 조절) ==============================================+
