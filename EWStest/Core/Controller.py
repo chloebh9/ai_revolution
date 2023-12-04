@@ -696,14 +696,13 @@ class Controller:
         # target_angle: 로봇과 깃발을 일직선으로 맞추기 위해 틀어야 하는 각도
         actions = [60, 45, 20, 10, 3]  # 가능한 동작 리스트
         remaining_angle = target_angle
-        best_action = 0
+        best_action = None
         
         while remaining_angle > 0 and actions:
             best_action = min(actions, key=lambda x: abs(target_angle - x))
             if best_action <= remaining_angle:
                 remaining_angle -= best_action
-            else:
-                break
+            actions.remove(best_action)
             
             if best_action is not None:
                 return best_action
