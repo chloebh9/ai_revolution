@@ -134,7 +134,7 @@ class GoalDetect:
             if len(cont2) > 0:
                 for flag_cnt in cont2:
                     # Check for contour area
-                    if cv2.contourArea(flag_cnt) > 100:
+                    if 3 < len(flag_cnt) < 16 and cv2.contourArea(flag_cnt) > 100:
                         rect = cv2.minAreaRect(flag_cnt)
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
