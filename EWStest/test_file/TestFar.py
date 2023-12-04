@@ -70,48 +70,48 @@ class FlagxCenterMeasurer:
                 print(x, y, w, h)
 
                 # Flag 박스 크기 제한
-                if w <= self.error_range or h <= self.error_range:
-                    continue
-
-                green_roi = frame[y:y+h, x:x+w]
-                yellow_roi_mask = yellow_mask[y:y+h, x:x+w]
-                yellow_contours, _ = cv2.findContours(yellow_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-                flag_centers = []
-
-                for cnt in yellow_contours:
-                    area = cv2.contourArea(cnt)
-
-                    # Flag 박스 크기 제한
-                    if area > self.error_range:
-                        rect = cv2.minAreaRect(cnt)
-                        box = cv2.boxPoints(rect)
-                        box = np.int0(box)
-                        max_x, min_x, max_y, min_y = self.getMaxMin(box)
-                        cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
-                        M = cv2.moments(cnt)
-                        if M['m00'] != 0:
-                            cx = int(M['m10'] / M['m00'])
-                            cy = int(M['m01'] / M['m00'])
-                            cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                            flag_centers.append((cx, cy))
-
-                if flag_centers:
-                    flag_center = min(flag_centers, key=lambda center: center[1])
-                    if flag_center[1] < farthest_flag_y:
-                        farthest_flag_center = flag_center
-                        farthest_flag_y = flag_center[1]
-                        cv2.rectangle(green_roi, (flag_center[0] - 10, flag_center[1] - 10),
-                                      (flag_center[0] + 10, flag_center[1] + 10), (0, 0, 255), 2)
-                        cv2.putText(frame, 'Farthest Flag', (x + flag_center[0], y + flag_center[1]),
-                                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                        have_flag = True
-                        print(x, y, w, h)
+                if w <= 10 or h <= 10:
                     
-            cv2.imshow('프레임', frame)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
-        cv2.destroyAllWindows()
+
+                    green_roi = frame[y:y+h, x:x+w]
+                    yellow_roi_mask = yellow_mask[y:y+h, x:x+w]
+                    yellow_contours, _ = cv2.findContours(yellow_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+                    flag_centers = []
+
+                    for cnt in yellow_contours:
+                        area = cv2.contourArea(cnt)
+
+                        # Flag 박스 크기 제한
+                        if area > 10:
+                            rect = cv2.minAreaRect(cnt)
+                            box = cv2.boxPoints(rect)
+                            box = np.int0(box)
+                            max_x, min_x, max_y, min_y = self.getMaxMin(box)
+                            cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
+                            M = cv2.moments(cnt)
+                            if M['m00'] != 0:
+                                cx = int(M['m10'] / M['m00'])
+                                cy = int(M['m01'] / M['m00'])
+                                cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                                flag_centers.append((cx, cy))
+
+                    if flag_centers:
+                        flag_center = min(flag_centers, key=lambda center: center[1])
+                        if flag_center[1] < farthest_flag_y:
+                            farthest_flag_center = flag_center
+                            farthest_flag_y = flag_center[1]
+                            cv2.rectangle(green_roi, (flag_center[0] - 10, flag_center[1] - 10),
+                                        (flag_center[0] + 10, flag_center[1] + 10), (0, 0, 255), 2)
+                            cv2.putText(frame, 'Farthest Flag', (x + flag_center[0], y + flag_center[1]),
+                                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                            have_flag = True
+                            print(x, y, w, h)
+                        
+                cv2.imshow('프레임', frame)
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
+            cv2.destroyAllWindows()
 
         if have_flag:
             flag_x_isMiddle = self.judgeMiddle(max_x, min_x)
