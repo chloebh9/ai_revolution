@@ -784,7 +784,7 @@ class Controller:
     # target_angle: 로봇이 퍼팅 위치 가기 전 틀어야하는 각도
     # way: 공이 왼쪽에 있는지 오른쪽에 있는지 판단하는 값
         actions = [60, 45, 20, 10, 3]  # 가능한 동작 리스트
-        remaining_angle = target_angle
+        remaining_angle = abs(target_angle)
         robot_way = way
         best_actions = []
 
