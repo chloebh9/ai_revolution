@@ -1151,8 +1151,13 @@ class Controller:
             self.robo._motion.hit_the_ball("LEFT")
             # +================================== 여기까지 추가 ================================================+
             time.sleep(0.1)
-            self.robo._motion.turn("LEFT", 45, 2)   # 티샷 끝나고 깃발 찾기 위해 턴
-            print("왼쪽으로 90도 회전")
+            if self.L_left == 1:
+                self.robo._motion.turn("LEFT",45)
+                self.robo._motion.turn("LEFT",10)
+                print("L_LEFT일 떄 T샷이후 깃발 방향으로 턴")
+            else:
+                self.robo._motion.turn("LEFT", 45, 2)   # 티샷 끝나고 깃발 찾기 위해 턴
+                print("왼쪽으로 90도 회전")
 
             self.act = act.SEARCH_FLAG
                 
