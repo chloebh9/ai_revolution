@@ -1159,8 +1159,17 @@ class Controller:
             ball_y = BallxCenterMeasurer(img_width=640, img_height=480).process()[2]
             flag_y = lowestFlag(img_width=640, img_height=480).run()
 
+            if ball_y == "N" or flag_y:
+                print("파4에서 공을 못 찾았습니다.")
+                self.check_ball_distance()
+                ball_angle = self.robo._motion.y_head_angle
+                self.check_flag()
+                self.check_flag_distance()
+                flag_angle = self.robo._motion.y_head_angle
+
+
             if flag_y > ball_y:
-                self.robo._motion
+                self.robo._motion.walk("FORWARD", robot_will_go//4, 3.0)
             
         
         elif act == act.SEARCH_FLAG:
