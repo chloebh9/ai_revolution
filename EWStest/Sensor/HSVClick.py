@@ -3,7 +3,7 @@ import numpy as np
 
 class ColorTracker:
     def __init__(self):
-        self.cap = cv2.VideoCapture(0, cv2.CAP_V4L)
+        self.cap = cv2.VideoCapture(0)
         cv2.namedWindow("Tracking")
         self.create_trackbars()
         self.hsves = []
@@ -29,8 +29,8 @@ class ColorTracker:
 
     def mouse_callback(self, event, x, y, flags, param):
         error_range_h = 3
-        error_range_s = 40
-        error_range_v = 10
+        error_range_s = 10
+        error_range_v = 50
 
         # 마우스 이벤트 콜백 함수. 마우스 위치에 따라 HSV 값을 화면에 출력
         if event == cv2.EVENT_MOUSEMOVE:
@@ -77,10 +77,10 @@ class ColorTracker:
                 break
 
             if cv2.waitKey(1) & 0xFF == ord('p'):
-                i = 0
+                i = 4
                 for l_b, u_b in self.hsves:
-                    print("lower"+str(i),"=","np.array(",l_b[0],",",l_b[1],",",l_b[2],")")
-                    print("upper"+str(i),"=","np.array(",u_b[0],",",u_b[1],",",u_b[2],")")
+                    print("lower"+str(i),"=","np.array([",l_b[0],",",l_b[1],",",l_b[2],"])")
+                    print("upper"+str(i),"=","np.array([",u_b[0],",",u_b[1],",",u_b[2],"])")
                     print("mask += cv2.inRange(hsv_img, lower"+str(i),", upper"+str(i),")")
                     i+=1
 
