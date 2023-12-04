@@ -101,7 +101,7 @@ class FlagxCenterMeasurer:
 
                     for cnt in yellow_contours:
                         area = cv2.contourArea(cnt)
-                        if area > 10:
+                        if True:
                             rect = cv2.minAreaRect(cnt)
                             box = cv2.boxPoints(rect)
                             box = np.int0(box)
