@@ -839,9 +839,7 @@ class Controller:
             short_forward_location = 1
             if short_forward_location == 1:
                 self.robo._motion.turn("LEFT", 45)
-                time.sleep(0.8)
                 self.robo._motion.turn("LEFT", 45)
-                time.sleep(0.8)
                 self.robo._motion.set_head("DOWN", 45)
                 time.sleep(0.1)
 
@@ -973,7 +971,7 @@ class Controller:
 
         ########################################################## # test
         if act == act.TEST:
-            self.robo._motion.turn("LEFT", 45, 2, 7)   # 티샷 끝나고 깃발 찾기 위해 턴
+            self.robo._motion.turn("LEFT", 45, 2)   # 티샷 끝나고 깃발 찾기 위해 턴
             
             exit()
         
@@ -1151,7 +1149,7 @@ class Controller:
             self.robo._motion.hit_the_ball("LEFT")
             # +================================== 여기까지 추가 ================================================+
             time.sleep(0.1)
-            self.robo._motion.turn("LEFT", 45, 2, 6)   # 티샷 끝나고 깃발 찾기 위해 턴
+            self.robo._motion.turn("LEFT", 45, 2)   # 티샷 끝나고 깃발 찾기 위해 턴
             print("왼쪽으로 90도 회전")
 
             self.act = act.SEARCH_FLAG
@@ -1381,12 +1379,13 @@ class Controller:
 
             if shot_way == 'R':
 
-                self.robo._motion.turn("LEFT", 45, 3, 0.5)   # 티샷 끝나고 깃발 찾기 위해 턴
-                self.robo._motion.turn("LEFT", 10)
+                self.robo._motion.turn("LEFT", 45, 2)   # 티샷 끝나고 깃발 찾기 위해 턴
+                print("왼쪽으로 90도")
+
 
             else:
-                self.robo._motion.turn("RIGHT", 45, 3, 0.5)   # 티샷 끝나고 깃발 찾기 위해 턴
-                self.robo._motion.turn("RIGHT", 10)
+                self.robo._motion.turn("RIGHT", 45, 2)   # 티샷 끝나고 깃발 찾기 위해 턴
+                print("오른쪽으로 90도")
 
                 
 #############################################################################

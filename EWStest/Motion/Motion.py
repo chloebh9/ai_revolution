@@ -302,6 +302,17 @@ class Motion:
         """ parameter :
         dir : {LEFT, RIGHT}
         """
+        if angle == 3: 
+            sleep = 0.5
+        elif angle == 10:
+            sleep = 1
+        elif angle == 20:
+            sleep = 4
+        elif angle == 45:
+            sleep = 6
+        elif angle == 60:
+            sleep = 0.5
+
         dir_list = {
             "LEFT": {3:79, 10: 80, 20: 81, 45: 82, 60: 83},
             "RIGHT": {3:85, 10: 86, 20: 87, 45: 88, 60: 89},
