@@ -58,12 +58,15 @@ class FlagyCenterMeasurer:
                 green_boxes = [cv2.boundingRect(contour) for contour in contours]
 
                 # yellow_mask = MaskGenerator.flag_generate_mask(hsv_frame)
-                low_yellow = np.array([21, 56, 171])
-                high_yellow = np.array([97, 255, 255])
-                yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
-                # low_yellow = np.array([0,105,151])
-                # high_yellow = np.array([43,255,255])
+                # low_yellow = np.array([21, 56, 171])
+                # high_yellow = np.array([97, 255, 255])
                 # yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
+                low_yellow = np.array([0,105,151])
+                high_yellow = np.array([43,255,255])
+                yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
+                lower9 = np.array( [26 , 52 , 151] )
+                upper9 = np.array( [50 , 100 , 255] )
+                yellow_mask += cv2.inRange(hsv_frame, lower9 , upper9 )
 
                 lower0 = np.array( [23 , 144 , 151] )
                 upper0 = np.array( [29 , 224 , 171] )
