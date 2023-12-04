@@ -780,32 +780,36 @@ class Controller:
     ###################################################################################################
     # 퍼팅 후 타격지점 찾을 때, 들어온 앵글값에서 가장 가까운(최적의) 값을 찾아 턴 하는 함수
     @classmethod
-    def find_best_actions(self,target_angle, way):
-        # target_angle: 로봇이 퍼팅 위치 가기전 틀어야하는 각도
-        # way: 공이 왼쪽에 있는지 오른쪽에 있는지 판단하는 값
+    def find_best_actions(self, target_angle, way):
+    # target_angle: 로봇이 퍼팅 위치 가기 전 틀어야하는 각도
+    # way: 공이 왼쪽에 있는지 오른쪽에 있는지 판단하는 값
         actions = [60, 45, 20, 10, 3]  # 가능한 동작 리스트
         remaining_angle = target_angle
         robot_way = way
-
         best_actions = []
 
         while remaining_angle > 0 and actions:
-            best_action = min(actions, key=lambda x: abs(target_angle - x))
+            # 각도와 가장 가까운 값을 선택
+            best_action = min(actions, key=lambda x: abs(remaining_angle - x))
+
             if best_action <= remaining_angle:
+                # 최적의 동작을 실행
                 best_actions.append(best_action)
-                remaining_angle -= best_action
 
                 if robot_way == "R":
                     self.robo._motion.turn("RIGHT", best_action)
-                    print(best_action, "도 실행")
+                    print(f"{best_action}도 실행")
 
                 elif robot_way == "L":
                     self.robo._motion.turn("LEFT", best_action)
-                    print(best_action, "도 실행")
+                    print(f"{best_action}도 실행")
 
                 else:
-                    print("shot_way의 값이 이상함.")
+                    print("way의 값이 이상함.")
+
+                remaining_angle -= best_action
                 time.sleep(0.8)
+
             actions.remove(best_action)
                 
     ###################################################################################################
