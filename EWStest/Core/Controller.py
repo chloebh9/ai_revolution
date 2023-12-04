@@ -1421,7 +1421,7 @@ class Controller:
             
             # 깃발과 공 사이의 각도가 2도 이하일 때 골로 인식하게끔
             
-            is_goal = GoalDetect.process()
+            is_goal = GoalDetect().process()
             #print("홀인 체크하기 위한 깃발과 공 찾기")
             #self.check_flag()
             #self.check_flag_distance()
