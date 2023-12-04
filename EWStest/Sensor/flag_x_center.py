@@ -73,8 +73,11 @@ class FlagxCenterMeasurer:
                 # low_yellow = np.array([21, 56, 171])
                 # high_yellow = np.array([97, 255, 255])
                 low_yellow = np.array([0,105,151])
-                high_yellow = np.array([31,255,255])
+                high_yellow = np.array([43,255,255])
                 yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
+                lower9 = np.array( [26 , 52 , 151] )
+                upper9 = np.array( [50 , 100 , 255] )
+                yellow_mask += cv2.inRange(hsv_frame, lower9 , upper9 )
 
                 lower0 = np.array( [23 , 144 , 151] )
                 upper0 = np.array( [29 , 224 , 171] )
@@ -88,6 +91,12 @@ class FlagxCenterMeasurer:
                 lower6 = np.array([ 31 , 77 , 137 ])
                 upper6 = np.array([ 37 , 97 , 237 ])
                 yellow_mask += cv2.inRange(hsv_frame, lower6 , upper6 )
+                lower7 = np.array([ 36 , 67 , 189 ])
+                upper7 = np.array([ 42 , 87 , 255 ])
+                yellow_mask += cv2.inRange(hsv_frame, lower7 , upper7 )
+                lower8 = np.array([ 31 , 60 , 184 ])
+                upper8 = np.array([ 37 , 80 , 255 ])
+                yellow_mask += cv2.inRange(hsv_frame, lower8 , upper8 )
 
                 max_x, min_x = 0,0 # 깃발을 못 찾았을 때 오류나는 것을 방지하기 위해 바운딩 박스의 좌표를 0으로 초기화
 
@@ -101,18 +110,18 @@ class FlagxCenterMeasurer:
 
                     for cnt in yellow_contours:
                         area = cv2.contourArea(cnt)
-                        if area > 10:
-                            rect = cv2.minAreaRect(cnt)
-                            box = cv2.boxPoints(rect)
-                            box = np.int0(box)
-                            max_x, min_x, max_y, min_y = self.getMaxMin(box)
-                            cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
-                            M = cv2.moments(cnt)
-                            if M['m00'] != 0:
-                                cx = int(M['m10'] / M['m00'])
-                                cy = int(M['m01'] / M['m00'])
-                                cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                                flag_centers.append((cx, cy))
+                        
+                        rect = cv2.minAreaRect(cnt)
+                        box = cv2.boxPoints(rect)
+                        box = np.int0(box)
+                        max_x, min_x, max_y, min_y = self.getMaxMin(box)
+                        cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
+                        M = cv2.moments(cnt)
+                        if M['m00'] != 0:
+                            cx = int(M['m10'] / M['m00'])
+                            cy = int(M['m01'] / M['m00'])
+                            cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                            flag_centers.append((cx, cy))
 
                     if flag_centers:
                         farthest_flag_center = min(flag_centers, key=lambda center: center[1])
