@@ -1,4 +1,4 @@
-from Sensor.HSVAdjust import MaskGenerator
+from HSVAdjust import MaskGenerator
 import numpy as np
 import cv2
 
@@ -68,6 +68,20 @@ class GoalDetect:
         else:
             return False
 
+    def merge_close_regions(self, contours):
+        merged_contours = []
+        while len(contours) > 0:
+            cnt = contours[0]
+            contours.pop(0)
+            for i in range(len(contours) - 1, -1, -1):
+                dist = cv2.pointPolygonTest(cnt, tuple(contours[i][0][0]), True)
+                if dist >= 0 and dist <= 5:
+                    cnt = np.vstack((cnt, contours[i]))
+                    contours.pop(i)
+            if len(cnt) > 0:
+                merged_contours.append(cnt)
+        return merged_contours
+
     def process(self):
         cap = cv2.VideoCapture(0, cv2.CAP_V4L)
 
@@ -127,36 +141,38 @@ class GoalDetect:
                     
                     img = self.get_dist(rect, img, 'ball', isMiddle)
 
-            # Find contours for the flag
+            # Find contours for the yellow flag and merge close regions
             cont2, hei2 = cv2.findContours(f_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-            cont2 = sorted(cont2, key=cv2.contourArea, reverse=True)
+            merged_contours = self.merge_close_regions(cont2)
+            merged_contours = sorted(merged_contours, key=cv2.contourArea, reverse=True)
 
-            if len(cont2) > 0:
-                for flag_cnt in cont2:
+            if len(merged_contours) > 0:
+                for flag_cnt in merged_contours:
                     # Check for contour area
                     if 2 < len(flag_cnt) and cv2.contourArea(flag_cnt) > 100:
                         rect = cv2.minAreaRect(flag_cnt)
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
-                        print(len(flag_cnt))
-                        print('flag points:', box)
-                        cv2.drawContours(img, [box], -1, (0, 255, 0), 3)
+                        if len(box) == 4:  # Ignore contours with 3 vertices
+                            print(len(flag_cnt))
+                            print('flag points:', box)
+                            cv2.drawContours(img, [box], -1, (0, 255, 0), 3)
 
-                        f_max_x, f_min_x = self.getMaxMin(box)
-                        f_max_y, f_min_y = self.getyMaxMin(box)
-                        isMiddle = self.judgeMiddle(f_max_x, f_min_x)
-                        
-                        img = self.get_dist(rect, img, 'flag', isMiddle)
-                        
-                        print(b_max_x, " ", b_min_x)
-                        goal_range = 15
-                        
-                        # Check if the ball is below the flag
-                        if (f_min_y + f_max_y) / 2 < (b_min_y + b_max_y) / 2:
-                            if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y <= b_min_y and b_max_y <= f_max_y - goal_range:
-                                print("Goal!")
-                                is_goal = True
-                                cv2.putText(img, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
+                            f_max_x, f_min_x = self.getMaxMin(box)
+                            f_max_y, f_min_y = self.getyMaxMin(box)
+                            isMiddle = self.judgeMiddle(f_max_x, f_min_x)
+                            
+                            img = self.get_dist(rect, img, 'flag', isMiddle)
+                            
+                            print(b_max_x, " ", b_min_x)
+                            goal_range = 15
+                            
+                            # Check if the ball is below the flag
+                            if (f_min_y + f_max_y) / 2 < (b_min_y + b_max_y) / 2:
+                                if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y <= b_min_y and b_max_y <= f_max_y - goal_range:
+                                    print("Goal!")
+                                    is_goal = True
+                                    cv2.putText(img, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
                     
             # Uncomment the following lines if you want to display the window
             cv2.imshow('Object Dist Measure', img)
