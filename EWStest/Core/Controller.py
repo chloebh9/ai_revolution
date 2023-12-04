@@ -1384,12 +1384,12 @@ class Controller:
 
             if shot_way == 'R':
 
-                self.robo._motion.turn("RIGHT", 45, 2)   # 티샷 끝나고 깃발 찾기 위해 턴
+                self.robo._motion.turn("LEFT", 45, 2)   # 티샷 끝나고 깃발 찾기 위해 턴
                 print("왼쪽으로 90도")
 
 
             else:
-                self.robo._motion.turn("LEFT", 45, 2)   # 티샷 끝나고 깃발 찾기 위해 턴
+                self.robo._motion.turn("RIGHT", 45, 2)   # 티샷 끝나고 깃발 찾기 위해 턴
                 print("오른쪽으로 90도")
 
                 
