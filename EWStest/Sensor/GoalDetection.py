@@ -158,7 +158,7 @@ class GoalDetect:
                                 cv2.putText(img, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
                     
             # Uncomment the following lines if you want to display the window
-            # cv2.imshow('Object Dist Measure', img)
+            cv2.imshow('Object Dist Measure', img)
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
