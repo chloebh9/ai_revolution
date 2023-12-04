@@ -141,25 +141,25 @@ class FlagyCenterMeasurer:
                         camera_center = (frame.shape[1] // 2, frame.shape[0])
 
                         # Find the farthest FLAG box among FLAG boxes
-                        max_distance = 0
+                        min_distance = float('inf')
 
                         for box in flag_boxes:
                             box_center = box[0]
                             distance = ((box_center[0] - camera_center[0]) ** 2 + (box_center[1] - camera_center[1]) ** 2) ** 0.5
 
-                            if distance > max_distance:
-                                max_distance = distance
-                                farthest_flag_box = box
+                            if distance < min_distance:
+                                min_distance = distance
+                                lowest_flag_box = box
 
                         # Change the rest of the FLAG boxes to ARROW
                         for i, box in enumerate(shape_info_list):
-                            if box[1] == "FLAG" and box != farthest_flag_box:
+                            if box[1] == "FLAG" and box != lowest_flag_box:
                                 shape_info_list[i] = (box[0], "ARROW")
 
                 # Print the center coordinates
-                if farthest_flag_box is not None:
-                    farthest_center = farthest_flag_box[0]
-                    # print(f"Farthest FLAG Center: {farthest_center}")
+                if lowest_flag_box is not None:
+                    lowest_center = lowest_flag_box[0]
+                    print(f"lowest FLAG Center: {lowest_center}")
 
                 # Display centers and shape information on the frame
                 for shape_info in shape_info_list:
@@ -170,10 +170,10 @@ class FlagyCenterMeasurer:
                     else:
                         cv2.putText(frame, f'Shape: {shape_text}', (center[0], center[1] + offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
-                if farthest_center == -1:
+                if lowest_center == -1:
                     continue
 
-                is_y_middle = self.judgeMiddle(farthest_center, self.img_height)
+                is_y_middle = self.judgeMiddle(lowest_center, self.img_height)
                 break
 
             
