@@ -301,8 +301,8 @@ class Motion:
         dir : {LEFT, RIGHT}
         """
         dir_list = {
-            "LEFT": {3:78, 5:79, 10: 80, 20: 81, 45: 82, 60: 83},
-            "RIGHT": {3:84, 5:85, 10: 86, 20: 87, 45: 88, 60: 89},
+            "LEFT": {5:79, 10: 80, 20: 81, 45: 82, 60: 83},
+            "RIGHT": {5:85, 10: 86, 20: 87, 45: 88, 60: 89},
         }
         for _ in range(loop):
             self.TX_data_py3(dir_list[dir][angle])
