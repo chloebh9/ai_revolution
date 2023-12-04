@@ -67,6 +67,7 @@ class FlagxCenterMeasurer:
 
             for green_box in self.green_boxes:
                 x, y, w, h = green_box
+                print(x, y, w, h)
 
                 # 변경: Flag 박스 한 변이 5 픽셀 이하면 인식하지 않음
                 if w <= 5 or h <= 5:
