@@ -1403,11 +1403,8 @@ class Controller:
             else:
                 angle = abs(self.robo._motion.y_head_angle - 8.6)  # angle 값 수정
             distflag = DistMeasurer().display_distance(angle) # 깃발 거리값
-
-            print(distflag)
-
             check_flag_goto = distflag // 4
-            print(check_flag_goto)
+            check_flag_goto = int(check_flag_goto)
             self.robo._motion.walk("FORWARD", check_flag_goto, 3.0)  # 퍼팅 지점까지 걸어가기
                                 
 
