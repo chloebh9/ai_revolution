@@ -138,6 +138,7 @@ class GoalDetect:
                         rect = cv2.minAreaRect(flag_cnt)
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
+                        print(len(flag_cnt))
                         print('flag points:', box)
                         cv2.drawContours(img, [box], -1, (0, 255, 0), 3)
 
