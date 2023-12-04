@@ -90,10 +90,10 @@ class FlagxCenterMeasurer:
             yellow_mask += cv2.inRange(hsv_frame, lower6 , upper6 )
             lower7 = np.array([ 36 , 67 , 189 ])
             upper7 = np.array([ 42 , 87 , 255 ])
-            mask += cv2.inRange(hsv_frame, lower7 , upper7 )
+            yellow_mask += cv2.inRange(hsv_frame, lower7 , upper7 )
             lower8 = np.array([ 31 , 60 , 184 ])
             upper8 = np.array([ 37 , 80 , 255 ])
-            mask += cv2.inRange(hsv_frame, lower8 , upper8 )
+            yellow_mask += cv2.inRange(hsv_frame, lower8 , upper8 )
 
 
             max_x, min_x = 0,0 # 깃발을 못 찾았을 때 오류나는 것을 방지하기 위해 바운딩 박스의 좌표를 0으로 초기화
