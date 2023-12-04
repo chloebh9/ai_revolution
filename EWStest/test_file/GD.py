@@ -100,7 +100,7 @@ class GoalDetect:
 
             low_yellow = np.array([21, 56, 171])
             high_yellow = np.array([97, 255, 255])
-            mask_flag = cv2.inRange(hsv_frame, low_yellow, high_yellow)
+            mask_flag = cv2.inRange(hsv_img, low_yellow, high_yellow)
 
             # Remove Extra garbage from image
             d_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel, iterations=5)
