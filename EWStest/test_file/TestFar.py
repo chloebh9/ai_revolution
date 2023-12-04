@@ -82,7 +82,7 @@ class FlagxCenterMeasurer:
                     area = cv2.contourArea(cnt)
 
                     # 변경: Flag 박스 한 변이 5 픽셀 이하면 인식하지 않음
-                    if area > 40 and w > 30 and h > 30:
+                    if area > 40 and w > 60 and h > 60:
                         rect = cv2.minAreaRect(cnt)
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
