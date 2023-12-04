@@ -701,7 +701,8 @@ class Controller:
             best_action = min(actions, key=lambda x: abs(target_angle - x))
             if best_action <= remaining_angle:
                 remaining_angle -= best_action
-            actions.remove(best_action)
+            else:
+                break
             
             if best_action is not None:
                 return best_action
