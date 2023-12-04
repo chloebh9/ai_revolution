@@ -1,4 +1,4 @@
-from HSVAdjust import MaskGenerator
+from Sensor.HSVAdjust import MaskGenerator
 
 import numpy as np
 import cv2
@@ -179,24 +179,24 @@ class GoalDetect:
                             print("Goal!")
                             is_goal = True
                             cv2.putText(img, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
-                            # return is_goal
+                            return is_goal
                     # 공이 (홀컵기준)위에 있을 때
                     else:
                         if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y - goal_range <= b_min_y and b_max_y <= f_max_y - goal_range:
                             print("Goal!")
                             is_goal = True
                             cv2.putText(img, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
-                            # return is_goal
+                            return is_goal
                         
-            #return is_goal
+            return is_goal
                 
         #     imshow 실행시 주석 빼기
-            cv2.imshow('Object Dist Measure ', img)
+            #cv2.imshow('Object Dist Measure ', img)
 
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
+            #if cv2.waitKey(1) & 0xFF == ord('q'):
+                #break
 
-        cv2.destroyAllWindows()
+        #cv2.destroyAllWindows()
     
 if __name__ == "__main__":
     goal_detector = GoalDetect()
