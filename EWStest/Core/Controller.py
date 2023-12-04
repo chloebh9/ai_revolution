@@ -1153,6 +1153,7 @@ class Controller:
             time.sleep(0.1)
             if self.L_left == 1:
                 self.robo._motion.turn("LEFT",45)
+                self.robo._motion.turn("LEFT",20)
                 self.robo._motion.turn("LEFT",10)
                 print("L_LEFT일 떄 T샷이후 깃발 방향으로 턴")
             else:
