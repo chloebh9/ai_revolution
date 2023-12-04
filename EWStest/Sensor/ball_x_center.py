@@ -102,7 +102,7 @@ class BallxCenterMeasurer:
 
             max_x, min_x, max_y, min_y = -1, self.img_width + 1, -1, self.img_width + 1
             ball_box = None
-            print('ball_x_center.py: 돌아가고있어')
+
             ball_x_isMiddle = 'N'
             ball_x = 'N'
             ball_y = 'N'
