@@ -1274,7 +1274,7 @@ class Controller:
                     break
 
                 self.robo._motion.set_head("LEFTRIGHT_CENTER")
-                self.robo._motion.set_head("UPDOWN_CENTER")
+                #self.robo._motion.set_head("UPDOWN_CENTER")
 
                 hit_dist = int(hit_dist)
                 will_goto_ball = hit_dist // 4
