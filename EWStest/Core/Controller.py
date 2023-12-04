@@ -997,6 +997,7 @@ class Controller:
                 self.robo._motion.walk("FORWARD", 6, 3.5)
                 self.robo._motion.turn("LEFT", 3)
                 self.robo._motion.walk("FORWARD", 6, 3.5)
+                self.robo._motion.turn("LEFT", 3)
                 
                 time.sleep(0.1)
 
