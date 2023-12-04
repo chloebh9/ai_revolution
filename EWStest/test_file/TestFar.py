@@ -6,7 +6,6 @@ class FlagxCenterMeasurer:
         self.img_width = img_width
         self.img_height = img_height
         self.green_boxes = []
-        self.error_range = 370  # Flag 박스 크기 제한 변수
 
     def getMaxMin(self, box):
         min_x, max_x = self.img_width, 0
@@ -83,7 +82,7 @@ class FlagxCenterMeasurer:
                     area = cv2.contourArea(cnt)
 
                     # Flag 박스 크기 제한
-                    if area > self.error_range and w > self.error_range and h > self.error_range:
+                    if area > self.error_range:
                         rect = cv2.minAreaRect(cnt)
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
@@ -106,6 +105,7 @@ class FlagxCenterMeasurer:
                         cv2.putText(frame, 'Farthest Flag', (x + flag_center[0], y + flag_center[1]),
                                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                         have_flag = True
+                        print(x, y, w, h)
                     
             cv2.imshow('프레임', frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
