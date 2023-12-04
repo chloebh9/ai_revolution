@@ -1,5 +1,5 @@
 # 공이 Y축 기준으로 가운데 있을 때 true, 아니면 false
-from Sensor.HSVAdjust import MaskGenerator
+# from Sensor.HSVAdjust import MaskGenerator
 
 # -*- coding: utf-8 -*-
 import numpy as np
@@ -79,7 +79,12 @@ class Tputting_y_BallCenterMeasurer:
             img = cv2.dilate(img, self.kernel, iterations=1)
             hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-            mask = MaskGenerator.ball_generate_mask(hsv_img)
+            # mask = MaskGenerator.ball_generate_mask(hsv_img)
+            lower = np.array([137, 0, 0])
+            upper = np.array([255, 255, 255])
+            lower1 = np.array([0, 66, 87])
+            upper1 = np.array([14, 255, 255])
+            mask = cv2.inRange(hsv_img, lower1, upper1)+cv2.inRange(hsv_img, lower, upper)
             # # 424 version
             # lower = np.array([0, 22, 213])
             # upper = np.array([25, 96, 255])
