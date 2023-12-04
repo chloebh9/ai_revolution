@@ -110,18 +110,18 @@ class FlagxCenterMeasurer:
 
                     for cnt in yellow_contours:
                         area = cv2.contourArea(cnt)
-                        if True:
-                            rect = cv2.minAreaRect(cnt)
-                            box = cv2.boxPoints(rect)
-                            box = np.int0(box)
-                            max_x, min_x, max_y, min_y = self.getMaxMin(box)
-                            cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
-                            M = cv2.moments(cnt)
-                            if M['m00'] != 0:
-                                cx = int(M['m10'] / M['m00'])
-                                cy = int(M['m01'] / M['m00'])
-                                cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                                flag_centers.append((cx, cy))
+                        
+                        rect = cv2.minAreaRect(cnt)
+                        box = cv2.boxPoints(rect)
+                        box = np.int0(box)
+                        max_x, min_x, max_y, min_y = self.getMaxMin(box)
+                        cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
+                        M = cv2.moments(cnt)
+                        if M['m00'] != 0:
+                            cx = int(M['m10'] / M['m00'])
+                            cy = int(M['m01'] / M['m00'])
+                            cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                            flag_centers.append((cx, cy))
 
                     if flag_centers:
                         farthest_flag_center = min(flag_centers, key=lambda center: center[1])
