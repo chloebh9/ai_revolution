@@ -1214,12 +1214,19 @@ class Controller:
                 # 공의 거리 구할 때 여기를 exit하면 공의 거리를 출력하고 멈춤
                 # exit()
 
+                print("ball_angle: ", end="")
+                print(ball_angle)
+                print("flag_angle: ", end="")
+                print(flag_angle)
+
                 if ball_angle >= flag_angle:   # ball angle이 더 크면 오른쪽
                     real_angle = ball_angle - flag_angle  
                     shot_way = "R" # 공이 오른쪽에 있으니 오른쪽으로
+                    print("show_way = R")
                 else:  # ball angle이 더 작으면 왼쪽
                     real_angle = flag_angle - ball_angle  
                     shot_way = "L" # 공이 왼쪽에 있으니 왼쪽으로
+                    print("shot_wat = L")
 
                 print("Real angle: ", end="")  # 값 확인
                 print(real_angle)
