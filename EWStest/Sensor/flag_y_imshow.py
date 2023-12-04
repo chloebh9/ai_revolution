@@ -77,6 +77,12 @@ class FlagyCenterMeasurer:
                 lower6 = np.array([ 31 , 77 , 137 ])
                 upper6 = np.array([ 37 , 97 , 237 ])
                 yellow_mask += cv2.inRange(hsv_frame, lower6 , upper6 )
+                lower7 = np.array([ 36 , 67 , 189 ])
+                upper7 = np.array([ 42 , 87 , 255 ])
+                mask += cv2.inRange(hsv_frame, lower7 , upper7 )
+                lower8 = np.array([ 31 , 60 , 184 ])
+                upper8 = np.array([ 37 , 80 , 255 ])
+                mask += cv2.inRange(hsv_frame, lower8 , upper8 )
 
                 shape_info_list = []
 
