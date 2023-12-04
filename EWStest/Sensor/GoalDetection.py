@@ -108,12 +108,12 @@ class GoalDetect:
             
             # mask_flag = MaskGenerator.flag_generate_mask(hsv_img)
             
-            low_yellow = np.array([21, 56, 171])
-            high_yellow = np.array([97, 255, 255])
+            low_yellow = np.array([21, 56, 115])
+            high_yellow = np.array([42, 140, 235])
             mask_flag = cv2.inRange(hsv_img, low_yellow, high_yellow)
 
             lower0 = np.array( [23 , 144 , 151] )
-            upper0 = np.array( [29 , 224 , 171] )
+            upper0 = np.array( [29 , 190 , 171] )
             mask_flag += cv2.inRange(hsv_img, lower0 , upper0 )
 
 
