@@ -76,7 +76,7 @@ class ColorTracker:
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
-            if cv2.waitKey(1) & 0xFF == ord('p'):
+            if cv2.waitKey(33) & 0xFF == ord('p'):
                 i = 4
                 for l_b, u_b in self.hsves:
                     print("lower"+str(i),"=","np.array([",l_b[0],",",l_b[1],",",l_b[2],"])")
