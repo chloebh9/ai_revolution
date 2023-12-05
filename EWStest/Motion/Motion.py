@@ -325,7 +325,7 @@ class Motion:
             sleep = 1.1
         elif angle == 45:
             print("45도 회전")
-            sleep = 6
+            sleep = 5
         elif angle == 60:
             print("60도 회전")
             sleep = 0.5
