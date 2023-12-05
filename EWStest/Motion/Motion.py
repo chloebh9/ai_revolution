@@ -253,7 +253,7 @@ class Motion:
             print("2_down_angle: ", angle)
             print("y_head_angle: ", self.y_head_angle)
             print("===========================")
-            if self.y_head_angle < 0:
+            if self.y_head_angle < 12:
                 print("더 이상 갈 수 없음")
                 self.y_head_angle = 90
                 self.set_head("UPDOWN_CENTER")
