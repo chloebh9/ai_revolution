@@ -164,6 +164,7 @@ class FlagyCenterMeasurer:
                 if farthest_center == -1:
                     continue
 
+                global is_y_middle 
                 is_y_middle = self.judgeMiddle(farthest_center, self.img_height)
                 break
 
