@@ -976,8 +976,7 @@ class Controller:
 
         ########################################################## # test
         if act == act.TEST:
-            self.robo._motion.turn("LEFT", 45, 2)   # 티샷 끝나고 깃발 찾기 위해 턴
-            
+            self.robo._motion.walk("FORWARD", 6)                            
             exit()
         
 #############################################################################
@@ -997,9 +996,9 @@ class Controller:
         
             if self.L_right == 1:  # 퍼팅 판단 return 받은걸로 모션
                 print("로봇: 왼쪽, 공: 오른쪽")
-                self.robo._motion.walk("FORWARD", 6, 3.5)
+                self.robo._motion.walk("FORWARD", 6)
                 self.robo._motion.turn("LEFT", 3)
-                self.robo._motion.walk("FORWARD", 6, 3.5)
+                self.robo._motion.walk("FORWARD", 6)
                 self.robo._motion.turn("LEFT", 3)
                 
                 time.sleep(0.1)
@@ -1010,7 +1009,7 @@ class Controller:
 
             elif self.L_center == 1:
                 print("로봇: 왼쪽, 공: 가운데")
-                self.robo._motion.walk("FORWARD", 5, 3.5)
+                self.robo._motion.walk("FORWARD", 5)
                 self.robo._motion.turn("LEFT", 3)
                 time.sleep(0.1)
 
@@ -1455,7 +1454,7 @@ class Controller:
             distflag = DistMeasurer().display_distance(angle) # 깃발 거리값
             check_flag_goto = distflag // 4
             check_flag_goto = int(check_flag_goto)
-            self.robo._motion.walk("FORWARD", check_flag_goto, 3.0)  # 퍼팅 지점까지 걸어가기
+            self.robo._motion.walk("FORWARD", check_flag_goto)  # 퍼팅 지점까지 걸어가기
                                 
 
             self.robo._motion.set_head("LEFTRIGHT_CENTER")
