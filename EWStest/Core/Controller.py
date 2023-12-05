@@ -1408,6 +1408,12 @@ class Controller:
                                     if check_angle_fbr == "L":
                                         self.robo._motion.turn("LEFT", 3)
 
+                                    if check_angle_fbr == "N" and shot_way == "R":
+                                        self.robo._motion.turn("LEFT", 3)
+
+                                    if check_angle_fbr == "N" and shot_way == "L":
+                                        self.robo._motion.turn("RIGHT", 3)
+
 
                                 break
 
