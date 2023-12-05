@@ -498,7 +498,7 @@ class Controller:
             ball_x_angle = ballxcenter.process()
             if ball_x_angle[0] == "N":
                 y_dir += 1
-                self.robo._motion.set_head("RIGHT", down_y[y_dir])
+                self.robo._motion.set_head("DOWN", down_y[y_dir])
             time.sleep(0.2)
             print("ball_x_angle: ", end="")
             print(ball_x_angle[0])
