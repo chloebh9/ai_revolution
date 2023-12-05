@@ -690,6 +690,27 @@ class Controller:
         else:  # 로봇 몸체와 깃발이 일직선
             print("Turn Center")
             return
+    ###################################################################################################
+    # 깃발 - 공 - 로봇 90도 만들기 위해서 확인하는거
+    @classmethod
+    def check_angle_fbr(self, way, TF):
+        shot_way = way
+        flag = TF 
+        if shot_way == "R":
+            self.robo._motion.set_head("LEFT", 90)
+            time.sleep(0.3)
+            
+
+        else:
+            self.robo._motion.set_head("RIGHT", 90)
+            time.sleep(0.3)
+
+        while flag != "C":
+            if flag == "R":
+                self.robo._motion.turn("RIGHT", 3)
+            if flag == "L":
+                self.robo._motion.turn("LEFT", 3)
+
 
     ###################################################################################################
     # 로봇과 깃발을 일직선으로 만들 때, 들어온 앵글값에서 가장 가까운(최적의) 값을 찾아 턴 하는 함수
