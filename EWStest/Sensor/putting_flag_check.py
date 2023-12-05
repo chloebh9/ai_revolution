@@ -38,7 +38,6 @@ class PuttingFlagxCenterMeasurer:
         r_dist = self.img_width - max_x
         
         center = (min_x + max_x) / 2
-        print(center)
         criterion = self.img_width + 50
         error_range = 30
 
