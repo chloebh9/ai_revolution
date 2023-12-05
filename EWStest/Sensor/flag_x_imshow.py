@@ -91,6 +91,8 @@ class FlagxCenterMeasurer:
                 green_roi = frame[y:y+h, x:x+w]
                 yellow_roi_mask = yellow_mask[y:y+h, x:x+w]
                 yellow_contours, _ = cv2.findContours(yellow_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                #임시 추가
+                print("flag중점 값:",(x+y)/2)
 
                 flag_centers = []
 
