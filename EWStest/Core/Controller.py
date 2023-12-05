@@ -32,7 +32,7 @@ class Act(Enum):
 class Controller:
     robo: Robo = Robo()
     #act: Act = Act.START  # 순서도 시작
-    act: Act = Act.START
+    act: Act = Act.TEST
     # act: Act = Act.START가 시작 지점
 
     count_putting: int = 0  # 퍼팅 횟수
@@ -978,7 +978,23 @@ class Controller:
 
         ########################################################## # test
         if act == act.TEST:
-            self.robo._motion.walk("FORWARD", 6)                            
+            self.robo._motion.walk_side("RIGHT", 6)            
+            print("--")
+            print("3도")
+            self.robo._motion.turn("LEFT", 3)
+            print("--")
+            print("10도") 
+            self.robo._motion.turn("LEFT", 10)
+            print("--")
+            print("20도")
+            self.robo._motion.turn("LEFT", 23)
+            print("--")
+            print("45도")
+            self.robo._motion.turn("LEFT", 45)
+            print("--")
+            print("60도")
+            self.robo._motion.turn("LEFT", 60)
+            print("--")  
             exit()
         
 #############################################################################
@@ -1296,8 +1312,20 @@ class Controller:
                     self.robo._motion.walk_side("LEFT", 3)
 
                 hit_dist = int(hit_dist)
-                will_goto_ball = hit_dist // 4
-                self.robo._motion.walk("FORWARD", will_goto_ball, 3.0)  # 퍼팅 지점까지 걸어가기
+                # will_goto_ball = hit_dist // 4
+                # self.robo._motion.walk("FORWARD", will_goto_ball, 3.0)  # 퍼팅 지점까지 걸어가기
+
+
+                self.robo._motion.turn("LEFT",45)
+                self.robo._motion.turn("LEFT",20)
+                self.robo._motion.turn("LEFT",20)
+
+                self.robo._motion.walk_side("RIGHT", hit_dist)
+
+                self.robo._motion.turn("LEFT",45)
+                self.robo._motion.turn("LEFT",20)
+                self.robo._motion.turn("LEFT",20)
+
                 print("퍼팅 지점까지 이동")
 
             time.sleep(0.1)

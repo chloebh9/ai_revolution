@@ -337,7 +337,7 @@ class Motion:
 
 
     # 옆으로 이동 (90, 91)
-    def walk_side(self, dir, loop=1, sleep=0.5):
+    def walk_side(self, dir, loop=1, sleep=0.4):
         """
         dir: {LEFT, RIGHT} - 이동 
         """
