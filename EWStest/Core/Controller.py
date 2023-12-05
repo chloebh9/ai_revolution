@@ -1401,6 +1401,7 @@ class Controller:
 
                                 while check_angle_fbr != "C":
                                     check_angle_fbr = PuttingFlagxCenterMeasurer().run()
+                                    print("마지막 퍼팅 깃발 좌우 확인: ",check_angle_fbr)
                                     if check_angle_fbr == "R":
                                         self.robo._motion.turn("RIGHT", 3)
             
