@@ -111,12 +111,12 @@ class FlagxCenterMeasurer:
             # upper11 = np.array([ 33 , 160 , 169 ])
             # yellow_mask += cv2.inRange(hsv_frame, lower11 , upper11 )
             
-            low_yellow = np.array([21, 56, 171])
-            high_yellow = np.array([97, 255, 255])
-            yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
-            low_yellow = np.array([0,105,151])
-            high_yellow = np.array([43,255,255])
-            yellow_mask += cv2.inRange(hsv_frame, low_yellow, high_yellow)
+            # low_yellow = np.array([21, 56, 171])
+            # high_yellow = np.array([97, 255, 255])
+            # yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
+            # low_yellow = np.array([0,105,151])
+            # high_yellow = np.array([43,255,255])
+            # yellow_mask += cv2.inRange(hsv_frame, low_yellow, high_yellow)
 
 
 
