@@ -1311,8 +1311,6 @@ class Controller:
                     self.robo._motion.walk_side("RIGHT", will_goto_ball) # 퍼팅 지점까지 옆으로 가기
 
                     self.robo._motion.turn("RIGHT",45, 2)
-                    self.robo._motion.turn("RIGHT",20)
-                    self.robo._motion.turn("RIGHT",20)
                     cnt += 1
                 else:
                     will_goto_ball = hit_dist // 4
