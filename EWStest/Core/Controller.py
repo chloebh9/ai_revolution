@@ -1188,6 +1188,7 @@ class Controller:
         elif act == act.SEARCH_FLAG:
             print("Act:", act)  # Debug
             shot_way = "N" # 오류 방지를 위한 shot_way 정의 (shot_way가 N이면 아직 공을 찾지 않았다는 의미)
+            cnt = 1
 
             while(True):
 
@@ -1308,21 +1309,26 @@ class Controller:
                     self.robo._motion.walk_side("LEFT", 3)
 
                 hit_dist = int(hit_dist)
-                # will_goto_ball = hit_dist // 4
+
                 # self.robo._motion.walk("FORWARD", will_goto_ball, 3.0)  # 퍼팅 지점까지 걸어가기
 
+                if cnt == 1:
+                    will_goto_ball = hit_dist // 2
+                    print("퍼팅 지점까지 이동")
+                    self.robo._motion.turn("LEFT",45)
+                    self.robo._motion.turn("LEFT",20)
+                    self.robo._motion.turn("LEFT",20)
 
-                self.robo._motion.turn("LEFT",45)
-                self.robo._motion.turn("LEFT",20)
-                self.robo._motion.turn("LEFT",20)
+                    self.robo._motion.walk_side("RIGHT", will_goto_ball) # 퍼팅 지점까지 옆으로 가기
 
-                self.robo._motion.walk_side("RIGHT", hit_dist)
-
-                self.robo._motion.turn("LEFT",45)
-                self.robo._motion.turn("LEFT",20)
-                self.robo._motion.turn("LEFT",20)
-
-                print("퍼팅 지점까지 이동")
+                    self.robo._motion.turn("LEFT",45)
+                    self.robo._motion.turn("LEFT",20)
+                    self.robo._motion.turn("LEFT",20)
+                    cnt += 1
+                else:
+                    will_goto_ball = hit_dist // 4
+                    self.robo._motion.walk("FORWARD", will_goto_ball, 3.0) # 퍼팅 지점까지 걸어가기
+                    print("퍼팅 지점까지 이동")
 
             time.sleep(0.1)
             
