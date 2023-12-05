@@ -60,6 +60,8 @@ class Controller:
     ball_stop: bool = False  # 공 찾을 때, 끝 각도에서 더 공이 끝에 있을 때 한 발자국 뒤로 가는 코드에서 쓰이는 판단 변수
     
     canPutting: float = 11.0  # 칠 수 있는 거리있는지 판단 변수 (길이)
+    
+    check_angle: int = 0  # art.check 부분에서 깃발 거리값 가져오기 위한 변수
 
     ###################################################################################################
     # 티샷에서 공이 어디에 있는지 확인하는 코드
@@ -1191,8 +1193,11 @@ class Controller:
                 time.sleep(0.2)
                 if self.flag_stop:
                     angle = abs(self.flag_angle_y - 8.6)  # angle 값 수정
+                    self.check_angle = abs(self.flag_angle_y - 8.6)  # art.check 부분에서 깃발 거리값을 쓰기 위한 변수
                 else:
                     angle = abs(self.robo._motion.y_head_angle - 8.6)  # angle 값 수정
+                    self.check_angle = abs(self.robo._motion.y_head_angle - 8.6)  # art.check 부분에서 깃발 거리값을 쓰기 위한 변수
+                    
                 distflag = DistMeasurer().display_distance(angle) # 깃발 거리값
                 flag_angle = self.robo._motion.x_head_angle
                 print("flag distance: ", end="")
@@ -1444,14 +1449,15 @@ class Controller:
         elif act == act.CHECK:  # 홀인했는지 확인
             print("Act:", act)  # Debug
             
-            self.check_flag()
-            self.check_flag_distance()
+            # self.check_flag()
+            # self.check_flag_distance()
 
-            if self.flag_stop:
-                angle = abs(self.flag_angle_y - 8.6)  # angle 값 수정
-            else:
-                angle = abs(self.robo._motion.y_head_angle - 8.6)  # angle 값 수정
-            distflag = DistMeasurer().display_distance(angle) # 깃발 거리값
+            # if self.flag_stop:
+            #     angle = abs(self.flag_angle_y - 8.6)  # angle 값 수정
+            # else:
+            #     angle = abs(self.robo._motion.y_head_angle - 8.6)  # angle 값 수정
+            
+            distflag = DistMeasurer().display_distance(self.check_angle) # 깃발 거리값
             check_flag_goto = distflag // 4
             check_flag_goto = int(check_flag_goto)
             self.robo._motion.walk("FORWARD", check_flag_goto)  # 퍼팅 지점까지 걸어가기
