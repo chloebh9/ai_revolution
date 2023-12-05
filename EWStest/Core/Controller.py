@@ -289,6 +289,9 @@ class Controller:
         while correctAngle != 1:
             flag_x_angle = FlagxCenterMeasurer(img_width=640, img_height=480).run()
             time.sleep(0.2)
+            if flag_x_angle[0] == "N":
+                down_y = self.find_best(self.robo._motion.y_head_angle - 45)
+                self.robo._motion.set_head("DOWN", down_y)
             print("check_flag_distance에서의 flag_x_angle: ", flag_x_angle[0])
             print("flag_x_angle[0] == C: ", flag_x_angle[0] == "C")
 
@@ -692,7 +695,7 @@ class Controller:
             print("Turn Center")
             return
     ###################################################################################################
-    # 로봇과 깃발을 일직선으로 만들 때, 들어온 앵글값에서 가장 가까운(최적의) 값을 찾아 턴 하는 함수
+    # 들어온 앵글값에서 가장 가까운(최적의) 값을 리턴 하는 함수
     @classmethod
     def find_best(self, target_angle):
         # target_angle: 로봇과 깃발을 일직선으로 맞추기 위해 틀어야 하는 각도
