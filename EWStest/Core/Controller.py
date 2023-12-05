@@ -983,7 +983,7 @@ class Controller:
             self.robo._motion.turn("LEFT", 10)
             print("--")
             print("20도")
-            self.robo._motion.turn("LEFT", 23)
+            self.robo._motion.turn("LEFT", 20)
             print("--")
             print("45도")
             self.robo._motion.turn("LEFT", 45)
