@@ -428,13 +428,13 @@ GOSUB_RX_EXIT2:
 
     SPEED 4
 
-    MOVE G6A, 88,  74, 144,  95, 110
-    MOVE G6D,108,  76, 146,  93,  96
+    MOVE G6A, 90,  74, 144,  95, 110 '왼발 
+    MOVE G6D,106,  76, 146,  93,  96 '오른발
     MOVE G6B,100
     MOVE G6C,100
     WAIT
 
-    SPEED 7
+    SPEED 8 
 
     MOVE G6A, 90, 94, 120, 105, 110,100
     MOVE G6D,108,  75, 147,  93,  96,100
@@ -452,96 +452,46 @@ GOSUB_RX_EXIT2:
 
     ETX 4800,11 '진행코드를 보냄
     
-    SPEED 8
+    SPEED 13 ' 보행속도 '13
     MOVE G6A, 86,  56, 145, 115, 106
     MOVE G6D,104,  76, 147,  93,  99
     WAIT
 
-	SPEED 4
+	SPEED 4 ' 좌우 속도
 	MOVE G6A,105,  68, 145, 113,  103, 100
 	MOVE G6D, 99,  77, 147,  93, 102, 100
 	WAIT	
 	
-	SPEED 3 '왼발 무게중심
+	SPEED 4 '왼발 무게중심 '좌우속도
 	MOVE G6A,111,  68, 145, 113, 103, 100
 	MOVE G6D, 90,  77, 147,  93, 104, 100
+	WAIT
 
+	SPEED 5 ' 오른발 들기
+	MOVE G6A, 113,  68, 145, 113, 103, 100 '왼발
+	MOVE G6D, 90,  70, 121, 128, 105, 100 '오른발
+	MOVE G6B,110
+    MOVE G6C,90
+    WAIT
+        
 	
-	'SPEED 4
-	'MOVE G6A,111,  77, 146,  93, 100,100 ' 왼발 각도, (왼다리)
-    'MOVE G6D,90, 100, 100, 115, 111, 100
-	'WAIT
 	
-	'MOVE G6A,112,  76, 146,  93, 103, 100
-	'MOVE G6D, 90,  75, 121, 111, 110, 100
-	'WAIT
-	
-	'SPEED 4 ' 오른발 들기 
-	'MOVE G6A,112,  75, 146,  93, 103, 100
-	'MOVE G6D, 81,  52, 144, 105, 110, 100
-	'WAIT 
-	
-	SPEED 5
-	MOVE G6A, 113,  68, 145, 113, 103, 100
-	MOVE G6D, 97,  65, 121, 128, 105, 100
-
-	
-	'MOVE G6A,112,  73, 145, 113, 103, 100
-	'MOVE G6D, 89,  73, 139, 105, 110, 100
-	'WAIT
-	
-	SPEED 4
-    MOVE G6D,  94,  70, 152,  91, 106,100
-    MOVE G6A, 103,  70, 146,  93,  98,100
-    'MOVE G6D,  94,  75, 152,  91, 106,100		'		' 
+	SPEED 2 '오른발 내려놓기
+    MOVE G6D,  94,  73, 152,  91, 102,100
+    MOVE G6A, 103,  73, 146,  93,  98,100
     MOVE G6B, 100
     MOVE G6C, 100
     WAIT	
-	
-	
-	'SPEED 4
-	'MOVE G6D, 77,  74, 127, 117, 115, 100
-	'WAIT
-	
-    'SPEED 4
-    'GOSUB Leg_motor_mode3
-
-'    MOVE G6A,100,  76, 147, 93,  102
- '   MOVE G6D,86, 100, 145,  69, 108
-  '  WAIT
-
-
-    'SPEED 보행속도
-
-    'GOSUB 앞뒤기울기측정
-    'IF 넘어진확인 = 1 THEN
-     '   넘어진확인 = 0
-      '  GOTO MAIN
-    'ENDIF 
-    'GOTO 횟수전진_골프_2_stop
-
-
-'횟수전진_골프_2_stop:
-
-	'SPEED 6
-    'MOVE G6A,113,  77, 146,  93, 100,100 ' 왼발 각도, (왼다리)
-    'WAIT
-    'MOVE G6D,90, 100, 100, 115, 110, 100 ' 오른발좌우, 발앞뒤, 그 위모터
-    'SPEED 15
-    'MOVE G6B,110 ' 왼팔
-    'MOVE G6C,90 ' 오른팔
+    
+    'SPEED 2 
+    'MOVE G6A,110,  76, 147,  93, 96,100
+    'MOVE G6D,90, 90, 120, 105, 110,100
+    'MOVE G6B,110
+    'MOVE G6C,90
     'WAIT
 
-    'SPEED 6
-    'MOVE G6A, 103,  75, 146,  93,  98,100
-    'MOVE G6D,  94,  75, 152,  91, 106,100		'		' 
-   ' MOVE G6B, 100
-  '  MOVE G6C, 100
- '   WAIT	
-
-	'SPEED 15
-	'GOSUB 안정화자세
-    SPEED 1
+	
+    SPEED 2 ' 2
     GOSUB 기본자세2
 
     GOTO RX_EXIT
@@ -1564,6 +1514,7 @@ GOSUB_RX_EXIT2:
     MOTORMODE G6A,3,3,3,3,2
     MOTORMODE G6D,3,3,3,3,2
 
+	MUSIC "C"
     SPEED 5
     MOVE G6A,100,  86, 145,  83, 106, 100
     MOVE G6D,94,  66, 145, 103, 100, 100
@@ -1621,6 +1572,8 @@ GOSUB_RX_EXIT2:
     MOTORMODE G6A,3,3,3,3,2
     MOTORMODE G6D,3,3,3,3,2
     
+    
+    MUSIC "C"
     SPEED 5
     MOVE G6A,97,  66, 145,  103, 103, 100
     MOVE G6D,97,  86, 145,  83, 103, 100
@@ -1737,6 +1690,7 @@ GOSUB_RX_EXIT2:
     MOTORMODE G6A,3,3,3,3,2
     MOTORMODE G6D,3,3,3,3,2
 
+	MUSIC "C"
     SPEED 8
     MOVE G6A,95,  56, 145,  113, 105, 100
     MOVE G6D,95,  96, 145,  73, 105, 100
@@ -2014,7 +1968,7 @@ GOSUB_RX_EXIT2:
     MOTORMODE G6A,3,3,3,3,2
     MOTORMODE G6D,3,3,3,3,2
 
-
+	
     SPEED 15
     MOVE G6A,95,  116, 145,  53, 108, 100
     MOVE G6D,91,  36, 145,  133, 102, 100
@@ -2035,7 +1989,7 @@ GOSUB_RX_EXIT2:
     MOTORMODE G6A,3,3,3,3,2
     MOTORMODE G6D,3,3,3,3,2
 
-
+	
     SPEED 15
     MOVE G6A,95,  36, 145,  133, 105, 100
     MOVE G6D,95,  116, 145,  53, 105, 100
