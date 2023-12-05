@@ -32,7 +32,7 @@ class Act(Enum):
 class Controller:
     robo: Robo = Robo()
     #act: Act = Act.START  # 순서도 시작
-    act: Act = Act.SEARCH_FLAG
+    act: Act = Act.START
     # act: Act = Act.START가 시작 지점
 
     count_putting: int = 0  # 퍼팅 횟수
@@ -1284,6 +1284,12 @@ class Controller:
 
                 self.robo._motion.set_head("LEFTRIGHT_CENTER")
                 #self.robo._motion.set_head("UPDOWN_CENTER")
+                
+                # 퍼팅 지점으로 이동하고 나서, 공과의 거리가 너무 가까워서 로봇 발로 공을 치는 문제 발생 -> 아예 퍼팅 지점 이동 전 옆으로 이동
+                if shot_way == "L":
+                    self.robo._motion.walk_side("RIGHT", 3)
+                else:
+                    self.robo._motion.walk_side("LEFT", 3)
 
                 hit_dist = int(hit_dist)
                 will_goto_ball = hit_dist // 4
@@ -1292,8 +1298,8 @@ class Controller:
 
             time.sleep(0.1)
             
-            # +======================== 티샷 보정하는 부분(공이 가운데 올 때까지 로봇을 움직여 x,y 조절) ==============================================+
-            print("티샷 보정을 시작하겠습니다.")
+            # +======================== 퍼팅 보정하는 부분(공이 가운데 올 때까지 로봇을 움직여 x,y 조절) ==============================================+
+            print("퍼팅 보정을 시작하겠습니다.")
 
             ballycenter = BallyCenterMeasurer(img_width=640, img_height=480)
             ball_y_angle = ["N"]  # 공을 못 찾았을 때 반환하는 값
@@ -1304,7 +1310,7 @@ class Controller:
             self.robo._motion.set_head("LEFTRIGHT_CENTER")
             while correctAngle != 1:
 
-                # 퍼팅 위치까지 가고, 공 앞에서 돌아야할 각도만큼 돌았는데 공이 없을시, 공을 찾고 몸을 공과 일자로 맞추는 코드
+                # 퍼팅 위치까지 가고, 공이 가운데, 오른쪽, 왼쪽 중 어디에 있는지 확인해서 로봇을 옆으로(왼쪽, 오른쪽) 움직이는 모션
                 self.ball_feature_ball()
                 
                 # 이미 x축 기준으로 센터이므로, y축 기준으로 어디에 있는지 판별
