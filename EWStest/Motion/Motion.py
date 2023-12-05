@@ -265,7 +265,7 @@ class Motion:
             print("===========================")
             if self.x_head_angle < -90:
                 print("더 이상 갈 수 없음")
-                self.turn("LEFT",5)
+                self.turn("LEFT",3)
                 self.x_head_angle = 0
                 self.set_head("LEFTRIGHT_CENTER")
         elif dir == "RIGHT":
@@ -275,7 +275,7 @@ class Motion:
             print("===========================")
             if self.x_head_angle > 90:
                 print("더 이상 갈 수 없음")
-                self.turn("RIGHT",5)
+                self.turn("RIGHT",3)
                 self.x_head_angle = 0
                 self.set_head("LEFTRIGHT_CENTER")
 

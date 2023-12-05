@@ -1304,7 +1304,7 @@ class Controller:
                 # self.robo._motion.walk("FORWARD", will_goto_ball, 3.0)  # 퍼팅 지점까지 걸어가기
 
                 if cnt == 1:
-                    will_goto_ball = hit_dist // 2
+                    will_goto_ball = hit_dist // 5
                     print("퍼팅 지점까지 이동")
                     self.robo._motion.turn("RIGHT", 45, 2)
 
