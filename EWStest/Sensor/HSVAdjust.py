@@ -65,13 +65,16 @@ class MaskGenerator:
 
     def flag_generate_mask(hsv_frame):
         # 424 version
-        low_yellow = np.array([21, 56, 171])
-        high_yellow = np.array([97, 255, 255])
-        yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
+        # low_yellow = np.array([21, 56, 171])
+        # high_yellow = np.array([97, 255, 255])
+        # yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
         
         # 동방
         # low_yellow = np.array([0, 16, 144])
         # high_yellow = np.array([43, 184, 255])
+        low_yellow = np.array([23, 82, 121])
+        high_yellow = np.array([40, 200, 230])
+        yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
         
         return yellow_mask
       

@@ -50,6 +50,9 @@ class FlagyCenterMeasurer:
                 high_green = np.array([255, 255, 141])
                 green_mask = cv2.inRange(hsv_frame, low_green, high_green)
 
+                # 모폴로지 연산 추가
+                k = cv2.getStructuringElement(cv2.MORPH_RECT, (5,5))
+                cv2.morphologyEx(hsv_frame, cv2.MORPH_CLOSE, k)
 
                 # 녹색 영역의 윤곽선 찾기
                 contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -61,31 +64,10 @@ class FlagyCenterMeasurer:
                 # low_yellow = np.array([21, 56, 171])
                 # high_yellow = np.array([97, 255, 255])
                 # yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
-                low_yellow = np.array([0,105,151])
-                high_yellow = np.array([43,255,255])
+                
+                low_yellow = np.array([23, 82, 121])
+                high_yellow = np.array([40, 200, 230])
                 yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
-                lower9 = np.array( [26 , 52 , 151] )
-                upper9 = np.array( [50 , 100 , 255] )
-                yellow_mask += cv2.inRange(hsv_frame, lower9 , upper9 )
-
-                lower0 = np.array( [23 , 144 , 151] )
-                upper0 = np.array( [29 , 224 , 171] )
-                yellow_mask += cv2.inRange(hsv_frame, lower0 , upper0 )
-                lower4 = np.array([ 26 , 74 , 121 ])
-                upper4 = np.array([ 32 , 94 , 221 ])
-                yellow_mask += cv2.inRange(hsv_frame, lower4 , upper4 )
-                lower5 = np.array([ 39 , 72 , 118 ])
-                upper5 = np.array([ 45 , 92 , 218 ])
-                yellow_mask += cv2.inRange(hsv_frame, lower5 , upper5 )
-                lower6 = np.array([ 31 , 77 , 137 ])
-                upper6 = np.array([ 37 , 97 , 237 ])
-                yellow_mask += cv2.inRange(hsv_frame, lower6 , upper6 )
-                lower7 = np.array([ 36 , 67 , 189 ])
-                upper7 = np.array([ 42 , 87 , 255 ])
-                yellow_mask += cv2.inRange(hsv_frame, lower7 , upper7 )
-                lower8 = np.array([ 31 , 60 , 184 ])
-                upper8 = np.array([ 37 , 80 , 255 ])
-                yellow_mask += cv2.inRange(hsv_frame, lower8 , upper8 )
 
                 shape_info_list = []
 

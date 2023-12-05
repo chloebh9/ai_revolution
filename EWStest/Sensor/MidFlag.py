@@ -27,8 +27,11 @@ class ShapeRecognition:
             self.green_boxes = [cv2.boundingRect(contour) for contour in contours]
 
             # 노랑색 범위 정의
-            low_yellow = np.array([0, 16, 144])
-            high_yellow = np.array([43, 184, 255])
+            # low_yellow = np.array([0, 16, 144])
+            # high_yellow = np.array([43, 184, 255])
+            # yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
+            low_yellow = np.array([23, 82, 121])
+            high_yellow = np.array([40, 200, 230])
             yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
 
             for green_box in self.green_boxes:
