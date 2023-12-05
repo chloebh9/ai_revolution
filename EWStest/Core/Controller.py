@@ -344,6 +344,7 @@ class Controller:
 
                 else:
                     print("check_flag_distance 함수에서 원하는 Y angle이 안 들어왔습니다.")
+                    self.robo._motion.set_head("DOWN", 55)
 
             elif flag_x_angle[0] == "L" or flag_x_angle[0] == "R":
                 print("flag_x_angle: R or L이 들어왔습니다.")
