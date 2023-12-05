@@ -255,8 +255,8 @@ class Motion:
             print("===========================")
             if self.y_head_angle < 12:
                 print("더 이상 갈 수 없음")
-                self.y_head_angle = 90
-                self.set_head("UPDOWN_CENTER")
+                self.y_head_angle = 30
+                self.set_head("DOWN", 30)
                 self.walk("BACKWARD")
         elif dir == "LEFT":
             self.x_head_angle -= angle
