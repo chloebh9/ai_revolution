@@ -978,7 +978,7 @@ class Controller:
 
         ########################################################## # test
         if act == act.TEST:
-            self.robo._motion.turn("RIGHT",45, 2)
+            self.robo._motion.turn("LEFT",45, 2)
 
 
 
