@@ -1243,7 +1243,7 @@ class Controller:
                     shot_way = "R" # 공이 오른쪽에 있으니 오른쪽으로
                     print("show_way = R")
                 else:  # ball angle이 더 작으면 왼쪽
-                    real_angle = flag_angle - ball_angle  
+                    real_angle = ball_angle - flag_angle  
                     shot_way = "L" # 공이 왼쪽에 있으니 왼쪽으로
                     print("shot_wat = L")
 
