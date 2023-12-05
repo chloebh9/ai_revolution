@@ -302,21 +302,34 @@ class Motion:
         """ parameter :
         dir : {LEFT, RIGHT}
         """
-        if angle == 3: 
-            sleep = 0.5
-        elif angle == 10:
-            sleep = 1
-        elif angle == 20:
-            sleep = 3
-        elif angle == 45:
-            sleep = 6
-        elif angle == 60:
-            sleep = 0.5
 
         dir_list = {
             "LEFT": {3:79, 10: 80, 20: 81, 45: 82, 60: 83},
             "RIGHT": {3:85, 10: 86, 20: 87, 45: 88, 60: 89},
         }
+
+        if dir == "LEFT":
+            print("Motion: 왼쪽으로 ",end="")
+        else:
+            print("Motion: 오른쪽으로 ",end="")
+
+        if angle == 3: 
+            print("3도 회전")
+            sleep = 0.5
+        elif angle == 10:
+            print("10도 회전")
+            sleep = 1
+        elif angle == 20:
+            print("20도 회전")
+            sleep = 3
+        elif angle == 45:
+            print("45도 회전")
+            sleep = 6
+        elif angle == 60:
+            print("60도 회전")
+            sleep = 0.5
+
+
         for _ in range(loop):
             self.TX_data_py3(dir_list[dir][angle])
             time.sleep(sleep) # 이 타임 슬립 지우면 절대 안 돼
