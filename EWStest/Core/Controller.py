@@ -978,7 +978,8 @@ class Controller:
 
         ########################################################## # test
         if act == act.TEST:
-            self.robo._motion.walk_side("RIGHT", 6)            
+            self.robo._motion.walk_side("RIGHT", 6)
+            time.sleep(0.1)        
             print("--")
             print("3도")
             self.robo._motion.turn("LEFT", 3)
