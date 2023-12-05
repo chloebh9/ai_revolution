@@ -1284,6 +1284,11 @@ class Controller:
 
                 self.robo._motion.set_head("LEFTRIGHT_CENTER")
                 #self.robo._motion.set_head("UPDOWN_CENTER")
+                
+                if shot_way == "R":
+                    self.robo._motion.walk_side("RIGHT")
+                else:
+                    self.robo._motion.walk_side("LEFT")
 
                 hit_dist = int(hit_dist)
                 will_goto_ball = hit_dist // 4
