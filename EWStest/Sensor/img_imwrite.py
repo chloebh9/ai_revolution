@@ -4,7 +4,7 @@ import cv2  # OpenCV를 사용하기 위해 cv2 모듈을 가져오기.
 # 영상 파일을 캡처하기 위해 캡처할 영상파일 경로를 입려한 VideoCapture 객체를 생성합니다.
 capture = cv2.VideoCapture(0, cv2.CAP_V4L)
 # 녹화할 영상의 코덱을 설정하기 위해 fourcc 변수를 초기화합니다. 여기서는 XVID 코덱을 사용합니다.
-fourcc = cv2.VideoWriter_fourcc(*'mp4v') 
+fourcc = cv2.VideoWriter_fourcc(*'X264') 
 # 녹화 상태를 나타내는 변수로, 초기에는 False로 설정합니다.
 record = False
 
@@ -27,11 +27,11 @@ while True:
     # 키보드 입력이 확인되었습니다.
     if key == ord('q'):  # ESC
         break # 프로그램을 종료합니다.
-    elif key == 26:  # Ctrl+Z
+    elif key == ord('c'):  # capture
         print("캡쳐")
         # 프레임을 이미지로 캡처하고 (현재 날짜와 시간).png 형식의 이미지 파일로 저장합니다.
         cv2.imwrite("Video/" + str(now) + ".png", frame)
-    elif key == 24:  # Ctrl+X
+    elif key == ord('s'):  # start
         print("녹화 시작")
         # 영상 녹화를 시작합니다.
         # 'record' 변수에 True를 저장해서 녹화가 진행되도록 합니다.
@@ -41,8 +41,8 @@ while True:
         # 'fourcc' 변수에 설정한 코덱을 사용합니다. 7번 줄에서 설정했습니다.
         # 초당 프레임 수는 20.0입니다.
         # 마지막 매개변수는 녹화 영상의 너비와 높이로, 녹화할 영상의 너비와 높이를 사용합니다.
-        video = cv2.VideoWriter("Video/" + str(now) + ".mp4", fourcc, 20.0, (frame.shape[1], frame.shape[0]))
-    elif key == 3:  # Ctrl+C
+        video = cv2.VideoWriter("Video/" + str(now) + ".h264", fourcc, 20.0, (frame.shape[1], frame.shape[0]))
+    elif key == ord('e'):  # end
         print("녹화 중지")
         # 'record' 변수에 False를 저장하여 녹화가 중지되도록 합니다.
         record = False
