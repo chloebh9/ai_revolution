@@ -1285,6 +1285,7 @@ class Controller:
                 self.robo._motion.set_head("LEFTRIGHT_CENTER")
                 #self.robo._motion.set_head("UPDOWN_CENTER")
                 
+                # 퍼팅 지점으로 이동하고 나서, 공과의 거리가 너무 가까워서 로봇 발로 공을 치는 문제 발생 -> 아예 퍼팅 지점 이동 전 옆으로 이동
                 if shot_way == "R":
                     self.robo._motion.walk_side("RIGHT")
                 else:
