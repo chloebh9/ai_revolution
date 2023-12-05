@@ -252,6 +252,7 @@ class Controller:
             time.sleep(0.2)
             
             if find_flag[3] == False:
+                self.robo._motion.walk("BACKWARD")  # 깃발 못 찾으면 한 발자국 뒤로 가도록
                 continue
             
             # 로봇 머리 각도 저장
