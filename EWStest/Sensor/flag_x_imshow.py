@@ -61,6 +61,7 @@ class FlagxCenterMeasurer:
             
             hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
             
+            # 모폴로지 연산 추가
             k = cv2.getStructuringElement(cv2.MORPH_RECT, (5,5))
             cv2.morphologyEx(hsv_frame, cv2.MORPH_CLOSE, k)
 
@@ -90,6 +91,8 @@ class FlagxCenterMeasurer:
                 green_roi = frame[y:y+h, x:x+w]
                 yellow_roi_mask = yellow_mask[y:y+h, x:x+w]
                 yellow_contours, _ = cv2.findContours(yellow_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                #임시 추가
+                print("flag중점 값:",(x+y)/2)
 
                 flag_centers = []
 
