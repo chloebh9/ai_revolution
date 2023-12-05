@@ -60,6 +60,9 @@ class FlagxCenterMeasurer:
             farthest_flag_center = [0, 0] # 화면에 flag가 있으면 True, 없으면 False
             
             hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+            
+            k = cv2.getStructuringElement(cv2.MORPH_RECT, (5,5))
+            cv2.morphologyEx(hsv_frame, cv2.MORPH_CLOSE, k)
 
             low_green = np.array([35, 84, 0])
             high_green = np.array([255, 255, 141])
