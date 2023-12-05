@@ -978,16 +978,8 @@ class Controller:
 
         ########################################################## # test
         if act == act.TEST:
-            print("왼쪽")
-            self.robo._motion.turn("LEFT",45)
-            self.robo._motion.turn("LEFT",20)
-            self.robo._motion.turn("LEFT",20)
+            self.robo._motion.turn("RIGHT",45, 2)
 
-            time.sleep(5)
-            print("오른쪽")
-            self.robo._motion.turn("RIGHT",45)
-            self.robo._motion.turn("RIGHT",20)
-            self.robo._motion.turn("RIGHT",20)
 
 
             exit()
@@ -1314,13 +1306,11 @@ class Controller:
                 if cnt == 1:
                     will_goto_ball = hit_dist // 2
                     print("퍼팅 지점까지 이동")
-                    self.robo._motion.turn("LEFT",45)
-                    self.robo._motion.turn("LEFT",20)
-                    self.robo._motion.turn("LEFT",20)
+                    self.robo._motion.turn("LEFT", 45, 2)
 
                     self.robo._motion.walk_side("RIGHT", will_goto_ball) # 퍼팅 지점까지 옆으로 가기
 
-                    self.robo._motion.turn("RIGHT",45)
+                    self.robo._motion.turn("RIGHT",45, 2)
                     self.robo._motion.turn("RIGHT",20)
                     self.robo._motion.turn("RIGHT",20)
                     cnt += 1
