@@ -116,7 +116,7 @@ class Motion:
         self.TX_data_py3(100)
 
     # 걷기 (34, 35)
-    def walk(self, dir, loop=1, sleep=3.5, short=False):
+    def walk(self, dir, loop=1, sleep=3, short=False):
         """
         dir: {FORWARD, BACKWARD} - 로봇 이동 방향
         loop: 반복 횟수
