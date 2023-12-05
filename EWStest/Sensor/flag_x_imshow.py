@@ -61,6 +61,7 @@ class FlagxCenterMeasurer:
             
             hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
             
+            # 모폴로지 연산 추가
             k = cv2.getStructuringElement(cv2.MORPH_RECT, (5,5))
             cv2.morphologyEx(hsv_frame, cv2.MORPH_CLOSE, k)
 
