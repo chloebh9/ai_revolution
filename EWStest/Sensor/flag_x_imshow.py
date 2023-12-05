@@ -98,7 +98,9 @@ class FlagxCenterMeasurer:
             # upper8 = np.array([ 37 , 80 , 255 ])
             # yellow_mask += cv2.inRange(hsv_frame, lower8 , upper8 )
             
-
+            low_yellow = np.array([21, 56, 171])
+            high_yellow = np.array([97, 255, 255])
+            yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
             lower4 = np.array([ 30 , 107 , 100 ])
             upper4 = np.array([ 36 , 127 , 200 ])
             yellow_mask += cv2.inRange(hsv_frame, lower4 , upper4 )
