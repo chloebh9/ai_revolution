@@ -40,7 +40,7 @@ class FlagyCenterMeasurer:
             if not ret:
                 break
             
-            for i in range(30):
+            for i in range(10):
                 # 영상을 HSV 색 공간으로 변환
                 hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 

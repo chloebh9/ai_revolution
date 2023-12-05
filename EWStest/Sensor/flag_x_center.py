@@ -50,7 +50,7 @@ class FlagxCenterMeasurer:
 
     def run(self):
         cap = cv2.VideoCapture(0, cv2.CAP_V4L)
-        for i in range(30):
+        for i in range(10):
             while True:
                 ret, frame = cap.read()
                 if not ret:
