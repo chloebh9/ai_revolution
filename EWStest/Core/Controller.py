@@ -11,6 +11,7 @@ from Sensor.flag_x_center import FlagxCenterMeasurer  # 깃발이 가운데, 왼
 from Sensor.flag_y_center import FlagyCenterMeasurer  # 깃발이 가운데, 위, 아래 중 어디에 있는지 (C, U, D)
 from Sensor.HitPoint import HitPointer  # 타격지점 구하는 코드
 from Sensor.GoalDetection import GoalDetect # 홀인 했는지 확인하는 코드
+from Sensor.putting_flag_check import PuttingFlagxCenterMeasurer
 import time
 import copy
 from collections import Counter
@@ -691,28 +692,6 @@ class Controller:
             print("Turn Center")
             return
     ###################################################################################################
-    # 깃발 - 공 - 로봇 90도 만들기 위해서 확인하는거
-    @classmethod
-    def check_angle_fbr(self, way, TF):
-        shot_way = way
-        flag = TF 
-        if shot_way == "R":
-            self.robo._motion.set_head("LEFT", 90)
-            time.sleep(0.3)
-            
-
-        else:
-            self.robo._motion.set_head("RIGHT", 90)
-            time.sleep(0.3)
-
-        while flag != "C":
-            if flag == "R":
-                self.robo._motion.turn("RIGHT", 3)
-            if flag == "L":
-                self.robo._motion.turn("LEFT", 3)
-
-
-    ###################################################################################################
     # 로봇과 깃발을 일직선으로 만들 때, 들어온 앵글값에서 가장 가까운(최적의) 값을 찾아 턴 하는 함수
     @classmethod
     def find_best(self, target_angle):
@@ -1374,6 +1353,27 @@ class Controller:
 
                             if robot_ball_angle > (putting_angle - putting_angle_error) and robot_ball_angle < (putting_angle + putting_angle_error):
                                 print("보정완료")
+                                
+                                if shot_way == "R":
+                                    self.robo._motion.set_head("LEFT", 90)
+                                    time.sleep(0.3)
+                                    
+
+                                else:
+                                    self.robo._motion.set_head("RIGHT", 90)
+                                    time.sleep(0.3)
+
+                                check_angle_fbr = PuttingFlagxCenterMeasurer().run()
+
+                                while check_angle_fbr != "C":
+                                    check_angle_fbr = PuttingFlagxCenterMeasurer().run()
+                                    if check_angle_fbr == "R":
+                                        self.robo._motion.turn("RIGHT", 3)
+            
+                                    if check_angle_fbr == "L":
+                                        self.robo._motion.turn("LEFT", 3)
+
+
                                 break
 
                             elif robot_ball_angle < (putting_angle - putting_angle_error):
