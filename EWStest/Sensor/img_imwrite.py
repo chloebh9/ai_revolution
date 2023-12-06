@@ -42,7 +42,7 @@ fourcc = cv2.VideoWriter_fourcc(*'XVID')
 video_filename = "VIDEO/" + time.strftime('%Y-%m-%d_%H-%M-%S') + ".avi"
 out = cv2.VideoWriter(video_filename, fourcc, FPS, (W_View_size, H_View_size))
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0, cv2.CAP_V4L)
 cap.set(3, W_View_size)
 cap.set(4, H_View_size)
 cap.set(5, FPS)
