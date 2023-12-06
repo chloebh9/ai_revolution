@@ -124,7 +124,7 @@ class FlagyCenterMeasurer:
                             num_vertices = len(approx)
 
                             # Display the shape as ARROW or FLAG based on the number of vertices
-                            shape_text = 'FLAG'
+                            shape_text = "FLAG"
 
                             # Calculate the center of the yellow region
                             center_x = x + x_blob + w_blob // 2
