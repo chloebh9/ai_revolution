@@ -75,7 +75,7 @@ class Controller:
         C_left = self.C_left  # 로봇: C / 공: left
 
         #  .process():  공에 유무를 반환함 T/F
-        dir_list = [20, 30, 55, 65]  # 임의로 지정한 로봇 머리의 각도 값 (실제 경기장에서 다시 설정해야 할 수도..)
+        dir_list = [24, 43, 55, 67]  # 임의로 지정한 로봇 머리의 각도 값 (실제 경기장에서 다시 설정해야 할 수도..)
         dir = 3  # dir_list에서 90을 고를 수 있도록 설정하는 값
         cnt = 0  # 로봇이 어디에서 찾았는지 구분하는 변수
 
@@ -127,7 +127,7 @@ class Controller:
                     
             elif Tput_x_center == False:
                 print("가운데 가운데 X")
-                self.robo._motion.set_head("LEFT", 62)
+                self.robo._motion.set_head("LEFT", 54)
                 time.sleep(0.1)
                 find_ball = FindBall().process()
 
@@ -141,7 +141,7 @@ class Controller:
                         return
 
                 print("가운데 왼쪽 X")
-                self.robo._motion.set_head("RIGHT", 57)
+                self.robo._motion.set_head("RIGHT", 49)
                 time.sleep(0.1)
                 find_ball = FindBall().process()
                 print("공의 유무: ", find_ball)
