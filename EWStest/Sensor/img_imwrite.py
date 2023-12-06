@@ -29,7 +29,7 @@ print(" ---> OpenCV  " + opencv_version)
 
 W_View_size = 640
 H_View_size = 480
-FPS = 1
+FPS = 5
 
 print(" ---> View Size: " + str(W_View_size) + " x " + str(H_View_size))
 print(" ---> FPS: " + str(FPS))
