@@ -88,10 +88,13 @@ class MaskGenerator:
         # yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
         
         #대회장 version
-        low_yellow = np.array([23, 81, 121])
-        high_yellow = np.array([43, 223, 255])
-        yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
+        # low_yellow = np.array([23, 81, 121])
+        # high_yellow = np.array([43, 223, 255])
+        # yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
         
+        low_yellow = np.array([20, 49, 200])
+        high_yellow = np.array([42, 255, 255])
+        yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
         return yellow_mask
       
     def ground_generate_mask(hsv_frame):
