@@ -102,7 +102,7 @@ class BallyCenterMeasurer:
             # mask += cv2.inRange(hsv_img, lower1, upper1)
 
             # 동방
-            lower = np.array([149, 0, 0])
+            lower = np.array([149, 50, 0])
             upper = np.array([200, 255, 255])
             mask = cv2.inRange(hsv_img, lower, upper)
             lower1 = np.array([0, 0, 101])
