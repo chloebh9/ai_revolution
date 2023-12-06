@@ -18,6 +18,12 @@ class FindBall:
         cap = cv2.VideoCapture(0, cv2.CAP_V4L)
         # cv2.namedWindow('Object Dist Measure ', cv2.WINDOW_NORMAL)
         # cv2.resizeWindow('Object Dist Measure ', 700, 600)
+        W_View_size = 640
+        H_View_size = 480
+        FPS = 10
+        cap.set(3, W_View_size)
+        cap.set(4, H_View_size)
+        cap.set(5, FPS)
 
         while True:
             ret, img = cap.read()
