@@ -339,7 +339,7 @@ class Motion:
 
 
     # 옆으로 이동 (90, 91)
-    def walk_side(self, dir, loop=1, sleep=0.8):
+    def walk_side(self, dir, loop=1, sleep=0.8, long=False):
         """
         dir: {LEFT, RIGHT} - 이동 
         """
@@ -348,6 +348,9 @@ class Motion:
         dir : {LEFT, RIGHT}
         """
         dir_list = {"LEFT": 14, "RIGHT": 13}
+
+        if long == True:
+            dir_list[dir] += 103
 
         for _ in range(loop):
             self.TX_data_py3(dir_list[dir])
