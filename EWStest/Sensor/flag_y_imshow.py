@@ -43,9 +43,9 @@ class FlagyCenterMeasurer:
             return 'C'
         else:
             if r_dist < l_dist :
-                return 'D'
-            else:
                 return 'U'
+            else:
+                return 'D'
 
     def run(self):
         cap = cv2.VideoCapture(0, cv2.CAP_V4L)
