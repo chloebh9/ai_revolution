@@ -990,7 +990,7 @@ class Controller:
             time.sleep(0.5)
             
             # 티샷에서 공과 로봇의 위치를 찾는 함수(공과 로봇의 위치를 찾아서 L_right를 포함한 6개에 변수 중 하나를 1로 변경)
-            self.check_ball_first()
+            self.check_ball_first() # TeeShot에서 공 위치 체크 하는 부분
             time.sleep(0.1)
         
             if self.L_right == 1:  # 퍼팅 판단 return 받은걸로 모션
@@ -1144,14 +1144,20 @@ class Controller:
                             else:
                                 print("T샷 C_left 오류")
             time.sleep(0.1)
+            if self.L_left == 1 or self.C_left == 1:
+                self.robo._motion.turn("RIGHT", 45)
+            elif self.L_center == 1 or self.C_center == 1:
+                self.robo._motion.turn("RIGHT", 10)
+            elif self.L_left == 1 or self.C_right == 1:
+                self.robo._motion.turn("RIGHT", 3, 2)
+
             self.robo._motion.hit_the_ball("LEFT")
             # +================================== 여기까지 추가 ================================================+
             time.sleep(0.1)
-            self.robo._motion.turn("LEFT", 45, 3, 0.5)   # 티샷 끝나고 깃발 찾기 위해 턴
-            self.robo._motion.turn("LEFT",20)
+            self.robo._motion.turn("LEFT", 45, 2)   # 티샷 끝나고 공 찾기 위해 턴
             print("왼쪽으로 90도 회전")
 
-            self.act = act.SEARCH_FLAG
+            self.act = act.SEARCH_BALL
                 
 #############################################################################
         elif act == act.PROCESS_PA4:
@@ -1171,7 +1177,34 @@ class Controller:
             if flag_y > ball_y:
                 self.robo._motion.walk("FORWARD", robot_will_go//4, 3.0)
             
+        elif act == act.SEARCH_BALL:
+            print("Act:", act) # Debug
+
+            print("정면")
+            print("=============================")
+            self.robo._motion.set_head("DOWN", 90)
         
+            self.check_ball_distance()
+
+            ball_angle = self.robo._motion.x_head_angle
+            angle = abs(self.robo._motion.y_head_angle - 7.6)  # angle 값 수정
+            distball = DistMeasurer().display_distance(angle) # 공 거리값
+            print("ball distance: ", end="") 
+            print("공 거리", distball)
+
+            will_goto_ball = hit_dist // 5
+
+            self.robo._motion.walk_side("LEFT", 3)
+
+            print("퍼팅 지점까지 이동")
+            real_goto_ball = will_goto_ball // 4
+            self.robo._motion.turn("RIGHT", 45, 2)
+            for i in range(4):
+                self.robo._motion.walk_side("LEFT", real_goto_ball) # 퍼팅 지점까지 옆으로 가기
+                self.robo._motion.turn("LEFT", 3, 3)        
+
+            self.act = act.SEARCH_FLAG
+
         elif act == act.SEARCH_FLAG:
             print("Act:", act)  # Debug
             shot_way = "N" # 오류 방지를 위한 shot_way 정의 (shot_way가 N이면 아직 공을 찾지 않았다는 의미)
