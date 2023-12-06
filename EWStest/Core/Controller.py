@@ -157,7 +157,6 @@ class Controller:
 
             else:
                 print("티샷 부분에서 공을 어디서도 찾지 못했습니다.")
-                self.No = 1
                 return 
                         
     ###################################################################################################
@@ -994,17 +993,17 @@ class Controller:
             time.sleep(0.1)
 
             
+            if self.L_center == 0 or self.L_left == 0 or self.L_right == 0 or self.C_center ==0 or self.C_left == 0 or self.C_right == 0:
+                self.check_ball_distance()
 
-            self.check_ball_distance()
+                now_angle = self.robo._motion.y_head_angle    
 
-            now_angle = self.robo._motion.y_head_angle    
-
-            if now_angle > 69 and now_angle < 75:
-                self.L_right = 1
-            elif now_angle > 50 and now_angle < 63:
-                self.L_center = 1
-            elif now_angle < 49:
-                self.L_left = 1
+                if now_angle > 69 and now_angle < 75:
+                    self.L_right = 1
+                elif now_angle > 50 and now_angle < 63:
+                    self.L_center = 1
+                elif now_angle < 49:
+                    self.L_left = 1
 
 
         
