@@ -35,7 +35,7 @@ class FlagyCenterMeasurer:
     def judgeMiddle(self, max_y, min_y):
         
         l_dist = min_y
-        r_dist = self.img_width - max_y
+        r_dist = self.img_height - max_y
         error_range = 50
 
         is_Middle = abs(r_dist - l_dist) < error_range
