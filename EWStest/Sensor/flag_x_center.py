@@ -129,8 +129,8 @@ class FlagxCenterMeasurer:
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                     self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
                     have_flag = True
+                    break
                         
-                break
             #     cv2.imshow('프레임', frame)
             #     cv2.imshow("mask ", yellow_mask)
             #     if cv2.waitKey(1) & 0xFF == ord('q'):
