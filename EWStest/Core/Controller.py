@@ -32,7 +32,7 @@ class Act(Enum):
 class Controller:
     robo: Robo = Robo()
     #act: Act = Act.START  # 순서도 시작
-    act: Act = Act.START
+    act: Act = Act.SEARCH_FLAG
     # act: Act = Act.START가 시작 지점
 
     count_putting: int = 0  # 퍼팅 횟수
@@ -984,11 +984,11 @@ class Controller:
 #############################################################################
         elif act == act.SEARCH_FIRST:
             print("ACT: ", act)  # Debug
-            time.sleep(0.5)
+            # time.sleep(0.5)
             
             # 티샷에서 공과 로봇의 위치를 찾는 함수(공과 로봇의 위치를 찾아서 L_right를 포함한 6개에 변수 중 하나를 1로 변경)
-            self.check_ball_first()
-            time.sleep(0.1)
+            # self.check_ball_first()
+            # time.sleep(0.1)
         
             if self.L_right == 1:  # 퍼팅 판단 return 받은걸로 모션
                 print("로봇: 왼쪽, 공: 오른쪽")
