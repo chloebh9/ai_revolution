@@ -107,6 +107,7 @@ class FlagyCenterMeasurer:
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
                         max_x, min_x, max_y, min_y = self.getMaxMin(box)
+                        print(max_x, min_x, max_y, min_y)
                         cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
                         M = cv2.moments(cnt)
                         if M['m00'] != 0:
