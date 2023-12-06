@@ -111,6 +111,9 @@ class Controller:
                 print("왼쪽 위치에 있지 않거나, 문제가 있을 수 있습니다.")
                 print("로봇이 가운데 위치한다고 생각하고 시작하겠습니다.")
 
+
+        if Tput_y_center == True:
+            return
         # 로봇이 가운데 있다고 가정
         dir = 0
         self.robo._motion.set_head("DOWN", dir_list[dir])
@@ -157,7 +160,8 @@ class Controller:
 
             else:
                 print("티샷 부분에서 공을 어디서도 찾지 못했습니다.")
-                return 
+                return
+            
                         
     ###################################################################################################
     # 깃발이 있는지 찾는 코드
