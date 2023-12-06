@@ -111,6 +111,9 @@ class Controller:
                 print("왼쪽 위치에 있지 않거나, 문제가 있을 수 있습니다.")
                 print("로봇이 가운데 위치한다고 생각하고 시작하겠습니다.")
 
+
+        if Tput_y_center == True:
+            return
         # 로봇이 가운데 있다고 가정
         dir = 0
         self.robo._motion.set_head("DOWN", dir_list[dir])
@@ -157,8 +160,8 @@ class Controller:
 
             else:
                 print("티샷 부분에서 공을 어디서도 찾지 못했습니다.")
-                self.No = 1
-                return 
+                return
+            
                         
     ###################################################################################################
     # 깃발이 있는지 찾는 코드
@@ -352,7 +355,7 @@ class Controller:
 
                 else:
                     print("check_flag_distance 함수에서 원하는 Y angle이 안 들어왔습니다.")
-                    self.robo._motion.set_head("DOWN", 55)
+                    
 
             elif flag_x_angle[0] == "L" or flag_x_angle[0] == "R":
                 print("flag_x_angle: R or L이 들어왔습니다.")
@@ -994,17 +997,17 @@ class Controller:
             time.sleep(0.1)
 
             
+            if self.L_center == 0 or self.L_left == 0 or self.L_right == 0 or self.C_center ==0 or self.C_left == 0 or self.C_right == 0:
+                self.check_ball_distance()
 
-            self.check_ball_distance()
+                now_angle = self.robo._motion.y_head_angle    
 
-            now_angle = self.robo._motion.y_head_angle    
-
-            if now_angle > 69 and now_angle < 75:
-                self.L_right = 1
-            elif now_angle > 50 and now_angle < 63:
-                self.L_center = 1
-            elif now_angle < 49:
-                self.L_left = 1
+                if now_angle > 69 and now_angle < 75:
+                    self.L_right = 1
+                elif now_angle > 50 and now_angle < 63:
+                    self.L_center = 1
+                elif now_angle < 49:
+                    self.L_left = 1
 
 
         
@@ -1164,6 +1167,10 @@ class Controller:
             time.sleep(0.1)
             if self.L_left == 1:
                 self.robo._motion.turn("RIGHT",10)
+            elif self.L_center == 1:
+                self.robo._motion.turn("RIGHT", 3)
+            elif self.L_right == 1:
+                self.robo._motion.turn("LEFT", 10)
             self.robo._motion.hit_the_ball("LEFT")
             # +================================== 여기까지 추가 ================================================+
             time.sleep(0.1)
