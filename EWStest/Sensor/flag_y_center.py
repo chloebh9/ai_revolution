@@ -34,18 +34,16 @@ class FlagyCenterMeasurer:
 
     def judgeMiddle(self, max_y, min_y):
         
-        l_dist = min_y
-        r_dist = self.img_height - max_y
-        print(r_dist, l_dist)
+        middle_y = self.img_height // 2
+        flag_center_y = (max_y + min_y) // 2
         error_range = 20
-        is_Middle = abs(r_dist - l_dist) <= error_range
-
-        if is_Middle:
+        
+        if abs(flag_center_y - middle_y) <= error_range:
             return 'C'
         else:
-            if r_dist-l_dist<error_range:
+            if flag_center_y < middle_y:
                 return 'U'
-            elif r_dist-l_dist>error_range:
+            else:
                 return 'D'
 
     def run(self):
@@ -106,10 +104,8 @@ class FlagyCenterMeasurer:
                         rect = cv2.minAreaRect(cnt)
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
-                        max_x, min_x, temp_max_y, temp_min_y = self.getMaxMin(box)
+                        max_x, min_x, max_y, min_y = self.getMaxMin(box)
                         print(max_x, min_x, max_y, min_y)
-                        max_y = max(max_y, temp_max_y)  # 최대 y값 업데이트
-                        min_y = min(min_y, temp_min_y)  # 최소 y값 업데이트 
                         cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
                         M = cv2.moments(cnt)
                         if M['m00'] != 0:
@@ -141,7 +137,7 @@ class FlagyCenterMeasurer:
             # max_x, min_x, max_y, min_y = self.max_x, self.min_x, self.max_y, self.min_y
 
         if have_flag == True:
-            flag_y_isMiddle = self.judgeMiddle(max_y, max_y-10)
+            flag_y_isMiddle = self.judgeMiddle(max_y, m_y)
         else:
             flag_y_isMiddle = "N"
             
