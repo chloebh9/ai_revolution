@@ -85,6 +85,7 @@ class FlagyCenterMeasurer:
                 # yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
 
                 shape_info_list = []
+                is_y_middle = "N"
 
                 # print("이제 초록색 박스를 잡기 시작하겠습니다.")
                 for green_box in green_boxes:
@@ -179,7 +180,7 @@ class FlagyCenterMeasurer:
                 if farthest_center == -1:
                     continue
 
-                global is_y_middle 
+                # global is_y_middle 
                 is_y_middle = self.judgeMiddle(farthest_center, self.img_height)
                 break
 
