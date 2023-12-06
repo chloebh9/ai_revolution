@@ -96,11 +96,16 @@ class MaskGenerator:
       
     def ground_generate_mask(hsv_frame):
         # 424 version
-        low_green = np.array([35, 84, 0])
-        high_green = np.array([255, 255, 141])
-        green_mask = cv2.inRange(hsv_frame, low_green, high_green)
+        # low_green = np.array([35, 84, 0])
+        # high_green = np.array([255, 255, 141])
+        # green_mask = cv2.inRange(hsv_frame, low_green, high_green)
         
         # low_green = np.array([38, 100, 61])
         # high_green = np.array([86, 255, 255])
+        
+        # 대회장
+        low_green = np.array([35, 110, 114])
+        high_green = np.array([255, 255, 255])
+        green_mask = cv2.inRange(hsv_frame, low_green, high_green)
         
         return green_mask
