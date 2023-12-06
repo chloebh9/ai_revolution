@@ -996,9 +996,9 @@ class Controller:
 
             if now_angle > 69 and now_angle < 75:
                 self.L_right = 1
-            elif now_angle > 57 and now_angle < 63:
+            elif now_angle > 50 and now_angle < 63:
                 self.L_center = 1
-            elif now_angle < 45:
+            elif now_angle < 49:
                 self.L_left = 1
 
 
