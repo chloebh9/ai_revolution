@@ -94,11 +94,11 @@ class BallxCenterMeasurer:
             # lower1 = np.array([0, 0, 43])
             # upper1 = np.array([19, 183, 200])
             # 동방
-            lower = np.array([149, 50, 0])
+            lower = np.array([160, 50, 0])
             upper = np.array([200, 255, 255])
             mask = cv2.inRange(hsv_img, lower, upper)
-            lower1 = np.array([0, 0, 101])
-            upper1 = np.array([10, 91, 255])
+            lower1 = np.array([0, 77, 0])
+            upper1 = np.array([15, 172, 130])
             mask += cv2.inRange(hsv_img, lower1, upper1)
 
             # lower1 = np.array([0, 0, 43])
