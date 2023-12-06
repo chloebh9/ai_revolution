@@ -141,7 +141,7 @@ class FlagyCenterMeasurer:
             # max_x, min_x, max_y, min_y = self.max_x, self.min_x, self.max_y, self.min_y
 
         if have_flag == True:
-            flag_y_isMiddle = self.judgeMiddle(max_y, min_y)
+            flag_y_isMiddle = self.judgeMiddle(max_y, max_y-10)
         else:
             flag_y_isMiddle = "N"
             
