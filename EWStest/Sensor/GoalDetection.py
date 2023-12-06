@@ -108,18 +108,18 @@ class GoalDetect:
             
             # mask_flag = MaskGenerator.flag_generate_mask(hsv_img)
             
-            # low_yellow = np.array([21, 56, 138])
-            # high_yellow = np.array([97, 255, 255])
-            # mask_flag = cv2.inRange(hsv_img, low_yellow, high_yellow)
+            low_yellow = np.array([21, 56, 138])
+            high_yellow = np.array([97, 255, 255])
+            mask_flag = cv2.inRange(hsv_img, low_yellow, high_yellow)
 
-            # lower0 = np.array( [23 , 144 , 151] )
-            # upper0 = np.array( [29 , 224 , 171] )
-            # mask_flag += cv2.inRange(hsv_img, lower0 , upper0 )
+            lower0 = np.array( [23 , 144 , 151] )
+            upper0 = np.array( [29 , 224 , 171] )
+            mask_flag += cv2.inRange(hsv_img, lower0 , upper0 )
             
             #대회장 version
-            low_yellow = np.array([23, 81, 121])
-            high_yellow = np.array([43, 223, 255])
-            mask_flag = cv2.inRange(hsv_img, low_yellow, high_yellow)
+            # low_yellow = np.array([23, 81, 121])
+            # high_yellow = np.array([43, 223, 255])
+            # mask_flag = cv2.inRange(hsv_img, low_yellow, high_yellow)
 
 
             #Remove Extra garbage from image
