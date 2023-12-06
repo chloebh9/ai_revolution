@@ -12,12 +12,29 @@ class ColorTracker:
         self.frame = None
 
     def create_trackbars(self):
-        cv2.createTrackbar("LH", "Tracking", 0, 255, self.nothing)
-        cv2.createTrackbar("LS", "Tracking", 0, 255, self.nothing)
-        cv2.createTrackbar("LV", "Tracking", 0, 255, self.nothing)
-        cv2.createTrackbar("UH", "Tracking", 255, 255, self.nothing)
-        cv2.createTrackbar("US", "Tracking", 255, 255, self.nothing)
-        cv2.createTrackbar("UV", "Tracking", 255, 255, self.nothing)
+        # # 노랑 임시 색상
+        # cv2.createTrackbar("LH", "Tracking", 17, 255, self.nothing)
+        # cv2.createTrackbar("LS", "Tracking", 130, 255, self.nothing)
+        # cv2.createTrackbar("LV", "Tracking", 134, 255, self.nothing)                              
+        # cv2.createTrackbar("UH", "Tracking", 43, 255, self.nothing)
+        # cv2.createTrackbar("US", "Tracking", 255, 255, self.nothing)
+        # cv2.createTrackbar("UV", "Tracking", 255, 255, self.nothing)
+
+        # 녹색 임시 색상
+        # cv2.createTrackbar("LH", "Tracking", 62, 255, self.nothing)
+        # cv2.createTrackbar("LS", "Tracking", 66, 255, self.nothing)
+        # cv2.createTrackbar("LV", "Tracking", 100, 255, self.nothing)
+        # cv2.createTrackbar("UH", "Tracking", 135, 255, self.nothing)
+        # cv2.createTrackbar("US", "Tracking", 255, 255, self.nothing)
+        # cv2.createTrackbar("UV", "Tracking", 255, 255, self.nothing)
+
+        # 빨강 임시 색상
+        # cv2.createTrackbar("LH", "Tracking", 103, 255, self.nothing)
+        # cv2.createTrackbar("LS", "Tracking", 63, 255, self.nothing)
+        # cv2.createTrackbar("LV", "Tracking", 128, 255, self.nothing)
+        # cv2.createTrackbar("UH", "Tracking", 226, 255, self.nothing)
+        # cv2.createTrackbar("US", "Tracking", 255, 255, self.nothing)
+        # cv2.createTrackbar("UV", "Tracking", 255, 255, self.nothing)
 
     def nothing(self, x):
         pass
@@ -52,7 +69,7 @@ class ColorTracker:
             cv2.imshow("Result", self.frame)
             cv2.setMouseCallback("Result", self.mouse_callback)
 
-            key = cv2.waitKey(100)
+            key = cv2.waitKey(1000)
             if key == ord('a'):
                 self.paused = not self.paused
                 if self.paused:

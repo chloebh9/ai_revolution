@@ -2,201 +2,148 @@
 
 import numpy as np
 import cv2
-
+# flag_x_isMiddle: 깃발이 중앙에 있는지 판단 출력값은 'C', 'L', 'R'로 나뉘어 리턴.
+# farthest_flag_center[0]: 깃발 박스의 중점 x좌표,   farthest_flag_center[1]: 깃발 박스의 중점 y좌표
 class FlagyCenterMeasurer:
-    def __init__(self, img_width, img_height):
+    def __init__(self, video_path=0, img_width=640, img_height=480):
+        # self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
+        #if not self.cap.isOpened():
+            #raise ValueError(f"비디오 {video_path}를 열 수 없습니다.")
         self.img_width = img_width
         self.img_height = img_height
+        self.green_boxes = []
+        self.max_x = None
+        self.min_x = None
+        self.max_y = None
+        self.min_y = None
+        self.farthest_flag_boxes = []
 
-    def judgeMiddle(self, ball_center, img_height):
-        error_range = 20
-        img_height_middle = img_height//2
+    def getMaxMin(self, box):
+        # 공에 박스 쳤을 때 왼쪽, 오른쪽 꼭짓점 좌표를 나타내는 변수(일단 최솟값은 최댓값으로 설정, 최댓값은 최솟값으로 설정)
+        min_x, max_x = self.img_width, 0
+        # 공에 박스 쳤을 때 아래, 위 꼭짓점 좌표(위와 같음)
+        min_y, max_y = self.img_height, 0
 
-        is_Middle = img_height_middle - error_range < ball_center[1] < img_height_middle + error_range
+        for x, y in box:
+            min_x = min(min_x, x)
+            max_x = max(max_x, x)
+            min_y = min(min_y, y)
+            max_y = max(max_y, y)
+
+        return max_x, min_x, max_y, min_y
+
+    def judgeMiddle(self, max_y, min_y):
+        
+        l_dist = min_y
+        r_dist = self.img_width - max_y
+        error_range = 50
+
+        is_Middle = abs(r_dist - l_dist) < error_range
 
         if is_Middle:
             return 'C'
         else:
-            if ball_center[1] < img_height_middle:
-                return 'U'
-            else:
+            if r_dist > l_dist:
                 return 'D'
-            
+            else:
+                return 'U'
+
     def run(self):
-        your_area_threshold = 300  # 사용자 정의 임계값, 필요에 따라 값을 조정하세요
-
-        cap = cv2.VideoCapture(0,cv2.CAP_V4L)  # 비디오 파일 경로를 설정하세요
-        # print("flag_y 시작!!")
-
-        # 초록 영역 박스의 정보를 저장할 리스트
-        green_boxes = []
-        green_box=[]
-        farthest_flag_box = None
-        
-        farthest_center = -1
-
+        cap = cv2.VideoCapture(0, cv2.CAP_V4L)
+        W_View_size = 640
+        H_View_size = 480
+        FPS = 10
+        cap.set(3, W_View_size)
+        cap.set(4, H_View_size)
+        cap.set(5, FPS)
         while True:
             ret, frame = cap.read()
-            W_View_size = 640
-            H_View_size = 480
-            FPS = 10
-            cap.set(3, W_View_size)
-            cap.set(4, H_View_size)
-            cap.set(5, FPS)
             if not ret:
+                print("프레임 캡처에 실패했습니다.")
                 break
+                
+            have_flag = False # 화면에 flag가 있으면 True, 없으면 False
+            farthest_flag_center = [0, 0] # 화면에 flag가 있으면 True, 없으면 False
             
-            for i in range(10):
-                # 영상을 HSV 색 공간으로 변환
-                hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+            hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+            
+            # 모폴로지 연산 추가
+            k = cv2.getStructuringElement(cv2.MORPH_RECT, (5,5))
+            cv2.morphologyEx(hsv_frame, cv2.MORPH_CLOSE, k)
 
-                # 녹색 범위 정의
-                # green_mask = MaskGenerator.ground_generate_mask(hsv_frame)
-                # low_green = np.array([35, 84, 0])
-                # high_green = np.array([255, 255, 141])
-                # green_mask = cv2.inRange(hsv_frame, low_green, high_green)
-                # 대회장
-                low_green = np.array([35, 110, 114])
-                high_green = np.array([255, 255, 255])
-                green_mask = cv2.inRange(hsv_frame, low_green, high_green)
-                
-                # 모폴로지 연산 추가
-                k = cv2.getStructuringElement(cv2.MORPH_RECT, (5,5))
-                cv2.morphologyEx(hsv_frame, cv2.MORPH_CLOSE, k)
+            low_green = np.array([38, 102, 86])
+            high_green = np.array([84, 255, 255])
+            green_mask = cv2.inRange(hsv_frame, low_green, high_green)
 
+            contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            self.green_boxes = [cv2.boundingRect(contour) for contour in contours]
 
-                # 녹색 영역의 윤곽선 찾기
-                contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            # yellow_mask = MaskGenerator.flag_generate_mask(hsv_frame)
+            # low_yellow = np.array([21, 56, 171])
+            # high_yellow = np.array([97, 255, 255])
+            # yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
+            # lower9 = np.array( [26 , 52 , 151] )
+            # upper9 = np.array( [50 , 100 , 255] )
+            # yellow_mask += cv2.inRange(hsv_frame, lower9 , upper9 )
 
-                # 초록 영역 박스 정보 업데이트
-                green_boxes = [cv2.boundingRect(contour) for contour in contours]
+            low_yellow = np.array([20, 50, 180])
+            high_yellow = np.array([45, 180, 255])
+            yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
 
-                # yellow_mask = MaskGenerator.flag_generate_mask(hsv_frame)
-                # low_yellow = np.array([21, 56, 171])
-                # high_yellow = np.array([97, 255, 255])
-                # yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
-                low_yellow = np.array([20, 50, 180])
-                high_yellow = np.array([45, 180, 255])
-                yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
-                
-                #대회장 version
-                # low_yellow = np.array([23, 81, 121])
-                # high_yellow = np.array([43, 223, 255])
-                # yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
+            max_y, min_y = 0,0 # 깃발을 못 찾았을 때 오류나는 것을 방지하기 위해 바운딩 박스의 좌표를 0으로 초기화
 
-                shape_info_list = []
-                is_y_middle = "N"
+            for green_box in self.green_boxes:
+                x, y, w, h = green_box
+                green_roi = frame[y:y+h, x:x+w]
+                yellow_roi_mask = yellow_mask[y:y+h, x:x+w]
+                yellow_contours, _ = cv2.findContours(yellow_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-                # print("이제 초록색 박스를 잡기 시작하겠습니다.")
-                for green_box in green_boxes:
-                    x, y, w, h = green_box
-                    # print(len(green_boxes))
-                    yellow_roi = yellow_mask[y:y + h, x:x + w]
-                    # print(len(yellow_roi))
-                    # print("주의!")
+                flag_centers = []
 
-                    # 초록 상자 내부의 노랑색 영역 처리
-                    _, labels, stats, _ = cv2.connectedComponentsWithStats(yellow_roi, connectivity=4)
-                    # print("아니넹")
-                    for i in range(0, len(stats)):
-                        # print("여긴가?")
-                        x_blob, y_blob, w_blob, h_blob, area_blob = stats[i]
-                        # print("아니었고~")
+                for cnt in yellow_contours:
+                    area = cv2.contourArea(cnt)
+                    if area > 10:
+                        rect = cv2.minAreaRect(cnt)
+                        box = cv2.boxPoints(rect)
+                        box = np.int0(box)
+                        max_x, min_x, max_y, min_y = self.getMaxMin(box)
+                        cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
+                        M = cv2.moments(cnt)
+                        if M['m00'] != 0:
+                            cx = int(M['m10'] / M['m00'])
+                            cy = int(M['m01'] / M['m00'])
+                            cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                            flag_centers.append((cx, cy))
 
-                        # 영역값이 100픽셀 이하인 영역을 제거
-                        if area_blob <= 100:
-                            continue
-                        
-                        # print("초록색 영역안의 작은 노란색을 제거했어요!!")
-                        cv2.rectangle(frame, (x + x_blob, y + y_blob), (x + x_blob + w_blob, y + y_blob + h_blob), (0, 255, 0), 2)
-
-                        # Convert the yellow region into a binary image for contour detection
-                        yellow_binary = np.zeros_like(yellow_roi)
-                        yellow_binary[y_blob:y_blob + h_blob, x_blob:x_blob + w_blob] = yellow_roi[y_blob:y_blob + h_blob, x_blob:x_blob + w_blob]
-
-                        # Find contours in the binary image
-                        yellow_contours, _ = cv2.findContours(yellow_binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-                        # print("yellow_contour 시작!")
-                        for contour in yellow_contours:
-                            # Approximate the contour to find the vertices
-                            epsilon = 0.04 * cv2.arcLength(contour, True)
-                            approx = cv2.approxPolyDP(contour, epsilon, True)
-                            num_vertices = len(approx)
-
-                            # Display the shape as ARROW or FLAG based on the number of vertices
-                            shape_text = "ARROW" if 7 <= num_vertices <= 8 else "FLAG"
-
-                            # Calculate the center of the yellow region
-                            center_x = x + x_blob + w_blob // 2
-                            center_y = y + y_blob + h_blob // 2
-                            center = (center_x, center_y)
-
-                            # Add shape information to the list
-                            shape_info_list.append((center, shape_text))
-                #             print("노란색 컨투어 하나 확인!")
-                # print("화살표와 깃발 구분 완료")
-
-                # 사용자 정의 조건
-                custom_condition = True
-
-                if custom_condition:
-                    # FLAG로 인식된 박스의 개수가 2개 이상인 경우
-                    flag_boxes = [box for box in shape_info_list if box[1] == "FLAG"]
-                    if len(flag_boxes) >= 2:
-                        # 카메라 화면의 중하단 중앙 좌표
-                        camera_center = (frame.shape[1] // 2, frame.shape[0])
-
-                        # Find the farthest FLAG box among FLAG boxes
-                        max_distance = 0
-
-                        for box in flag_boxes:
-                            box_center = box[0]
-                            distance = ((box_center[0] - camera_center[0]) ** 2 + (box_center[1] - camera_center[1]) ** 2) ** 0.5
-
-                            if distance > max_distance:
-                                max_distance = distance
-                                farthest_flag_box = box
-
-                        # Change the rest of the FLAG boxes to ARROW
-                        for i, box in enumerate(shape_info_list):
-                            if box[1] == "FLAG" and box != farthest_flag_box:
-                                shape_info_list[i] = (box[0], "ARROW")
-
-                # Print the center coordinates
-                if farthest_flag_box is not None:
-                    farthest_center = farthest_flag_box[0]
-                    # print(f"Farthest FLAG Center: {farthest_center}")
-
-                # Display centers and shape information on the frame
-                for shape_info in shape_info_list:
-                    center, shape_text = shape_info[0], shape_info[1]
-                    offset = 10  # Offset to move the text upward
-                    if shape_text == "FLAG":
-                        cv2.putText(frame, f'Shape: {shape_text}', (center[0], center[1] - offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-                    else:
-                        cv2.putText(frame, f'Shape: {shape_text}', (center[0], center[1] + offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-
-                if farthest_center == -1:
-                    continue
-
-                # global is_y_middle 
-                is_y_middle = self.judgeMiddle(farthest_center, self.img_height)
+                if flag_centers:
+                    farthest_flag_center = min(flag_centers, key=lambda center: center[1])
+                    cv2.rectangle(green_roi, (farthest_flag_center[0] - 10, farthest_flag_center[1] - 10),
+                                  (farthest_flag_center[0] + 10, farthest_flag_center[1] + 10), (0, 0, 255), 2)
+                    cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
+                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                    self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
+                    have_flag = True
+                    
+            # break
+            cv2.imshow('프레임', frame)
+            cv2.imshow("mask ", yellow_mask)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
+        cv2.destroyAllWindows()
 
+        # if self.farthest_flag_boxes:
+        #     max_x, min_x, max_y, min_y = x+farthest_flag_center[0], x, y+farthest_flag_center[0], y
+            # max_x, min_x, max_y, min_y = self.max_x, self.min_x, self.max_y, self.min_y
+
+        if have_flag == True:
+            flag_y_isMiddle = self.judgeMiddle(max_y, min_y)
+        else:
+            flag_y_isMiddle = "N"
             
-            return is_y_middle
-        #     cv2.imshow('Green and Yellow Frame', frame)
-        #     print(farthest_center)
+        return [flag_y_isMiddle, farthest_flag_center[0], farthest_flag_center[1], have_flag]
 
-        #     key = cv2.waitKey(1) & 0xFF
-        #     if key == ord('q'):
-        #         break
-            
-
-        # cap.release()
-        # cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    shape_recognition = FlagyCenterMeasurer(img_width=640, img_height=480)
+    video_path = 0  # 웹캠을 사용하려면 0을 사용
+    shape_recognition = FlagxCenterMeasurer(video_path, img_width=640, img_height=480)
     print(shape_recognition.run())
