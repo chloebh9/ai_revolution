@@ -39,7 +39,7 @@ class FlagyCenterMeasurer:
             ret, frame = cap.read()
             W_View_size = 640
             H_View_size = 480
-            FPS = 5
+            FPS = 10
             cap.set(3, W_View_size)
             cap.set(4, H_View_size)
             cap.set(5, FPS)
