@@ -32,7 +32,7 @@ class Act(Enum):
 class Controller:
     robo: Robo = Robo()
     #act: Act = Act.START  # 순서도 시작
-    act: Act = Act.START
+    act: Act = Act.SEARCH_FLAG
     # act: Act = Act.START가 시작 지점
 
     count_putting: int = 0  # 퍼팅 횟수
@@ -73,6 +73,7 @@ class Controller:
         C_right = self.C_right  # 로봇: C / 공: right
         C_center = self.C_center  # 로봇: C / 공: center
         C_left = self.C_left  # 로봇: C / 공: left
+        NO = self.No
 
         #  .process():  공에 유무를 반환함 T/F
         dir_list = [25, 43, 55, 67]  # 임의로 지정한 로봇 머리의 각도 값 (실제 경기장에서 다시 설정해야 할 수도..)
@@ -156,6 +157,8 @@ class Controller:
 
             else:
                 print("티샷 부분에서 공을 어디서도 찾지 못했습니다.")
+                self.No = 1
+                return 
                         
     ###################################################################################################
     # 깃발이 있는지 찾는 코드
@@ -987,8 +990,10 @@ class Controller:
             # time.sleep(0.5)
             
             # 티샷에서 공과 로봇의 위치를 찾는 함수(공과 로봇의 위치를 찾아서 L_right를 포함한 6개에 변수 중 하나를 1로 변경)
-            # self.check_ball_first()
-            # time.sleep(0.1)
+            self.check_ball_first()
+            time.sleep(0.1)
+
+            
 
             self.check_ball_distance()
 
