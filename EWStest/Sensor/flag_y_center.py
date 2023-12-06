@@ -36,14 +36,14 @@ class FlagyCenterMeasurer:
         
         l_dist = min_y
         r_dist = self.img_height - max_y
-        error_range = 50
+        error_range = 100
         dist = (max_y+min_y)/2
         is_Middle = abs(r_dist - l_dist) < error_range
 
         if is_Middle:
             return 'C'
         else:
-            if dist > 0:
+            if (r_dist - l_dist) > error_range:
                 return 'D'
             else:
                 return 'U'
