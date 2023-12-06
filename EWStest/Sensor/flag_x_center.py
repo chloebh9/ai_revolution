@@ -68,8 +68,8 @@ class FlagxCenterMeasurer:
                 
                 hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-                low_green = np.array([35, 110, 114])
-                high_green = np.array([255, 255, 255])
+                low_green = np.array([35, 84, 0])
+                high_green = np.array([255, 255, 141])
                 green_mask = cv2.inRange(hsv_frame, low_green, high_green)
                 
                 # 모폴로지 연산 추가
