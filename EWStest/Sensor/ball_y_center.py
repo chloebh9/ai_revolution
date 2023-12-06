@@ -94,11 +94,19 @@ class BallyCenterMeasurer:
 
             # lower1 = np.array([0, 0, 43])
             # upper1 = np.array([19, 183, 200])
-            lower1 = np.array([0, 100, 50])
-            upper1 = np.array([10, 200, 200])
-            lower = np.array([167,135, 119])
-            upper = np.array([187, 255, 255])
+            # lower1 = np.array([0, 100, 50])
+            # upper1 = np.array([10, 200, 200])
+            # lower = np.array([167,135, 119])
+            # upper = np.array([187, 255, 255])
+            # mask = cv2.inRange(hsv_img, lower, upper)
+            # mask += cv2.inRange(hsv_img, lower1, upper1)
+
+            # 동방
+            lower = np.array([149, 0, 0])
+            upper = np.array([200, 255, 255])
             mask = cv2.inRange(hsv_img, lower, upper)
+            lower1 = np.array([0, 0, 101])
+            upper1 = np.array([10, 91, 255])
             mask += cv2.inRange(hsv_img, lower1, upper1)
             
             # 대회장

@@ -33,16 +33,25 @@ class FindBall:
         #     upper = np.array([187, 255, 255])
         #     mask = cv2.inRange(hsv_img, lower, upper)
         #     mask += cv2.inRange(hsv_img, lower1, upper1)
-            # 대회장 version
-            lower1 = np.array([0, 0, 43])
-            upper1 = np.array([19, 183, 200])
-            lower = np.array([161, 81, 109])
-            upper = np.array([181, 196, 235])
-            lower2 = np.array([10, 80, 43])
-            upper2 = np.array([28, 160, 255])
+
+            # 동방
+            lower = np.array([149, 0, 0])
+            upper = np.array([200, 255, 255])
             mask = cv2.inRange(hsv_img, lower, upper)
+            lower1 = np.array([0, 0, 101])
+            upper1 = np.array([10, 91, 255])
             mask += cv2.inRange(hsv_img, lower1, upper1)
-            mask += cv2.inRange(hsv_img, lower2, upper2)
+            
+            # 대회장 version
+            # lower1 = np.array([0, 0, 43])
+            # upper1 = np.array([19, 183, 200])
+            # lower = np.array([161, 81, 109])
+            # upper = np.array([181, 196, 235])
+            # lower2 = np.array([10, 80, 43])
+            # upper2 = np.array([28, 160, 255])
+            # mask = cv2.inRange(hsv_img, lower, upper)
+            # mask += cv2.inRange(hsv_img, lower1, upper1)
+            # mask += cv2.inRange(hsv_img, lower2, upper2)
 
             # 모폴로지 연산
             # d_img = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, self.kernel, iterations=5)
