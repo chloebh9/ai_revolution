@@ -287,7 +287,7 @@ class Motion:
         }
 
         self.TX_data_py3(dir_list[dir][angle])
-        # time.sleep(0.3)
+        time.sleep(0.05)
 
 
     # 돌기 (78~89)
