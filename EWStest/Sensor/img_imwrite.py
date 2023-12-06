@@ -86,7 +86,7 @@ while True:
         recording = True
         frame_count = 0
         start_recording_time = time.time()
-        video_filename = "VIDEO/" + time.strftime('%Y-%m-%d_%H-%M-%S') + ".avi"
+        video_filename = "Video/" + time.strftime('%Y-%m-%d_%H-%M-%S') + ".avi"
         out = cv2.VideoWriter(video_filename, fourcc, FPS, (W_View_size, H_View_size))
         print("녹화 시작...")
     elif key == ord('s') and recording:

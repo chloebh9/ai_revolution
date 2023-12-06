@@ -37,6 +37,12 @@ class FlagyCenterMeasurer:
 
         while True:
             ret, frame = cap.read()
+            W_View_size = 640
+            H_View_size = 480
+            FPS = 5
+            cap.set(3, W_View_size)
+            cap.set(4, H_View_size)
+            cap.set(5, FPS)
             if not ret:
                 break
             
