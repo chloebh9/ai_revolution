@@ -71,8 +71,8 @@ class FlagyCenterMeasurer:
                 # high_yellow = np.array([97, 255, 255])
                 # yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
                 
-                low_yellow = np.array([20, 49, 200])
-                high_yellow = np.array([42, 255, 255])
+                low_yellow = np.array([20, 50, 180])
+                high_yellow = np.array([45, 180, 255])
                 yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
                 
                 #대회장 version
