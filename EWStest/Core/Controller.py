@@ -992,7 +992,7 @@ class Controller:
 
             self.check_ball_distance()
 
-            now_angle = self.robo._motion.x_head_angle    
+            now_angle = self.robo._motion.y_head_angle    
 
             if now_angle > 69 and now_angle < 75:
                 self.L_right = 1
