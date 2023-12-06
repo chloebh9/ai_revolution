@@ -990,7 +990,7 @@ class Controller:
             # self.check_ball_first()
             # time.sleep(0.1)
 
-            self.ball_feature_ball()
+            self.check_ball_distance()
 
             now_angle = self.robo._motion.x_head_angle    
 
