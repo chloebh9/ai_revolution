@@ -335,13 +335,11 @@ class Controller:
 
                         if flag_y_angle[0] == "U":  # 판단 내용 판단
                             self.robo._motion.set_head_small("UP", recent_will_angle)
-                            time.sleep(0.1)
                             tmp = self.robo._motion.y_head_angle
                             lst_UD.append(tmp)
 
                         if flag_y_angle[0] == "D":  # 판단 내용 판단
                             self.robo._motion.set_head_small("DOWN", recent_will_angle)
-                            time.sleep(0.1)
                             tmp = self.robo._motion.y_head_angle
                             lst_UD.append(tmp)
 
@@ -384,12 +382,10 @@ class Controller:
 
                     if flag_x_angle[0] == "L":
                         self.robo._motion.set_head_small("LEFT", recent_will_angle)
-                        time.sleep(0.1)
                         tmp = self.robo._motion.x_head_angle
                         lst_LR.append(tmp)
                     if flag_x_angle[0] == "R":
                         self.robo._motion.set_head_small("RIGHT", recent_will_angle)
-                        time.sleep(0.1)
                         tmp = self.robo._motion.x_head_angle
                         lst_LR.append(tmp)
             else:
@@ -548,13 +544,11 @@ class Controller:
 
                         if ball_y_angle[0] == "U":
                             self.robo._motion.set_head_small("UP", recent_will_angle)
-                            time.sleep(0.1)
                             tmp = self.robo._motion.y_head_angle
                             lst_UD.append(tmp)
 
                         if ball_y_angle[0] == "D":
                             self.robo._motion.set_head_small("DOWN", recent_will_angle)
-                            time.sleep(0.1)
                             tmp = self.robo._motion.y_head_angle
                             lst_UD.append(tmp)
 
@@ -620,13 +614,11 @@ class Controller:
 
                     if ball_x_angle[0] == "L":
                         self.robo._motion.set_head_small("LEFT", recent_will_angle)
-                        time.sleep(0.1)
                         tmp = self.robo._motion.x_head_angle
                         lst_LR.append(tmp)
                         
                     elif ball_x_angle[0] == "R":
                         self.robo._motion.set_head_small("RIGHT", recent_will_angle)
-                        time.sleep(0.1)
                         tmp = self.robo._motion.x_head_angle
                         lst_LR.append(tmp)
                         
@@ -734,12 +726,10 @@ class Controller:
         while ball_x_angle[0] != "C":
             if ball_x_angle[0] == "L" or ball_x_angle[0] == "R":
                 if ball_x_angle[0] == "L":
-                    self.robo._motion.set_head_small("LEFT", 1)
-                    time.sleep(0.1)
+                    self.robo._motion.set_head_small("LEFT", 2)
 
                 if ball_x_angle[0] == "R":
-                    self.robo._motion.set_head_small("RIGHT", 1)
-                    time.sleep(0.1)
+                    self.robo._motion.set_head_small("RIGHT", 2)
 
         # 현재 머리 각도가 플러스면 오른쪽으로 턴해야 함
         while self.robo._motion.x_head_angle > 0:
@@ -1120,11 +1110,9 @@ class Controller:
 
                         if ball_y_angle[0] == "U":
                             self.robo._motion.set_head_small("UP", recent_will_angle)
-                            time.sleep(0.1)
 
                         elif ball_y_angle[0] == "D":
                             self.robo._motion.set_head_small("DOWN", recent_will_angle)
-                            time.sleep(0.1)
                         
                         elif ball_y_angle[0] == "C":
                             correctAngle = 1
@@ -1360,11 +1348,9 @@ class Controller:
 
                         if ball_y_angle[0] == "U":
                             self.robo._motion.set_head_small("UP", recent_will_angle)
-                            time.sleep(0.1)
 
                         elif ball_y_angle[0] == "D":
                             self.robo._motion.set_head_small("DOWN", recent_will_angle)
-                            time.sleep(0.1)
                         
                         elif ball_y_angle[0] == "C":
                             correctAngle = 1
