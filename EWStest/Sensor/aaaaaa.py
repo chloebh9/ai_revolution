@@ -3,8 +3,10 @@ import numpy as np
 
 class ColorTracker:
     def __init__(self):
-        self.cap = cv2.VideoCapture("C:/Users/eowkd/OneDrive/Desktop/ai_revolution/EWStest/Sensor/VIDEO/2023-12-06_14-12-57.avi")
-        cv2.namedWindow("Tracking")
+        self.cap = cv2.VideoCapture("C:/Users/eowkd/OneDrive/Desktop/ai_revolution/EWStest/Sensor/VIDEO/2.avi")
+        cv2.namedWindow("Tracking", cv2.WINDOW_NORMAL)  # 트랙바 창 크기를 조절 가능하게 설정
+        cv2.resizeWindow("Tracking", 400, 200)  # 창의 초기 크기를 설정
+
         self.create_trackbars()
         self.paused = False
         self.frame = None
