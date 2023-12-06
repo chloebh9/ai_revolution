@@ -3,7 +3,7 @@ import numpy as np
 
 class ColorTracker:
     def __init__(self):
-        self.cap = cv2.VideoCapture(0, cv2.CAP_V4L)
+        self.cap = cv2.VideoCapture('./VIDEO/testing.avi')
         cv2.namedWindow("Tracking")
         self.create_trackbars()
 
@@ -33,7 +33,9 @@ class ColorTracker:
         self.mouse_x, self.mouse_y = 0, 0
 
         while True:
-            _, frame = self.cap.read()
+            ret, frame = self.cap.read()
+            if not ret:
+                break
             self.hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
             l_b, u_b = self.get_trackbar_values()
             mask = cv2.inRange(self.hsv, l_b, u_b)
