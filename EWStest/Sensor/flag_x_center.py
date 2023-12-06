@@ -68,8 +68,8 @@ class FlagxCenterMeasurer:
                 
                 hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-                low_green = np.array([35, 84, 0])
-                high_green = np.array([255, 255, 141])
+                low_green = np.array([35, 110, 114])
+                high_green = np.array([255, 255, 255])
                 green_mask = cv2.inRange(hsv_frame, low_green, high_green)
                 
                 # 모폴로지 연산 추가
@@ -131,7 +131,7 @@ class FlagxCenterMeasurer:
                         self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
                         have_flag = True
 
-                    print([flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1], have_flag])
+                        print([flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1], have_flag])
                         
                 break
             #     cv2.imshow('프레임', frame)
