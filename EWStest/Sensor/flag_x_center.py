@@ -56,7 +56,7 @@ class FlagxCenterMeasurer:
         cap.set(3, W_View_size)
         cap.set(4, H_View_size)
         cap.set(5, FPS)
-        for i in range(10):
+        for i in range(20):
             while True:
                 ret, frame = cap.read()
                 if not ret:
@@ -93,9 +93,9 @@ class FlagxCenterMeasurer:
                 yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
                 
                 #대회장 version
-                low_yellow = np.array([23, 81, 121])
-                high_yellow = np.array([43, 223, 255])
-                yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
+                # low_yellow = np.array([23, 81, 121])
+                # high_yellow = np.array([43, 223, 255])
+                # yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
 
                 max_x, min_x = 0,0 # 깃발을 못 찾았을 때 오류나는 것을 방지하기 위해 바운딩 박스의 좌표를 0으로 초기화
 
