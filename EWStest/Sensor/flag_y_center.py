@@ -123,6 +123,7 @@ class FlagyCenterMeasurer:
                     print(farthest_flag_center[1])
                     cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                    print(y+farthest_flag_center[1])
                     self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
                     have_flag = True
                     
