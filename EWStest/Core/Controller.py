@@ -1388,14 +1388,14 @@ class Controller:
                                 if shot_way == "R":
                                     self.robo._motion.set_head("DOWN", 45)
                                     time.sleep(0.1)
-                                    self.robo._motion.set_head("LEFT", 90)
+                                    self.robo._motion.set_head("LEFT", 75)
                                     time.sleep(0.3)
                                     
 
                                 else:
                                     self.robo._motion.set_head("DOWN", 45)
                                     time.sleep(0.1)
-                                    self.robo._motion.set_head("RIGHT", 90)
+                                    self.robo._motion.set_head("RIGHT", 75)
                                     time.sleep(0.3)
 
                                 check_angle_fbr = PuttingFlagxCenterMeasurer().run()
@@ -1461,12 +1461,12 @@ class Controller:
 
             if shot_way == 'R':
 
-                self.robo._motion.turn("LEFT", 45, 2)   # 티샷 끝나고 깃발 찾기 위해 턴
+                self.robo._motion.turn("LEFT", 45, 2)   # 퍼팅 끝나고 깃발 찾기 위해 턴
                 print("왼쪽으로 90도")
 
 
             else:
-                self.robo._motion.turn("RIGHT", 45, 2)   # 티샷 끝나고 깃발 찾기 위해 턴
+                self.robo._motion.turn("RIGHT", 45, 2)   # 퍼팅 끝나고 깃발 찾기 위해 턴
                 print("오른쪽으로 90도")
 
                 
@@ -1483,7 +1483,7 @@ class Controller:
             #     angle = abs(self.robo._motion.y_head_angle - 8.6)  # angle 값 수정
             
             distflag = DistMeasurer().display_distance(self.check_angle) # 깃발 거리값
-            check_flag_goto = distflag // 4
+            check_flag_goto = distflag // 5
             check_flag_goto = int(check_flag_goto)
             self.robo._motion.walk("FORWARD", check_flag_goto)  # 퍼팅 지점까지 걸어가기
                                 
