@@ -56,7 +56,7 @@ class FlagxCenterMeasurer:
         cap.set(3, W_View_size)
         cap.set(4, H_View_size)
         cap.set(5, FPS)
-        for i in range(10):
+        for i in range(20):
             while True:
                 ret, frame = cap.read()
                 if not ret:
