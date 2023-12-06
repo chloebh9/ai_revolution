@@ -73,7 +73,7 @@ class Controller:
         C_right = self.C_right  # 로봇: C / 공: right
         C_center = self.C_center  # 로봇: C / 공: center
         C_left = self.C_left  # 로봇: C / 공: left
-        NO = self.No
+
 
         #  .process():  공에 유무를 반환함 T/F
         dir_list = [25, 43, 55, 67]  # 임의로 지정한 로봇 머리의 각도 값 (실제 경기장에서 다시 설정해야 할 수도..)
