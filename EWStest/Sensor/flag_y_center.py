@@ -43,7 +43,7 @@ class FlagyCenterMeasurer:
         if is_Middle:
             return 'C'
         else:
-            if r_dist > l_dist:
+            if r_dist > 0:
                 return 'D'
             else:
                 return 'U'
