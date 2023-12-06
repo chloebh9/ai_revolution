@@ -43,7 +43,7 @@ class FlagyCenterMeasurer:
         if is_Middle:
             return 'C'
         else:
-            if (r_dist - l_dist) > error_range:
+            if r_dist<l_dist:
                 return 'D'
             else:
                 return 'U'
@@ -124,12 +124,12 @@ class FlagyCenterMeasurer:
                     self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
                     have_flag = True
                     
-        #     break
-        # #     cv2.imshow('프레임', frame)
-        # #     cv2.imshow("mask ", yellow_mask)
-        # #     if cv2.waitKey(1) & 0xFF == ord('q'):
-        # #         break
-        # # cv2.destroyAllWindows()
+            break
+        #     cv2.imshow('프레임', frame)
+        #     cv2.imshow("mask ", yellow_mask)
+        #     if cv2.waitKey(1) & 0xFF == ord('q'):
+        #         break
+        # cv2.destroyAllWindows()
 
         # if self.farthest_flag_boxes:
         #     max_x, min_x, max_y, min_y = x+farthest_flag_center[0], x, y+farthest_flag_center[0], y
@@ -140,7 +140,7 @@ class FlagyCenterMeasurer:
         else:
             flag_y_isMiddle = "N"
             
-        # return [flag_y_isMiddle, farthest_flag_center[0], farthest_flag_center[1], have_flag]
+        return [flag_y_isMiddle, farthest_flag_center[0], farthest_flag_center[1], have_flag]
 
 
 if __name__ == "__main__":
