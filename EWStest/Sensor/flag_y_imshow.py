@@ -52,8 +52,8 @@ class FlagyCenterMeasurer:
 
                 # 녹색 범위 정의
                 # green_mask = MaskGenerator.ground_generate_mask(hsv_frame)
-                low_green = np.array([35, 84, 0])
-                high_green = np.array([255, 255, 141])
+                low_green = np.array([38, 102, 86])
+                high_green = np.array([84, 255, 255])
                 green_mask = cv2.inRange(hsv_frame, low_green, high_green)
 
                 # 모폴로지 연산 추가
@@ -71,8 +71,8 @@ class FlagyCenterMeasurer:
                 # high_yellow = np.array([97, 255, 255])
                 # yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
                 
-                low_yellow = np.array([23, 82, 121])
-                high_yellow = np.array([40, 200, 230])
+                low_yellow = np.array([20, 49, 200])
+                high_yellow = np.array([42, 255, 255])
                 yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
                 
                 #대회장 version

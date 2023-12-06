@@ -71,8 +71,8 @@ class FlagxCenterMeasurer:
             k = cv2.getStructuringElement(cv2.MORPH_RECT, (5,5))
             cv2.morphologyEx(hsv_frame, cv2.MORPH_CLOSE, k)
 
-            low_green = np.array([35, 84, 0])
-            high_green = np.array([255, 255, 141])
+            low_green = np.array([38, 102, 86])
+            high_green = np.array([84, 255, 255])
             green_mask = cv2.inRange(hsv_frame, low_green, high_green)
 
             contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
