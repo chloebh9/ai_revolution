@@ -83,8 +83,13 @@ class MaskGenerator:
         # 동방
         # low_yellow = np.array([0, 16, 144])
         # high_yellow = np.array([43, 184, 255])
-        low_yellow = np.array([23, 82, 121])
-        high_yellow = np.array([40, 200, 230])
+        # low_yellow = np.array([23, 82, 121])
+        # high_yellow = np.array([40, 200, 230])
+        # yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
+        
+        #대회장 version
+        low_yellow = np.array([23, 81, 121])
+        high_yellow = np.array([43, 223, 255])
         yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
         
         return yellow_mask
