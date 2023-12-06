@@ -104,7 +104,7 @@ class FlagyCenterMeasurer:
                         # print("아니었고~")
 
                         # 영역값이 100픽셀 이하인 영역을 제거
-                        if area_blob <= 100:
+                        if area_blob <= 10:
                             continue
                         
                         # print("초록색 영역안의 작은 노란색을 제거했어요!!")
@@ -125,7 +125,7 @@ class FlagyCenterMeasurer:
                             num_vertices = len(approx)
 
                             # Display the shape as ARROW or FLAG based on the number of vertices
-                            shape_text = "ARROW" if 7 <= num_vertices <= 8 else "FLAG"
+                            shape_text = 'FLAG'
 
                             # Calculate the center of the yellow region
                             center_x = x + x_blob + w_blob // 2
