@@ -204,14 +204,14 @@ class Controller:
                 self.robo._motion.set_head("RIGHT", right_left[x_dir])
                 
                 # 깃발이 고개 끝보다 더 오른쪽에 있을 때, 한 발자국 뒤로 감
-                if right_left[-1] == right_left[x_dir]:
-                    flag_is_where = FlagxCenterMeasurer(img_width=640, img_height=480).run()
-                    if flag_is_where[0] == "R":
-                        self.robo._motion.walk("BACKWARD")
-                        print("flag_is_where[0]: ", flag_is_where[0])
-                        print("깃발이 시야보다 더 오른쪽에 있어 한 발자국 뒤로 감")
-                        self.flag_stop = True
-                        return
+                # if right_left[-1] == right_left[x_dir]:
+                #     flag_is_where = FlagxCenterMeasurer(img_width=640, img_height=480).run()
+                #     if flag_is_where[0] == "R":
+                #         self.robo._motion.walk("BACKWARD")
+                #         print("flag_is_where[0]: ", flag_is_where[0])
+                #         print("깃발이 시야보다 더 오른쪽에 있어 한 발자국 뒤로 감")
+                #         self.flag_stop = True
+                #         return
                 
                 print("Debug: ", right_left[x_dir])
                 print("=============================")
@@ -237,14 +237,14 @@ class Controller:
                 self.robo._motion.set_head("LEFT", right_left[x_dir])
                 
                 # 깃발이 고개 끝보다 더 왼쪽에 있을 때, 한 발자국 뒤로 감
-                if right_left[-1] == right_left[x_dir]:
-                    flag_is_where = FlagxCenterMeasurer(img_width=640, img_height=480).run()
-                    if flag_is_where[0] == "L":
-                        self.robo._motion.walk("BACKWARD")
-                        print("flag_is_where[0]: ", flag_is_where[0])
-                        print("깃발이 시야보다 더 왼쪽에 있어 한 발자국 뒤로 감")
-                        self.flag_stop = True
-                        return
+                # if right_left[-1] == right_left[x_dir]:
+                #     flag_is_where = FlagxCenterMeasurer(img_width=640, img_height=480).run()
+                #     if flag_is_where[0] == "L":
+                #         self.robo._motion.walk("BACKWARD")
+                #         print("flag_is_where[0]: ", flag_is_where[0])
+                #         print("깃발이 시야보다 더 왼쪽에 있어 한 발자국 뒤로 감")
+                #         self.flag_stop = True
+                #         return
                 
                 print("Debug: ", right_left[x_dir])
                 print("=============================")
