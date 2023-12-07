@@ -977,6 +977,7 @@ class Controller:
         if act == act.TEST:
             self.robo._motion.turn("LEFT", 45)
             self.robo._motion.turn("LEFT", 20, 2)
+            self.robo._motion.turn("LEFT", 10)
 
             time.sleep(2)
 
