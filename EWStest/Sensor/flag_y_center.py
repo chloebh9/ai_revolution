@@ -139,6 +139,8 @@ class FlagyCenterMeasurer:
             # Print the center coordinates
             if farthest_flag_box is not None:
                 farthest_center = farthest_flag_box[0]
+                is_y_middle = self.judgeMiddle(farthest_center, self.img_height)
+                return is_y_middle
                 # print(f"Farthest FLAG Center: {farthest_center}")
 
             # Display centers and shape information on the frame
@@ -150,10 +152,7 @@ class FlagyCenterMeasurer:
                 else:
                     cv2.putText(frame, f'Shape: {shape_text}', (center[0], center[1] + offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
-                is_y_middle = self.judgeMiddle(farthest_center, self.img_height)
-
             
-            return is_y_middle
         #     cv2.imshow('Green and Yellow Frame', frame)
         #     print(is_y_middle)
 
