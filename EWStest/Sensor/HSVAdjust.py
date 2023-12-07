@@ -34,15 +34,12 @@ class MaskGenerator:
         # mask += cv2.inRange(hsv_img, lower1, upper1)
         
         # 대회장 version
-        lower1 = np.array([0, 0, 43])
-        upper1 = np.array([19, 183, 200])
-        lower = np.array([161, 81, 109])
-        upper = np.array([181, 196, 235])
-        lower2 = np.array([10, 80, 43])
-        upper2 = np.array([28, 160, 255])
+        lower = np.array([107, 62, 127])
+        upper = np.array([223, 255, 255])
         mask = cv2.inRange(hsv_img, lower, upper)
+        lower1 = np.array([0, 71, 79])
+        upper1 = np.array([23, 221, 222])
         mask += cv2.inRange(hsv_img, lower1, upper1)
-        mask += cv2.inRange(hsv_img, lower2, upper2)
         
         # window version
         # lower = np.array([170, 99, 100])
@@ -91,9 +88,9 @@ class MaskGenerator:
         # low_yellow = np.array([23, 81, 121])
         # high_yellow = np.array([43, 223, 255])
         # yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
-        
-        low_yellow = np.array([20, 49, 200])
-        high_yellow = np.array([42, 255, 255])
+    
+        low_yellow = np.array([22, 77, 225])
+        high_yellow = np.array([43, 255, 255])
         yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
         return yellow_mask
       
@@ -107,8 +104,8 @@ class MaskGenerator:
         # high_green = np.array([86, 255, 255])
         
         # 대회장
-        low_green = np.array([35, 110, 114])
-        high_green = np.array([255, 255, 255])
+        low_green = np.array([62, 64, 118])
+        high_green = np.array([128, 255, 255])
         green_mask = cv2.inRange(hsv_frame, low_green, high_green)
         
         return green_mask
