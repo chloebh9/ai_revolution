@@ -981,8 +981,7 @@ class Controller:
 
             time.sleep(2)
 
-            self.robo._motion.turn("RIGHT", 45)
-            self.robo._motion.turn("RIGHT", 20, 2)
+            self.robo._motion.turn("RIGHT", 45, 2)
 
 
 
