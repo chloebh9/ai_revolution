@@ -1416,14 +1416,14 @@ class Controller:
                                 if shot_way == "R":
                                     self.robo._motion.set_head("DOWN", 45)
                                     time.sleep(0.1)
-                                    self.robo._motion.set_head("LEFT", 75)
+                                    self.robo._motion.set_head("LEFT", 60)
                                     time.sleep(0.3)
                                     
 
                                 else:
                                     self.robo._motion.set_head("DOWN", 45)
                                     time.sleep(0.1)
-                                    self.robo._motion.set_head("RIGHT", 75)
+                                    self.robo._motion.set_head("RIGHT", 67)
                                     time.sleep(0.3)
 
                                 check_angle_fbr = PuttingFlagxCenterMeasurer().run()
