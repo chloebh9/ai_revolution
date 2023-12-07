@@ -150,7 +150,7 @@ class FlagyCenterMeasurer:
                 else:
                     cv2.putText(frame, f'Shape: {shape_text}', (center[0], center[1] + offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
-            is_y_middle = self.judgeMiddle(farthest_center, self.img_height)
+                is_y_middle = self.judgeMiddle(farthest_center, self.img_height)
 
             
             return is_y_middle
