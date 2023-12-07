@@ -1198,7 +1198,9 @@ class Controller:
                 self.robo._motion.turn("LEFT",20)
                 self.robo._motion.turn("LEFT",20)
             else:
-                self.robo._motion.turn("LEFT", 45, 2)   # 티샷 끝나고 깃발 찾기 위해 턴
+                self.robo._motion.turn("LEFT", 45)
+                self.robo._motion.turn("LEFT", 20, 2)
+                self.robo._motion.turn("LEFT", 10)
                 print("왼쪽으로 90도 회전")
 
             self.act = act.SEARCH_FLAG
