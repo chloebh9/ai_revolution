@@ -71,7 +71,7 @@ class FlagyCenterMeasurer:
             cv2.morphologyEx(hsv_frame, cv2.MORPH_CLOSE, k)
 
             low_green = np.array([62, 64, 118])
-            high_green = np.array([75, 255, 255])
+            high_green = np.array([128, 255, 255])
             green_mask = cv2.inRange(hsv_frame, low_green, high_green)
 
             contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)

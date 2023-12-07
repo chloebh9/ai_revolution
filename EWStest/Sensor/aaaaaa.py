@@ -3,7 +3,7 @@ import numpy as np
 
 class ColorTracker:
     def __init__(self):
-        self.cap = cv2.VideoCapture("C:/Users/eowkd/OneDrive/Desktop/ai_revolution/EWStest/Sensor/VIDEO/2.avi")
+        self.cap = cv2.VideoCapture("C:/Users/eowkd/OneDrive/Desktop/ai_revolution/EWStest/Sensor/VIDEO/real3.avi")
         cv2.namedWindow("Tracking", cv2.WINDOW_NORMAL)  # 트랙바 창 크기를 조절 가능하게 설정
         cv2.resizeWindow("Tracking", 400, 200)  # 창의 초기 크기를 설정
 
@@ -20,27 +20,27 @@ class ColorTracker:
         # cv2.createTrackbar("US", "Tracking", 255, 255, self.nothing)
         # cv2.createTrackbar("UV", "Tracking", 255, 255, self.nothing)
 
-        # cv2.createTrackbar("LH", "Tracking", 10, 255, self.nothing)
-        # cv2.createTrackbar("LS", "Tracking", 80, 255, self.nothing)
-        # cv2.createTrackbar("LV", "Tracking", 110, 255, self.nothing)                              
-        # cv2.createTrackbar("UH", "Tracking", 36, 255, self.nothing)
-        # cv2.createTrackbar("US", "Tracking", 230, 255, self.nothing)
-        # cv2.createTrackbar("UV", "Tracking", 255, 255, self.nothing)
-        # 녹색 임시 색상
+        cv2.createTrackbar("LH", "Tracking", 107, 255, self.nothing)
+        cv2.createTrackbar("LS", "Tracking", 62, 255, self.nothing)
+        cv2.createTrackbar("LV", "Tracking", 127, 255, self.nothing)                              
+        cv2.createTrackbar("UH", "Tracking", 223, 255, self.nothing)
+        cv2.createTrackbar("US", "Tracking", 255, 255, self.nothing)
+        cv2.createTrackbar("UV", "Tracking", 255, 255, self.nothing)
+        # # 녹색 임시 색상
         # cv2.createTrackbar("LH", "Tracking", 62, 255, self.nothing)
-        # cv2.createTrackbar("LS", "Tracking", 66, 255, self.nothing)
-        # cv2.createTrackbar("LV", "Tracking", 100, 255, self.nothing)
-        # cv2.createTrackbar("UH", "Tracking", 135, 255, self.nothing)
+        # cv2.createTrackbar("LS", "Tracking", 64, 255, self.nothing)
+        # cv2.createTrackbar("LV", "Tracking", 118, 255, self.nothing)
+        # cv2.createTrackbar("UH", "Tracking", 128, 255, self.nothing)
         # cv2.createTrackbar("US", "Tracking", 255, 255, self.nothing)
         # cv2.createTrackbar("UV", "Tracking", 255, 255, self.nothing)
 
         # 빨강 임시 색상
-        cv2.createTrackbar("LH", "Tracking", 103, 255, self.nothing)
-        cv2.createTrackbar("LS", "Tracking", 63, 255, self.nothing)
-        cv2.createTrackbar("LV", "Tracking", 128, 255, self.nothing)
-        cv2.createTrackbar("UH", "Tracking", 226, 255, self.nothing)
-        cv2.createTrackbar("US", "Tracking", 255, 255, self.nothing)
-        cv2.createTrackbar("UV", "Tracking", 255, 255, self.nothing)
+        # cv2.createTrackbar("LH", "Tracking", 107, 255, self.nothing)
+        # cv2.createTrackbar("LS", "Tracking", 62, 255, self.nothing)
+        # cv2.createTrackbar("LV", "Tracking", 127, 255, self.nothing)
+        # cv2.createTrackbar("UH", "Tracking", 223, 255, self.nothing)
+        # cv2.createTrackbar("US", "Tracking", 255, 255, self.nothing)
+        # cv2.createTrackbar("UV", "Tracking", 255, 255, self.nothing)
 
     def nothing(self, x):
         pass

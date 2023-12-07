@@ -41,7 +41,7 @@ class FlagyCenterMeasurer:
 
             # 녹색 범위 정의
             low_green = np.array([62, 64, 118])
-            high_green = np.array([75, 255, 255])
+            high_green = np.array([128, 255, 255])
             green_mask = cv2.inRange(hsv_frame, low_green, high_green)
 
 
