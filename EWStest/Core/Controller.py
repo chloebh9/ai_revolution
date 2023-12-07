@@ -1015,6 +1015,13 @@ class Controller:
                     self.L_center = 1
                 elif now_angle < 49:
                     self.L_left = 1
+            
+            self.L_center == 1
+            self.L_left == 0
+            self.L_right == 0
+            self.C_center ==0
+            self.C_left == 0
+            self.C_right == 0
 
 
         
