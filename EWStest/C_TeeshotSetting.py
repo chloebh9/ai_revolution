@@ -106,11 +106,12 @@ class BallCenterMeasurer:
             # mask2 = cv2.inRange(hsv_img, lower1, upper1)
 
             # mask = mask1+mask2
-            lower = np.array([137, 0, 0])
-            upper = np.array([255, 255, 255])
-            lower1 = np.array([0, 66, 87])
-            upper1 = np.array([14, 255, 255])
-            mask = cv2.inRange(hsv_img, lower1, upper1)+cv2.inRange(hsv_img, lower, upper)
+            lower = np.array([107, 62, 127])
+            upper = np.array([223, 255, 255])
+            mask = cv2.inRange(hsv_img, lower, upper)
+            lower1 = np.array([0, 71, 79])
+            upper1 = np.array([23, 221, 222])
+            mask += cv2.inRange(hsv_img, lower1, upper1)
 
 
             # lower_flag = np.array([10, 150, 100])

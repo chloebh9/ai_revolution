@@ -110,13 +110,12 @@ class BallxCenterMeasurer:
             # mask += cv2.inRange(hsv_img, lower2, upper2)
 
             # 동방
-            lower = np.array([160, 50, 0])
-            upper = np.array([200, 255, 255])
+            lower = np.array([107, 62, 127])
+            upper = np.array([223, 255, 255])
             mask = cv2.inRange(hsv_img, lower, upper)
-            lower1 = np.array([0, 77, 0])
-            upper1 = np.array([15, 172, 130])
+            lower1 = np.array([0, 71, 79])
+            upper1 = np.array([23, 221, 222])
             mask += cv2.inRange(hsv_img, lower1, upper1)
-
             #모폴로지 연산
             # d_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, self.kernel, iterations = 5)
             

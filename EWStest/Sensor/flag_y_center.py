@@ -40,8 +40,8 @@ class FlagyCenterMeasurer:
             hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
             # 녹색 범위 정의
-            low_green = np.array([38, 102, 86])
-            high_green = np.array([84, 255, 255])
+            low_green = np.array([62, 64, 118])
+            high_green = np.array([75, 255, 255])
             green_mask = cv2.inRange(hsv_frame, low_green, high_green)
 
 
@@ -54,10 +54,8 @@ class FlagyCenterMeasurer:
             green_boxes = [cv2.boundingRect(contour) for contour in contours]
 
             # 노랑색 범위 정의
-            low_yellow = np.array([20, 49, 200])
-            high_yellow = np.array([42, 255, 255])
-
-            # 노랑색 범위에 해당하는 부분을 추출
+            low_yellow = np.array([22, 77, 225])
+            high_yellow = np.array([43, 255, 255])
             yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
 
             shape_info_list = []

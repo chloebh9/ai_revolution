@@ -20,6 +20,12 @@ class ColorTracker:
         # cv2.createTrackbar("US", "Tracking", 255, 255, self.nothing)
         # cv2.createTrackbar("UV", "Tracking", 255, 255, self.nothing)
 
+        # cv2.createTrackbar("LH", "Tracking", 10, 255, self.nothing)
+        # cv2.createTrackbar("LS", "Tracking", 80, 255, self.nothing)
+        # cv2.createTrackbar("LV", "Tracking", 110, 255, self.nothing)                              
+        # cv2.createTrackbar("UH", "Tracking", 36, 255, self.nothing)
+        # cv2.createTrackbar("US", "Tracking", 230, 255, self.nothing)
+        # cv2.createTrackbar("UV", "Tracking", 255, 255, self.nothing)
         # 녹색 임시 색상
         # cv2.createTrackbar("LH", "Tracking", 62, 255, self.nothing)
         # cv2.createTrackbar("LS", "Tracking", 66, 255, self.nothing)
@@ -29,12 +35,12 @@ class ColorTracker:
         # cv2.createTrackbar("UV", "Tracking", 255, 255, self.nothing)
 
         # 빨강 임시 색상
-        # cv2.createTrackbar("LH", "Tracking", 103, 255, self.nothing)
-        # cv2.createTrackbar("LS", "Tracking", 63, 255, self.nothing)
-        # cv2.createTrackbar("LV", "Tracking", 128, 255, self.nothing)
-        # cv2.createTrackbar("UH", "Tracking", 226, 255, self.nothing)
-        # cv2.createTrackbar("US", "Tracking", 255, 255, self.nothing)
-        # cv2.createTrackbar("UV", "Tracking", 255, 255, self.nothing)
+        cv2.createTrackbar("LH", "Tracking", 103, 255, self.nothing)
+        cv2.createTrackbar("LS", "Tracking", 63, 255, self.nothing)
+        cv2.createTrackbar("LV", "Tracking", 128, 255, self.nothing)
+        cv2.createTrackbar("UH", "Tracking", 226, 255, self.nothing)
+        cv2.createTrackbar("US", "Tracking", 255, 255, self.nothing)
+        cv2.createTrackbar("UV", "Tracking", 255, 255, self.nothing)
 
     def nothing(self, x):
         pass
@@ -69,7 +75,7 @@ class ColorTracker:
             cv2.imshow("Result", self.frame)
             cv2.setMouseCallback("Result", self.mouse_callback)
 
-            key = cv2.waitKey(1000)
+            key = cv2.waitKey(100)
             if key == ord('a'):
                 self.paused = not self.paused
                 if self.paused:

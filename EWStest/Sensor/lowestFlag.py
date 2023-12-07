@@ -186,8 +186,8 @@ class lowestFlag:
         #         break
             
 
-        # cap.release()
-        # cv2.destroyAllWindows()
+                # cap.release()
+                # cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     shape_recognition = lowestFlag(img_width=640, img_height=480)

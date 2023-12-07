@@ -71,8 +71,8 @@ class FlagxCenterMeasurer:
             k = cv2.getStructuringElement(cv2.MORPH_RECT, (5,5))
             cv2.morphologyEx(hsv_frame, cv2.MORPH_CLOSE, k)
 
-            low_green = np.array([38, 102, 86])
-            high_green = np.array([84, 255, 255])
+            low_green = np.array([62, 64, 118])
+            high_green = np.array([75, 255, 255])
             green_mask = cv2.inRange(hsv_frame, low_green, high_green)
 
             contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -86,8 +86,8 @@ class FlagxCenterMeasurer:
             # upper9 = np.array( [50 , 100 , 255] )
             # yellow_mask += cv2.inRange(hsv_frame, lower9 , upper9 )
 
-            low_yellow = np.array([20, 50, 180])
-            high_yellow = np.array([45, 180, 255])
+            low_yellow = np.array([22, 77, 225])
+            high_yellow = np.array([43, 255, 255])
             yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
 
             max_x, min_x = 0,0 # 깃발을 못 찾았을 때 오류나는 것을 방지하기 위해 바운딩 박스의 좌표를 0으로 초기화

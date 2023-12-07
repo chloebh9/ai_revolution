@@ -68,8 +68,8 @@ class FlagxCenterMeasurer:
                 
                 hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-                low_green = np.array([38, 102, 86])
-                high_green = np.array([84, 255, 255])
+                low_green = np.array([62, 64, 118])
+                high_green = np.array([75, 255, 255])
                 green_mask = cv2.inRange(hsv_frame, low_green, high_green)
                 
                 # 모폴로지 연산 추가
@@ -88,8 +88,8 @@ class FlagxCenterMeasurer:
                 # lower9 = np.array( [26 , 52 , 151] )
                 # upper9 = np.array( [50 , 100 , 255] )
                 # yellow_mask += cv2.inRange(hsv_frame, lower9 , upper9 )
-                low_yellow = np.array([20, 50, 180])
-                high_yellow = np.array([45, 180, 255])
+                low_yellow = np.array([22, 77, 225])
+                high_yellow = np.array([43, 255, 255])
                 yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
                 
                 # #대회장 version
@@ -130,8 +130,10 @@ class FlagxCenterMeasurer:
                                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                         self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
                         have_flag = True
+
+                        print([flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1], have_flag])
                         
-                break
+                        break
             #     cv2.imshow('프레임', frame)
             #     cv2.imshow("mask ", yellow_mask)
             #     if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -144,7 +146,6 @@ class FlagxCenterMeasurer:
 
             if have_flag == True:
                 flag_x_isMiddle = self.judgeMiddle(max_x, min_x)
-                break
             else:
                 flag_x_isMiddle = "N"
             
