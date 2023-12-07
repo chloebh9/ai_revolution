@@ -1181,7 +1181,7 @@ class Controller:
             if self.L_left == 1:
                 self.robo._motion.turn("RIGHT",10)
             elif self.L_center == 1:
-                self.robo._motion.turn("RIGHT", 3)
+                self.robo._motion.turn("RIGHT", 3, 2)
             elif self.L_right == 1:
                 self.robo._motion.turn("LEFT", 10)
             self.robo._motion.hit_the_ball("LEFT")
