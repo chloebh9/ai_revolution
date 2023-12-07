@@ -1485,7 +1485,9 @@ class Controller:
 
             if shot_way == 'R':
 
-                self.robo._motion.turn("LEFT", 45, 2)   # 퍼팅 끝나고 깃발 찾기 위해 턴
+                self.robo._motion.turn("LEFT", 45)
+                self.robo._motion.turn("LEFT", 20, 2)
+                self.robo._motion.turn("LEFT", 10)   # 퍼팅 끝나고 깃발 찾기 위해 턴
                 print("왼쪽으로 90도")
 
 
