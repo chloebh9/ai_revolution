@@ -32,7 +32,7 @@ class Act(Enum):
 class Controller:
     robo: Robo = Robo()
     #act: Act = Act.START  # 순서도 시작
-    act: Act = Act.START
+    act: Act = Act.TEST
     # act: Act = Act.START가 시작 지점
 
     count_putting: int = 0  # 퍼팅 횟수
@@ -975,7 +975,13 @@ class Controller:
 
         ########################################################## # test
         if act == act.TEST:
-            self.robo._motion.turn("LEFT",45, 2)
+            self.robo._motion.turn("LEFT", 45)
+            self.robo._motion.turn("LEFT", 20, 2)
+
+            time.sleep(2)
+
+            self.robo._motion.turn("RIGHT", 45)
+            self.robo._motion.turn("RIGHT", 20, 2)
 
 
 
